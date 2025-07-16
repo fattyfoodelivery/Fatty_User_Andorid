@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="16dp"
+    app:cardMaxElevation="0dp"
+    android:elevation="0dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:backgroundTint="#FFFFFF"
+        android:background="@drawable/btn_selected_color">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitleCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true"
+            android:padding="2dp"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/choose_your_service_region_label"
+            android:textColor="@color/text_primary_01"
+            android:textSize="18sp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ll_lashio_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            tools:ignore="UselessParent"
+            app:cardCornerRadius="5dp"
+            android:layout_marginTop="18dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name_lashio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="Lashio"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_currency_lashio_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    tools:ignore="RelativeOverlap" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_lashio_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/radio_button_unchecked"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ll_muse_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            tools:ignore="UselessParent"
+            app:cardCornerRadius="5dp"
+            android:layout_marginTop="14dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name_muse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="Muse"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_currency_muse_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    tools:ignore="RelativeOverlap" />
+                <RadioButton
+                    android:id="@+id/rbtn_muse_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/radio_button_unchecked" />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--<RelativeLayout
+            android:id="@+id/ll_muse_viw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_unselectd"
+            tools:ignore="UselessParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_muse_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="16sp"
+                android:text="Muse"
+                android:layout_marginStart="12dp"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/outfit_regular"
+                tools:ignore="RelativeOverlap" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_currency_muse_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="16sp"
+                android:text=""
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_toStartOf="@id/rbtn_muse_check"
+                tools:ignore="RelativeOverlap" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/rbtn_muse_check"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/uncheck_circle_18dp" />
+
+        </RelativeLayout>-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/fattyPrimary"
+            android:layout_margin="16dp"
+            android:textSize="16sp"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:fontFamily="@font/outfit_regular"
+            android:background="@drawable/positive_button"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/ll_lashio_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_unselectd"
+        tools:ignore="UselessParent">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name_lashio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fattyDark"
+            android:textSize="16sp"
+            android:text="@string/str_myan_kyat"
+            android:layout_marginStart="12dp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/outfit_regular"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_currency_lashio_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fattyDark"
+            android:textSize="16sp"
+            android:text=""
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/outfit_regular"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/rbtn_lashio_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/radio_check" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_muse_viw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_unselectd"
+        tools:ignore="UselessParent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_muse_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fattyDark"
+            android:textSize="16sp"
+            android:text="@string/str_myan_kyat"
+            android:layout_marginStart="12dp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/outfit_regular"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_currency_muse_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fattyDark"
+            android:textSize="16sp"
+            android:text=""
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_toStartOf="@id/img_check"
+            tools:ignore="RelativeOverlap" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/uncheck_circle_18dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>-->

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fattyPrimary"
+    tools:context=".ui.views.activities.account_setting.app_version.VersionUpdateActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="Update Version"
+                    android:textColor="@color/fattyWhite"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/update_version"
+                android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/tv_status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New version is available!"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:id="@+id/tv_status_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New version is available!"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_secondary_01"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/positive_button"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/update_now"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

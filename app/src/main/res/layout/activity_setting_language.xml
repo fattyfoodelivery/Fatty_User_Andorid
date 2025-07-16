@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fattyPrimary"
+    tools:context=".ui.views.activities.account_setting.language.SettingLanguageActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="@string/language"
+                    android:textColor="@color/fattyWhite"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp">
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="20sp"
+                android:text="@string/select_your_language"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_margin="8dp"/>
+
+
+            <RelativeLayout
+                android:id="@+id/ll_eng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lang_selected_bg"
+                android:layout_marginTop="16dp">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_eng"
+                    android:layout_width="52dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/eng_flag" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="@string/english"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/img_eng"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_eng_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/radio_check" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_mm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_uncheck_lang">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_mm"
+                    android:layout_width="52dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/mm_flag" />
+
+                <TextView
+                    android:id="@+id/tv_myanmar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="@string/myanmar"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/img_mm"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_mmk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="@string/mmk"
+                    android:visibility="invisible"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_toStartOf="@id/img_mm_status"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_mm_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/radio_uncheck" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_china"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_uncheck_lang">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_china"
+                    android:layout_width="52dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/china_flag" />
+                <TextView
+                    android:id="@+id/tv_china"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="@string/str_ch_youan"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/img_china"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_yuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fattyDark"
+                    android:textSize="16sp"
+                    android:text="@string/yuan"
+                    android:visibility="invisible"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_toStartOf="@id/img_china_status"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_china_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/radio_uncheck" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/positive_button"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/change"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

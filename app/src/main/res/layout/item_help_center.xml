@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Lashio Customer Care"
+                android:layout_weight="1.5"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="18sp"
+                android:contentDescription="@string/text_desc"
+                android:textColor="@color/text_secondary_01"
+                android:fontFamily="@font/outfit_regular"/>
+            <TextView
+                android:id="@+id/tv_ph"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="18sp"
+                android:fontFamily="@font/outfit_regular"
+                android:textColor="@color/textPrimary02"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="Call"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/outfit_medium"
+                    android:background="@drawable/positive_button"
+                    android:drawableLeft="@drawable/ic_customer_call"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="2">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_day"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:paddingTop="4dp"
+        android:fontFamily="@font/outfit_regular"
+        android:paddingBottom="4dp"
+        android:layout_margin="4dp"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_time_open_close"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="1 PM : 2 PM"
+        android:textSize="14sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:paddingTop="4dp"
+        android:fontFamily="@font/outfit_regular"
+        android:paddingBottom="4dp"
+        android:layout_margin="4dp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.fragments.rest_more_info.RestaurantReviewFragment">
+
+    <TextView
+        android:id="@+id/tv_top_review_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ratings &amp; Reviews  (24)"
+        android:fontFamily="@font/outfit_regular"
+        android:textSize="14sp"
+        android:textColor="@color/textPrimary02"/>
+
+    <LinearLayout
+        android:id="@+id/ll_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_top_review_count">
+        <TextView
+            android:id="@+id/tv_review_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.0"
+            android:fontFamily="@font/outfit_semibold"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary_01"/>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_review"/>
+
+</RelativeLayout>

@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fattyPrimary"
+    tools:context=".ui.views.fragments.AccountFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:fontFamily="@font/outfit_bold"
+                android:text="@string/my_account"
+                android:textColor="@color/fattyWhite"
+                android:textSize="22sp" />
+            <RelativeLayout
+                android:id="@+id/rl_profile"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="18dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_profile"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    app:cardCornerRadius="32.5dp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_profile"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_profile"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_toEndOf="@id/cv_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp"
+                    tools:ignore="RelativeOverlap">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textSize="20sp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textColor="@color/fattyWhite"
+                        android:contentDescription="@string/text_desc"/>
+                    <TextView
+                        android:id="@+id/tv_user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xxxxxxxx"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textColor="@color/fattyWhite"
+                        />
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_edit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="8dp"
+                    android:src="@drawable/ic_home_selected"
+                    android:layout_gravity="end"
+                    android:layout_alignParentEnd="true"
+                    app:cardBackgroundColor="@color/fattyPrimary200">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_edit"
+                        android:layout_gravity="center"/>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+            <!--rl status-->
+            <RelativeLayout
+                android:id="@+id/rl_user_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:visibility="gone"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/edt_search_white">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/tv_status_round"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    app:cardCornerRadius="6dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/textError"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_user_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/user_status"
+                    android:textColor="@color/textError"
+                    android:textSize="11sp"
+                    android:visibility="visible"
+                    android:layout_toEndOf="@id/tv_status_round"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_user_status_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/user_status_desc"
+                    android:textColor="@color/textError"
+                    android:textSize="11sp"
+                    android:layout_toEndOf="@id/tv_status_round"
+                    android:layout_below="@id/tv_user_status"
+                    android:visibility="visible"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded"
+        android:layout_below="@id/constraint_toolbar"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/ll_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="8dp"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting"
+                android:textAllCaps="true"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary_01"/>
+
+            <LinearLayout
+                android:id="@+id/ll_manage_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_location" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Manage Address"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_language"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Language"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_currency" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="Currency"
+                        android:textColor="@color/text_primary_01"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="MMK"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/fattyPrimary"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"/>
+                </RelativeLayout>
+
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_play_guide" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Ordering Guide"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_question" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Help Center"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About"
+                android:textAllCaps="true"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_secondary_01"/>
+            <LinearLayout
+                android:id="@+id/ll_version_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_version" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Version Update"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:scaleType="centerCrop"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_about" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="About Fatty"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_privacy" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Privacy Policy"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_term_condition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_term_condition" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/terms_amp_conditions"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_acc_delete" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Delete Account"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+            <LinearLayout
+                android:id="@+id/ll_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:weightSum="1"
+                android:padding="8dp"
+                android:layout_marginTop="1dp"
+                android:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_logout" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Log Out"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_forword" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/natural_200"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Version 2.1.0"
+                android:textAllCaps="false"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/text_secondary_01"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

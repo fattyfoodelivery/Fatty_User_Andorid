@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.fragments.IntroSlideFragment"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+
+        <!--<androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text=""
+            android:fontFamily="@font/outfit_regular"
+            android:textColor="@color/text_primary_01"
+            android:textAlignment="center"
+            android:textSize="32sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desc"
+            android:fontFamily="@font/outfit_regular"
+            android:textColor="@color/text_gray_two"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:layout_marginTop="18dp"/>-->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_intro_one"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            tools:src="@drawable/intro_one"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/content_desc"
+            android:layout_marginTop="18dp"/>
+
+        <!--By allowing location access, you can search for restaurants near you and receive more \naccurate delivery.-->
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

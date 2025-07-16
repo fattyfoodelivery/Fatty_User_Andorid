@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.activities.checkout.PlaceOrderActivity">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_success_order"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/content_desc"
+        android:src="@drawable/order_success_completed"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/tv_order_status"
+        android:layout_marginBottom="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/outfit_regular"
+        android:text="@string/order_success"
+        android:textColor="@color/text_primary_01"
+        android:textSize="32sp" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_success_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_order_has_been_placed_successfully"
+        android:textColor="@color/textPrimary02"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/outfit_regular"
+        android:layout_below="@id/tv_order_status"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_id"
+        android:textColor="@color/fattyPrimary"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/outfit_regular"
+        android:layout_below="@id/tv_success_msg"
+        android:layout_marginTop="16dp"/>
+
+
+    <TextView
+        android:id="@+id/tv_view_order"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="View My Order"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:fontFamily="@font/outfit_regular"
+        android:textSize="18sp"
+        android:visibility="visible"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/positive_button"/>
+
+    <LinearLayout
+        android:id="@+id/ll_order_failed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="52dp"
+            android:text="@string/cancel_order"
+            android:textColor="@color/text_primary_01"
+            android:fontFamily="@font/outfit_regular"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@drawable/negative_btn"/>
+
+        <TextView
+            android:id="@+id/tv_retry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="52dp"
+            android:text="@string/retry"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:fontFamily="@font/outfit_regular"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/positive_button"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        app:tabTextColor="@color/text_primary_01"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
+        style="@style/RoundedTabLayoutStyle"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        app:tabBackground="@drawable/bg_tab_selector"
+        app:tabSelectedTextColor="@color/white"
+        android:clipToPadding="true"
+        app:tabIndicatorHeight="0dp"
+        app:tabRippleColor="@null"
+        app:tabTextAppearance="@style/TabTextAppearance">
+
+        <!-- Add margin to each TabItem to create spacing -->
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab1"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab2"
+            android:layout_marginStart="18dp"/> <!-- Add margin to create spacing -->
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab3"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab4"/>
+    </com.google.android.material.tabs.TabLayout>
+
+
+</RelativeLayout>

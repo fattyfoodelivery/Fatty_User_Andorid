@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fattyPrimary"
+    tools:context=".ui.views.activities.account_setting.delete.AccountDeleteActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="Delete Account"
+                    android:textColor="@color/fattyWhite"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <include
+            android:id="@+id/connectionViewPod"
+            layout="@layout/layout_connection_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_context_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_read_the_consequences_of_deleting_your_account_permanently_before_you_delete"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="18sp"
+                android:textColor="@color/textPrimary02"
+                android:padding="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="After deleting your account, you will lose access to your account information, order history, saved addresses, and notifications.And you won’t be able to place orders using the same account. You’ll lose the convenience of having your order history as well."
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="16sp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="5dp"
+                android:layout_marginTop="18dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_secondary_01"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/positive_button"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/yes_i_will_delete"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/item_progress_circle"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

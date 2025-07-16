@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fattyPrimary">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite"/>
+                <TextView
+                    android:id="@+id/tv_order_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/please_rate_our_service"
+                    android:textSize="22sp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/outfit_medium"
+                    android:textColor="@color/fattyWhite"/>
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtOne"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_circle_rating_enable"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/view"
+                app:layout_constraintEnd_toStartOf="@id/view"
+                app:layout_constraintTop_toTopOf="@id/view" />
+
+            <TextView
+                android:id="@+id/txtTwo"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/bg_circle_rating_disable"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/view"
+                app:layout_constraintStart_toEndOf="@id/view"
+                app:layout_constraintTop_toTopOf="@id/view" />
+
+            <ImageButton
+                android:id="@+id/txtOneFinish"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="14dp"
+                android:visibility="gone"
+                android:background="@drawable/baseline_check_circle_24"
+                app:layout_constraintBottom_toBottomOf="@id/view"
+                app:layout_constraintEnd_toStartOf="@id/view"
+                app:layout_constraintTop_toTopOf="@id/view"/>
+
+            <ImageButton
+                android:id="@+id/txtTwoFinish"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="14dp"
+                android:background="@drawable/baseline_check_circle_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/view"
+                app:layout_constraintStart_toEndOf="@id/view"
+                app:layout_constraintTop_toTopOf="@id/view"/>
+
+            <!--<com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_logo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/fatty_rounded" />
+
+            </com.google.android.material.card.MaterialCardView>-->
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_logo"
+                android:src="@drawable/fatty_rounded"
+                android:scaleType="fitCenter"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view"/>
+
+            <TextView
+                android:id="@+id/textViewRatingService"
+                style="@style/HeaderTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="@string/let_s_rate_our_rider_s_delivery_services"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/card_logo"
+                app:layout_constraintStart_toStartOf="@+id/card_logo"
+                app:layout_constraintTop_toBottomOf="@+id/card_logo" />
+
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="@string/how_was_your_delivery"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@+id/card_logo"
+                app:layout_constraintStart_toStartOf="@+id/card_logo"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRatingService" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:numStars="5"
+                android:isIndicator="false"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:progressTint="@color/fattyWhite"
+                android:rating="0"
+                android:stepSize="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+            <TextView
+                android:id="@+id/textViewRatingResult"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar"
+                tools:text="Good" />
+            <TextView
+                android:id="@+id/txtVeryBad"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:text="@string/very_bad"
+                app:layout_constraintStart_toStartOf="@id/rating_bar"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar" />
+            <TextView
+                android:id="@+id/txtPerfect"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/rating_bar"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar"
+                android:text="@string/perfect" />
+
+            <ScrollView
+                android:id="@+id/scrollbar"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_edt_round_corner"
+                android:padding="10dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="vertical" />
+
+            </ScrollView>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_feedback"
+                style="@style/NormalTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_edt_round_corner"
+                android:gravity="top"
+                android:hint="Any Comment"
+                android:maxLength="300"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scrollbar" />
+
+            <TextView
+                android:id="@+id/txtCountView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/et_feedback"
+                app:layout_constraintEnd_toEndOf="@id/et_feedback"
+                tools:text="30/200" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSummit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_selected_color"
+                android:fontFamily="@font/outfit_regular"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="@color/fattyPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_feedback" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

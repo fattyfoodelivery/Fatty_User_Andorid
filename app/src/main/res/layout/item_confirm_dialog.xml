@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_title"
+                android:text="@string/please_confirm_address"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_toStartOf="@id/iv_close"
+                android:textColor="@color/text_primary_01"
+                android:fontFamily="@font/outfit_regular"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_circle_close_24dp"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/fatty_is_delivering_your_order_to"
+            android:textSize="16sp"
+            android:textColor="@color/text_secondary_01"
+            android:fontFamily="@font/outfit_regular"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="178dp"
+            android:background="@drawable/bg_map_box"
+            android:layout_marginTop="16dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/small_map"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:layout_width="83dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/content_desc"
+                android:background="@drawable/ic_current_marker_80dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <ImageView
+                android:id="@+id/iv_cur_mark"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_location_filled_16dp"
+                app:tint="@color/fattyPrimary"
+                android:contentDescription="@string/content_desc"/>
+            <TextView
+                android:id="@+id/tv_current_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_address"
+                android:textSize="16sp"
+                android:layout_toEndOf="@id/iv_cur_mark"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/outfit_medium"
+                android:textColor="@color/text_primary_01"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="V4O5+F5F, Hlaedan Rd, Yangon, Myanmar (Burma)"
+                android:textSize="14sp"
+                android:layout_below="@id/tv_current_title"
+                android:layout_toEndOf="@id/iv_cur_mark"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/outfit_medium"
+                android:textColor="@color/textPrimary02"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="@string/other_addr"
+                android:textAllCaps="false"
+                android:gravity="center"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="18sp"
+                android:textColor="@color/textPrimary02"
+                android:background="@drawable/negative_btn"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="@string/confirm"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:fontFamily="@font/outfit_regular"
+                android:textColor="@color/textSecondary"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/positive_button"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

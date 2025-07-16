@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/food_image"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:src="@drawable/dummy_food"
+        app:civ_border_width="0dp"
+        app:civ_border_color="@color/fattyWhite" />-->
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_more"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        app:cardCornerRadius="33.5dp"
+        app:cardBackgroundColor="#FFD4B8"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_group_36dp"
+            android:layout_gravity="center"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <LinearLayout
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/cv_more"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="More"
+            android:fontFamily="@font/outfit_medium"
+            android:textSize="14sp"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/textPrimary02"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_double_forword_arrow_12dp"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

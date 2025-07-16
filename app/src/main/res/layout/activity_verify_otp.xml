@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.activities.auth.verify.VerifyOTPActivity"
+    android:background="@color/fattyPrimary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_tools"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_skip"
+            app:tint="@color/fattyWhite"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
+
+
+            <ImageView
+                android:id="@+id/tv_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_skip"
+                app:tint="@color/fattyWhite"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageView
+                android:id="@+id/imv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:srcCompat="@drawable/ic_back"
+                app:tint="@color/fattyWhite"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_onboard" />
+
+        <!--<ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_onboard" />
+
+        <ImageView
+            android:id="@+id/iv_skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.044"
+            app:srcCompat="@drawable/ic_skip"
+            app:tint="@color/fattyWhite" />-->
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.011"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.joy.fattyfood.ui.views.components.CustomSpinner
+                android:id="@+id/spinner_lang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_lang_spinner_up"
+                android:dropDownVerticalOffset="40dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.143"
+            app:srcCompat="@drawable/fatty_tran_logo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="230dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_tools"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp">
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="20sp"
+                android:text="@string/enter_6_digit_code"
+                android:fontFamily="@font/outfit_regular"
+                android:textFontWeight="400"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_secondary_01"
+                    android:textSize="16sp"
+                    android:text="We have sent a 6-digit to"
+                    android:fontFamily="@font/outfit_regular"
+                    />
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:layout_marginStart="8dp"
+                    android:text=""
+                    android:fontFamily="@font/outfit_regular"/>
+            </LinearLayout>
+
+
+            <!--<in.aabhasjindal.otptextview.OtpTextView
+                android:id="@+id/otp_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                app:height="45dp"
+                app:width="45dp"
+                app:bar_enabled="false"
+                app:length="6"
+                app:text_typeface="@string/text_desc"
+                app:box_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                app:otp=""
+                app:bar_active_color="@color/fattyPrimary"
+                android:elevation="2dp"
+                android:layout_marginTop="24dp"
+                app:otp_box_background_inactive="@drawable/otp_design_inactive"
+                app:otp_box_background_active="@drawable/otp_design"
+                app:otp_box_background="@color/fattyWhite"
+                app:otp_text_size="18sp"/>-->
+
+            <in.aabhasjindal.otptextview.OtpTextView
+                android:id="@+id/otp_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                app:height="50dp"
+                app:width="50dp"
+                app:bar_enabled="false"
+                app:length="6"
+                app:box_margin="3dp"
+                app:otp=""
+                android:elevation="2dp"
+                app:otp_box_background_inactive="@drawable/otp_design_inactive"
+                app:otp_box_background_active="@drawable/otp_design"
+                app:otp_box_background="@color/fattyWhite"
+                app:otp_text_size="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"/>
+
+
+            <!--app:otp_box_background_inactive="@drawable/otp_design_inactive"
+            app:otp_box_background_active="@drawable/otp_design"
+            app:otp_box_background="@color/otp"-->
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_continue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/continues"
+                android:textAllCaps="false"
+                android:background="@drawable/positive_button"
+                android:textColor="@color/fattyWhite"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginTop="20dp"
+                android:alpha="1"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_get_the_code"
+                    android:layout_marginTop="18sp"
+                    android:textSize="14sp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:textColor="@color/textPrimary02"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_gravity="center_horizontal"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_resend_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/resend_code"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    android:textColor="@color/fattyPrimary"
+                    android:fontFamily="@font/outfit_semibold"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

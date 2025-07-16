@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.Fatty" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/fattyPrimary</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/fattyPrimary</item>
+        <item name="colorSecondaryVariant">@color/fattyPrimary</item>
+        <item name="colorOnSecondary">@color/fattyWhite</item>
+
+        <!--        <item name="borderlessButtonStyle">@style/CustomBottomSheetDialog</item>-->
+        <!-- Status bar color. -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/fattyPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="RoundedTabLayoutStyle" parent="Widget.Material3.TabLayout">
+        <!--<item name="tabBackground">@drawable/tab_background_selector</item>-->
+        <item name="tabIndicator">@null</item>
+        <item name="android:background">@drawable/tab_layout_bg</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/textPrimary02</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <style name="WindowAnimationStyle">
+        <item name="android:windowEnterAnimation">@anim/fade</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="FullScreenDialog" parent="Theme.Fatty">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <!-- set the rounded drawable as background to your bottom sheet -->
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+    <style name="BaseBottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="behavior_fitToContents">true</item>
+        <item name="expanded">true</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="colorOnSecondary">@color/fattyPrimary</item>
+        <item name="colorAccent">@color/fattyPrimary</item>
+    </style>
+
+    <style name="BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_onboard_rounded</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.Fatty">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="NormalTextStyle">
+        <item name="fontFamily">@font/outfit_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="HeaderTextStyle">
+        <item name="fontFamily">@font/outfit_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="Theme.Fatty.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorSecondary">@color/fattyWhite</item>
+        <item name="android:statusBarColor" tools:targetApi="m">@color/transparent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+    </style>
+
+    <style name="Theme.Fatty.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorPrimary">@color/fattyPrimary</item>
+        <item name="colorSecondaryVariant">@color/fattyPrimary</item>
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+    </style>
+
+
+    <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/bg_noti_checked</item>
+    </style>
+
+
+    <style name="CustomBottomNavigationTextStyle">
+        <item name="android:textSize">14sp</item> <!-- Custom text size -->
+        <item name="android:fontFamily">@font/outfit_regular</item> <!-- Custom font family -->
+        <!-- Add other attributes as needed -->
+    </style>
+
+    <style name="FattyToolbar">
+        <item name="android:fontFamily">@font/outfit_medium</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/fattyWhite</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+
+</resources>

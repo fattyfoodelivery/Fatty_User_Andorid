@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <application
+        android:name=".app.FattyApp"
+        android:allowBackup="true"
+        android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Fatty"
+        tools:replace="android:allowBackup"
+        tools:targetApi="tiramisu">
+        <activity
+            android:name=".ui.views.activities.temp.TempActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.parcel.BookingOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.chat.ChattingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.track.TrackParcelOrderMapBoxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.track.TrackOrderMapBoxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.parcel.ParcelDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.track.TrackOrderFoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.rest_detail.RestaurantDetailViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.noti_detail.NotificationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.order.TrackOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.wish_list.WishListActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.joy.sdk.callback.CallbackResultActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ui.views.activities.onboard_ads.OnBoardAdsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.manage_address.AddressDefinedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.promotion.PromotionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.checkout.PlaceOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.manage_address.AddressPickUpMapBoxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.restaurant.RestaurantMoreInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.search.SearchFilterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.delete.AccountDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.about.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.app_version.VersionUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.currency.CurrencyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.language.SettingLanguageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.help_center.HelpCenterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.track.TrackOrderParcelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.category.TopRelatedCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.restaurant.RestaurantDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.delivery_rating.DeliveryRatingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.manage_address.ManageAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.play_guide.PlayGuideActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.account_setting.guide.AppGuideActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.order.OrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.views.activities.category.FoodCategoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.checkout.CheckOutActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.profile.ProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.auth.verify.VerifyOTPActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.account_setting.term_condition.TermAndConditionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.account_setting.privacy.PrivacyActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.account_setting.language.LanguageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.intro.IntroActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Fatty.Base" />
+        <activity
+            android:name=".ui.views.activities.auth.login.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.base.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.views.activities.splash.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+ <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Fatty" />
+        -->
+        <!-- Pushy Declarations -->
+        <!-- Pushy Notification Receiver -->
+        <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
+        <receiver
+            android:name=".service.PushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <!-- Do not modify this -->
+                <action android:name="pushy.me" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="me.pushy.sdk.services.PushySocketService"
+            android:stopWithTask="false" />
+        <service
+            android:name="me.pushy.sdk.services.PushyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:stopWithTask="false" />
+
+        <service
+            android:name=".service.FattyPushyService"
+            android:foregroundServiceType="mediaPlayback|phoneCall" />
+    </application>
+
+</manifest>

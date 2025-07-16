@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Egg"
+        android:paddingStart="8dp"
+        android:fontFamily="@font/outfit_regular"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary_01"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ 800 MMK"
+        android:textSize="18sp"
+        android:textColor="@color/text_primary_01"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"/>
+</RelativeLayout>

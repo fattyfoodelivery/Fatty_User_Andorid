@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.activities.checkout.CheckOutActivity"
+    android:background="@color/fattyPrimary">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="Checkout"
+                    android:textColor="@color/fattyWhite"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <include
+        android:id="@+id/emptyViewPod"
+        layout="@layout/layout_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_vew"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/rl_place_order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_onboard_rounded">
+
+
+        <!--root context-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:visibility="visible"
+            android:layout_marginBottom="74dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/outfit_regular"
+                android:paddingTop="4dp"
+                android:text="@string/deliver_to"
+                android:textColor="@color/text_primary_01"
+                android:textSize="18sp"/>
+
+            <!--address view-->
+            <LinearLayout
+                android:id="@+id/ll_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="16dp">
+
+                <!--address-->
+                <RelativeLayout
+                    android:id="@+id/rl_manage_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_from"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_current_marker_80dp"
+                        app:tint="@color/fattyPrimary"
+                        android:contentDescription="@string/content_desc"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/iv_from"
+                        android:layout_marginStart="12dp"
+                        android:layout_toStartOf="@id/tbt_edit_address">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_address_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text=""
+                            android:textColor="@color/text_secondary_01"
+                            android:textSize="16sp"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_current_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text=""
+                            android:textColor="@color/textPrimary02"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tbt_edit_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="@string/edit"
+                        android:textColor="@color/fattyPrimary"
+                        android:textSize="16sp"
+                        android:paddingEnd="12dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+                <!--contact-->
+                <RelativeLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_call"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_customer_call"
+                        app:tint="@color/fattyPrimary"
+                        android:contentDescription="@string/content_desc"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/iv_call"
+                        android:layout_marginStart="12dp"
+                        android:layout_toStartOf="@id/tbtn_edit_phone">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="@string/phone_number"
+                            android:textColor="@color/text_secondary_01"
+                            android:textSize="16sp"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_current_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text=""
+                            android:textColor="@color/textPrimary02"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tbtn_edit_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="@string/edit"
+                        android:visibility="gone"
+                        android:textColor="@color/fattyPrimary"
+                        android:textSize="16sp"
+                        android:paddingEnd="12dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <!--payment view-->
+            <LinearLayout
+                android:id="@+id/ll_payment_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:text="@string/choose_payment_method"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="18sp" />
+
+
+                <!--<include layout="@layout/item_payment"/>-->
+
+                <LinearLayout
+                    android:id="@+id/ll_payment_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:weightSum="2"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp">
+                    <RelativeLayout
+                        android:id="@+id/rl_cash"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_selected">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/rbt_check_cash"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/content_desc"
+                            android:src="@drawable/radio_check"
+                            android:layout_centerVertical="true"/>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_cash"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/ic_cash"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@id/rbt_check_cash"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_payment_cash"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Cash On Delivery"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/imv_cash"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_kpay"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_unselectd">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/rbt_check_kpay"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/content_desc"
+                            android:src="@drawable/radio_uncheck"
+                            android:layout_centerVertical="true"/>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_kpay"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/kbz_payment"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@id/rbt_check_kpay"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_payment_kpay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="6dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Kpay"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/imv_kpay"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--restaurant view-->
+            <RelativeLayout
+                android:id="@+id/ll_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_rest"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/iv_restaurant"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="@string/content_desc"
+                        android:src="@drawable/restaurant_default_img"/>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_rest_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text=""
+                    android:textAlignment="textStart"
+                    android:layout_toEndOf="@id/cv_rest"
+                    android:textColor="@color/text_secondary_01"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_food_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    tools:itemCount="2"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    tools:listitem="@layout/item_food_order_checkout"
+                    android:layout_below="@id/cv_rest"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tbn_add_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/add_more_items"
+                    android:textAlignment="textStart"
+                    android:layout_below="@id/rv_food_item"
+                    android:textColor="@color/fattyPrimary"
+                    android:textSize="16sp"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_food_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:visibility="visible"
+                    android:layout_below="@id/tbn_add_more"
+                    android:background="@drawable/bg_unselectd">
+                    <ImageView
+                        android:id="@+id/iv_rest_note"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_desc"
+                        android:src="@drawable/resturant_menu"/>
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="@string/any_restaurant_request_type_here"
+                        android:layout_marginStart="8dp"
+                        android:lines="1"
+                        android:textSize="14sp"
+                        android:scrollHorizontally="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/natural_200"
+                        android:textColor="@color/textPrimary02"
+                        android:layout_toEndOf="@id/iv_rest_note"
+                        android:layout_toStartOf="@id/tv_note_count"
+                        android:autofillHints=""
+                        android:inputType="text" />
+
+                    <TextView
+                        android:id="@+id/tv_note_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0/30"
+                        android:textColor="@color/text_secondary_02"
+                        android:textSize="12sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="32dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bill_details"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary_01"
+                    android:fontFamily="@font/outfit_regular"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_totals"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:textColor="@color/text_secondary_01"
+                        android:fontFamily="@font/outfit_regular"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_item_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:padding="2dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/textPrimary02"
+                        android:fontFamily="@font/outfit_regular"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delivery_fees"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:textColor="@color/text_secondary_01"
+                        android:fontFamily="@font/outfit_regular"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_delivery_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:text=""
+                        android:contentDescription="@string/text_desc"
+                        android:textColor="@color/textPrimary02"
+                        android:fontFamily="@font/outfit_regular"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_extra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/extra_fees"
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:textColor="@color/text_secondary_01"
+                        android:fontFamily="@font/outfit_regular"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_extra_fell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:padding="2dp"
+                        android:textColor="@color/textPrimary02"
+                        android:fontFamily="@font/outfit_regular"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_abnormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="@string/abnormal_fees"
+                        android:textColor="@color/text_secondary_01"
+                        android:textSize="16sp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_abnormal_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:textColor="@color/textPrimary02"
+                        android:fontFamily="@font/outfit_regular"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_secondary"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_bill_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_bills"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary_01"
+                    android:fontFamily="@font/outfit_regular"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_bill_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary02"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <!--bill extra-->
+            <LinearLayout
+                android:id="@+id/ll_noti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_info_18dp"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="@string/content_desc" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Extra fees will increase by +50 MMK if you ordered within 12pm to 1am or 5pm to 6pm (peak hours)."
+                        android:textColor="@color/fattyPrimary"
+                        android:layout_marginStart="8dp"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="6dp"
+                        android:fontFamily="@font/outfit_medium"/>
+                    <!--Abnormal Fees will increase by +150 MMK because difficult situations in the city.-->
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_info_18dp"
+                        android:scaleType="centerCrop"
+                        app:tint="@color/textError"
+                        android:contentDescription="@string/content_desc" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Abnormal Fees will increase by +150 MMK because difficult situations in the city."
+                        android:textColor="@color/textError"
+                        android:layout_marginStart="8dp"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="6dp"
+                        android:fontFamily="@font/outfit_medium"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+    <!--place order-->
+    <LinearLayout
+        android:id="@+id/rl_place_order"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:visibility="visible"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/_5_0000_00_mmk"
+            android:textSize="18sp"
+            android:fontFamily="@font/outfit_medium"
+            android:padding="16dp"
+            android:textColor="@color/text_primary_01"/>
+
+        <Button
+            android:id="@+id/tv_place_order"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/place_order"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/outfit_medium"
+            android:background="@drawable/positive_button"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

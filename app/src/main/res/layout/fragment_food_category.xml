@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.views.fragments.FoodCategoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:visibility="visible"
+        android:paddingEnd="12dp"
+        android:background="@drawable/bg_rounded_corner_white">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabFoodMenu"
+            style="@style/RoundedTabLayoutStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tabGravity="start"
+            android:fontFamily="@font/outfit_regular"
+            app:tabBackground="@drawable/tab_layout_bg"
+            app:tabIndicator="@null"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/fattyWhite"
+            app:tabTextColor="@color/textPrimary02">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="category"/>
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFoodMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:id="@+id/ll_noti_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="horizontal">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_order"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardBackgroundColor="#FEE7D3">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tv_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order"
+                    android:textColor="@color/fattyPrimary"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/outfit_medium"
+                    android:layout_gravity="center"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_order_badge"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:cardBackgroundColor="@color/order_status_error"
+                    app:cardElevation="0dp"
+                    android:elevation="0dp"
+                    app:cardCornerRadius="8dp"
+                    android:layout_toEndOf="@+id/tv_order"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:id="@+id/tv_order_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#FEFEFE"
+                        android:text="3"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/outfit_regular"/>
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_message"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardBackgroundColor="@color/surfacePrimary02"
+            android:layout_marginStart="8dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Message"
+                    android:textColor="@color/textPrimary02"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/outfit_medium"
+                    android:layout_gravity="center"/>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_message_badge"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:cardBackgroundColor="@color/iconSecondary"
+                    app:cardElevation="0dp"
+                    android:elevation="0dp"
+                    app:cardCornerRadius="8dp"
+                    android:layout_toEndOf="@+id/tv_message"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:id="@+id/tv_message_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#FEFEFE"
+                        android:text="3"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/outfit_regular"/>
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_below="@id/ll_noti_type"
+        tools:listitem="@layout/item_notifications"/>-->
+
+
+</RelativeLayout>

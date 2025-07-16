@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/ll_context_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_unselectd"
+            tools:ignore="UselessParent">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_flag"
+                android:layout_width="52dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                android:layout_centerVertical="true"
+                android:src="@drawable/mm_flag" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="16sp"
+                android:text="@string/str_myan_kyat"
+                android:layout_marginStart="12dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/img_flag"
+                android:fontFamily="@font/outfit_regular"
+                tools:ignore="RelativeOverlap" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_currency_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fattyDark"
+                android:textSize="16sp"
+                android:text=""
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/outfit_regular"
+                android:layout_toStartOf="@id/img_check"
+                tools:ignore="RelativeOverlap" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/radio_check" />
+
+        </RelativeLayout>
+
+</LinearLayout>

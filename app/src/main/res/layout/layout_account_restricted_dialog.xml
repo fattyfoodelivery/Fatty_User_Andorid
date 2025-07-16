@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title"
+            android:text="User Status"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/outfit_regular"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="User Status"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/outfit_regular"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="8dp"
+                android:text="Cancel"
+                android:fontFamily="@font/outfit_regular"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:background="@drawable/btn_selected_color"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/grey"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnContact"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5"
+                android:layout_marginStart="8dp"
+                android:text="Call Center"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:fontFamily="@font/outfit_regular"
+                android:textAlignment="center"
+                android:background="@drawable/btn_selected_color"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/fattyPrimary"/>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

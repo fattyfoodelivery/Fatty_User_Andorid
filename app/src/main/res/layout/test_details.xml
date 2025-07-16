@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/fattyPrimary"
+                android:gravity="center_horizontal"
+                app:layout_collapseMode="parallax">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_play_placeholder"
+                    android:scaleType="fitXY"
+                    android:foreground="@drawable/bg_transparent_not_radius"/>
+
+
+                <LinearLayout
+                    android:id="@+id/rl_class_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:background="@drawable/bg_rating_rounded_white"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            app:srcCompat="@drawable/ic_star_12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/outfit_medium"
+                            android:text="4.8"
+                            android:textAlignment="center"
+                            android:textColor="@color/text_primary_01"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_class_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rl_class_image"
+                        android:fontFamily="@font/outfit_medium"
+                        android:gravity="center"
+                        android:text="The Royals"
+                        android:textColor="@color/white"
+                        android:textSize="32sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:tint="@color/white"
+                            android:src="@drawable/ic_location_filled_16dp"
+                            android:contentDescription="@string/content_desc"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Insein, Yangon"
+                            android:textSize="14sp"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_address"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp">
+                        <ImageView
+                            android:id="@+id/iv_loc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_bicycle"
+                            app:tint="@color/white"
+                            android:contentDescription="@string/content_desc"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30 mins"
+                            android:textSize="14sp"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/white"/>
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="2dp"
+                            android:background="@color/white"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60 km"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+
+                    <!--<LinearLayout
+                        android:id="@+id/ll_class"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/fatty_rounded"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/iv_class_image"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_circle_close_24dp" />
+                    </LinearLayout>-->
+                </LinearLayout>
+
+
+
+
+
+
+                <!--<TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_videos_test"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="20 VIDEOS | 5 TESTS"
+                    android:textSize="10sp" />-->
+
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_back"
+                        app:tint="@color/white"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginEnd="18dp"
+                        android:layout_alignParentEnd="true">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_favorite_white"/>
+                        <ImageView
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:src="@drawable/ic_about"
+                            android:paddingTop="5dp"
+                            android:visibility="visible"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_rounded_corner_white"
+        android:fillViewport="true"
+        app:behavior_overlapTop="18dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="5dp"/>
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:paddingStart="12dp"
+           android:paddingEnd="12dp"
+           android:layout_below="@id/tab_layout"/>
+
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ratingLayoutView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:visibility="visible"
+    android:orientation="vertical">
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/riderLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtRiderDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detail"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/rating_bar_rider"
+            style="?android:ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progressTint="@color/fattyPrimary"
+            android:rating="3"
+            android:stepSize="1"
+            app:layout_constraintBottom_toBottomOf="@id/txtRiderDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtRiderDetail" />
+
+        <TextView
+            android:id="@+id/txt_rider_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtRiderDetail"
+            tools:text="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful ." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_rider_comment"
+            tools:itemCount="3"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_rating_option" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/restaurantLayoutView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/ll_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/tvCusName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary_01"/>
+            <RatingBar
+                android:id="@+id/rating_bar_restaurant"
+                style="?android:ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:progressTint="@color/fattyPrimary"
+                android:rating="3"
+                android:stepSize="1"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dec 25, 2023"
+            android:textSize="12sp"
+            android:fontFamily="@font/outfit_regular"
+            android:textColor="#84878A"
+            app:layout_constraintBottom_toBottomOf="@id/ll_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ll_top" />
+
+        <TextView
+            android:id="@+id/txt_restaurant_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_top"
+            tools:text="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful ." />
+
+        <!--<androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRestaurant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_restaurant_comment"
+            tools:itemCount="3"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_rating_option" />-->
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_restaurant_comment">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <androidx.cardview.widget.CardView
+                    android:backgroundTint="#FEE7D3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_margin="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        android:textSize="12sp"
+                        android:textColor="@color/fattyPrimary"
+                        android:fontFamily="@font/outfit_regular"
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:id="@+id/tv_srv_one"
+                        tools:text="Good Communication"
+                        android:gravity="center_vertical"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:backgroundTint="#FEE7D3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_margin="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        android:textSize="12sp"
+                        android:textColor="@color/fattyPrimary"
+                        android:fontFamily="@font/outfit_regular"
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:id="@+id/tv_srv_two"
+                        tools:text="Good Communication"
+                        android:gravity="center_vertical"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"/>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:backgroundTint="#FEE7D3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    app:cardCornerRadius="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_margin="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAllCaps="false"
+                        android:clickable="false"
+                        android:textSize="12sp"
+                        android:textColor="@color/fattyPrimary"
+                        android:fontFamily="@font/outfit_regular"
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:id="@+id/tv_srv_three"
+                        tools:text="Good Communication"
+                        android:gravity="center_vertical"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"/>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

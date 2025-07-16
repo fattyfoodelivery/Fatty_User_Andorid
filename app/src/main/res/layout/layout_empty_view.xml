@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.joy.fattyfood.utils.viewpod.EmptyViewPod xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded"
+        android:gravity="center_vertical">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/emptyImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_food_empty_144dp"
+            android:layout_above="@id/emptyMessage"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emptyMessage"
+            android:text="@string/no_food_items_to_checkout"
+            android:textSize="20sp"
+            android:layout_above="@id/emptyMessageDes"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/text_secondary_02"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emptyMessageDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/please_add_items_into_your_cart"
+            android:textColor="@color/text_secondary_02"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_expore"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/positive_button"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/explore_now"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_below="@id/emptyMessageDes"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+
+
+
+</com.joy.fattyfood.utils.viewpod.EmptyViewPod>

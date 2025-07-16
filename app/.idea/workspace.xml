@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b3a12bf8-9f7d-438c-9cf4-1097efcaba33" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/address_bottom_sheet/AddressBottomSheetFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/address_bottom_sheet/AddressBottomSheetMapboxFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_new_receiver_20dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_new_sender_20dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_address_bottom_sheet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_address_bottom_sheet_mapbox.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/layout_item_available_time.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/appInsightsSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/detekt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/migrations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/MainComposeActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/AddressAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/AddressAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/AdsSlideAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/AdsSlideAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/BaseAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/BaseAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/FoodOrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/FoodOrderAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/LanguageAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/LanguageAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/NearByRestaurantAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/NearByRestaurantAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/NonOptionAddFoodAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/NotiAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/NotiAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/OptionAddFoodAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/OptionAddFoodAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/OrderHistoryAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/OrderHistoryAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/PaymentMethodAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/PaymentMethodAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/RecommendedRestaurantAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/RecommendedRestaurantAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/TopCategoryAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/TopCategoryAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/TopFoodCategoryAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/adapters/TopFoodCategoryAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/app/FattyApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/app/FattyApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AboutService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AboutService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AddressService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AddressService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AuthService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/AuthService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/HomeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/HomeService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/SearchService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/SearchService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/SettingService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/SplashService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/SplashService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/UserService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/apiService/UserService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/exceptions/AppException.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/exceptions/AppException.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/exceptions/NetworkException.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/exceptions/NetworkException.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/AddressRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/AddressRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/AddressRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/AddressRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/HomeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/HomeRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/HomeRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/HomeRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/SearchRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/SearchRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/SearchRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/SearchRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/UserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/UserRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/UserRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/data/repository/UserRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/LocalAppModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/NetworkModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/NetworkModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/RepositoryModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/RepositoryModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/ServiceModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/di/ServiceModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/AddressVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/CategoryVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/FattyIntroVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/FoodOrderVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/FoodSubItemVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/FoodVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/HomeData.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/LanguageVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/MenuVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/NotiVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/OptionVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/OrderVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/PaymentVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/constants/model/RestaurantVO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/model/DataVO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/model/DataVO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/model/OrderVO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/ActiveOrderVO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/AboutResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/AboutResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/BaseEmptyResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/OrderHistoriesResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/OrderResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/OrderResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/PaymentMethodResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/PaymentMethodResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/RestaurantDetailResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/RestaurantDetailResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/SearchFoodResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/SearchFoodResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/TrackFoodOrderResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/responses/TrackFoodOrderResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/ApiRouteConstant.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/ApiRouteConstant.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/Constants.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/DataStoreExt.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/ManufactureData.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/NetworkHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/NetworkHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/Resource.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/Status.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/UIText.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/domain/util/ViewState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/service/FattyPushyService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/service/FattyPushyService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/service/PushReceiver.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/service/PushReceiver.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/datastore/DataStoreManagement.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/datastore/DataStoreManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/decoder/Decoder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/decoder/DecodingUtils.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/decoder/LGDecoder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/decoder/SamsungDecoder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/entity/Brands.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/entity/ManufactureEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/factory/DecoderFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/factory/IDecoderFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/preference/SharedPreferenceManagement.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/local/preference/SharedPreferenceManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AboutViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AboutViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AddressViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AddressViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AuthViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/AuthViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/BaseViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/HomeViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/SearchViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/SearchViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/SplashViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/SplashViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/UserViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_model/UserViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_states/AboutStatus.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_states/AuthStatus.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_states/SplashViewState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/view_states/VerifyOtpViewState.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/currency/CurrencyActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/currency/CurrencyActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/delete/AccountDeleteActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/delete/AccountDeleteActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/guide/AppGuideActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/guide/AppGuideActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/language/SettingLanguageActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/language/SettingLanguageActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/AddressDefinedActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/AddressDefinedActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/AddressPickUpMapBoxActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/AddressPickUpMapBoxActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/ManageAddressActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/manage_address/ManageAddressActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/term_condition/TermAndConditionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/account_setting/term_condition/TermAndConditionActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/auth/login/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/auth/login/LoginActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/auth/verify/VerifyOTPActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/auth/verify/VerifyOTPActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/base/BaseActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/base/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/base/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/category/FoodCategoryActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/category/FoodCategoryActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/category/TopRelatedCategoryActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/category/TopRelatedCategoryActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/checkout/CheckOutActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/checkout/CheckOutActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/delivery_rating/DeliveryRatingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/delivery_rating/DeliveryRatingActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/intro/IntroActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/intro/IntroActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/order/OrderDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/order/OrderDetailActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/order/OrderSuccessActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/checkout/PlaceOrderActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/parcel/ParcelActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/profile/ProfileActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/profile/ProfileActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/restaurant/RestaurantDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/restaurant/RestaurantDetailActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/restaurant/RestaurantMoreInfoActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/restaurant/RestaurantMoreInfoActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/search/SearchActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/search/SearchActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/search/SearchFilterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/search/SearchFilterActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/splash/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/splash/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/track/TrackOrderParcelActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/activities/track/TrackOrderParcelActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/AccountFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/AccountFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/FoodCategoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/FoodCategoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/HomeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/IntroSlideFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/IntroSlideFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/NotiFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/NotiFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/OrderFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/OrderFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/rest_more_info/FoodAddOnBottomSheetFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/fragments/rest_more_info/FoodAddOnBottomSheetFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/AboutViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/AboutViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/AddCurrentAddressViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/AddCurrentAddressViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/CategoryListViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/CategoryViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/HomeViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/HomeViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/InboxViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/InboxViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/OrderHistoriesViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/OrderViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/ParcelViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/ParcelViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/RestaurantDetailViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/RestaurantDetailViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/SearchViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/SearchViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/UpdateUserInfoViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/UpdateUserInfoViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/WishListViewState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/ui/views/viewstates/WishListViewState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/AppSetting.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/CheckDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/CheckDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/ConfirmDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/ConfirmDialog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/ConnectionErrorViewPod.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/CustomTabLayout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/CustomTabLayout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/PreferenceUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/PreferenceUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/ContentHelpers.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/Extension.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/Extension.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/helper/UserPreference.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/mBaseList.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/storage/AppSettings.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/storage/AppSettingsSerializer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/viewpod/EmptyViewPod.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/utils/viewpod/EmptyViewPod.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/AddressViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/AddressViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/BaseViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/BaseViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/FoodOrderViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/FoodOrderViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/NearRestaurantViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/NearRestaurantViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/NotiViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/NotiViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/OrderHistoryViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/OrderHistoryViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/PaymentViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/PaymentViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/RecommendedRestaurantsViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/RecommendedRestaurantsViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/TopFoodCategoryViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/solinx_tech/fattyfood/viewholder/TopFoodCategoryViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/bg_orderid_yellow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/bg_orderid_yellow.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_address_defined.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_address_defined.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_address_pick_up_map_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_address_pick_up_map_box.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_check_out.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_check_out.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_currency.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_currency.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_food_category.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_food_category.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_manage_address.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_manage_address.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_order_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_order_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_order_success.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_place_order.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_parcel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_parcel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_restaurant_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_restaurant_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_restaurant_more_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_restaurant_more_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_search_filter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_search_filter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_splash.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_term_and_condition.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_term_and_condition.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_top_related_category.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_top_related_category.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_track_order_parcel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_track_order_parcel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_verify_otpactivity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_verify_otpactivity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_food_add_on_bottom_sheet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_food_add_on_bottom_sheet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_noti.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_noti.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_order.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_add_food.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_add_food.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_food_order_checkout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_food_order_checkout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_manage_address.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_manage_address.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_nearby_restaurants.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_nearby_restaurants.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_order_histories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_order_histories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_payment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_recommended_restaurants.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_recommended_restaurants.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_restaurant_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_restaurant_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/item_top_food_category.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/item_top_food_category.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/layout_connection_no_data.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/layout_connection_no_data.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/layout_empty_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/layout_empty_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values-my/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-my/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values-zh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values-zh/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/google_maps_api.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/google_maps_api.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../desktop.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../settings.gradle.kts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2dgnNRNisQDewGnafdyuIZsCvlJ" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "android.gradle.sync.needed": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "project__setting",
+    "last_opened_file_path": "C:/Users/MSI/Desktop/Fatty Re Design/Fatty Redesign/app"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b3a12bf8-9f7d-438c-9cf4-1097efcaba33" name="Changes" comment="" />
+      <created>1710438548749</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710438548749</updated>
+    </task>
+    <servers />
+  </component>
+</project>

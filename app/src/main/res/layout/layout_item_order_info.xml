@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_name_qty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="0.4"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="x1 Food"
+            android:singleLine="false"
+            android:textSize="16sp"
+             />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="Cancel Item"
+            android:textSize="12sp"
+            android:fontFamily="@font/outfit_regular"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:textColor="@color/red"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0.3"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="Ks.1000"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_food_addon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/outfit_regular"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:singleLine="false"
+        android:text=""
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_food_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/outfit_regular"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:singleLine="false"
+        android:textAlignment="textStart"
+        android:textColor="@color/grey"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

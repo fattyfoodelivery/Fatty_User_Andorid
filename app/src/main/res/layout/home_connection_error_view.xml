@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_onboard_rounded"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/no_wifi_or_connection"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/outfit_regular"
+        android:text="@string/no_internet"
+        android:textAlignment="center"
+        android:textColor="@color/textPrimary"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/outfit_medium"
+        android:text="@string/please_check_internet_and_try_againg"
+        android:textAlignment="center"
+        android:textColor="@color/text_secondary_01"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnTryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/positive_button"
+        android:text="@string/try_again"
+        android:textAllCaps="false"
+        android:fontFamily="@font/outfit_regular"
+        android:textColor="@color/white"
+        android:layout_marginTop="24dp"/>
+
+
+</LinearLayout>

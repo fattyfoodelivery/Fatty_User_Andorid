@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_noti_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/surfaceUnread"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/ll_content_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_below="@id/ll_top_order">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardMaxElevation="0dp"
+                android:elevation="0dp"
+                app:cardElevation="0dp"
+                android:background="@color/fattyPrimary"
+                app:cardBackgroundColor="@color/fattyPrimary">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/fatty_tran_logo"
+                    android:layout_gravity="center"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--<org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:id="@+id/tv_system_body_html"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text=""
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/text_secondary_01"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>-->
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_system_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text=""
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/text_secondary_01"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textColor="@color/textPrimary02"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="16dp"
+                    android:textAlignment="viewStart"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

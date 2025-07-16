@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/track_parcel_order_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/bg_onboard_rounded"
+    android:clickable="true"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="260dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/white">
+
+            <View
+                android:id="@+id/view_one"
+                android:layout_width="80dp"
+                android:layout_height="5dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bottom_sheet_indicator"
+                />
+
+            <LinearLayout
+                android:id="@+id/ll_header_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/white">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/tbTPBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_arrow_forword"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/black" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_title_lb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="Track Order Title"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/search_bar"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_order_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text="Order ID : "
+                            android:textSize="16sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_order_id_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FD-443"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_booking_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:padding="2dp"
+                            android:text="Booking ID : "
+                            android:textSize="16sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_booking_id_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="CJ7D-G4T3"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="4dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_header_view">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_estimate_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="2dp"
+                            android:text="Estimated Time"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textSize="14sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_estimate_time_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="02:45PM - 03:15PM"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_parcel_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Your rider is coming to pickup!"
+                            android:textSize="14sp"
+                            android:padding="2dp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_pickup_place"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        app:tint="#979797"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/guideline"
+                        app:layout_constraintStart_toStartOf="@id/guideline"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_point_f" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/imv_pickup_place"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guidelineThree"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.2" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_restaurant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_motorcycle"
+                            app:tint="@color/fattyPrimary" />
+
+                        <!--<kr.co.prnd.StepProgressBar
+                            android:id="@+id/progress_bar_rider"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/round_corner_step_progressbar"
+                            android:padding="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/imv_restaurant"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:max="10"
+                            app:step="10"
+                            app:stepDoneColor="@color/fatty"
+                            app:stepMargin="8dp"
+                            app:stepUndoneColor="#dedede" />-->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imv_pickup_place"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guidelineTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.8" />
+
+                        <!--<kr.co.prnd.StepProgressBar
+                            android:id="@+id/progress_rider"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/round_corner_step_progressbar"
+                            android:backgroundTint="@color/grey"
+                            android:padding="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guidelineTwo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:max="10"
+                            app:step="10"
+                            app:stepDoneColor="@color/grey"
+                            app:stepMargin="8dp"
+                            app:stepUndoneColor="#dedede" />-->
+
+                        <!--<kr.co.prnd.StepProgressBar
+                            android:id="@+id/rider_progress_bar_show"
+                            android:layout_width="0dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/round_corner_step_progressbar"
+                            android:padding="2dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guidelineTwo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:max="10"
+                            app:step="10"
+                            app:stepDoneColor="@color/fatty"
+                            app:stepMargin="8dp"
+                            app:stepUndoneColor="#dedede" />-->
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_destination"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:tint="#979797"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guidelineTwo"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_point_t" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="16dp"
+                    android:background="@color/grey" />
+
+                <LinearLayout
+                    android:id="@+id/rider"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_rider"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imv_rider_photo"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/ic_account_unselect"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_rider_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:singleLine="false"
+                            android:text="Aung Pyae Aung Pyae Aung Pyae"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/imv_rider_photo"
+                            app:layout_constraintTop_toTopOf="@id/imv_rider_photo" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:singleLine="true"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Motorcycle"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toEndOf="@id/imv_rider_photo"
+                            app:layout_constraintTop_toBottomOf="@id/tv_rider_name" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.4"
+                        android:layout_height="match_parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/bg_selected"
+                            android:padding="10dp"
+                            app:layout_constraintBottom_toBottomOf="@id/imv_message"
+                            app:layout_constraintEnd_toStartOf="@id/imv_message"
+                            app:layout_constraintTop_toTopOf="@id/imv_message"
+                            app:srcCompat="@drawable/ic_customer_call" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/bg_selected"
+                            android:padding="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_sender_20dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/search_bar"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout">
+
+                <LinearLayout
+                    android:id="@+id/ll_sender_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:padding="2dp"
+                            android:text="Sender Details : "
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_sender_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:drawableStart="@drawable/ic_account_unselect"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="Zaw Ye Htut"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_sender_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:drawableStart="@drawable/ic_customer_call"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="099999999"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_sender_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_pin"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="Other\nYan Aye Lane 3, Yankin"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_sender_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_notes"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text=""
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_receipt_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:padding="2dp"
+                            android:text="Recipent Details : "
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_receiver_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:layout_marginEnd="4dp"
+                        android:drawableStart="@drawable/ic_account_unselect"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:text="Aung Pyae"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_receiver_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:drawableStart="@drawable/ic_customer_call"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:text="099999999"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_receiver_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_pin"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:text="Other\nMaha Myaing Lane , Bahan"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_receiver_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableStart="@drawable/ic_notes"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text=""
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_parcel_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Parcel Details : "
+                            android:padding="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_parcel_type_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:drawableStart="@drawable/ic_resource_package"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="Documents"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:drawableStart="@drawable/ic_weight"
+                        android:drawablePadding="16dp"
+                        android:padding="8dp"
+                        android:text="3kg"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_extra_cover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extra Cost"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textAlignment="textStart"
+                        android:textSize="12sp"
+                        android:textStyle="normal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="2dp"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_extra_cover"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_extra_cover_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textAlignment="center"
+                        android:textSize="10sp"
+                        android:textStyle="normal"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvParcelPictures"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:clipToPadding="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_bill_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:padding="2dp"
+                            android:text="@string/bill_details"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_weight="0.4"
+                            android:fontFamily="@font/outfit_regular"
+                            android:padding="2dp"
+                            android:text="Extra Cover Costs"
+                            android:textSize="14sp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_extra_cover_cost"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_weight="0.6"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="Ks. 1,500"
+                            android:textAlignment="textEnd"
+                            android:textSize="14sp"
+                            />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.4"
+                            android:padding="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="@string/delivery_fees"
+                            android:textSize="14sp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_deli_fee"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.6"
+                            android:text="Ks. 1,000"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textAlignment="textEnd"
+                            android:textSize="14sp"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="16dp"
+                        android:background="@color/grey"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.6"
+                            android:textStyle="bold"
+                            android:padding="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/black"
+                            android:text="@string/bill_details"
+                            android:textSize="16sp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_total_estimated_price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="0.4"
+                            android:text="Ks. 2,500"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

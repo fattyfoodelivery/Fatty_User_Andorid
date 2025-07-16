@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.views.activities.search.SearchActivity"
+    android:background="@color/fattyPrimary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/fattyWhite"
+                    android:layout_centerVertical="true"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_toEndOf="@id/iv_back"
+                    android:layout_marginStart="8dp"
+                    android:layout_toStartOf="@id/rl_filter"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_search_white">
+                    <ImageView
+                        android:id="@+id/iv_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_search"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="true"
+                        android:fontFamily="@font/outfit_regular"
+                        android:hint="@string/search_by_foods_or_restaurants"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="12dp"
+                        android:textSize="16sp"
+                        android:scrollHorizontally="true"
+                        android:textColor="#B1B1B1"
+                        android:layout_centerVertical="true"
+                        android:background="@color/surface_primary_01"
+                        android:layout_toEndOf="@+id/iv_search"
+                        android:layout_toStartOf="@id/iv_clear"/>
+                    <ImageView
+                        android:id="@+id/iv_clear"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_circle_close_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_filter"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="18dp" >
+                    <ImageView
+                        android:id="@+id/iv_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_filter"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_filter"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        app:cardCornerRadius="5dp"
+                        android:layout_alignParentEnd="true"
+                        app:cardBackgroundColor="@color/textError"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_onboard_rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rl_top_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_recent_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:padding="12dp">
+                    <TextView
+                        android:id="@+id/tv_recent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/natural700"
+                        android:text="@string/recent"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textSize="18sp"
+                        />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_recent_food"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_segment_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:visibility="gone">
+
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chips_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipFood"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            app:checkedIconTint="@color/fattyPrimary"
+                            app:chipIcon="@drawable/ic_search_food_unselect"
+                            app:chipIconEnabled="true"
+                            app:chipIconSize="20dp"
+                            app:iconStartPadding="8dp" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipRestaurant"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            app:checkedIconTint="@color/fattyPrimary"
+                            app:chipIcon="@drawable/ic_search_rest_unselect"
+                            app:chipIconEnabled="true"
+                            app:chipIconSize="20dp"
+                            app:iconStartPadding="8dp" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary_01"
+                android:text="fffff"
+                android:fontFamily="@font/outfit_regular"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/rl_top_result"
+                android:layout_marginStart="16dp"/>
+            <RelativeLayout
+                android:id="@+id/rl_rest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_result">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_restaurant"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_restaurant_view"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_restaurant_view"
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <!--<include
+            layout="@layout/item_first_search"
+            android:id="@+id/rl_first_search"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            &lt;!&ndash;recent tag&ndash;&gt;
+            <LinearLayout
+                android:id="@+id/ll_recent_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_recent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/natural700"
+                    android:text="@string/recent"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textSize="18sp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/ll_chip_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+
+            &lt;!&ndash;chip view&ndash;&gt;
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_segment_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chips_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFood"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        app:checkedIconTint="@color/fattyPrimary"
+                        app:chipIcon="@drawable/ic_food_id_24dp"
+                        app:chipIconEnabled="true"
+                        app:chipIconSize="20dp"
+                        app:iconStartPadding="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRestaurant"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        app:checkedIconTint="@color/fattyPrimary"
+                        app:chipIcon="@drawable/ic_food_id_24dp"
+                        app:chipIconEnabled="true"
+                        app:chipIconSize="20dp"
+                        app:iconStartPadding="8dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+            &lt;!&ndash;result count&ndash;&gt;
+            <LinearLayout
+                android:id="@+id/ll_result_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_marginTop="16dp">
+                <TextView
+                    android:id="@+id/tv_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_01"
+                    android:text="@string/restaurants"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textSize="18sp"
+                    />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:background="@color/text_primary_01"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginTop="6dp"/>
+                <TextView
+                    android:id="@+id/tv_result_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_01"
+                    android:text="5"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textSize="18sp"
+                    />
+            </LinearLayout>
+
+            &lt;!&ndash;result list&ndash;&gt;
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_restaurant_view"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>-->
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <ImageView
+                    android:id="@+id/tbTPBack"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="0.1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/edt_search_food_restaurant"
+                    android:cursorVisible="true"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="16dp"
+                    android:fontFamily="@font/outfit_medium"
+                    android:hint="Search Food and Restaurants"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="16dp"
+                    android:singleLine="false"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraint" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnFilter"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/ic_filter"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_segment_control"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chips_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFood"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        app:checkedIconTint="@color/fattyPrimary"
+                        app:chipIcon="@drawable/ic_food_id_24dp"
+                        app:chipIconEnabled="true"
+                        app:chipIconSize="20dp"
+                        app:iconStartPadding="8dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRestaurant"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        app:checkedIconTint="@color/fattyPrimary"
+                        app:chipIcon="@drawable/ic_food_id_24dp"
+                        app:chipIconEnabled="true"
+                        app:chipIconSize="20dp"
+                        app:iconStartPadding="8dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/search_bar"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_search">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/search_bar"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progress_search"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:progressDrawable="@color/fattyPrimary"
+                    android:progressBackgroundTint="@color/fattyPrimary"
+                    android:progressTint="@color/white"
+                    android:secondaryProgressTint="@color/white" />
+
+                <include
+                    android:id="@+id/emptyViewPod"
+                    layout="@layout/layout_empty_view"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSearchFood"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_restaurants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSearchRestaurants"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--<include layout="@layout/filter_bottomsheet" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/filter_view"
+        layout="@layout/filter_bottom_sheet"
+        android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

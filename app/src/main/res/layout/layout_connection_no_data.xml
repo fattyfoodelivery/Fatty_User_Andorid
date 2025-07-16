@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.joy.fattyfood.utils.viewpod.ConnectionErrorViewPod xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_onboard_rounded">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/no_wifi_or_connection"
+        app:layout_constraintTop_toTopOf="@id/guide_one"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/outfit_regular"
+        android:text="@string/no_internet"
+        android:textAlignment="center"
+        android:textColor="@color/textPrimary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imv_error" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/outfit_medium"
+        android:text="@string/please_check_internet_and_try_againg"
+        android:textAlignment="center"
+        android:textColor="@color/text_secondary_01"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_error_title" />
+
+    <TextView
+        android:id="@+id/btnTryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_try_again"
+        android:text="@string/try_again"
+        android:textAllCaps="false"
+        android:textColor="@color/textPrimary02"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_error_message"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="24dp"/>
+
+</com.joy.fattyfood.utils.viewpod.ConnectionErrorViewPod>

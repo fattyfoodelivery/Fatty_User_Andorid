@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp">
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/iv_ads"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        app:riv_corner_radius="8dp"
+        android:visibility="gone"
+        android:src="@drawable/updown_slide_dummy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:elevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/surfacePrimary02"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/ll_restaurant_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:orientation="horizontal"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="112dp"
+                android:layout_height="104dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:cardMaxElevation="0dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_restaurant"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:contentDescription="@string/content_desc"
+                        android:src="@drawable/restaurant_default_img" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_no_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_rating_rounded_white"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/outfit_medium"
+                            android:text="No Reviews"
+                            android:textColor="@color/text_primary_01"
+                            android:textAlignment="center"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_rating_rounded_white"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_rating"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:contentDescription="@string/content_desc"
+                            app:srcCompat="@drawable/ic_star_12dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_rating_count"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/outfit_medium"
+                            android:text=""
+                            android:textColor="@color/text_primary_01"
+                            android:textAlignment="center"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp">
+
+                <RelativeLayout
+                    android:id="@+id/rl_rest_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toStartOf="@id/imv_fav">
+
+                    <TextView
+                        android:id="@+id/tv_restaurant_category_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_noodle_roundded_primary"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text=""
+                        android:textColor="@color/fattyWhite"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tv_restaurant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text=""
+                        android:textColor="@color/text_primary_01"
+                        android:textSize="16sp"
+                        android:layout_marginTop="1dp"
+                        android:lines="2"
+                        android:gravity="center"
+                        android:textAlignment="viewStart"
+                        android:ellipsize="end"
+                        tools:ignore="RtlCompat"
+                        android:layout_below="@id/tv_restaurant_category_name"/>
+                    <LinearLayout
+                        android:id="@+id/ll_address"
+                        android:layout_below="@id/tv_restaurant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imv_loc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_location_filled_16dp"
+                            android:contentDescription="@string/content_desc"/>
+                        <TextView
+                            android:id="@+id/tv_restaurant_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textSize="14sp"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/textPrimary02"/>
+                    </LinearLayout>
+                    <!-- <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentBottom="true"
+                         android:visibility="gone">
+                         <androidx.appcompat.widget.AppCompatImageView
+                             android:id="@+id/imv_moto"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:src="@drawable/ic_bicycle"
+                             android:contentDescription="@string/content_desc"/>
+                         <TextView
+                             android:id="@+id/tv_duration_distance"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text=""
+                             android:lines="1"
+                             android:ellipsize="end"
+                             android:textSize="14sp"
+                             android:layout_marginStart="8dp"
+                             android:fontFamily="@font/outfit_regular"
+                             android:textColor="@color/textPrimary02"/>
+                         &lt;!&ndash;<View
+                             android:layout_width="2dp"
+                             android:layout_height="2dp"
+                             android:background="@color/textPrimary02"
+                             android:layout_gravity="center_vertical"
+                             android:layout_marginStart="4dp"
+                             android:layout_marginEnd="4dp"
+                             />
+                         <TextView
+                             android:id="@+id/tv_distance"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="60 km"
+                             android:textSize="14sp"
+                             android:fontFamily="@font/outfit_regular"
+                             android:textColor="@color/textPrimary02"/>&ndash;&gt;
+                     </LinearLayout>-->
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/imv_fav"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:contentDescription="@string/content_desc"
+                    android:src="@drawable/ic_favorite_white"
+                    app:tint="@color/fattyPrimary"
+                    android:layout_alignParentEnd="true"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/rl_rest_detail">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:visibility="visible"
+                        android:layout_toStartOf="@id/ll_order_count_view">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_moto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_bicycle"
+                        android:contentDescription="@string/content_desc"/>
+                        <TextView
+                            android:id="@+id/tv_duration_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textSize="14sp"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/textPrimary02"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_order_count_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="UselessParent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_fav_count_18dp" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_order_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="13sp"
+                            android:layout_gravity="bottom"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/fattyPrimary"
+                            android:layout_marginStart="5dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <!--<LinearLayout
+                    android:id="@+id/ll_rest_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:baselineAligned="false"
+                    tools:ignore="UselessParent">
+
+
+
+
+
+
+                </LinearLayout>-->
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_unavailable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Unavailable Now"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:visibility="gone"
+            android:fontFamily="@font/outfit_medium"
+            android:background="@drawable/background_gradient"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

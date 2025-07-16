@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_layout_text"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:background="@drawable/tablayout_item_normal"
+    android:gravity="center"
+    android:text="@string/cash_on_delivery"
+    android:fontFamily="@font/outfit_regular"
+    android:textColor="@color/textPrimary02"
+    android:textSize="18sp"
+    android:textAllCaps="false">
+
+</TextView>

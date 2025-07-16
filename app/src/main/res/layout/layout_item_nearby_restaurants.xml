@@ -1,0 +1,260 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search_rest"
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        app:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@color/surfacePrimary02"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_restaurant"
+                android:layout_width="112dp"
+                android:layout_height="104dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/ic_launcher_background">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imv_restaurant_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="false"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@color/ic_launcher_background" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_margin="8dp"
+                        android:orientation="horizontal"
+                        app:cardBackgroundColor="@color/fattyWhite"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/imv_restaurant_picture"
+                        app:layout_constraintTop_toTopOf="@+id/imv_restaurant_picture"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@drawable/ic_star_12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:fontFamily="@font/outfit_medium"
+                                android:text="4.2"
+                                android:textColor="@color/text_primary_01"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--<androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imv_nearby_restaurant_photo"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/ic_launcher_background" />-->
+
+            <LinearLayout
+                android:id="@+id/ll_restaurant_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/card_restaurant"
+                app:layout_constraintTop_toTopOf="@id/card_restaurant">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_nearby_restaurant_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="0.7"
+                    android:fontFamily="@font/outfit_regular"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:text="The Pizza Company"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imvNearbyFavourite"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16sp"
+                    android:layout_weight="0.3"
+                    app:srcCompat="@drawable/ic_favorite_white"
+                    app:tint="@color/fattyPrimary" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rest_category_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/outfit_regular"
+                android:singleLine="true"
+                android:text="Pizza"
+                android:paddingBottom="2dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ll_restaurant_title"
+                app:layout_constraintTop_toBottomOf="@id/ll_restaurant_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_estimate_time_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:singleLine="true"
+                android:fontFamily="@font/outfit_regular"
+                android:text="30mins ・ 5km"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_rest_category_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_rest_category_name" />
+
+            <LinearLayout
+                android:id="@+id/ll_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/card_restaurant"
+                app:layout_constraintTop_toBottomOf="@id/tv_estimate_time_location">
+
+                <!--                <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                    android:id="@+id/tv_restaurant_location"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="16dp"-->
+                <!--                    android:layout_weight="0.4"-->
+                <!--                    android:paddingTop="8dp"-->
+                <!--                    android:paddingBottom="8dp"-->
+                <!--                    android:singleLine="false"-->
+                <!--                    android:fontFamily="@font/google_sans"-->
+                <!--                    android:text="The Pizza Companyffffffffffffffff"-->
+                <!--                    android:textAlignment="textStart"-->
+                <!--                    android:textSize="12sp" />-->
+
+                <ImageView
+                    android:id="@+id/iv_moto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/ic_bicycle"
+                    android:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_delivery_fee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:singleLine="false"
+                    android:text="Free Delivery"
+                    android:textAlignment="textStart"
+                    android:textSize="10sp"
+                    tools:ignore="RtlCompat,UnusedAttribute" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rest_unavailable"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                android:background="@drawable/background_gradient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_unavailable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:singleLine="true"
+                    android:padding="2dp"
+                    android:text="@string/restaurant_unavailable"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/outfit_regular"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
