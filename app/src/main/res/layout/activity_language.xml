@@ -112,7 +112,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-            <com.joy.fattyfood.ui.views.components.CustomSpinner
+            <com.orikino.fatty.ui.views.components.CustomSpinner
                 android:id="@+id/spinner_lang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

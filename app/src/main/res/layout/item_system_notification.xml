@@ -36,6 +36,7 @@
                 android:background="@color/fattyPrimary"
                 app:cardBackgroundColor="@color/fattyPrimary">
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivNotification"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/fatty_tran_logo"

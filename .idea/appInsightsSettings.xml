@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.joy.fattyfood" />
-                  <option name="mobileSdkAppId" value="1:899977657105:android:28ae325f42baac4bb0aab0" />
-                  <option name="projectId" value="fattyfodd" />
-                  <option name="projectNumber" value="899977657105" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

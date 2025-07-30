@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.joy.fattyfood"
+    namespace = "com.orikino.fatty"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.joy.fattyfood"
+        applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -37,6 +37,7 @@ android {
                 "proguard-rules.pro"
             )
             multiDexEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

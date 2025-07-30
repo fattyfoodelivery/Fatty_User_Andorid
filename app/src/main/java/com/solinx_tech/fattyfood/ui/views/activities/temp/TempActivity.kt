@@ -2,7 +2,7 @@ package com.solinx_tech.fattyfood.ui.views.activities.temp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.joy.fattyfood.databinding.ActivityTempBinding
+import com.orikino.fatty.databinding.ActivityTempBinding
 
 class TempActivity : AppCompatActivity() {
 

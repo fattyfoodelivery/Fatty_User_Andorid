@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.orikino.fatty">
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -73,7 +74,7 @@
             android:name=".ui.views.activities.wish_list.WishListActivity"
             android:exported="false" />
         <activity
-            android:name="com.joy.sdk.callback.CallbackResultActivity"
+            android:name="com.orikino.sdk.callback.CallbackResultActivity"
             android:exported="false" />
 
         <meta-data

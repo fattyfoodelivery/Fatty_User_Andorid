@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.joy.sdk.callback.CallbackResultActivity">
+    tools:context="com.orikino.sdk.callback.CallbackResultActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imv_pay_success"

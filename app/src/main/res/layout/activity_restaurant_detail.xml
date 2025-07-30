@@ -232,7 +232,7 @@
 
 
 
-        <com.joy.fattyfood.utils.CustomTabLayout
+        <com.orikino.fatty.utils.CustomTabLayout
             android:id="@+id/tab_food_menu"
             android:layout_width="match_parent"
             style="@style/RoundedTabLayoutStyle"
