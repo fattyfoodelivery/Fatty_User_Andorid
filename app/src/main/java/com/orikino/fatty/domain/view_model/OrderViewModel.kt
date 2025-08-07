@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.orikino.fatty.data.repository.OrderRepository
 import com.orikino.fatty.domain.model.*
 import com.orikino.fatty.domain.viewstates.OrderViewState
+import com.orikino.fatty.ui.views.base.BaseViewModel
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OrderViewModel @Inject constructor(
     private val orderRepository: OrderRepository
-) : ViewModel(){
+) : BaseViewModel(){
 
     var cartList: MutableLiveData<MutableList<CreateFoodVO>> =
         MutableLiveData(PreferenceUtils.readFoodOrderList())

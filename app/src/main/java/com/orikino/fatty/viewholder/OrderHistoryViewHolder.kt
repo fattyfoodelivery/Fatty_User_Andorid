@@ -10,6 +10,7 @@ import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
+import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.squareup.picasso.Picasso
 
 @SuppressLint("SetTextI18n")
@@ -33,7 +34,7 @@ class OrderHistoryViewHolder(
         if (data.order_type == "food") {
             binding.tvRestNameFromAddress.text = data.restaurant_name
             binding.tvPriceOrToAddress.text =
-                "${data.total} ${if (data.currency_id == 1) "MMK" else "¥"}"
+                "${data.total?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
             if (data.rider_rating == "") {
                 binding.llReview.gone()
             } else {

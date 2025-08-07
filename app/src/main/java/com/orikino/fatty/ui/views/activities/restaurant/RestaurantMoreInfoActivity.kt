@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.restaurant
 
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,6 +43,7 @@ import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
 import java.lang.Exception
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -80,7 +83,7 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
 
         _binding.appBarLayout.addOnOffsetChangedListener(this)
         setUpMap()
-        geoCodeLocationToAddress()
+        convertLatLangToAddress()
 
         onBackPress()
 
@@ -348,14 +351,24 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
         }
     }
 
-    private fun geoCodeLocationToAddress() {
+    private fun convertLatLangToAddress() {
+        var addresses: List<Address> = listOf()
         val locations = Location("")
         locations.latitude = restaurant.restaurant_latitude
         locations.longitude = restaurant.restaurant_longitude
-        SmartLocation.with(this)
-            .geocoding().reverse(locations) { location, mutableList ->
-                showAddress(mutableList[0].getAddressLine(0))
+        var ss = ""
+        try {
+            val geocoder = Geocoder(this, Locale.US)
+            addresses = geocoder.getFromLocation(locations.latitude, locations.longitude, 1)!!
+            ss = addresses[0].getAddressLine(0)
+            try {
+                showAddress(ss)
+
+            } catch (e: kotlin.Exception) {
             }
+        } catch (e: kotlin.Exception) {
+        }
+
     }
 
     private fun showAddress(address: String) {

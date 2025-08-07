@@ -222,4 +222,6 @@ dependencies {
     //implementation ("com.mapbox.maps:android:11.10.3")
     //implementation ("com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1")
     //implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0")
+
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
 }

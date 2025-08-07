@@ -16,4 +16,43 @@
     <dimen name="text_heading2">26sp</dimen>
 
     <dimen name="text_padding">8dp</dimen>
+    <dimen name="margin_minus8xSmall">-20dp</dimen>
+    <dimen name="margin_5xSmall">2dp</dimen>
+    <dimen name="margin_4xSmall">4dp</dimen>
+    <dimen name="margin_3xSmall">6dp</dimen>
+    <dimen name="margin_2xSmall">8dp</dimen>
+    <dimen name="margin_xSmall">10dp</dimen>
+
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_medium">14dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_xlarge">18dp</dimen>
+    <dimen name="margin_2xlarge">20dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_3xlarge">24dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_34">34dp</dimen>
+    <dimen name="margin_4xlarge">36dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="card_dimen_category_height">38dp</dimen>
+    <dimen name="margin44">44dp</dimen>
+    <dimen name="margin46">46dp</dimen>
+    <dimen name="margin_5xlarge">48dp</dimen>
+    <dimen name="margin_56">56dp</dimen>
+    <dimen name="margin_6xlarge">64dp</dimen>
+    <dimen name="margin_7xlarge">72dp</dimen>
+    <dimen name="margin_81">81dp</dimen>
+    <dimen name="margin_84">84dp</dimen>
+    <dimen name="margin_85">85dp</dimen>
+    <dimen name="margin_88">88dp</dimen>
+    <dimen name="margin_12xlarge">108dp</dimen>
+    <dimen name="margin_112">112dp</dimen>
+
+
+    <dimen name="profile_margin">100dp</dimen>
+    <dimen name="margin_150">150dp</dimen>
+    <dimen name="margin_200">200dp</dimen>
 </resources>

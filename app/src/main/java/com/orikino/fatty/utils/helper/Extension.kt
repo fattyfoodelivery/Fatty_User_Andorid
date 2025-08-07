@@ -21,7 +21,9 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
@@ -582,6 +584,20 @@ fun RecommendRestaurantVO?.toDefaultRestaurantCategoryName(): String? {
     }
 }
 
+fun EditText.onSearch(callback: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            callback.invoke()
+            return@setOnEditorActionListener false
+        }
+        false
+    }
+}
+
+fun getScreenWidth(context: Context, percentage: Double): Int {
+    val displayMetrics = Resources.getSystem().displayMetrics
+    return (displayMetrics.widthPixels * percentage).toInt()
+}
 
 
 fun RecommendRestaurantVO.toDefaultRestaurantName(): String? {

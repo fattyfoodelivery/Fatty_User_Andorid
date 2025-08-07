@@ -484,7 +484,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                     PlaceOrderActivity.IS_KPAY to false,
                 )*/
                 val intent = Intent(this,PlaceOrderActivity::class.java)
-                intent.putExtra(PlaceOrderActivity.ORDER_ID,state.data.data?.order?.order_id)
+                intent.putExtra(PlaceOrderActivity.ORDER_ID,state.data.data?.order?.customer_order_id)
                 intent.putExtra(PlaceOrderActivity.IS_KPAY,false)
                 startActivity(intent)
             }

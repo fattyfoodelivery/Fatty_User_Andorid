@@ -14,6 +14,8 @@ data class FoodVO(
     var food_name_ch : String ?= null,
     @SerializedName("food_price")
     var food_price : String ?= null,
+    @SerializedName("food_price_currency")
+    var food_price_currency : String ?= null,
     @SerializedName("food_qty")
     var food_qty : Int = 0,
     @SerializedName("food_note")

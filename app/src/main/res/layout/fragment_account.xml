@@ -279,6 +279,7 @@
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"/>
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/iv_currency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"

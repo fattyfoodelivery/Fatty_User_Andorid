@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.orikino.fatty.ui.views.customview.CheckableConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/margin_2xSmall"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.orikino.fatty.ui.views.customview.CheckableImageView
+        android:id="@+id/rb_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/checkbox_drawable"/>
+    <TextView
+        android:id="@+id/tv_option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Medium"
+        android:layout_marginHorizontal="@dimen/margin_3xSmall"
+        app:layout_constraintEnd_toStartOf="@id/tv_price"
+        app:layout_constraintStart_toEndOf="@id/rb_option"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+ Ks 1000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</com.orikino.fatty.ui.views.customview.CheckableConstraintLayout>

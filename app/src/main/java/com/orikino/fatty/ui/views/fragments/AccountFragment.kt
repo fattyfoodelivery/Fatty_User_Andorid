@@ -102,7 +102,6 @@ class AccountFragment : Fragment() {
         if (accountBinding?.tvUserName?.text.toString().isNotEmpty()) viewModel.userName =
             accountBinding?.tvUserName?.text.toString()
         else accountBinding?.tvUserName?.error = "Please Enter Name"
-
         if (viewModel.userName.isNotEmpty()) PreferenceUtils.readUserVO().customer_phone.let { it1 ->
             PreferenceUtils.readUserVO().customer_id?.let {
                 viewModel.updateProfile(
@@ -175,6 +174,7 @@ class AccountFragment : Fragment() {
     private fun setUpProfileInfo() {
 
         if (!isUpdate) {
+            accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
             accountBinding?.tvUserName?.text = PreferenceUtils.readUserVO().customer_name
             accountBinding?.tvUserPhone?.text = PreferenceUtils.readUserVO().customer_phone
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
@@ -190,6 +190,7 @@ class AccountFragment : Fragment() {
 
             }
         } else {
+            accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
             accountBinding?.tvUserName?.text = customer.customer_name
             accountBinding?.tvUserPhone?.text = customer.customer_phone
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {

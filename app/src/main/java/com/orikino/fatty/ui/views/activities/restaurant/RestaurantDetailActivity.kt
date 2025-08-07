@@ -33,6 +33,8 @@ import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.ui.views.fragments.rest_more_info.FoodAddOnBottomSheetFragment
 import com.orikino.fatty.domain.viewstates.RestaurantViewState
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
+import com.orikino.fatty.ui.views.delegate.AddOnDelegate
+import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
@@ -47,7 +49,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
 @AndroidEntryPoint
-class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppBarLayout.OnOffsetChangedListener {
+class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppBarLayout.OnOffsetChangedListener,
+    AddOnDelegate {
 
     private lateinit var _binding: ActivityRestaurantDetailBinding
 
@@ -488,17 +491,12 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
                             }
                             else -> {
                                 val bottomSheetFragment =
-                                    FoodAddOnBottomSheetFragment.newInstance(
+                                    AddOnBottomSheetFragment.newInstance(
                                         false,
                                         restaurantInfO,
                                         data,
                                         data.sub_item,
-                                        onAddCart = {
-                                            viewModel.isEmptyCart.postValue(PreferenceUtils.readAddToCart())
-                                        },
-                                        onDeleteItem = {
-                                            showGameOverDialog(it)
-                                        }
+                                       this
                                     )
                                 bottomSheetFragment.show(
                                     supportFragmentManager,
@@ -622,5 +620,12 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
 
     override fun onTapItem(id: Int, str: String) {
         //showRestaurantFoodPhoto(str)
+    }
+
+    override fun onAddToCart() {
+
+    }
+
+    override fun onDeleteItem(foodList: MutableList<CreateFoodVO>) {
     }
 }

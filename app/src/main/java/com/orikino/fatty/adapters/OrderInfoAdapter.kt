@@ -16,11 +16,14 @@ import com.orikino.fatty.viewholder.BaseViewHolder
 
 class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,pos : Int) -> Unit) : BaseAdapter<OrderInfoAdapter.OrderInfoViewHolder,FoodVO>(context) {
 
-
-
+    private var currency : String = "MMK"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<FoodVO> {
         return OrderInfoViewHolder(LayoutItemOrderInfoBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    }
+
+    fun setCurrency(currency: String) {
+        this.currency = currency
     }
 
     inner class OrderInfoViewHolder(var binding : LayoutItemOrderInfoBinding) : BaseViewHolder<FoodVO>(binding.root) {
@@ -34,8 +37,12 @@ class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,
             if (data.is_cancel != 0) binding.tvFoodAddon.setTextColor(Color.parseColor("#a9a9a9"))
             if (data.is_cancel != 0) binding.tvFoodCancel.show()
 
-            binding.tvAmount.text =
-                "${data.food_price?.toDouble()?.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
+
+            binding.tvAmount.text = if (currency == "MMK"){
+                    "${data.food_price?.toDouble()?.toThousandSeparator()} ${currency}"
+                }else{
+                    "${data.food_price_currency?.toDouble()?.toThousandSeparator()} ${currency}"
+                }
             binding.tvFoodNote.text = data.food_note
             binding.tvFoodNameQty.text = "x ${data.food_qty}   ${data.toDefaultFoodName()}"
 

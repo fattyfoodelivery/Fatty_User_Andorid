@@ -1,5 +1,6 @@
 package com.orikino.fatty.domain.viewstates
 
+import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.domain.responses.*
 
 
@@ -33,7 +34,7 @@ sealed class AboutViewState {
     data class OnFailTutorial(val message: String?) : AboutViewState()
 
     object OnLoadingCurrency : AboutViewState()
-    data class OnSuccessCurrency(val data: CurrencyResponse) : AboutViewState()
+    data class OnSuccessCurrency(val data: List<CurrencyVO>) : AboutViewState()
     data class OnFailCurrency(val message: String) : AboutViewState()
 
     object OnLoadingVersionUpdate : AboutViewState()

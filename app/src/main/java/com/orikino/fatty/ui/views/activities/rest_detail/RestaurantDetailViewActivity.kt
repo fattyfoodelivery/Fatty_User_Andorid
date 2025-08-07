@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.ahmadhamwi.tabsync.TabbedListMediator
@@ -34,6 +34,8 @@ import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.checkout.CheckOutActivity
 import com.orikino.fatty.ui.views.activities.restaurant.RestaurantMoreInfoActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.ui.views.delegate.AddOnDelegate
+import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
 import com.orikino.fatty.ui.views.fragments.rest_more_info.FoodAddOnBottomSheetFragment
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
@@ -52,11 +54,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
 @AndroidEntryPoint
-class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
+class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener,
+    AddOnDelegate {
 
-    private lateinit var binding : ActivityRestaurantDetailViewBinding
+    private lateinit var binding: ActivityRestaurantDetailViewBinding
 
-    private val viewModel : RestaurantDetailViewModel by viewModels()
+    private val viewModel: RestaurantDetailViewModel by viewModels()
     private var foodMenuAdapter: RestaurantDetailFoodMenuAdapter? = null
 
 
@@ -71,7 +74,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private var verticalOffsets: Int = 0
     private var foodVO = FoodVO()
     private var viewType = ""
-    private var menuList : MutableList<MenuVO> = mutableListOf()
+    private var menuList: MutableList<MenuVO> = mutableListOf()
 
 
     companion object {
@@ -79,6 +82,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         const val GOOGLE_PLAY_STORE_PACKAGE = "com.android.vending"
         const val VIEW_TYPE = "viewType"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,7 +90,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         setContentView(binding.root)
 
 
-        restaurant_id = intent.getIntExtra(RESTAURANT_ID,0)
+        restaurant_id = intent.getIntExtra(RESTAURANT_ID, 0)
 
         subscribeUI()
         binding.appbarLayout.addOnOffsetChangedListener(this)
@@ -111,20 +115,24 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private fun showRestaurantMoreInfo() {
         binding.ivMoreInfo.setOnClickListener {
             if (isPlayStoreInstalled(this))
-                /*startActivity<RestaurantMoreInfoActivity>(
-                    RestaurantMoreInfoActivity.RESTAURANT to Gson().toJson(
-                        viewModel.foodMenuByRestaurantLiveDataList.value
-                    )
-                )*/
-            {
-                val intent = Intent(this,RestaurantMoreInfoActivity::class.java)
-                intent.putExtra(RestaurantMoreInfoActivity.RESTAURANT,Gson().toJson(viewModel.foodMenuByRestaurantLiveDataList.value))
+            /*startActivity<RestaurantMoreInfoActivity>(
+                RestaurantMoreInfoActivity.RESTAURANT to Gson().toJson(
+                    viewModel.foodMenuByRestaurantLiveDataList.value
+                )
+            )*/ {
+                val intent = Intent(this, RestaurantMoreInfoActivity::class.java)
+                intent.putExtra(
+                    RestaurantMoreInfoActivity.RESTAURANT,
+                    Gson().toJson(viewModel.foodMenuByRestaurantLiveDataList.value)
+                )
                 startActivity(intent)
 
-            }
-            else {
-                val intent = Intent(this,RestaurantMoreInfoActivity::class.java)
-                intent.putExtra(RestaurantMoreInfoActivity.RESTAURANT,Gson().toJson(viewModel.foodMenuByRestaurantLiveDataList.value))
+            } else {
+                val intent = Intent(this, RestaurantMoreInfoActivity::class.java)
+                intent.putExtra(
+                    RestaurantMoreInfoActivity.RESTAURANT,
+                    Gson().toJson(viewModel.foodMenuByRestaurantLiveDataList.value)
+                )
                 startActivity(intent)
             }/*startActivity<RestaurantMoreInfoActivity>(
                 RestaurantMoreInfoActivity.RESTAURANT to Gson().toJson(
@@ -155,7 +163,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     resources.getString(R.string.login_message),
                     callback = {
                         //startActivity<LoginActivity>()
-                        val intent = Intent(this,LoginActivity::class.java)
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
                     })
@@ -200,13 +208,16 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 binding.tvRestaurantName.text = it.toDefaultRestaurantName()
                 binding.tvRestaurantAddress.text = it.restaurant_address
                 binding.tvDurationDistance.text = "${it.average_time} Min"
-                binding.imvRestaurant.load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(it.restaurant_image))
+                binding.imvRestaurant.load(
+                    PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(it.restaurant_image)
+                )
                 restaurantInfO = FoodMenuByRestaurantVO(
                     restaurant_id = it.restaurant_id,
-                    restaurant_name_mm = it.toDefaultRestaurantName() ?: PreferenceUtils.readRestaurant()
+                    restaurant_name_mm = it.toDefaultRestaurantName()
+                        ?: PreferenceUtils.readRestaurant()
                         !!.toDefaultRestaurantName(),
                     restaurant_address_mm = it.restaurant_address,//.toDefaultRestaurantAddress() ?: PreferenceUtils.readRestaurant()
-                        //!!.toDefaultAddress(),
+                    //!!.toDefaultAddress(),
                     restaurant_image = it.restaurant_image
                         ?: PreferenceUtils.readRestaurant()?.restaurant_image
                 )
@@ -268,7 +279,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         } else {
             data.forEach { totalPrice += it.food_price }
             binding.tvItemQty.text = "${data.size} ${resources.getString(R.string.item)}"
-            binding.tvTotalAmt.text = "${totalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
+            binding.tvTotalAmt.text =
+                "${totalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.flPlayNow.show()
             //lottie.visibility = View.VISIBLE
             viewModel.isAnimate = true
@@ -278,10 +290,10 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     CheckOutActivity.LNG to PreferenceUtils.readUserVO().longitude,
                     CheckOutActivity.ADDRESS_TYPE to ""
                 )*/
-                val intent = Intent(this,CheckOutActivity::class.java)
-                intent.putExtra(CheckOutActivity.LAT,PreferenceUtils.readUserVO().latitude)
-                intent.putExtra(CheckOutActivity.LNG,PreferenceUtils.readUserVO().longitude)
-                intent.putExtra(CheckOutActivity.ADDRESS_TYPE,"")
+                val intent = Intent(this, CheckOutActivity::class.java)
+                intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
+                intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
+                intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
                 startActivity(intent)
             }
         }
@@ -294,16 +306,17 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
             is RestaurantDetailViewState.OnSuccessRestFoodMenuByRestID -> renderOnSuccessFoodMenuByRestaurant(
                 state
             )
+
             is RestaurantDetailViewState.OnFailRestFoodMenuByRestID -> renderOnFailFoodMenuByRestaurant(
                 state
             )
-
 
 
             is RestaurantDetailViewState.OnLoadingOperateWishList -> renderOnLoadingOperateWishList()
             is RestaurantDetailViewState.OnSuccessOperateList -> renderOnSuccessOperateWishList(
                 state
             )
+
             is RestaurantDetailViewState.OnFailOperateList -> renderOnFailOperateWishList(
                 state
             )
@@ -312,26 +325,30 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
             is RestaurantDetailViewState.OnSuccessFetchList -> renderOnSuccessFetchList(
                 state
             )
+
             is RestaurantDetailViewState.OnFailFetchWishList -> renderOnFailFetchWishList(
                 state
             )
+
             else -> {}
         }
     }
 
     private fun renderOnFailFetchWishList(state: RestaurantDetailViewState.OnFailFetchWishList) {
-        CustomToast(this,state.message,true).createCustomToast()
+        CustomToast(this, state.message, true).createCustomToast()
     }
 
     private fun renderOnLoadingFetchWishList() {}
 
     private fun renderOnSuccessFetchList(state: RestaurantDetailViewState.OnSuccessFetchList) {
         if (state.data.success) {
-            CustomToast(this,state.data.message,true).createCustomToast()
+            CustomToast(this, state.data.message, true).createCustomToast()
         }
     }
 
-    private fun renderOnLoadingFoodMenuByRestaurant() { LoadingProgressDialog.showLoadingProgress(this) }
+    private fun renderOnLoadingFoodMenuByRestaurant() {
+        LoadingProgressDialog.showLoadingProgress(this)
+    }
 
     private fun startCartAnimation() {
         /*cart_lottie.playAnimation()
@@ -357,7 +374,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         when (state.message) {
             "Server Issue" -> showSnackBar("Server Error! ${state.message}")
             "Another Login" ->
-                WarningDialog.Builder(this,
+                WarningDialog.Builder(
+                    this,
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
@@ -365,12 +383,13 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                         PreferenceUtils.clearCache()
                         finish()
                         //startActivity<SplashActivity>()
-                        val intent = Intent(this,SplashActivity::class.java)
+                        val intent = Intent(this, SplashActivity::class.java)
                         startActivity(intent)
                     })
                     .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
 
-            "Denied" -> WarningDialog.Builder(this,
+            "Denied" -> WarningDialog.Builder(
+                this,
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
@@ -378,7 +397,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
 
             else -> {
-                WarningDialog.Builder(this,
+                WarningDialog.Builder(
+                    this,
                     resources.getString(R.string.alert),
                     state.message!!,
                     "OK",
@@ -400,14 +420,21 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     state.data.data.is_wish
                 )
             )
-            PreferenceUtils.readUserVO().customer_id?.let { viewModel.fetchWishList(it,PreferenceUtils.readUserVO().latitude?:0.0,PreferenceUtils.readUserVO().longitude?:0.0) }
+            PreferenceUtils.readUserVO().customer_id?.let {
+                viewModel.fetchWishList(
+                    it,
+                    PreferenceUtils.readUserVO().latitude ?: 0.0,
+                    PreferenceUtils.readUserVO().longitude ?: 0.0
+                )
+            }
         }
     }
 
     private fun renderOnFailOperateWishList(state: RestaurantDetailViewState.OnFailOperateList) {
         when (state.message) {
             "Another Login" ->
-                WarningDialog.Builder(this,
+                WarningDialog.Builder(
+                    this,
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
@@ -415,19 +442,21 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                         PreferenceUtils.clearCache()
                         finish()
                         //startActivity<SplashActivity>()
-                        val intent = Intent(this,SplashActivity::class.java)
+                        val intent = Intent(this, SplashActivity::class.java)
                         startActivity(intent)
                     })
                     .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
 
-            "Denied" -> WarningDialog.Builder(this,
+            "Denied" -> WarningDialog.Builder(
+                this,
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
                 callback = { finishAffinity() })
                 .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
 
-            else ->  WarningDialog.Builder(this,
+            else -> WarningDialog.Builder(
+                this,
                 resources.getString(R.string.alert),
                 state.message,
                 "OK",
@@ -449,7 +478,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         )
         binding.rvFoodMenu.setHasFixedSize(true)
         binding.rvFoodMenu.isNestedScrollingEnabled = true
-        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this) { data,str,pos ->
+        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this) { data, str, pos ->
             addFoodToCart(data)
         }
 
@@ -464,7 +493,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 resources.getString(R.string.login_message),
                 callback = {
                     //startActivity<LoginActivity>()
-                    val intent = Intent(this,LoginActivity::class.java)
+                    val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 })
@@ -473,14 +502,14 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
             when {
                 viewModel.foodMenuByRestaurantLiveDataList.value?.distance!! > viewModel.foodMenuByRestaurantLiveDataList.value?.limit_distance!! -> {
                     showSnackBar(resources.getString(R.string.out_of_service))
-
                 }
 
                 viewModel.foodMenuByRestaurantLiveDataList.value?.distance!! <= viewModel.foodMenuByRestaurantLiveDataList.value?.limit_distance!! -> {
-                    if (viewModel.foodMenuByRestaurantLiveDataList.value?.restaurant_emergency_status == 1) showSnackBar(
-                        resources.getString(R.string.restaurant_unavailable)
-                    )
-                    else {
+                    if (viewModel.foodMenuByRestaurantLiveDataList.value?.restaurant_emergency_status == 1) {
+                        showSnackBar(
+                            resources.getString(R.string.restaurant_unavailable)
+                        )
+                    } else {
                         when (data.food_emergency_status) {
                             1 -> {
                                 showNoItemDialog(
@@ -490,19 +519,16 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                                 )
 
                             }
+
                             else -> {
                                 val bottomSheetFragment =
-                                    FoodAddOnBottomSheetFragment.newInstance(
+                                    AddOnBottomSheetFragment.newInstance(
                                         false,
                                         restaurantInfO,
                                         data,
                                         data.sub_item,
-                                        onAddCart = {
-                                            viewModel.isEmptyCart.postValue(PreferenceUtils.readAddToCart())
-                                        },
-                                        onDeleteItem = {
-                                            showGameOverDialog(it)
-                                        })
+                                        this
+                                    )
                                 bottomSheetFragment.show(
                                     supportFragmentManager,
                                     bottomSheetFragment.tag
@@ -622,7 +648,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     }
 
     private fun showGameOverDialog(foodList: MutableList<CreateFoodVO>) {
-        val dialogBind = LayoutDialogRemoveCartBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
+        val dialogBind =
+            LayoutDialogRemoveCartBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
         val builder = AlertDialog.Builder(this@RestaurantDetailViewActivity)
         builder.setView(dialogBind.root)
         alertDialog = builder.create().apply {
@@ -646,7 +673,9 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private fun initTabLayout(menus: MutableList<MenuVO>) {
         binding.tabFoodMenu.removeAllTabs()
         for (menu in menus) {
-            binding.tabFoodMenu.addTab(binding.tabFoodMenu.newTab().setText(menu.toDefaultMenuName()))
+            binding.tabFoodMenu.addTab(
+                binding.tabFoodMenu.newTab().setText(menu.toDefaultMenuName())
+            )
         }
     }
 
@@ -693,7 +722,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     }
 
     private fun showRestaurantFoodPhoto(url: String) {
-       val dialogRestBind = LayoutDialogRestaurantFoodPhotoBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_dialog_restaurant_food_photo, null)
+        val dialogRestBind =
+            LayoutDialogRestaurantFoodPhotoBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_dialog_restaurant_food_photo, null)
         val builder = AlertDialog.Builder(this@RestaurantDetailViewActivity)
         builder.setView(dialogRestBind.root)
         alertDialogImage = builder.create().apply {
@@ -708,7 +738,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     }
 
     private fun showNoItemDialog(title: String, message: String, delete: String) {
-        val emptBind = LayoutLoginDialogBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_login_dialog, null)
+        val emptBind =
+            LayoutLoginDialogBinding.inflate(LayoutInflater.from(this@RestaurantDetailViewActivity))//layoutInflater.inflate(R.layout.layout_login_dialog, null)
         val builder = AlertDialog.Builder(this@RestaurantDetailViewActivity)
         builder.setView(emptBind.root)
         alertDialogNotice = builder.create().apply {
@@ -728,6 +759,14 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
 
     private fun onBackPress() {
         binding.ivBack.setOnClickListener { onBackPressed() }
+    }
+
+    override fun onAddToCart() {
+        viewModel.isEmptyCart.postValue(PreferenceUtils.readAddToCart())
+    }
+
+    override fun onDeleteItem(foodList: MutableList<CreateFoodVO>) {
+        showGameOverDialog(foodList)
     }
 
 }

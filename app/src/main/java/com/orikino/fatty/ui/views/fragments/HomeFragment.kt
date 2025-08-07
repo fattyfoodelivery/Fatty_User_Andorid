@@ -60,6 +60,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import kotlin.collections.map
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() , CallBackMapLatLngListener {
@@ -391,7 +392,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.shimmerView?.stopShimmer()
         binding?.shimmerView?.gone()
         binding?.rlTopView?.show()
-        //binding?.tvYouMightLike?.show()
+        binding?.tvYouMightLike?.show()
         binding?.tvNearYou?.show()
         if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
     }
@@ -541,28 +542,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             nearByIdRestAdapter?.updateData(mutableListOf(), true)
         }
 
-        /*if (state.data.recommend_restaurant.isNotEmpty()) {
+        if (state.data.recommend_restaurant.isNotEmpty()) {
             binding?.tvYouMightLike?.show()
             recommendedRestaurantAdapter?.setNewData(state.data.recommend_restaurant)
 
         } else binding?.tvYouMightLike?.gone()
 
-        *//*if (state.data.recommend_restaurant.size > 3) tvRestaurantSeeMore.visibility = View.VISIBLE
-        else tvRestaurantSeeMore.visibility = View.GONE*//*
+//        if (state.data.recommend_restaurant.size > 3) tvRestaurantSeeMore.visibility = View.VISIBLE
+//        else tvRestaurantSeeMore.visibility = View.GONE
 
-        if (state.data.near_restaurant.isNotEmpty()) {
-            binding?.tvNearYou?.show()
-            nearByIdRestAdapter?.updateData(state.data.near_restaurant)
-        } else binding?.tvNearYou?.gone()
-
-        if (state.data.upanddown_ads.isNotEmpty()) {
-            //binding?.adsViewContent?.show()
-            binding?.coverViewPager?.visibility = View.VISIBLE
-            setUpAdsOneSlider(state.data.upanddown_ads)
-        } else {
-            binding?.coverViewPager?.visibility = View.GONE
-            //binding?.adsViewContent?.gone()
-        }*/
         if (state.data.upanddown_ads.isNotEmpty()) {
             binding?.coverViewPager?.visibility = View.VISIBLE
             setUpAdsOneSlider(state.data.upanddown_ads)
@@ -637,6 +625,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun renderOnSuccessCurrency(state: HomeViewState.OnSuccessCurrency) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.data.isNotEmpty()) PreferenceUtils.writeCurrencyVO(state.data.data[0])
+
         showCurrencyDialog(true, state.data.data)
     }
 
@@ -710,7 +699,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun setUpAdsOneSlider(data: MutableList<UpAndDownVO>) {
         var homeSlideAdapter : HomeSlideAdapter? = null
         val numberOfScreens = data.size
-        homeSlideAdapter = HomeSlideAdapter(requireParentFragment(), numberOfScreens,data){
+        homeSlideAdapter = HomeSlideAdapter(this
+            , numberOfScreens,data){
             //swipePagerWithCoverPopupView()
         }
         binding?.coverViewPager?.adapter = homeSlideAdapter
@@ -896,15 +886,24 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
             if(PreferenceUtils.readZoneId() == 1) {
                 dialogBinding.rbtnLashioCheck.isChecked = true
-                dialogBinding.rbtnLashioCheck.isChecked = false
+                dialogBinding.rbtnMuseCheck.isChecked = false
+                lastSelected = 0
             } else {
+                lastSelected = 1
                 dialogBinding.rbtnLashioCheck.isChecked = false
                 dialogBinding.rbtnMuseCheck.isChecked = true
             }
 
-
-            dialogBinding.rbtnLashioCheck.isChecked = lastSelected == 1
-            dialogBinding.rbtnMuseCheck.isChecked = lastSelected == 2
+            dialogBinding.llMuseView.setOnClickListener {
+                lastSelected = 1
+                dialogBinding.rbtnMuseCheck.isChecked = true
+                dialogBinding.rbtnLashioCheck.isChecked = false
+            }
+            dialogBinding.llLashioView.setOnClickListener {
+                lastSelected = 0
+                dialogBinding.rbtnLashioCheck.isChecked = true
+                dialogBinding.rbtnMuseCheck.isChecked = false
+            }
 
             dialogBinding.btnConfirm.setOnClickListener {
                 dismiss()
@@ -915,6 +914,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     image = data[lastSelected].image,
                     position = lastSelected
                 )
+                PreferenceUtils.writeCurrencyVO(viewModel.currencyVO)
+                MainActivity.isCurrencyUpdate.postValue(true)
             }
             show()
         }

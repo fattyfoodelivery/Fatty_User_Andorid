@@ -12,6 +12,7 @@ data class CurrencyVO(
     var currency_symbol : String ="",
     @SerializedName("image")
     var image: String = "",
-    var position: Int = 0
+    var position: Int = 0,
+    var isCheck: Boolean = false
 )
 

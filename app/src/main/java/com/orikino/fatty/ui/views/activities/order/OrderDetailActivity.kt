@@ -88,6 +88,7 @@ class OrderDetailActivity : AppCompatActivity() {
     private fun renderOnSuccessOrderDetailWithRating(state: OrderDetailWithRatingViewState.OnSuccessOrderDetailWithRating) {
         binding.animLoading.gone()
         if (state.data.success == true) {
+            orderInfoAdapter.setCurrency(if (state.data.data?.currency_id == 1) "MMK" else "¥")
             state.data.data?.foods?.let { orderInfoAdapter.setNewData(it) }
             state.data.data?.restaurant?.let { bindRestaurantInfo(it) }
             state.data.data?.let { bindSendToReceiver(it) }
@@ -156,10 +157,17 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun bindBillsInfo(data: ActiveOrderVO) {
-        binding.tvBillTotalPrice.text = "${data.bill_total_price?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
-        binding.tvItemTotal.text = "${data.item_total_price?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
-        binding.tvDeliveryFee.text =
-            "${data.delivery_fee?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
+        if (data.currency_id == 1){
+            binding.tvBillTotalPrice.text = "${data.bill_total_price?.toThousandSeparator()} MMK"
+            binding.tvItemTotal.text = "${data.item_total_price?.toThousandSeparator()} MMK"
+            binding.tvDeliveryFee.text =
+                "${data.delivery_fee?.toThousandSeparator()} MMK"
+        }else{
+            binding.tvBillTotalPrice.text = "${data.yuan_price?.toThousandSeparator()} ¥"
+            binding.tvItemTotal.text = "${data.item_total_price_yuan?.toThousandSeparator()} ¥"
+            binding.tvDeliveryFee.text =
+                "${data.delivery_fee_yuan?.toThousandSeparator()} ¥"
+        }
         if (data.rider != null) {
             binding.rlAbnormal.show()
         } else {

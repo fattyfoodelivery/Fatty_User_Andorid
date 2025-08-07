@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var isAccount = false
-        var isNoti = false
         var isOrderHistory = false
+        var isNotification = false
         var needToShowLoading = false
         var isParcel = false
         var isHome: Boolean = true
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         baseBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(baseBinding.root)
         isOrderHistory = false
+        isNotification = false
         baseBinding.bottomNavigationView.background = null
         baseBinding.bottomNavigationView.menu.getItem(2).isEnabled = false
         setUpBottomNavigationView()
@@ -131,7 +132,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.action_order -> {
                     isAccount = false
-                    isNoti = false
                     PreferenceUtils.needToShow = false
                     isHomeKeyPressed = false
                     PreferenceUtils.isHome.postValue(false)
@@ -158,12 +158,12 @@ class MainActivity : AppCompatActivity() {
                         baseBinding.viewPager.currentItem = 1
                         baseBinding.bottomNavigationView.menu.findItem(R.id.action_order).isCheckable = true
                         isOrderHistory = false
+                        isNotification = false
                     }
                 }
 
                 R.id.action_noti -> {
                     isAccount = false
-                    isNoti = true
                     PreferenceUtils.needToShow = false
                     isHomeKeyPressed = PreferenceUtils.needToShow
                     PreferenceUtils.isHome.postValue(false)
@@ -171,11 +171,11 @@ class MainActivity : AppCompatActivity() {
                     //bottomNavigationView.selectedItemId = R.id.inbox
                     baseBinding.viewPager.currentItem = 2
                     isOrderHistory = false
+                    isNotification = false
                     needToShowLoading = false
                 }
 
                 R.id.action_account -> {
-                    isNoti = false
                     isAccount = true
                     PreferenceUtils.needToShow = false
                     isHomeKeyPressed = PreferenceUtils.needToShow
@@ -202,6 +202,7 @@ class MainActivity : AppCompatActivity() {
                         baseBinding.viewPager.currentItem = 3
                         baseBinding.bottomNavigationView.menu.findItem(R.id.action_account).isCheckable = true
                         isOrderHistory = false
+                        isNotification = false
                     }
 
 
@@ -209,12 +210,12 @@ class MainActivity : AppCompatActivity() {
 
                 else -> {
                     isAccount = false
-                    isNoti = false
                     PreferenceUtils.isHome.postValue(true)
                     isHome = true
                     //bottomNavigationView.selectedItemId = R.id.home
                     baseBinding.viewPager.currentItem = 0
                     isOrderHistory = false
+                    isNotification = false
                     needToShowLoading = false
 
                 }
@@ -391,6 +392,13 @@ class MainActivity : AppCompatActivity() {
         if (isOrderHistory) {
             baseBinding.bottomNavigationView.selectedItemId = R.id.action_order
             baseBinding.viewPager.currentItem = 1
+            PreferenceUtils.needToShow = false
+            isHome = false
+            isHomeKeyPressed = false
+        }
+        if (isNotification){
+            baseBinding.bottomNavigationView.selectedItemId = R.id.action_noti
+            baseBinding.viewPager.currentItem = 2
             PreferenceUtils.needToShow = false
             isHome = false
             isHomeKeyPressed = false

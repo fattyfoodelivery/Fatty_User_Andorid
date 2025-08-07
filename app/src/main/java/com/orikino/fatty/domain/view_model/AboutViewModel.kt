@@ -1,5 +1,7 @@
 package com.orikino.fatty.domain.view_model
 
+import android.util.Log
+import androidx.compose.animation.core.copy
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -87,16 +89,41 @@ class AboutViewModel @Inject constructor(
 
     }
 
-    var currencyVO : CurrencyVO = CurrencyVO()
+    var currencyList: List<CurrencyVO> = listOf()
+    var selectedCurrency: CurrencyVO? = null
 
-    var currCurrency : Boolean = false
+    fun changeIsCheck(currency: CurrencyVO) {
+        val clickedCurrencyId = currency.currency_id
+
+        // Create a new list with new CurrencyVO instances for changed items
+        val newList = currencyList.map { vo ->
+            vo.copy(isCheck = (vo.currency_id == clickedCurrencyId))
+        }
+        this.currencyList = newList // Assign the new list with potentially new VO instances
+
+        // Update selectedCurrency to be the instance from the new list
+        this.selectedCurrency = newList.find { it.currency_id == clickedCurrencyId }
+
+        // Log the list that is about to be wrapped in the state and posted
+        Log.d("ViewModel_changeIsCheck", "List being posted: ${this.currencyList.map { Pair(it.currency_id, it.isCheck) }}")
+
+        // Post a new state with a new list instance
+        viewState.postValue(AboutViewState.OnSuccessCurrency(this.currencyList.toList()))
+    }
+
     fun fetchCurrency() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = aboutRepository.fetchCurrency()
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        viewState.postValue(AboutViewState.OnSuccessCurrency(it))
+                        // Initialize currencyList from the fetched data
+                        currencyList = it.data.map { currencyVO ->
+                            // Use .copy() for consistency if CurrencyVO is a data class
+                            currencyVO.copy(isCheck = currencyVO.currency_id == PreferenceUtils.readCurrCurrency()?.currency_id)
+                        }
+                        Log.d("ViewModel_fetchCurrency", "Initial list: ${currencyList.map { Pair(it.currency_id, it.isCheck) }}")
+                        viewState.postValue(AboutViewState.OnSuccessCurrency(it.data))
                     }
                 } else {
                     when(response.code()) {

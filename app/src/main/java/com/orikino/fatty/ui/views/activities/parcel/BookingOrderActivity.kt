@@ -112,10 +112,6 @@ class BookingOrderActivity : AppCompatActivity() {
             PreferenceUtils.writeParcelInfo(ParcelInfoVO())
             MODE = "current"
             state.data.data?.order_id?.let { showGotBookingView(it) }
-
-
-
-
             /*if (state.data.success) {
                 Preference.writeSenderReceiver(ParcelSenderReceiverVO())
                 Preference.writeParcelInfo(ParcelInfoVO())
@@ -136,8 +132,9 @@ class BookingOrderActivity : AppCompatActivity() {
         binding.llGotBookingView.show()
         binding.btnViewMyOrderGotBooking.show()
         MODE = "current"
-        MainActivity.isNoti = true
+        MainActivity.isNotification = true
         PreferenceUtils.needToShow = false
+        startActivity(MainActivity.getIntent(this))
         finish()
         navigateToTrackOrderView(orderId)
     }
@@ -219,6 +216,10 @@ class BookingOrderActivity : AppCompatActivity() {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(false)
 
+            dialogBinding?.rbtnMuseCheck?.isClickable = true
+            dialogBinding?.rbtnMuseCheck?.isFocusable = true
+            dialogBinding?.rbtnLashioCheck?.isClickable = true
+            dialogBinding?.rbtnLashioCheck?.isFocusable = true
             dialogBinding?.rbtnLashioCheck?.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     if (lastSelected != 1) {
@@ -258,8 +259,9 @@ class BookingOrderActivity : AppCompatActivity() {
 
     private fun confirmGotBooking() {
         binding.btnViewMyOrderGotBooking.setOnClickListener {
-            MainActivity.isNoti = true
+            MainActivity.isOrderHistory = true
             PreferenceUtils.needToShow = false
+            startActivity(MainActivity.getIntent(this))
             finish()
         }
     }

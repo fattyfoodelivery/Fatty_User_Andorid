@@ -13,14 +13,20 @@ data class ActiveOrderVO(
     var customer_address_id : Int ?= null,
     @SerializedName("bill_total_price")
     var bill_total_price : Double =0.0,
+    @SerializedName("yuan_price")
+    var yuan_price : Double =0.0,
     @SerializedName("item_total_price")
     var item_total_price : Double ?= null,
+    @SerializedName("item_total_price_yuan")
+    var item_total_price_yuan : Double ?= null,
     @SerializedName("estimated_start_time")
     var estimated_start_time : String ?= null,
     @SerializedName("estimated_end_time")
     var estimated_end_time : String ?= null,
     @SerializedName("delivery_fee")
     var delivery_fee : Double  = 0.0,
+    @SerializedName("delivery_fee_yuan")
+    var delivery_fee_yuan : Double  = 0.0,
     @SerializedName("currency_id")
     var currency_id : Int  = 0,
     @SerializedName("exchange_rate")

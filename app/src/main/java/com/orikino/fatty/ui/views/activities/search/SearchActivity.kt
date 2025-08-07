@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -44,6 +46,8 @@ import com.orikino.fatty.ui.views.activities.checkout.CheckOutActivity
 import com.orikino.fatty.ui.views.fragments.rest_more_info.FoodAddOnBottomSheetFragment
 import com.orikino.fatty.domain.viewstates.SearchViewState
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
+import com.orikino.fatty.ui.views.delegate.AddOnDelegate
+import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
@@ -54,6 +58,7 @@ import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.helper.createChip
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.hideSoftKeyboard
+import com.orikino.fatty.utils.helper.onSearch
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultFoodName
@@ -67,9 +72,10 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlin.text.isNotEmpty
 
 @AndroidEntryPoint
-class SearchActivity : AppCompatActivity(){
+class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private lateinit var searchBinding: ActivitySearchBinding
     lateinit var sheetBehavior: BottomSheetBehavior<*>
@@ -82,7 +88,7 @@ class SearchActivity : AppCompatActivity(){
     var vType : Int = 0
     var foodSize : Int = 0
     var restSize : Int = 0
-
+    private var searchQuery : String = ""
 
     companion object {
 
@@ -134,44 +140,71 @@ class SearchActivity : AppCompatActivity(){
 
     private fun setUpSearchEdt() {
         searchBinding.ivClear.gone()
-        searchBinding.edtSearch
+        searchBinding.edtSearch.imeOptions = EditorInfo.IME_ACTION_SEARCH
+        searchBinding.edtSearch.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.isNullOrEmpty()){
+                    searchBinding.ivClear.show()
+                }else{
+                    searchBinding.ivClear.gone()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+        searchBinding.edtSearch.onSearch {
+            //showShortToast("Search")
+            searchQuery = searchBinding.edtSearch.text.toString()
+            if (searchQuery.isNotEmpty()){
+                searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
+                searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
+
+                viewModel.searchFoodListLiveData.postValue(mutableListOf())
+                viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
+                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+                searchBinding.llRecentView.gone()
+                searchBinding.llSegmentControl.show()
+                searchBinding.rvFood.show()
+                searchBinding.rvRestaurant.show()
+                viewModel.customerSearch(searchQuery)
+                keywords.add(searchQuery)
+                PreferenceUtils.writeSearchRecent(keywords)
+            }else{
+                searchBinding.ivClear.gone()
+                viewModel.searchFoodListLiveData.postValue(mutableListOf())
+                viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
+                searchBinding.chipFood.text = "0"
+                searchBinding.chipRestaurant.text = "0"
+                searchBinding.rvFood.gone()
+                searchBinding.rvRestaurant.gone()
+                searchBinding.llRecentView.show()
+            }
+        }
+
+        /*searchBinding.edtSearch
             .textInputAsFlow()
             .map { return@map it }
-            .debounce(500) // delay to prevent searching immediately on every character input
             .onEach {
                 if (it!!.isNotEmpty()) {
                     searchBinding.ivClear.show()
-                    searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
-                    searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
 
-                    viewModel.searchFoodListLiveData.postValue(mutableListOf())
-                    viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
-                    viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
-                    searchBinding.llRecentView.gone()
-                    searchBinding.llSegmentControl.show()
-                    searchBinding.rvFood.show()
-                    searchBinding.rvRestaurant.show()
-                    viewModel.customerSearch(it.toString())
-                    keywords.add(it.toString())
-                    PreferenceUtils.writeSearchRecent(keywords)
 
                 } else {
-                    searchBinding.ivClear.gone()
-                    viewModel.searchFoodListLiveData.postValue(mutableListOf())
-                    viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
-                    searchBinding.chipFood.text = "0"
-                    searchBinding.chipRestaurant.text = "0"
-                    searchBinding.rvFood.gone()
-                    searchBinding.rvRestaurant.gone()
-                    searchBinding.llRecentView.show()
+
                 }
             }
-            .launchIn(lifecycleScope)
+            .launchIn(lifecycleScope)*/
         searchBinding.ivClear.setOnClickListener {
             cleanSearch()
         }
     }
 
+    private fun showSearchData(){
+
+    }
     private fun cleanSearch() {
         searchBinding.edtSearch.text?.clear()
         searchBinding.ivClear.gone()
@@ -653,13 +686,10 @@ class SearchActivity : AppCompatActivity(){
                         food_price = data.food_price
                     )
                     val bottomSheetFragment =
-                        FoodAddOnBottomSheetFragment.newInstance(true,
+                        AddOnBottomSheetFragment.newInstance(true,
                             restaurantInfO,
                             transformToFoodVO,
-                            data.sub_item, onAddCart = { },
-                            onDeleteItem = {
-                                showGameOverDialog(it)
-                            })
+                            data.sub_item, this)
                     supportFragmentManager.let {
                         bottomSheetFragment.show(
                             it,
@@ -822,12 +852,30 @@ class SearchActivity : AppCompatActivity(){
             chip.setOnClickListener {
                 hideSoftKeyboard()
                 searchBinding.edtSearch.clearFocus()
+                searchBinding.edtSearch.setText(tagName)
+                searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
+                searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
+
+                viewModel.searchFoodListLiveData.postValue(mutableListOf())
+                viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
+                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+                searchBinding.llRecentView.gone()
+                searchBinding.llSegmentControl.show()
+                searchBinding.rvFood.show()
+                searchBinding.rvRestaurant.show()
                 viewModel.customerSearch(tagName)
                 viewModel.isRecent = true
             }
             searchBinding.chipRecentFood.addView(chip)
         }
 
+    }
+
+    override fun onAddToCart() {
+    }
+
+    override fun onDeleteItem(foodList: MutableList<CreateFoodVO>) {
+        showGameOverDialog(foodList)
     }
 
 

@@ -18,7 +18,7 @@ data class MyOrderHistoryResponse(
             val order_status : String?,
             val currency_id: Int?,
             val order_time: String?,
-            val total: Int?,
+            val total: Double?,
             val rider_rating: String?,
             val restaurant_rating: String?,
             val item_count: Int?,

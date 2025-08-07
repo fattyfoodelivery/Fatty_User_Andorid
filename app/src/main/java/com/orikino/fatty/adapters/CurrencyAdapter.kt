@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemCurrencyViewBinding
 import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.utils.helper.gone
@@ -47,7 +48,7 @@ class CurrencyAdapter(private val context: Context, val callback : (CurrencyVO, 
 
             lastPos = position
 
-            /*if (data.) {
+            if (data.isCheck) {
                 binding.llContextView.setBackgroundResource(R.drawable.lang_selected_bg)
                 binding.imgCheck.setImageResource(R.drawable.radio_check)
             } else {
@@ -65,7 +66,7 @@ class CurrencyAdapter(private val context: Context, val callback : (CurrencyVO, 
                     binding.llContextView.setBackgroundResource(R.drawable.lang_selected_bg)
                     binding.imgCheck.setImageResource(R.drawable.radio_check)
                 }
-            }*/
+            }
 
 
         }
