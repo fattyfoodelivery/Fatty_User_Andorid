@@ -19,7 +19,7 @@ data class NearByRestaurantVO(
     var image_ch : String = "",
     @SerializedName("ads_type_id")
     var ads_type_id: Int = 0,
-    @SerializedName("image")
+    @SerializedName("")
     var image: String = "",
     @SerializedName("rating")
     var rating : Double = 0.0,

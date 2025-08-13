@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -74,8 +75,13 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private var nearByIdRestAdapter: NearByIdRestAdapter? = null
     //private lateinit var adsSlideAdapter: AdsSlideAdapter
     private var addresses: List<Address> = listOf()
-    private  var nearByRestaurantList : MutableList<NearByRestaurantVO>? = mutableListOf()
+    private  var nearByRestaurantList : MutableList<NearByRestaurantVO>? = mutableListOf() // Full list from network
     var lastSelected = 0
+
+    // Variables for pagination
+    private var currentDisplayCount = 0 // Tracks how many items are currently shown from nearByRestaurantList
+    private val loadMoreThreshold = 15 // How many items to load at a time
+    private var isLoadingMore = false
 
     companion object {
         private const val GOOGLE_PLAY_STORE_PACKAGE = "com.android.vending"
@@ -102,6 +108,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         setUpRecommendedRestaurants()
         setUpTopFoodCategory()
         setUpNearByRestaurants()
+        adjustCoverViewPagerHeight() // Call the new function
         subscribeUI()
         requireContext().correctLocale()
         navigator()
@@ -110,6 +117,19 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         onRefreshHome()
 
 
+    }
+
+    private fun adjustCoverViewPagerHeight() {
+        binding?.coverViewPager?.post {
+            val viewPager = binding?.coverViewPager ?: return@post
+            val actualWidth = viewPager.width
+            if (actualWidth > 0) { // Ensure width is available
+                val targetHeight = (actualWidth * 120) / 320
+                val layoutParams = viewPager.layoutParams
+                layoutParams.height = targetHeight
+                viewPager.layoutParams = layoutParams
+            }
+        }
     }
 
     private fun navigateToParcel() {
@@ -532,14 +552,18 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         // Handle near restaurants with pagination
         if (state.data.near_restaurant.isNotEmpty()) {
             binding?.tvNearYou?.show()
-            nearByRestaurantList = state.data.near_restaurant.toMutableList()
-            currentDisplayCount = minOf(5, state.data.near_restaurant.size)
-            val initialData = state.data.near_restaurant.subList(0, currentDisplayCount)
-            nearByIdRestAdapter?.updateData(initialData.toMutableList(), true)
+            nearByRestaurantList = state.data.near_restaurant.toMutableList() // Store the full list
+
+            // Display only an initial subset to avoid ANR and for pagination
+            currentDisplayCount = minOf(15, state.data.near_restaurant.size) // Or your preferred initial count
+            val initialDataToDisplay = nearByRestaurantList?.subList(0, currentDisplayCount) ?: emptyList()
+            nearByIdRestAdapter?.submitList(initialDataToDisplay.toList()) // Use toList() for a new list copy
+
         } else {
             binding?.tvNearYou?.gone()
             nearByRestaurantList = mutableListOf()
-            nearByIdRestAdapter?.updateData(mutableListOf(), true)
+            nearByIdRestAdapter?.submitList(emptyList())
+            currentDisplayCount = 0
         }
 
         if (state.data.recommend_restaurant.isNotEmpty()) {
@@ -642,14 +666,26 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             PreferenceUtils.wishListCount.postValue(state.data.data.wishlist_count)
-            viewModel.nearRestaurantLiveDataList.value?.forEach { it ->
-                if (state.data.data.restaurant_id == it.restaurant_id) {
-                    it.is_wish = state.data.message == "successfull customer wishlist create"
-                    viewModel.nearRestaurantLiveDataList.observe(
-                        viewLifecycleOwner
-                    ) { nearByIdRestAdapter?.updateData(it) }
+            // Update the item in nearByRestaurantList and resubmit to the adapter
+            val updatedList = nearByRestaurantList?.map { restaurant ->
+                if (state.data.data.restaurant_id == restaurant.restaurant_id) {
+                    restaurant.copy(is_wish = state.data.message == "successfull customer wishlist create")
+                } else {
+                    restaurant
                 }
             }
+            nearByRestaurantList = updatedList?.toMutableList() // Update the full list
+
+            // Resubmit the currently visible portion or the whole updated list if pagination is not aggressive
+            val currentAdapterList = nearByIdRestAdapter?.currentList ?: emptyList()
+            val newAdapterList = currentAdapterList.map { restaurant ->
+                 if (state.data.data.restaurant_id == restaurant.restaurant_id) {
+                    restaurant.copy(is_wish = state.data.message == "successfull customer wishlist create")
+                } else {
+                    restaurant
+                }
+            }
+            nearByIdRestAdapter?.submitList(newAdapterList.toList())
         }
     }
 
@@ -737,10 +773,6 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.rvRecommendRestaurant?.adapter = recommendedRestaurantAdapter
     }
 
-    private var currentDisplayCount = 5
-    private val loadMoreThreshold = 5
-    private var isLoadingMore = false
-
     private fun setUpNearByRestaurants() {
         val linearLayoutManager =
             LinearLayoutManager(FattyApp.getInstance(), LinearLayoutManager.VERTICAL, false)
@@ -751,19 +783,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 EqualSpacingItemDecoration.VERTICAL
             )
         )
-        binding?.rvNearRestaurant?.setHasFixedSize(true)
-        binding?.rvNearRestaurant?.isNestedScrollingEnabled = true
+        binding?.rvNearRestaurant?.isNestedScrollingEnabled = true // Still good to keep for some behaviors
         nearByIdRestAdapter = NearByIdRestAdapter(
-            requireContext(),
-            mutableListOf()
+            requireContext()
+            // Removed mutableListOf() argument
         ) { data, str, pos ->
             when(str) {
                 "cv_rest" -> {
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
-                    /*requireActivity().startActivity<RestaurantDetailViewActivity>(
-                        RestaurantDetailViewActivity.RESTAURANT_ID to data.restaurant_id
-                    )*/
                     val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
                     intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
                     context?.startActivity(intent)
@@ -776,14 +804,11 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                             callback = {
                                 PreferenceUtils.needToShow = false
                                 PreferenceUtils.isBackground = false
-
-                                //requireContext().startActivity<LoginActivity>()
                                 val intent = Intent(requireContext(),LoginActivity::class.java)
                                 context?.startActivity(intent)
                             })
                             .show(childFragmentManager, HomeFragment::class.simpleName)
                     } else {
-
                         PreferenceUtils.readUserVO().customer_id?.let {
                             viewModel.operateWishList(it, data.restaurant_id)
                         }
@@ -792,50 +817,39 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 }
             }
         }
-
-        // Load more functionality
-        binding?.rvNearRestaurant?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                loadMoreData()
-
-                /*if (isLoadingMore || dy <= 0) return
-
-                val totalItemCount = linearLayoutManager.itemCount
-                val lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
-
-                if (lastVisibleItem + 5 >= totalItemCount &&
-                    currentDisplayCount < (nearByRestaurantList?.size ?: 0)) {
-                    loadMoreData()
-                }*/
-            }
-        })
-
         binding?.rvNearRestaurant?.adapter = nearByIdRestAdapter
 
+        // Load more functionality using NestedScrollView's scroll change listener
+        binding?.nestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
+                if (!isLoadingMore && (nearByRestaurantList?.let { currentDisplayCount < it.size } ?: false)) {
+                    loadMoreData()
+                }
+            }
+        })
     }
 
     private fun loadMoreData() {
         nearByRestaurantList?.let { fullList ->
-            if (currentDisplayCount >= fullList.size) return
+            if (currentDisplayCount >= fullList.size || isLoadingMore) return
 
             isLoadingMore = true
+            binding?.nearbyLoadMore?.visibility = View.VISIBLE
 
-            // Show loading indicator if needed
-            // binding?.progressBar?.visibility = View.VISIBLE
-
-            // Simulate network delay (remove in production)
+            // Simulate network delay (remove in production if actual loading is fast enough)
             Handler(Looper.getMainLooper()).postDelayed({
-                val nextDisplayCount = minOf(currentDisplayCount + loadMoreThreshold, fullList.size)
-                val newData = fullList.subList(currentDisplayCount, nextDisplayCount)
+                val endOfList = minOf(currentDisplayCount + loadMoreThreshold, fullList.size)
+                val newDataToLoad = fullList.subList(currentDisplayCount, endOfList)
 
-                nearByIdRestAdapter?.addMoreData(newData)
-                currentDisplayCount = nextDisplayCount
+                // Get current list from adapter, add new data, and submit
+                val currentAdapterList = nearByIdRestAdapter?.currentList ?: emptyList()
+                val combinedList = currentAdapterList + newDataToLoad
+                nearByIdRestAdapter?.submitList(combinedList.toList()) // Use toList() for a new list copy
+
+                currentDisplayCount = endOfList
                 isLoadingMore = false
-
-                // Hide loading indicator
-                // binding?.progressBar?.visibility = View.GONE
-            }, 1000) // Remove this delay in production
+                binding?.nearbyLoadMore?.visibility = View.GONE
+            }, 1000) // Consider reducing or removing this artificial delay if not needed
         }
     }
 

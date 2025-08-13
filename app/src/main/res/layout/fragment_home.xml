@@ -148,6 +148,7 @@
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -356,9 +357,18 @@
                     android:id="@+id/rv_near_restaurant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="200dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"/>
+                <ProgressBar
+                    android:id="@+id/nearby_load_more"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginBottom="@dimen/margin_large"
+                    android:visibility="gone"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
