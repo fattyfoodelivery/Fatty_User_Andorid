@@ -29,9 +29,15 @@ data class NearByRestaurantVO(
     @SerializedName("restaurant_id")
     var restaurant_id : Int = 0,
     @SerializedName("restaurant_name")
-    var restaurant_name : String = "" ,
+    var restaurant_name : String = "",
+    @SerializedName("restaurant_name_mm")
+    var restaurant_name_mm : String = "",
+    @SerializedName("restaurant_name_en")
+    var restaurant_name_en : String = "",
+    @SerializedName("restaurant_name_ch")
+    var restaurant_name_ch : String = "",
     @SerializedName("restaurant_category_name")
-    var restaurant_category_name : String = "",
+    var restaurant_category_name : String? = "",
     @SerializedName("restaurant_category_id")
     var restaurant_category_id : Int = 0,
     @SerializedName("is_wish")
@@ -53,5 +59,13 @@ data class NearByRestaurantVO(
     @SerializedName("orders_count")
     var order_count: String = "",
     @SerializedName("restaurant_address")
-    var restaurant_address: String = ""
+    var restaurant_address: String = "",
+    @SerializedName("restaurant_address_en")
+    var restaurant_address_en: String = "",
+    @SerializedName("restaurant_address_mm")
+    var restaurant_address_mm: String = "",
+    @SerializedName("restaurant_address_ch")
+    var restaurant_address_ch: String = "",
+    @SerializedName("category")
+    var category : CategoryVO
 )

@@ -267,9 +267,9 @@ class BookingOrderActivity : AppCompatActivity() {
     }
 
     private fun showConfirmDialog() {
-        val title = "Are you sure you want to send a parcel?"
-        val desc = "If you proceed, we’ll call you to confirm after you’ve booked."
-        val btn = "Confirm"
+        val title = getString(R.string.are_you_sure_you_want_to_send_a_parcel)
+        val desc = getString(R.string.if_you_proceed_we_ll_call_you_to_confirm_after_you_ve_booked)
+        val btn = getString(R.string.confirm)
 
         ConfirmDialog.Builder(this@BookingOrderActivity,title,desc,btn,
             callback = {

@@ -67,7 +67,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Cancel"
+                android:text="@string/str_cancel"
                 android:fontFamily="@font/outfit_regular"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"

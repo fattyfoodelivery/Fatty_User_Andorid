@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.orikino.fatty.data.repository.CategoryRepository
 import com.orikino.fatty.data.repository.HomeRepository
-import com.orikino.fatty.domain.model.*
+import com.orikino.fatty.domain.model.CurrencyVO
+import com.orikino.fatty.domain.model.NearByRestaurantVO
+import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,28 +18,33 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     var viewState: MutableLiveData<HomeViewState> = MutableLiveData()
-    var nearRestaurantLiveDataList: MutableLiveData<MutableList<NearByRestaurantVO>> = MutableLiveData()
-    var topRelatedRestaurantLiveDataList: MutableLiveData<MutableList<RecommendRestaurantVO>> = MutableLiveData()
+    var nearRestaurantLiveDataList: MutableLiveData<MutableList<NearByRestaurantVO>> =
+        MutableLiveData()
+    var topRelatedRestaurantLiveDataList: MutableLiveData<MutableList<RecommendRestaurantVO>> =
+        MutableLiveData()
     var zoneId: Int = 0
     var currencyVO = CurrencyVO()
     var stateName: String = ""
+
     //var address: String? = null
     var isLoading = false
     var isRefresh = false
 
     private val _address = MutableLiveData<String>()
-    val address : LiveData<String> = _address
+    val address: LiveData<String> = _address
 
     fun setAddress(manageAddress: String) {
         _address.value = manageAddress
     }
+
     fun fetchHome(
         customer_id: Int,
-        stateName: String= "",
+        stateName: String = "",
         latitude: Double,
         longitude: Double
     ) {
@@ -54,13 +62,21 @@ class HomeViewModel @Inject constructor(
                         viewState.postValue(HomeViewState.OnSuccessHome(it))
                     }
                 } else {
-                    when(response.code()) {
-                        500 -> { viewState.postValue(HomeViewState.OnFailHome("Server Issue")) }
-                        403 -> { viewState.postValue(HomeViewState.OnFailHome("Denied")) }
-                        406 -> { viewState.postValue(HomeViewState.OnFailHome("Another Login")) }
+                    when (response.code()) {
+                        500 -> {
+                            viewState.postValue(HomeViewState.OnFailHome("Server Issue"))
+                        }
+
+                        403 -> {
+                            viewState.postValue(HomeViewState.OnFailHome("Denied"))
+                        }
+
+                        406 -> {
+                            viewState.postValue(HomeViewState.OnFailHome("Another Login"))
+                        }
                     }
                 }
-            }catch (e : Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 viewState.postValue(HomeViewState.OnFailHome(e.localizedMessage))
             }
@@ -101,74 +117,111 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-        fun fetchTopRelatedCategory(
-            customer_id: Int,
-            latitude: Double,
-            longitude: Double
-        ) {
-            viewModelScope.launch() {
-                viewState.postValue(HomeViewState.OnLoadingTopRelated)
-                val response = homeRepository.fetchTopRelatedCategory(customer_id, latitude, longitude)
-                try {
-                    if (response.isSuccessful) {
+    fun fetchRestaurantByCategory(
+        category_id: Int,
+        customer_id: Int,
+        latitude: Double,
+        longitude: Double
+    ){
+        viewModelScope.launch() {
+            viewState.postValue(HomeViewState.OnLoadingRestaurantByCategory)
+            val response = categoryRepository.fetchCategoryByCategoryId(category_id,customer_id, latitude, longitude)
+            try {
+                if (response.isSuccessful) {
 
-                       response.body()?.let { viewState.postValue(HomeViewState.OnSuccessTopRelated(it)) }
-                    } else {
-                        when (response.code()) {
-                            500 -> {
-                                viewState.postValue(HomeViewState.OnFailTopRelated(Constants.SERVER_ISSUE))
-                            }
+                    response.body()
+                        ?.let { viewState.postValue(HomeViewState.OnSuccessRestaurantByCategory(it)) }
+                } else {
+                    when (response.code()) {
+                        500 -> {
+                            viewState.postValue(HomeViewState.OnFailRestaurantByCategory(Constants.SERVER_ISSUE))
+                        }
 
-                            403 -> {
-                                viewState.postValue(HomeViewState.OnFailTopRelated(Constants.DENIED))
-                            }
+                        403 -> {
+                            viewState.postValue(HomeViewState.OnFailRestaurantByCategory(Constants.DENIED))
+                        }
 
-                            406 -> {
-                                viewState.postValue(HomeViewState.OnFailTopRelated(Constants.ANOTHER_LOGIN))
-                            }
+                        406 -> {
+                            viewState.postValue(HomeViewState.OnFailRestaurantByCategory(Constants.ANOTHER_LOGIN))
                         }
                     }
-                } catch (e: Exception) {
-                    viewState.postValue(HomeViewState.OnFailTopRelated(Constants.CONNECTION_ISSUE))
                 }
+            } catch (e: Exception) {
+                viewState.postValue(HomeViewState.OnFailRestaurantByCategory(Constants.CONNECTION_ISSUE))
             }
         }
+    }
 
-        fun fetchCurrency() {
-            viewModelScope.launch {
-                try {
-                    val response = homeRepository.fetchCurrency()
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            viewState.postValue(HomeViewState.OnSuccessCurrency(it))
+    fun fetchTopRelatedCategory(
+        customer_id: Int,
+        latitude: Double,
+        longitude: Double
+    ) {
+        viewModelScope.launch() {
+            viewState.postValue(HomeViewState.OnLoadingTopRelated)
+            val response = homeRepository.fetchTopRelatedCategory(customer_id, latitude, longitude)
+            try {
+                if (response.isSuccessful) {
+
+                    response.body()
+                        ?.let { viewState.postValue(HomeViewState.OnSuccessTopRelated(it)) }
+                } else {
+                    when (response.code()) {
+                        500 -> {
+                            viewState.postValue(HomeViewState.OnFailTopRelated(Constants.SERVER_ISSUE))
                         }
-                    } else {
-                        when (response.code()) {
-                            500 -> {
-                                viewState.postValue(HomeViewState.OnFailCurrency("Server Issue"))
-                            }
 
-                            403 -> {
-                                viewState.postValue(HomeViewState.OnFailCurrency("Denied"))
-                            }
+                        403 -> {
+                            viewState.postValue(HomeViewState.OnFailTopRelated(Constants.DENIED))
+                        }
 
-                            406 -> {
-                                viewState.postValue(HomeViewState.OnFailCurrency("Another Login"))
-                            }
+                        406 -> {
+                            viewState.postValue(HomeViewState.OnFailTopRelated(Constants.ANOTHER_LOGIN))
                         }
                     }
-                } catch (e: Exception) {
-                    viewState.postValue(HomeViewState.OnFailCurrency("Connection Issue"))
                 }
+            } catch (e: Exception) {
+                viewState.postValue(HomeViewState.OnFailTopRelated(Constants.CONNECTION_ISSUE))
             }
         }
+    }
 
-
-    var viewStateWish : MutableLiveData<WishListViewState> = MutableLiveData()
-    fun operateWishList(customer_id: Int,restaurant_id : Int) {
+    fun fetchCurrency() {
         viewModelScope.launch {
             try {
-                val response = homeRepository.operateWishList(customer_id = customer_id,restaurant_id)
+                val response = homeRepository.fetchCurrency()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        viewState.postValue(HomeViewState.OnSuccessCurrency(it))
+                    }
+                } else {
+                    when (response.code()) {
+                        500 -> {
+                            viewState.postValue(HomeViewState.OnFailCurrency("Server Issue"))
+                        }
+
+                        403 -> {
+                            viewState.postValue(HomeViewState.OnFailCurrency("Denied"))
+                        }
+
+                        406 -> {
+                            viewState.postValue(HomeViewState.OnFailCurrency("Another Login"))
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                viewState.postValue(HomeViewState.OnFailCurrency("Connection Issue"))
+            }
+        }
+    }
+
+
+    var viewStateWish: MutableLiveData<WishListViewState> = MutableLiveData()
+    fun operateWishList(customer_id: Int, restaurant_id: Int) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    homeRepository.operateWishList(customer_id = customer_id, restaurant_id)
                 viewStateWish.postValue(WishListViewState.OnLoadingOperateWishList)
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -195,10 +248,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchWishList(customer_id: Int,latitude: Double,longitude: Double) {
+    fun fetchWishList(customer_id: Int, latitude: Double, longitude: Double) {
         viewModelScope.launch {
             try {
-                val response = homeRepository.fetchWishList(customer_id,latitude,longitude)
+                val response = homeRepository.fetchWishList(customer_id, latitude, longitude)
                 viewStateWish.postValue(WishListViewState.OnLoadingWishList)
                 if (response.isSuccessful) {
                     response.body()?.let {

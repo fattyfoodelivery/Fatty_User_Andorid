@@ -189,7 +189,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Manage Address"
+                    android:text="@string/manage_address"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -230,7 +230,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Language"
+                    android:text="@string/language"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -274,7 +274,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"
-                        android:text="Currency"
+                        android:text="@string/currency"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"/>
@@ -328,7 +328,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Ordering Guide"
+                    android:text="@string/ordering_guide"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -369,7 +369,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Help Center"
+                    android:text="@string/help_center"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -391,7 +391,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="About"
+                android:text="@string/str_about"
                 android:textAllCaps="true"
                 android:fontFamily="@font/outfit_regular"
                 android:textSize="14sp"
@@ -419,7 +419,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Version Update"
+                    android:text="@string/version_update"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -460,7 +460,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="About Fatty"
+                    android:text="@string/about_fatty"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -500,7 +500,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Privacy Policy"
+                    android:text="@string/privacy_policy"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -581,7 +581,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Delete Account"
+                    android:text="@string/delete_account"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -621,7 +621,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="Log Out"
+                    android:text="@string/str_log_out"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>

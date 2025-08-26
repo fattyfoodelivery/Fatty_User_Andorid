@@ -7,16 +7,10 @@
     <string name="myanmar">Myanmar</string>
     <string name="chinese">Chinese</string>
     <string name="english">English</string>
-    <!-- TODO: Remove or change this placeholder text -->
-
-
-    <!--auth-->
 
     <string name="donnot_receive_code">Didn\'t receive a code? Resend code in</string>
     <string name="otp_send_msg">OTP code will send to</string>
     <string name="fill_sms_code">Please fill sms code</string>
-
-    <!--map-->
     <string name="gps_permission_title">Please enable location in setting</string>
     <string name="gps_permission_msg">If your phone brand is xiaomi, you need to choose high accuracy for gps enable</string>
 
@@ -44,7 +38,7 @@
     <string name="_09"> 09 </string>
     <string name="_123456789">123456789</string>
     <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
-    <string name="str_no_notifications" translatable="false">No Notifications</string>
+    <string name="str_no_notifications">No Notifications</string>
 
 
     <string name="clear_cart_data">This action will clear previous cart data!</string>
@@ -97,7 +91,7 @@
     <string name="we_ve_received_your_parcel_booking_and_you_ll_receive_an_order_confirmation_call_from_us">We’ve received your parcel booking and you’ll receive an order confirmation call from us.</string>
     <string name="view_my_parcel" translatable="false">View My Parcel</string>
     <string name="logout_label" translatable="false">Logout</string>
-    <string name="logout_title" translatable="false">You are about to logout from app?</string>
+    <string name="logout_title">Are you sure you want ot logout?</string>
     <string name="booked_successfully">Booked Successfully!</string>
     <string name="order_id_4">Order ID: </string>
     <string name="muse">Muse</string>
@@ -253,8 +247,8 @@
     <string name="my_account">My Account</string>
     <string name="skip">Skip</string>
     <string name="login_message">Please login to order food or booking parcel</string>
-    <string name="apply_filter">Apply Filter</string>
-    <string name="my_wishlist">My Wishlist</string>
+    <string name="apply_filter">Apply</string>
+    <string name="my_wishlist">Favorite</string>
     <string name="out_of_service">Out of services</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
@@ -292,7 +286,7 @@
     <string name="login" translatable="false">Login</string>
     <string name="hello" translatable="false">Hello</string>
     <string name="menus" translatable="false">Menus</string>
-    <string name="add_to_cart" translatable="false">Add To Cart</string>
+    <string name="add_to_cart">Add To Cart</string>
 
     <string name="let_s_rate_our_rider_s_delivery_services" translatable="false">Let\'s rate our rider\'s delivery services</string>
     <string name="very_bad">Very Bad</string>
@@ -311,5 +305,26 @@
     <string name="tap_to_rating">Tap to rating</string>
     <string name="view_rating">View Rating</string>
     <string name="abnormal">(Abnormal)</string>
+    <string name="txt_more">More</string>
+    <string name="please_enter_you_name">Please enter you name</string>
+    <string name="txt_checkout">Checkout</string>
+    <string name="parcels_are_delivered_anywhere">Parcels are delivered anywhere</string>
+    <string name="book_delivery_now">Book Delivery Now</string>
+    <string name="make_your_first_search">Make your first search</string>
+    <string name="str_orders">Orders</string>
+    <string name="str_message">Message</string>
+    <string name="str_about">About</string>
+    <string name="str_log_out">Log Out</string>
+    <string name="str_log_out_question">Log Out ?</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_warning_desc">After deleting your account, you will lose access to your account information, order history, saved addresses, and notifications.And you won’t be able to place orders using the same account. You’ll lose the convenience of having your order history as well.</string>
+    <string name="no_data_available">No Data Available</string>
+    <string name="view_my_order">View My Order</string>
+    <string name="your_parcel_has_been_successfully_reserved">Your parcel has been successfully reserved.</string>
+    <string name="send_parcel">Send Parcel</string>
+    <string name="version_update">Version Update</string>
+    <string name="choose_currency">Choose Currency</string>
+    <string name="txt_choose_region">Choose Region</string>
+    <string name="txt_total_items">%1$s item(s)</string>
 
 </resources>

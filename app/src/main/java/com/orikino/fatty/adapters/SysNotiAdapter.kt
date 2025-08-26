@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.semantics.error
 import androidx.core.content.ContextCompat
 import coil.load
 import com.orikino.fatty.R
@@ -26,7 +27,10 @@ class SysNotiAdapter(context: Context,var callback: (SystemNotificationVO, Strin
 
             binding.tvSystemBody.text = data.title
             binding.tvDate.text = data.time
-            binding.ivNotification.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.image))
+            if (data.image.isNotEmpty()){
+                binding.ivNotification.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.image)) {
+                    error(R.drawable.fatty_tran_logo)
+                }            }
             if (data.read) {
                 binding.cvNotiStatus.setCardBackgroundColor(ContextCompat.getColor(binding.root.context,
                     R.color.surfaceRead))

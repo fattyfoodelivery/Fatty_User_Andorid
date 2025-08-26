@@ -135,4 +135,14 @@
         <item name="colorPrimary">@color/white</item>
     </style>
 
+    <style name="Base.App.Dialog.EdgeToEdge" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item> <!-- Change this to false -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/fattyPrimary</item>
+        <item name="android:navigationBarColor">@color/fattyPrimary</item>
+    </style>
+
+
 </resources>

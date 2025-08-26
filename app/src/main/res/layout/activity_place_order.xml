@@ -57,7 +57,7 @@
         android:id="@+id/tv_view_order"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:text="View My Order"
+        android:text="@string/view_my_order"
         android:textColor="@color/white"
         android:gravity="center"
         android:fontFamily="@font/outfit_regular"

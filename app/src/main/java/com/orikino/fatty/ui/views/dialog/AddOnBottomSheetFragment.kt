@@ -93,7 +93,7 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
 
         viewModel.qty?.observe(viewLifecycleOwner) { quantity ->
             binding.tvItemCount.text = "$quantity"
-            binding.tvItemSubTotal.text = "$quantity Items"
+            binding.tvItemSubTotal.text = getString(R.string.txt_total_items, quantity)
             updatePrice() // Update price when quantity changes
         }
 

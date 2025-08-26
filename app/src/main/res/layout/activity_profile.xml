@@ -146,7 +146,7 @@
                     android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/user_name"
+                    android:hint="@string/please_enter_you_name"
                     android:textSize="16sp"
                     android:layout_marginStart="8dp"
                     android:background="@color/transparent"

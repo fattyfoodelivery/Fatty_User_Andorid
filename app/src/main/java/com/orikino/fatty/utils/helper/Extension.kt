@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
@@ -52,6 +53,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.core.graphics.toColorInt
 
 const val rcCamera = 1
 const val rcGallery = 2
@@ -314,8 +316,6 @@ fun RecyclerView.smoothScrollRvToPosition(
 }
 */
 
-
-
 @SuppressLint("ResourceAsColor")
 fun Context.createChip(string: String): Chip {
 
@@ -335,9 +335,9 @@ fun Context.createChip(string: String): Chip {
     chip.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
     chip.textSize = 12f
     chip.isCheckable = true
-    chip.setTextColor(ColorStateList.valueOf(Color.parseColor("#2E2E2E")))
+    chip.setTextColor(ColorStateList.valueOf("#2E2E2E".toColorInt()))
     chip.chipStrokeWidth = 1f
-    chip.chipStrokeColor = ColorStateList.valueOf(Color.parseColor("#E1E1E1"))
+    chip.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
     chip.chipBackgroundColor = colorsStateList
     /*chip.setOnCheckedChangeListener { compoundButton, b ->
         if (b) {
@@ -472,6 +472,8 @@ fun OrderStatusVO.toDefaultStatusName() : String? {
     }
 }
 
+
+
 fun CategoryVO?.toDefaultCategoryName(): String? {
     return when (PreferenceUtils.readLanguage()) {
         "en" -> {
@@ -503,16 +505,31 @@ fun FoodVO.toDefaultFoodName(): String? {
 fun NearByRestaurantVO.toDefaultRestaurantName() : String? {
     return when(PreferenceUtils.readLanguage()) {
         "en" -> {
-            this.restaurant_name ?: this.restaurant_name ?: "Hello"
+            this.restaurant_name ?: this.restaurant_name_en ?: "Hello"
         }
         "zh" -> {
-            this.restaurant_name ?: this.restaurant_name ?: "Hello"
+            this.restaurant_name ?: this.restaurant_name_ch ?: "Hello"
         }
         else -> {
-            this.restaurant_name ?: this.restaurant_name ?: "Hello"
+            this.restaurant_name ?: this.restaurant_name_mm ?: "Hello"
         }
     }
 }
+
+fun NearByRestaurantVO.toDefaultAddress() : String? {
+    return when(PreferenceUtils.readLanguage()) {
+        "en" -> {
+            this.restaurant_address ?: this.restaurant_address_en ?: "Lashio"
+        }
+        "zh" -> {
+            this.restaurant_address ?: this.restaurant_address_ch ?: "Lashio"
+        }
+        else -> {
+            this.restaurant_address ?: this.restaurant_address_mm ?: "Lashio"
+        }
+    }
+}
+
 
 fun TopRelatedCategoryVO.toDefaultRestaurantName() : String {
     return when(PreferenceUtils.readLanguage()) {

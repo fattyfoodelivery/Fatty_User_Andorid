@@ -25,7 +25,7 @@ class RestaurantDetailFoodMenuAdapter(
 
             val restaurantDetailActiveFoodAdapter = RestaurantDetailActiveFoodAdapter(binding.root.context) { data,str,pos ->
 
-                callback.invoke(data,"add",position)
+                callback.invoke(data,str,position)
 
             }
             restaurantDetailActiveFoodAdapter.setNewData(data.food)

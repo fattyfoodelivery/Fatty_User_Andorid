@@ -16,9 +16,9 @@ interface CategoryService {
     @FormUrlEncoded
     suspend fun fetchCategoryByCategoryId(
         @Field("category_id") category_id : Int,
-        @Field("customer_id") customer_id: Int = PreferenceUtils.readUserVO()?.customer_id ?: 0,
-        @Field("latitude") latitude : Double = PreferenceUtils.readUserVO()?.latitude?:0.0,
-        @Field("longitude") longitude : Double = PreferenceUtils.readUserVO()?.longitude?:0.0
+        @Field("customer_id") customer_id: Int = PreferenceUtils.readUserVO().customer_id ?: 0,
+        @Field("latitude") latitude : Double = PreferenceUtils.readUserVO().latitude?:0.0,
+        @Field("longitude") longitude : Double = PreferenceUtils.readUserVO().longitude?:0.0
 
     ) : Response<CategoryByCategoryIdResponse>
 

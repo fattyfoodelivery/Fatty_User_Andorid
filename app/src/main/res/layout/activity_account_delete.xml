@@ -72,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="After deleting your account, you will lose access to your account information, order history, saved addresses, and notifications.And you won’t be able to place orders using the same account. You’ll lose the convenience of having your order history as well."
+                android:text="@string/delete_account_warning_desc"
                 android:fontFamily="@font/outfit_regular"
                 android:textSize="16sp"
                 android:layout_marginStart="18dp"

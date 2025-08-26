@@ -9,6 +9,9 @@ import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
+import com.orikino.fatty.utils.helper.toDefaultAddress
+import com.orikino.fatty.utils.helper.toDefaultCategoryName
+import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.squareup.picasso.Picasso
 
 class NearByIdRestViewHolder(
@@ -37,13 +40,30 @@ class NearByIdRestViewHolder(
             .error(R.drawable.restaurant_default_img)
             .placeholder(R.drawable.restaurant_default_img)
             .into(binding.imvRestaurant)
+        binding.tvRestaurantName.text = mData.toDefaultRestaurantName()
+        binding.tvRestaurantAddress.text = mData.toDefaultAddress()
+        if (mData.restaurant_category_name.isNullOrEmpty()){
+            binding.tvRestaurantCategoryName.text = mData.category.toDefaultCategoryName()
+        }else{
+            binding.tvRestaurantCategoryName.text = mData.restaurant_category_name
+        }
+// ... inside setData method
+        //binding.tvDurationDistance.text = "${mData.distance_time}mins ・ ${mData.distance}km" // Old line
+        val timeInMinutes = mData.distance_time
+        val distanceText = "${mData.distance}km"
 
-        binding.tvRestaurantName.text = mData.restaurant_name
-        binding.tvRestaurantAddress.text = mData.restaurant_address
-        binding.tvRestaurantCategoryName.text =
-            mData.restaurant_category_name
-        binding.tvDurationDistance.text = "${mData.distance_time}mins ・ ${mData.distance}km"
-
+        if (timeInMinutes >= 60) {
+            val hours = timeInMinutes / 60
+            val remainingMinutes = timeInMinutes % 60
+            if (remainingMinutes == 0) {
+                binding.tvDurationDistance.text = "${hours}hr ・ ${distanceText}"
+            } else {
+                binding.tvDurationDistance.text = "${hours}hr ${remainingMinutes}mins ・ ${distanceText}"
+            }
+        } else {
+            binding.tvDurationDistance.text = "${timeInMinutes}mins ・ ${distanceText}"
+        }
+// ...
         if (mData.restaurant_emergency_status == 1) {
             binding.tvUnavailable.visibility = View.VISIBLE
         } else {

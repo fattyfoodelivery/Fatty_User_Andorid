@@ -45,7 +45,7 @@
             android:id="@+id/tv_food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="More"
+            android:text="@string/txt_more"
             android:fontFamily="@font/outfit_medium"
             android:textSize="14sp"
             android:lines="1"

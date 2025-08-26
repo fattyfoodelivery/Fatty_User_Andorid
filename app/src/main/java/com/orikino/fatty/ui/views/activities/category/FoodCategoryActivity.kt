@@ -20,6 +20,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.showSnackBar
+import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -142,9 +143,7 @@ class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
             /*startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to ""
             )*/
-            val intent = Intent(this, TopRelatedCategoryActivity::class.java)
-            intent.putExtra(TopRelatedCategoryActivity.CATG, "")
-            startActivity(intent)
+            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.category_assign_id))
         }
         foodCategoryBinding.rvFoodCategory.adapter = topFoodCategoryAdapter
     }

@@ -7,7 +7,8 @@ import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.squareup.picasso.Picasso
 
 class AdsRestaurantViewHolder(
-    val binding: ItemAdsRestaurantBinding
+    val binding: ItemAdsRestaurantBinding,
+    val onClick: (NearByRestaurantVO, String, Int) -> Unit
 ) : NewBaseViewHolder<NearByRestaurantVO>(binding.root){
     override fun setData(
         mData: NearByRestaurantVO,
@@ -18,5 +19,8 @@ class AdsRestaurantViewHolder(
             .error(R.drawable.restaurant_default_img)
             .placeholder(R.drawable.restaurant_default_img)
             .into(binding.ivSlide)
+        binding.root.setOnClickListener {
+            onClick.invoke(mData, "ads", 0)
+        }
     }
 }

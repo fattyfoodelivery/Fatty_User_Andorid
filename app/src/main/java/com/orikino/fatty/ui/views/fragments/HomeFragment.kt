@@ -1,17 +1,20 @@
 package com.orikino.fatty.ui.views.fragments
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -19,6 +22,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import arrow.core.nel
 import com.orikino.fatty.domain.model.*
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -38,11 +42,13 @@ import com.orikino.fatty.domain.model.UpAndDownVO
 import com.orikino.fatty.ui.views.activities.account_setting.help_center.HelpCenterActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
+import com.orikino.fatty.ui.views.activities.category.FoodCategoryActivity
 import com.orikino.fatty.ui.views.activities.category.TopRelatedCategoryActivity
 import com.orikino.fatty.ui.views.activities.parcel.BookingOrderActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.search.SearchActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
 import com.orikino.fatty.ui.views.activities.wish_list.WishListActivity
 import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSheetFragment
 import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSheetMapboxFragment
@@ -59,6 +65,8 @@ import com.orikino.fatty.utils.helper.correctLocale
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
+import com.orikino.fatty.utils.helper.toDefaultCategoryName
+import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import kotlin.collections.map
@@ -178,9 +186,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             /*requireActivity().startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to "Top-Rated"
             )*/
-            val intent = Intent(requireContext(),TopRelatedCategoryActivity::class.java)
-            intent.putExtra(TopRelatedCategoryActivity.CATG,"Top-Rated")
-            context?.startActivity(intent)
+            context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
         }
     }
 
@@ -311,19 +317,19 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         } else {
 
             if (gpsTracker.latitude != 0.0 && gpsTracker.longitude != 0.0) {
-                if (MainActivity.isFirstTime) {
-                    binding?.tvUserAddress?.show()
-                    PreferenceUtils.writeUserVO(
-                        PreferenceUtils.readUserVO()
-                            .copy(latitude = gpsTracker.latitude, longitude = gpsTracker.longitude)
-                    )
-                    binding?.tvUserAddress?.text = convertLatLangToAddress(
-                        PreferenceUtils.readUserVO().latitude?:0.0,
-                        PreferenceUtils.readUserVO().longitude?:0.0
-                    )
-                    shouldUpdateOrFetchHome()
-                    MainActivity.isFirstTime = false
-                }
+                /*if (MainActivity.isFirstTime) {
+
+                }*/
+                binding?.tvUserAddress?.show()
+                PreferenceUtils.writeUserVO(
+                    PreferenceUtils.readUserVO()
+                        .copy(latitude = gpsTracker.latitude, longitude = gpsTracker.longitude)
+                )
+                binding?.tvUserAddress?.text = convertLatLangToAddress(
+                    PreferenceUtils.readUserVO().latitude?:0.0,
+                    PreferenceUtils.readUserVO().longitude?:0.0
+                )
+                shouldUpdateOrFetchHome()
 
             } else checkService()
         }
@@ -479,8 +485,10 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     }
 
     private fun renderOnLoadingHome() {
-        LoadingProgressDialog.showLoadingProgress(requireContext())
-    }
+        if (MainActivity.isFirstTime) {
+            LoadingProgressDialog.showLoadingProgress(requireContext())
+            MainActivity.isFirstTime = false
+        }    }
 
     private fun renderOnLoadingUpdateInfo() {
         LoadingProgressDialog.showLoadingProgress(requireContext())
@@ -736,8 +744,41 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         var homeSlideAdapter : HomeSlideAdapter? = null
         val numberOfScreens = data.size
         homeSlideAdapter = HomeSlideAdapter(this
-            , numberOfScreens,data){
+            , numberOfScreens,data){ position ->
             //swipePagerWithCoverPopupView()
+            when(data[position].display_type_id){
+                1 -> {
+                    PreferenceUtils.needToShow = false
+                    PreferenceUtils.isBackground = false
+                    val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
+                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data[position].restaurant_id)
+                    context?.startActivity(intent)
+                }
+                2 -> {
+                    val intent = WebviewActivity.getIntent(requireContext(),data[position].restaurant_name,data[position].display_type_description)
+                    context?.startActivity(intent)
+                }
+                3 -> {
+                    val url = data[position].display_type_description
+                    if (url.isNotEmpty()) {
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context?.startActivity(intent)
+                        } catch (e: ActivityNotFoundException) {
+                            Toast.makeText(requireContext(), "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
+                        } catch (e: Exception) { // Catch other potential exceptions like UriParseException
+                            Toast.makeText(requireContext(), "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        // Optionally handle the case where the URL is null or empty
+                        Toast.makeText(requireContext(), "No URL provided for this item.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else -> {
+                    //do nothing
+                }
+            }
+
         }
         binding?.coverViewPager?.adapter = homeSlideAdapter
         binding?.coverViewPager?.isUserInputEnabled = true
@@ -789,6 +830,40 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             // Removed mutableListOf() argument
         ) { data, str, pos ->
             when(str) {
+                "ads" -> {
+                    when(data.display_type_id){
+                        1 -> {
+                            PreferenceUtils.needToShow = false
+                            PreferenceUtils.isBackground = false
+                            val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
+                            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
+                            context?.startActivity(intent)
+                        }
+                        2 -> {
+                            val intent = WebviewActivity.getIntent(requireContext(),data.toDefaultRestaurantName().toString(),data.display_type_description)
+                            context?.startActivity(intent)
+                        }
+                        3 -> {
+                            val url = data.display_type_description
+                            if (url.isNotEmpty()) {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                    context?.startActivity(intent)
+                                } catch (e: ActivityNotFoundException) {
+                                    Toast.makeText(requireContext(), "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
+                                } catch (e: Exception) { // Catch other potential exceptions like UriParseException
+                                    Toast.makeText(requireContext(), "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                // Optionally handle the case where the URL is null or empty
+                                Toast.makeText(requireContext(), "No URL provided for this item.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else -> {
+                            //do nothing
+                        }
+                    }
+                }
                 "cv_rest" -> {
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
@@ -882,7 +957,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(false)
             if (isCurrency) {
-                dialogBinding.tvTitleCurrency.text = "Choose Currency"
+                dialogBinding.tvTitleCurrency.text = getString(R.string.choose_currency)
 
                 if (data.size > 1) {
                     dialogBinding.llLashioView.show()
@@ -895,7 +970,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     dialogBinding.tvNameLashio.text = data[0].currency_symbol
                 }
             } else {
-                dialogBinding.tvTitleCurrency.text =  "Choose Region"
+                dialogBinding.tvTitleCurrency.text = getString(R.string.txt_choose_region)
             }
 
             if(PreferenceUtils.readZoneId() == 1) {
@@ -991,7 +1066,11 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         )
         binding?.rvFoodCategory?.setHasFixedSize(true)
         binding?.rvFoodCategory?.isNestedScrollingEnabled = true
-        topCategoryAdapter = TopCategoryAdapter(mutableListOf())
+        topCategoryAdapter = TopCategoryAdapter(mutableListOf(), onClickItem = {
+            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+        }, onClickMore = {
+            startActivity(FoodCategoryActivity.getIntent("Categories"))
+        })
         binding?.rvFoodCategory?.adapter = topCategoryAdapter
     }
 

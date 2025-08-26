@@ -13,7 +13,7 @@ import com.orikino.fatty.ui.views.activities.category.FoodCategoryActivity
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 
-class TopCategoryAdapter(var dataList : MutableList<CategoryVO>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TopCategoryAdapter(var dataList : MutableList<CategoryVO>, var onClickMore : () -> Unit, var onClickItem : (CategoryVO) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var mCtx : Context? = null
     val VIEW_TYPE_ONE = 1
@@ -29,11 +29,11 @@ class TopCategoryAdapter(var dataList : MutableList<CategoryVO>) : RecyclerView.
         mCtx = parent.context
         return when (viewType) {
             VIEW_TYPE_ONE -> {
-                FoodViewHolder(ItemTopFoodCategoryBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                FoodViewHolder(ItemTopFoodCategoryBinding.inflate(LayoutInflater.from(parent.context),parent,false), onClickItem)
             }
 
             else -> {
-                MoreViewHolder(ItemViewMoreCategoryBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+                MoreViewHolder(ItemViewMoreCategoryBinding.inflate(LayoutInflater.from(parent.context),parent,false), onClickMore)
             }
         }
     }
@@ -64,7 +64,7 @@ class TopCategoryAdapter(var dataList : MutableList<CategoryVO>) : RecyclerView.
     }
 
 
-    inner class FoodViewHolder(var binding : ItemTopFoodCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class FoodViewHolder(var binding : ItemTopFoodCategoryBinding, onClickItem : (CategoryVO) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(item : CategoryVO) {
             binding.tvFoodName.text = item.toDefaultCategoryName()
 
@@ -81,14 +81,16 @@ class TopCategoryAdapter(var dataList : MutableList<CategoryVO>) : RecyclerView.
             }*/
             PreferenceUtils.needToShow = false
             PreferenceUtils.isBackground = false
-
+            binding.root.setOnClickListener {
+                onClickItem.invoke(item)
+            }
         }
     }
 
-    inner class MoreViewHolder(var binding : ItemViewMoreCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MoreViewHolder(var binding : ItemViewMoreCategoryBinding, onClickMore: () -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bindView() {
             binding.root.setOnClickListener {
-                mCtx?.startActivity(FoodCategoryActivity.getIntent("Categories"))
+                onClickMore.invoke()
             }
         }
     }

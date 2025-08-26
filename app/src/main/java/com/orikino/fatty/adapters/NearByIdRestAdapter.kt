@@ -45,7 +45,8 @@ class NearByIdRestAdapter(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
-                    )
+                    ),
+                    callback
                     // If AdsRestaurantViewHolder needs a callback or data, adjust accordingly
                 )
             }

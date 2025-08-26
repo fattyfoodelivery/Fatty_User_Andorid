@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +37,7 @@ import com.orikino.fatty.ui.views.activities.restaurant.RestaurantMoreInfoActivi
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.delegate.AddOnDelegate
 import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
-import com.orikino.fatty.ui.views.fragments.rest_more_info.FoodAddOnBottomSheetFragment
+import com.orikino.fatty.ui.views.activities.rest_detail.PhotoViewActivity
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
@@ -361,9 +362,14 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private fun renderOnSuccessFoodMenuByRestaurant(state: RestaurantDetailViewState.OnSuccessRestFoodMenuByRestID) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
-            viewModel.foodMenuByRestaurantLiveDataList.postValue(state.data.data[0])
-            state.data.data[0].menu.let { initTabLayout(it) }
-            state.data.data[0].menu.let { initMediator(it) }
+            try {
+                viewModel.foodMenuByRestaurantLiveDataList.postValue(state.data.data[0])
+                state.data.data[0].menu.let { initTabLayout(it) }
+                state.data.data[0].menu.let { initMediator(it) }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+
         }
 
 
@@ -479,7 +485,20 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         binding.rvFoodMenu.setHasFixedSize(true)
         binding.rvFoodMenu.isNestedScrollingEnabled = true
         foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this) { data, str, pos ->
-            addFoodToCart(data)
+            if (str == "image"){
+                data.food_image?.let { imageUrl ->
+                    if (imageUrl.isNotEmpty()) {
+                        val photoViewActivity = PhotoViewActivity.newInstance(imageUrl)
+                        startActivity(photoViewActivity)
+                    } else {
+                        Toast.makeText(this, "No image available for this item.", Toast.LENGTH_SHORT).show()
+                    }
+                } ?: run {
+                    Toast.makeText(this, "Image not specified for this item.", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                addFoodToCart(data)
+            }
         }
 
         binding.rvFoodMenu.adapter = foodMenuAdapter

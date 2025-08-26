@@ -32,8 +32,12 @@ class OrderHistoryViewHolder(
 
 
         if (data.order_type == "food") {
-            binding.tvRestNameFromAddress.text = data.restaurant_name
-            binding.tvPriceOrToAddress.text =
+            binding.tvRestName.visibility = View.VISIBLE
+            binding.tvRestName.text = data.restaurant_name
+            binding.tvFromAddress.visibility = View.GONE
+            binding.tvToAddress.visibility = View.GONE
+            binding.tvPrice.visibility = View.VISIBLE
+            binding.tvPrice.text =
                 "${data.total?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
             if (data.rider_rating == "") {
                 binding.llReview.gone()
@@ -151,8 +155,12 @@ class OrderHistoryViewHolder(
                 binding.llReview.show()
                 binding.tvRiderReviewCount.text = data.rider_rating
             }
-            binding.tvRestNameFromAddress.text = data.from_block
-            binding.tvPriceOrToAddress.text = data.to_block
+            binding.tvFromAddress.visibility = View.VISIBLE
+            binding.tvFromAddress.text = data.from_block
+            binding.tvRestName.visibility = View.GONE
+            binding.tvToAddress.visibility = View.VISIBLE
+            binding.tvToAddress.text = data.to_block
+            binding.tvPrice.visibility = View.GONE
             binding.llOrderBg.setBackgroundResource(R.drawable.bg_orderid_yellow)
             binding.imvOrderTypeIcon.setImageResource(R.drawable.ic_order_status_box)
             Picasso.get()

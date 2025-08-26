@@ -159,47 +159,45 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                            <TextView
+                            <ImageView
                                 android:id="@+id/tv_from"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_parcel_from"
                                 android:gravity="start|top"
-                                android:text="From: "
-                                android:lines="2"
-                                android:textAlignment="viewStart"
-                                android:textColor="@color/text_secondary_01"
-                                android:textSize="16sp"
-                                tools:ignore="RtlCompat"
                                 android:layout_marginEnd="4dp"/>
                             <TextView
-                                android:id="@+id/tv_rest_name_from_address"
+                                android:id="@+id/tv_rest_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/outfit_regular"
                                 android:gravity="start|top"
                                 android:text="@string/restaurants"
+                                android:maxLines="1"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="16sp"
-                                android:lines="2"
                                 tools:ignore="RtlCompat"
                                 android:layout_marginEnd="4dp"
-                                android:layout_toEndOf="@id/tv_from"
-                                android:layout_toStartOf="@id/tv_order_actions_status"/>
+                                android:layout_toEndOf="@id/tv_from"/>
                             <TextView
-                                android:id="@+id/tv_order_actions_status"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:text="@string/str_cancel"
-                                android:visibility="visible"
-                                android:textAllCaps="false"
-                                android:textSize="16sp"
-                                android:background="@drawable/negative_corner_gray"
-                                android:layout_alignParentEnd="true"
+                                android:id="@+id/tv_from_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:visibility="gone"
                                 android:fontFamily="@font/outfit_regular"
-                                android:textColor="@color/text_primary_01"/>
+                                android:gravity="start|top"
+                                android:text="@string/restaurants"
+                                android:maxLines="1"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_primary_01"
+                                android:textSize="13sp"
+                                tools:ignore="RtlCompat"
+                                android:layout_marginEnd="4dp"
+                                android:layout_toEndOf="@id/tv_from"/>
 
                         </RelativeLayout>
 
@@ -207,48 +205,78 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4xSmall"
                             android:orientation="horizontal">
-                            <TextView
+                            <ImageView
                                 android:id="@+id/tv_to"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
-                                android:text="To: "
-                                android:textColor="@color/text_secondary_01"
-                                android:textSize="14sp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_parcel_to"
                                 android:gravity="start|top"
-                                android:textAlignment="viewStart"
-                                android:ellipsize="end"
-                                tools:ignore="RtlCompat" />
+                                android:layout_marginEnd="4dp"/>
 
                             <TextView
-                                android:id="@+id/tv_price_or_to_address"
+                                android:id="@+id/tv_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/outfit_regular"
                                 android:text="@string/_5_0000_00_mmk"
+                                android:maxLines="1"
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="14sp"
                                 android:gravity="start|top"
                                 android:textAlignment="viewStart"
                                 android:ellipsize="end"
                                 tools:ignore="RtlCompat" />
+                            <TextView
+                                android:id="@+id/tv_to_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/outfit_regular"
+                                android:text="@string/_5_0000_00_mmk"
+                                android:visibility="gone"
+                                android:maxLines="1"
+                                android:textColor="@color/text_primary_01"
+                                android:textSize="13sp"
+                                android:gravity="start|top"
+                                android:textAlignment="viewStart"
+                                android:ellipsize="end"
+                                tools:ignore="RtlCompat" />
                         </LinearLayout>
 
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4xSmall">
                         <TextView
                             android:id="@+id/tv_item_qty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/outfit_regular"
                             android:text="3 items"
+                            android:layout_centerVertical="true"
                             android:textColor="@color/text_secondary_01"
                             android:textSize="14sp"
-                            android:gravity="center"
-                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
                             android:textAlignment="viewStart"
+                            android:layout_toStartOf="@+id/tv_order_actions_status"
                             android:ellipsize="end"
                             tools:ignore="RtlCompat" />
+                        <TextView
+                            android:id="@+id/tv_order_actions_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="@string/str_cancel"
+                            android:visibility="visible"
+                            android:textAllCaps="false"
+                            android:textSize="16sp"
+                            android:background="@drawable/negative_corner_gray"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="@font/outfit_regular"
+                            android:textColor="@color/text_primary_01"/>
+                    </RelativeLayout>
+
                     </LinearLayout>
 
 

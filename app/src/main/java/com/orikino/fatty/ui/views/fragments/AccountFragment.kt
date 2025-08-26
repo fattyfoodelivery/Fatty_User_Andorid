@@ -333,7 +333,7 @@ class AccountFragment : Fragment() {
 
             llLogout.setOnClickListener {
                 PreferenceUtils.needToShow = false
-                showConfirmDialog(resources.getString(R.string.logout_title),resources.getString(R.string.are_you_sure),resources.getString(R.string.logout_label))
+                showConfirmDialog(resources.getString(R.string.logout_title),"",resources.getString(R.string.logout_label))
             }
 
         }
@@ -352,7 +352,7 @@ class AccountFragment : Fragment() {
             dialogView.btnCancel.setOnClickListener {
                 dismiss()
             }
-            dialogView.btnContact.text = resources.getString(R.string.confirm)
+            dialogView.btnContact.text = btn
             dialogView.btnContact.setOnClickListener {
                 dismiss()
                 PreferenceUtils.readUserVO().customer_id?.let { viewModel.fetchLogout(it) }
@@ -372,8 +372,10 @@ class AccountFragment : Fragment() {
             dialogView.ivClose.setOnClickListener {
                 dismiss()
             }
-            dialogView.ivClear.gone()
+            dialogView.edtName.setText( PreferenceUtils.readUserVO().customer_name ?: "")
+            //dialogView.ivClear.gone()
             dialogView.ivClear.setOnClickListener {
+                dialogView.ivClear.gone()
                 dialogView.edtName.text.clear()
                 dialogView.btnChange.isEnabled = false
                 dialogView.btnChange.alpha = 0.8f

@@ -63,7 +63,9 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun onBack() {
-        binding.ivBack.setOnClickListener { onBackPressed() }
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setUpObserver() {

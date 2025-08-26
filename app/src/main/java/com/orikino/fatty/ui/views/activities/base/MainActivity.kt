@@ -23,6 +23,7 @@ import com.orikino.fatty.service.RegisterForPushNotificationsAsync
 import com.orikino.fatty.domain.view_model.MainViewModel
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.checkout.CheckOutActivity
+import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.fragments.AccountFragment
 import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.ui.views.fragments.NotiFragment
@@ -57,7 +58,13 @@ class MainActivity : AppCompatActivity() {
         var isFirstTime: Boolean = true
         var isHomeKeyPressed = false
         var isCurrencyUpdate = MutableLiveData<Boolean>(false)
+        var adsRestaurantID : Int? = null
         fun getIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+
+        fun getIntentWithFlag(context: Context, adsRestaurantID : Int): Intent {
+            this.adsRestaurantID = adsRestaurantID
             return Intent(context, MainActivity::class.java)
         }
     }
@@ -84,8 +91,13 @@ class MainActivity : AppCompatActivity() {
         navigateToCartView()
         stopService()
         checkPostNoti()
-
-
+        if (adsRestaurantID != null){
+            PreferenceUtils.needToShow = false
+            PreferenceUtils.isBackground = false
+            val intent = Intent(this,RestaurantDetailViewActivity::class.java)
+            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,adsRestaurantID)
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("SuspiciousIndentation")

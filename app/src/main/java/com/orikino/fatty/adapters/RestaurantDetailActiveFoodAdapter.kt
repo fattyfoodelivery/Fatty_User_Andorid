@@ -47,11 +47,11 @@ class RestaurantDetailActiveFoodAdapter(
                 placeholder(R.drawable.food_default_icon)
             }
 
-            binding.imvAddFood.setOnClickListener {
-                callback.invoke(data,"add",position)
+            binding.imvFood.setOnClickListener {
+                callback.invoke(data,"image",position)
             }
             binding.root.setOnClickListener {
-                callback.invoke(data,"root",position)
+                callback.invoke(data,"add",position)
             }
 
             /*binding.imvAddFood.setOnClickListener {

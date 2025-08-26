@@ -73,6 +73,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlin.text.isNotEmpty
+import androidx.core.graphics.toColorInt
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity(), AddOnDelegate {
@@ -278,7 +279,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         LoadingProgressDialog.hideLoadingProgress()
         searchBinding.filterView.swipeRefresh.isRefreshing = false
         if (state.data.success) {
-            viewModel.subList = mutableListOf()
             setUpFilterRestaurants(state.data.data)
             restSize = state.data.data.size
         }
@@ -456,26 +456,31 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             intArrayOf(android.R.attr.state_checked)
         )
         val colors = intArrayOf(
-            ContextCompat.getColor(this, R.color.white),
+            ContextCompat.getColor(this, R.color.surfaceUnread),
             ContextCompat.getColor(this, R.color.fattyPrimary)
         )
 
         val colorsStateList = ColorStateList(states, colors)
         for (sub in filterList.indices) {
             val chips = chipGroup.context.createChip(filterList[sub].category_name)
-
-
+            if (viewModel.subList.contains(FilterDishVO(filterList[sub].restaurant_category_id))){
+                chips.isChecked = true
+                chips.setTextColor(ColorStateList.valueOf("#E1E1E1".toColorInt()))
+                chips.chipBackgroundColor = colorsStateList
+                chips.chipStrokeWidth = 1f
+                chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
+            }
             chips.setOnCheckedChangeListener { compoundButton, b ->
                 if (b) {
-                    chips.setTextColor(ColorStateList.valueOf(Color.parseColor("#E1E1E1")))
+                    chips.setTextColor(ColorStateList.valueOf("#E1E1E1".toColorInt()))
                     chips.chipBackgroundColor = colorsStateList
                     chips.chipStrokeWidth = 1f
-                    chips.chipStrokeColor = ColorStateList.valueOf(Color.parseColor("#E1E1E1"))
+                    chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
                     viewModel.subList.add(FilterDishVO(filterList[sub].restaurant_category_id))
                 } else {
-                    chips.setTextColor(ColorStateList.valueOf(Color.parseColor("#FFFFFF")))
+                    chips.setTextColor(ColorStateList.valueOf("#2E2E2E".toColorInt()))
                     chips.chipStrokeWidth = 1f
-                    chips.chipStrokeColor = ColorStateList.valueOf(Color.parseColor("#FF6704"))
+                    chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
                     chips.chipBackgroundColor = colorsStateList
                     viewModel.subList.remove(FilterDishVO(filterList[sub].restaurant_category_id))
                 }
@@ -799,24 +804,24 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     }
 
 
-    private fun createChip(name: String): Chip {
-        val chip = Chip(this, null, com.google.android.material.R.style.Base_Widget_MaterialComponents_Chip)
-        chip.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        chip.text = name
-        chip.isCloseIconVisible = true
-        // chip.isChipIconVisible = true
-        chip.closeIconTint = (ColorStateList.valueOf(Color.parseColor("#B1B1B1")))
-        chip.isCheckable = true
-        chip.isClickable = true
-        chip.setOnCloseIconClickListener {
-            viewModel.customerSearch(chip.text.toString())
-        }
-        return chip
-    }
+//    private fun createChip(name: String): Chip {
+//        val chip = Chip(this, null, com.google.android.material.R.style.Base_Widget_MaterialComponents_Chip)
+//        chip.layoutParams = LinearLayout.LayoutParams(
+//            ViewGroup.LayoutParams.WRAP_CONTENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//
+//        chip.text = name
+//        chip.isCloseIconVisible = true
+//        // chip.isChipIconVisible = true
+//        chip.closeIconTint = (ColorStateList.valueOf(Color.parseColor("#B1B1B1")))
+//        chip.isCheckable = true
+//        chip.isClickable = true
+//        chip.setOnCloseIconClickListener {
+//            viewModel.customerSearch(chip.text.toString())
+//        }
+//        return chip
+//    }
 
     private fun setTag(keywords: MutableList<String>) {
         for (name in keywords) {

@@ -3,6 +3,7 @@ package com.orikino.fatty.ui.views.activities.wish_list
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orikino.fatty.R
@@ -18,6 +19,7 @@ import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +43,9 @@ class WishListActivity : AppCompatActivity()  {
 
         binding = ActivityWishListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
+        binding.emptyView.emptyMessageDes.text = ""
 
         setUpRecommendedRestaurantRecycler()
         subscribeUI()
@@ -93,6 +98,11 @@ class WishListActivity : AppCompatActivity()  {
             state.data.data
             binding.tvTitle.text = "My Wishlist( ${state.data.data.size} )"
             wishListAdapter.setNewData(state.data.data)
+            if (state.data.data.isEmpty()){
+                binding.emptyView.root.visibility = View.VISIBLE
+            }else{
+                binding.emptyView.root.visibility = View.GONE
+            }
         }
     }
 
@@ -184,7 +194,7 @@ class WishListActivity : AppCompatActivity()  {
                     val intent = Intent(this@WishListActivity, RestaurantDetailViewActivity::class.java)
                     intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID, data.restaurant_id)
                     intent.putExtra(RestaurantDetailViewActivity.VIEW_TYPE, "wish_list")
-
+                    startActivity(intent)
                 }
                 "fav" -> {
                     PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,data.restaurant_id) }

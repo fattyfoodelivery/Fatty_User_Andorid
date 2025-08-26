@@ -15,6 +15,10 @@ sealed class HomeViewState{
     data class OnSuccessTopRelated(val data : TopRelatedCategoryResponse) : HomeViewState()
     data class OnFailTopRelated(val message: String) : HomeViewState()
 
+    object OnLoadingRestaurantByCategory : HomeViewState()
+    data class OnSuccessRestaurantByCategory(val data : CategoryByCategoryIdResponse) : HomeViewState()
+    data class OnFailRestaurantByCategory(val message: String) : HomeViewState()
+
     object OnLoadingOperateWishList :  HomeViewState()
     data class OnSuccessOperateWishList(val data : OperateWishListResponse) : HomeViewState()
     data class OnFailOperateWishList(val message : String) : HomeViewState()

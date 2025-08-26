@@ -9,5 +9,5 @@ class CategoryRepositoryImpl @Inject constructor(
     private val categoryService: CategoryService
 ) : CategoryRepository{
     override suspend fun fetchCategoryList(): Response<CategoryListResponse> = categoryService.fetchCategoryList()
-    override suspend fun fetchCategoryByCategoryId(categoryId: Int): Response<CategoryByCategoryIdResponse> = categoryService.fetchCategoryByCategoryId(categoryId)
+    override suspend fun fetchCategoryByCategoryId(categoryId : Int, cutomerId : Int, latitude : Double, longitude : Double): Response<CategoryByCategoryIdResponse> = categoryService.fetchCategoryByCategoryId(categoryId, cutomerId, latitude, longitude)
 }
