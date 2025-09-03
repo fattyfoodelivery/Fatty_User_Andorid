@@ -143,7 +143,7 @@ class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
             /*startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to ""
             )*/
-            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.category_assign_id))
+            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
         }
         foodCategoryBinding.rvFoodCategory.adapter = topFoodCategoryAdapter
     }

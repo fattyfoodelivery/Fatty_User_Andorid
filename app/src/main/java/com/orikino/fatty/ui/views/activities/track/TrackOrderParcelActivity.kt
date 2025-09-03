@@ -81,6 +81,9 @@ class TrackOrderParcelActivity : AppCompatActivity() {
         _binding = ActivityTrackOrderParcelBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
+        _binding.ivBack.setOnClickListener {
+            finish()
+        }
 
         orderId = intent.getIntExtra(ORDER_ID,0).toString()
         orderStatus = intent.getStringExtra(ORDER_STATUS).toString()
@@ -101,7 +104,12 @@ class TrackOrderParcelActivity : AppCompatActivity() {
         //checkOrder(ActiveOrderVO())
         stopService()
         navigateToTrackOrderView()
-        callToRider("")
+        _binding.ivCall.setOnClickListener {
+            if (rider_ph != "") {
+                phoneCall(rider_ph)
+            }
+
+        }
 
         if (viewType == "his" && orderId != "" ) {
             viewModel.orderDetailWithRating(orderId)
@@ -145,7 +153,7 @@ class TrackOrderParcelActivity : AppCompatActivity() {
             state.data.data?.let { bindBillDetails(it) }
             state.data.data?.let { setUpBindRiderInfo(it) }
             if (state.data.data?.rider?.rider_user_phone != null) {
-                state.data.data.rider?.rider_user_phone?.let { callToRider(it) }
+                state.data.data.rider?.rider_user_phone?.let { rider_ph = it }
             }
             if(state.data.data?.rider_review != null) {
                 _binding.llRating.show()
@@ -163,15 +171,6 @@ class TrackOrderParcelActivity : AppCompatActivity() {
     private fun bindBillDetails(data: ActiveOrderVO) {
         _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
         _binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
-    }
-
-    private fun callToRider(riderPhone : String) {
-        _binding.ivCall.setOnClickListener {
-            if (riderPhone != "") {
-                phoneCall(riderPhone)
-            }
-
-        }
     }
 
     private fun showTrackParcelStateView(data: ActiveOrderVO) {

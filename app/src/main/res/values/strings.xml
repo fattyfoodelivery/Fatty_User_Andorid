@@ -282,7 +282,7 @@
     <string name="submit" translatable="false">Submit</string>
     <string name="order_summary" translatable="false">Order Summary</string>
     <string name="delivery_details" translatable="false">Delivery Details</string>
-    <string name="item" translatable="false">Item</string>
+    <string name="item" translatable="false">item(s)</string>
     <string name="login" translatable="false">Login</string>
     <string name="hello" translatable="false">Hello</string>
     <string name="menus" translatable="false">Menus</string>

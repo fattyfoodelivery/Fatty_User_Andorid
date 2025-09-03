@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/outfit_medium"
-                    android:text="Manage Address"
+                    android:text="@string/manage_address"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
             </RelativeLayout>

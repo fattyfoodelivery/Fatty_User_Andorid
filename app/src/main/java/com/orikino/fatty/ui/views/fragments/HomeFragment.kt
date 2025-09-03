@@ -311,27 +311,36 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
 
     private fun checkGPS() {
-        var gpsTracker = GpsTracker(requireContext())
+        val gpsTracker = GpsTracker(requireContext())
         if (!gpsTracker.canGetLocation()) {
             gpsTracker.showSettingsAlert()
         } else {
-
             if (gpsTracker.latitude != 0.0 && gpsTracker.longitude != 0.0) {
-                /*if (MainActivity.isFirstTime) {
-
-                }*/
-                binding?.tvUserAddress?.show()
-                PreferenceUtils.writeUserVO(
-                    PreferenceUtils.readUserVO()
-                        .copy(latitude = gpsTracker.latitude, longitude = gpsTracker.longitude)
-                )
-                binding?.tvUserAddress?.text = convertLatLangToAddress(
-                    PreferenceUtils.readUserVO().latitude?:0.0,
-                    PreferenceUtils.readUserVO().longitude?:0.0
-                )
-                shouldUpdateOrFetchHome()
-
-            } else checkService()
+                if (MainActivity.isFirstTime) {
+                    binding?.tvUserAddress?.show()
+                    PreferenceUtils.writeUserVO(
+                        PreferenceUtils.readUserVO()
+                            .copy(latitude = gpsTracker.latitude, longitude = gpsTracker.longitude)
+                    )
+                    binding?.tvUserAddress?.text = convertLatLangToAddress(
+                        PreferenceUtils.readUserVO().latitude?:0.0,
+                        PreferenceUtils.readUserVO().longitude?:0.0
+                    )
+                    shouldUpdateOrFetchHome()
+                }else{
+                    PreferenceUtils.readUserVO().customer_id?.let {
+                        viewModel.fetchHome(
+                            it,
+                            viewModel.stateName,
+                            PreferenceUtils.readUserVO().latitude?:0.0,
+                            PreferenceUtils.readUserVO().longitude?:0.0
+                        )
+                    }
+                }
+            } else {
+                //uncomment this if not working as expected
+                //checkService()
+            }
         }
     }
 

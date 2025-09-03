@@ -82,13 +82,15 @@
                 android:fontFamily="@font/outfit_regular"
                 android:textColor="@color/text_primary_01"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp">
+                android:layout_marginTop="18dp"
+                android:weightSum="2">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:layout_marginStart="18dp">
                     <TextView
@@ -101,28 +103,28 @@
                         android:textColor="@color/gray_black"/>
                     <TextView
                         android:id="@+id/tv_cus_order_id"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:layout_gravity="center_horizontal"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:fontFamily="@font/outfit_regular"
                         android:textColor="@color/fattyPrimary"/>
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_track_order_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Jan 16, 2024 | 02:27 PM"
-                    android:layout_gravity="center_horizontal"
                     android:textSize="14sp"
-                    android:layout_alignParentEnd="true"
+                    android:textAlignment="textEnd"
                     android:fontFamily="@font/outfit_regular"
                     android:textColor="@color/text_secondary_01"
                     android:layout_marginEnd="18dp"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

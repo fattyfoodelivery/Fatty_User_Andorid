@@ -244,18 +244,18 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
             }
             splashBinding.imvAds.setOnClickListener {
 
-                when(state.data.data?.displayTypeId){
+                when(state.data.data?.display_type_id){
                     1 -> {
-                        cancelTimerAndNavigate(Pair(true, state.data.data?.restaurantId ?: 0))
+                        cancelTimerAndNavigate(Pair(true, state.data.data?.restaurant_id ?: 0))
                     }
                     2 -> {
                         cancelTimer()
-                        val intent = WebviewActivity.getIntent(this,state.data.data?.restaurantName ?: "",state.data.data?.displayTypeDescription ?: "")
+                        val intent = WebviewActivity.getIntent(this,state.data.data?.restaurant_name ?: "",state.data.data?.display_type_description ?: "")
                         startActivity(intent)
                     }
                     3 -> {
                         cancelTimer()
-                        val url = state.data.data?.displayTypeDescription ?: ""
+                        val url = state.data.data?.display_type_description ?: ""
                         if (url.isNotEmpty()) {
                             try {
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -265,11 +265,26 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                                     Toast.makeText(this, "Cannot open link: No application can handle this request.", Toast.LENGTH_SHORT).show()
                                 }
                             } catch (e: ActivityNotFoundException) {
+                                if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+                                    // If the timer wasn't cancelled for navigation, there's time left,
+                                    // and no timer instance is currently running (e.g., was paused), resume it.
+                                    startNewCountdown(timeRemainingWhenPaused)
+                                }
                                 Toast.makeText(this, "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
                             } catch (e: Exception) {
+                                if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+                                    // If the timer wasn't cancelled for navigation, there's time left,
+                                    // and no timer instance is currently running (e.g., was paused), resume it.
+                                    startNewCountdown(timeRemainingWhenPaused)
+                                }
                                 Toast.makeText(this, "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
                             }
                         } else {
+                            if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+                                // If the timer wasn't cancelled for navigation, there's time left,
+                                // and no timer instance is currently running (e.g., was paused), resume it.
+                                startNewCountdown(timeRemainingWhenPaused)
+                            }
                             Toast.makeText(this, "No URL provided for this item.", Toast.LENGTH_SHORT).show()
                         }
                     }
