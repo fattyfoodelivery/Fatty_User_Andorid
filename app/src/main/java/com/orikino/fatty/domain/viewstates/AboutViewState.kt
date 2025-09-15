@@ -44,6 +44,10 @@ sealed class AboutViewState {
     object OnLoadingLogout : AboutViewState()
     data class OnSuccessLogout(val data: LogoutResponse) : AboutViewState()
     data class OnFailLogout(val message: String) : AboutViewState()
+
+    object OnLoadingDelete : AboutViewState()
+    data class OnSuccessDeleteAccount(val data : DeleteAccountResponse) : AboutViewState()
+    data class OnFailDeleteAccount(val message: String) : AboutViewState()
 }
 
 sealed class TutorialViewState {

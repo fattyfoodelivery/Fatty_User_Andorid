@@ -408,7 +408,8 @@ class AddressDefinedActivity : AppCompatActivity() {
         _binding.btnConfirmLocation.setOnClickListener {
             other = _binding.edtBuilding.text.toString()
             currentAddress = _binding.edtLocationAddress.text.toString()
-            if (status != "" && currentAddress != "") {
+            customer_phone = _binding.edtPhone.text.toString()
+            if (status != "" && currentAddress != "" && customer_phone != "") {
                 if (updateStatus == "update") PreferenceUtils.readUserVO().customer_id?.let { it1 ->
                     viewModel.updateCurrentAddress(
                         customerAddress.customer_address_id,
@@ -416,7 +417,7 @@ class AddressDefinedActivity : AppCompatActivity() {
                         locations.latitude,
                         locations.longitude,
                         currentAddress,
-                        PreferenceUtils.readUserVO().customer_phone,
+                        customer_phone,
                         building,
                         status,
                         _binding.rbtDefaultAddress.isChecked
@@ -427,14 +428,14 @@ class AddressDefinedActivity : AppCompatActivity() {
                         locations.latitude,
                         locations.longitude,
                         currentAddress,
-                        PreferenceUtils.readUserVO().customer_phone,
+                        customer_phone,
                         building,
                         status,
                         _binding.rbtDefaultAddress.isChecked
                     )
                 }
             } else {
-                showSnackBar("Please fill your information correctly")
+                showSnackBar(getString(R.string.txt_please_fill_your_information_correctly))
             }
             //finish()
         }
@@ -486,8 +487,8 @@ class AddressDefinedActivity : AppCompatActivity() {
         if (state.data.success) {
             clearInfo()
             //startActivity<ManageAddressActivity>()
-            val intent = Intent(this, ManageAddressActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, ManageAddressActivity::class.java)
+//            startActivity(intent)
             finish()
         }
     }

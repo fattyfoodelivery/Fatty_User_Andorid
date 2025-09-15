@@ -169,8 +169,43 @@ class TrackOrderParcelActivity : AppCompatActivity() {
     }
 
     private fun bindBillDetails(data: ActiveOrderVO) {
-        _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
+        _binding.tvTrackOrderDate.text = data.order_date.plus(" | ").plus(data.order_time)
+//        _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
         _binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
+
+        _binding.tvParcelTypeName.text = data.parcel_type?.parcel_type_name
+        _binding.tvParcelQtyCount.text = data.item_qty.toString()
+        //_binding.tvDeliveryFee.text = data.delivery_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+
+        if (data.parcel_extra != null) {
+            _binding.rlExtraView.show()
+            _binding.tvExtraCost.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        } else {
+            _binding.rlExtraView.gone()
+        }
+        if (data.is_abnormal == true){
+            _binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees_abnormal)
+        }else{
+            _binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
+        }
+        if (data.additional_fee != 0.0 || data.additional_fee_yuan != 0.0){
+            _binding.rlAdditional.show()
+            if (data.currency_id == 1){
+                _binding.tvAdditionalFee.text = data.additional_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }else{
+                _binding.tvAdditionalFee.text = data.additional_fee_yuan.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }
+        }else{
+            _binding.rlAdditional.gone()
+        }
+        _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        _binding.tvPaymentName.text = data.payment_method?.payment_method_name
+        if (data.payment_method?.payment_method_id == 1) {
+            _binding.imvPayment.setImageResource(R.drawable.ic_cash)
+
+        } else {
+            _binding.imvPayment.setImageResource(R.drawable.kbz_payment)
+        }
     }
 
     private fun showTrackParcelStateView(data: ActiveOrderVO) {
@@ -178,9 +213,9 @@ class TrackOrderParcelActivity : AppCompatActivity() {
             12 -> {
                 // pending order
                 _binding.tvOrderStatus.show()
-                _binding.ivOrderStatusPng.setImageResource(R.drawable.order_pending)
-                _binding.tvOrderStatusTitle.text = resources.getString(R.string.pending_order)
-                _binding.tvOrderStatus.text = resources.getString(R.string.pending_order)
+                _binding.ivOrderStatusPng.setImageResource(R.drawable.order_pickup)
+                _binding.tvOrderStatusTitle.text = resources.getString(R.string.txt_accept_by_rider_p)
+                _binding.tvOrderStatus.text = resources.getString(R.string.txt_accept_by_rider_p)
                 _binding.tvCusOrderId.text = data.customer_booking_id
             }
             14 -> {
@@ -358,7 +393,21 @@ class TrackOrderParcelActivity : AppCompatActivity() {
         } else {
             _binding.rlExtraView.gone()
         }
-
+        if (data.is_abnormal == true){
+            _binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees_abnormal)
+        }else{
+            _binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
+        }
+        if (data.additional_fee != 0.0 || data.additional_fee_yuan != 0.0){
+            _binding.rlAdditional.show()
+            if (data.currency_id == 1){
+                _binding.tvAdditionalFee.text = data.additional_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }else{
+                _binding.tvAdditionalFee.text = data.additional_fee_yuan.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }
+        }else{
+            _binding.rlAdditional.gone()
+        }
         _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         _binding.tvPaymentName.text = data.payment_method?.payment_method_name
         if (data.payment_method?.payment_method_id == 1) {

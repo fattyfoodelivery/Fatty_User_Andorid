@@ -65,7 +65,7 @@
             android:visibility="visible"
             android:backgroundTint="@color/fattyPrimary"/>
     </RelativeLayout>-->
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_onboard_rounded"
@@ -78,7 +78,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -208,6 +208,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible">
+                <include
+                    android:id="@+id/order_empty_view"
+                    layout="@layout/layout_empty_view"
+                    android:visibility="gone"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_order"
                     android:layout_width="match_parent"
@@ -223,6 +227,10 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/ll_noti_type"
                 android:visibility="gone">
+                <include
+                    android:id="@+id/system_empty_view"
+                    layout="@layout/layout_empty_view"
+                    android:visibility="gone"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_system"
                     android:layout_width="match_parent"
@@ -381,6 +389,6 @@
             android:layout_centerInParent="true"
             android:visibility="gone" />-->
 
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

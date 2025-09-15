@@ -23,7 +23,6 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
-import com.orikino.fatty.utils.helper.toDefaultStatusName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -164,16 +163,28 @@ class OrderDetailActivity : AppCompatActivity() {
             binding.tvItemTotal.text = "${data.item_total_price?.toThousandSeparator()} MMK"
             binding.tvDeliveryFee.text =
                 "${data.delivery_fee?.toThousandSeparator()} MMK"
+            binding.tvAdditionalFee.text = "${data.additional_fee?.toThousandSeparator()} MMK"
         }else{
             binding.tvBillTotalPrice.text = "${data.yuan_price?.toThousandSeparator()} ¥"
             binding.tvItemTotal.text = "${data.item_total_price_yuan?.toThousandSeparator()} ¥"
             binding.tvDeliveryFee.text =
                 "${data.delivery_fee_yuan?.toThousandSeparator()} ¥"
+            binding.tvAdditionalFee.text = "${data.additional_fee_yuan?.toThousandSeparator()} ¥"
         }
-        if (data.rider != null) {
-            binding.rlAbnormal.show()
-        } else {
-            binding.rlAbnormal.gone()
+//        if (data.rider != null) {
+//            binding.rlAbnormal.show()
+//        } else {
+//            binding.rlAbnormal.gone()
+//        }
+        if (data.additional_fee != 0.0 || data.additional_fee_yuan != 0.0){
+            binding.rlAdditional.show()
+        }else{
+            binding.rlAdditional.gone()
+        }
+        if (data.is_abnormal == true){
+            binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees_abnormal)
+        }else{
+            binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
         }
         binding.tvPaymentName.text = data.payment_method?.payment_method_name
         if (data.currency_id == 1) {
@@ -190,31 +201,31 @@ class OrderDetailActivity : AppCompatActivity() {
         println("status id ${orderStatus.order_status_id}")
         when (orderStatus.order_status_id) {
             1 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             2 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             3 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             4 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             5 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             6 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             7 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             8 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             9 -> {
-                binding.tvOrderStatusMsg.text = orderStatus.toDefaultStatusName()
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
                 binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_red_circle_close)
             }

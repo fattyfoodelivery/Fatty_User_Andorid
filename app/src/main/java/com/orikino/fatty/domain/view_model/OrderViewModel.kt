@@ -3,8 +3,10 @@ package com.orikino.fatty.domain.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.orikino.fatty.data.repository.AddressRepository
 import com.orikino.fatty.data.repository.OrderRepository
 import com.orikino.fatty.domain.model.*
+import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.domain.viewstates.OrderViewState
 import com.orikino.fatty.ui.views.base.BaseViewModel
 import com.orikino.fatty.utils.Constants
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrderViewModel @Inject constructor(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val addressRepository: AddressRepository
 ) : BaseViewModel(){
 
     var cartList: MutableLiveData<MutableList<CreateFoodVO>> =
@@ -52,6 +55,7 @@ class OrderViewModel @Inject constructor(
     var trackOrderLiveData: MutableLiveData<ActiveOrderVO> = MutableLiveData()
 
     var viewState: MutableLiveData<OrderViewState> = MutableLiveData()
+    var addressViewState: MutableLiveData<AddressViewState> = MutableLiveData()
 
     var type = "food"
     var date = ""
@@ -156,6 +160,57 @@ class OrderViewModel @Inject constructor(
             }
 
         }
+    }
+
+    fun updateCurrentAddress(
+        customer_address_id: Int,
+        customer_id: Int,
+        address_latitude: Double,
+        address_longitude: Double,
+        current_address: String,
+        customer_phone: String,
+        building_system: String,
+        address_type: String,
+        is_default : Boolean
+    ) {
+        viewModelScope.launch {
+            try {
+                addressViewState.postValue(AddressViewState.OnLoadingAddCurrentAddress)
+                var response = addressRepository.updateCurrentAddress(
+                    customer_address_id,
+                    customer_id,
+                    address_latitude,
+                    address_longitude,
+                    current_address,
+                    customer_phone,
+                    building_system,
+                    address_type,
+                    is_default
+                )
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        addressViewState.postValue(AddressViewState.OnSuccessAddCurrentAddress(it))
+                    }
+                } else {
+                    when (response.code()) {
+                        500 -> {
+                            addressViewState.postValue(AddressViewState.OnFailAddCurrentAddress(Constants.SERVER_ISSUE))
+                        }
+
+                        403 -> {
+                            addressViewState.postValue(AddressViewState.OnFailAddCurrentAddress(Constants.DENIED))
+                        }
+
+                        406 -> {
+                            addressViewState.postValue(AddressViewState.OnFailAddCurrentAddress(Constants.ANOTHER_LOGIN))
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                addressViewState.postValue(AddressViewState.OnFailAddCurrentAddress(Constants.CONNECTION_ISSUE))
+            }
+        }
+
     }
 
     fun createFoodOrder(

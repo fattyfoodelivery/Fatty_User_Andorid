@@ -20,7 +20,6 @@ import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
-import com.orikino.fatty.utils.helper.toDefaultStatusName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -138,18 +137,32 @@ class ParcelDetailActivity : AppCompatActivity() {
         }
 
         */
-        if (data.is_abnormal == true) {
-            binding.rlAbnormal.gone()
-            //binding.tvAbnormalFeePrice.text = "not contains"
-        } else {
-            binding.rlAbnormal.gone()
+        binding.tvTotalItemPrice.text = data.item_qty.toString()
+        if (data.is_abnormal == true){
+            binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees_abnormal)
+        }else{
+            binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
         }
 
         binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         //binding.tvExtraFeePrice.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         binding.tvBillTotalPrice.text = data.bill_total_price.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
 
+        if (data.additional_fee != 0.0 || data.additional_fee_yuan != 0.0){
+            binding.rlAdditional.show()
+            if (data.currency_id == 1){
+                binding.tvAdditionalFee.text = data.additional_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }else{
+                binding.tvAdditionalFee.text = data.additional_fee_yuan.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            }
+        }else{
+            binding.rlAdditional.gone()
+        }
 
+        if (data.parcel_extra?.parcel_extra_cover_price != 0.0){
+            binding.rlExtra.show()
+            binding.tvExtraFell.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        }
 
 
         if (data.payment_method?.payment_method_id == 1) {
@@ -210,29 +223,29 @@ class ParcelDetailActivity : AppCompatActivity() {
     private fun localizeOrderStatus(type : OrderStatusVO) {
         when (type.order_status_id) {
             11 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()
+                binding.tvOrderStatus.text = type.order_status_name
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
             12 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()
+                binding.tvOrderStatus.text = type.order_status_name
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
             15 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()
+                binding.tvOrderStatus.text = type.order_status_name
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
             18 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()//resources.getString(R.string.kpay_pending)
+                binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_pending)
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
 
             19 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()//resources.getString(R.string.kpay_success)
+                binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_success)
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
 
             20 -> {
-                binding.tvOrderStatus.text = type.toDefaultStatusName()//resources.getString(R.string.kpay_fail)
+                binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_fail)
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }
 

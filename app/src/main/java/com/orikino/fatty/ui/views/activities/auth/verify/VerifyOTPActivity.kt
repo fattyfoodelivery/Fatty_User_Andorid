@@ -20,6 +20,7 @@ import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.setColorSpannable
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import `in`.aabhasjindal.otptextview.OTPListener
@@ -50,9 +51,20 @@ class VerifyOTPActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.fattyPrimary)
 
         resultPhone = intent.getStringExtra(PHONE).toString()
-        verifyBinding.tvPhone.text = resultPhone
+        val otpSupString = getString(R.string.we_have_sent_a_6_digit_to, resultPhone)
+        verifyBinding.tvOtpSendTo.text = otpSupString
+        val otpSpanLength = resultPhone.length
         viewModel.phoneNo = resultPhone
-
+        if (PreferenceUtils.readLanguage() == "en"){
+            verifyBinding.tvOtpSendTo.text =
+                setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 26 , 26 + otpSpanLength)
+        }else if (PreferenceUtils.readLanguage() == "my"){
+            verifyBinding.tvOtpSendTo.text =
+                setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 16 , 16 + otpSpanLength)
+        }else{
+            verifyBinding.tvOtpSendTo.text =
+                setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 13 , 13 + otpSpanLength)
+        }
 
         setUpPushy()
         subscribeUI()

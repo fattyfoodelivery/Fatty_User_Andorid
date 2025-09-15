@@ -64,7 +64,10 @@ class NotiFragment : Fragment(), ItemIdDelegate {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        notiBinding?.systemEmptyView?.emptyMessage?.text = getString(R.string.no_data_available)
+        notiBinding?.systemEmptyView?.emptyMessageDes?.text = ""
+        notiBinding?.orderEmptyView?.emptyMessage?.text = getString(R.string.no_data_available)
+        notiBinding?.orderEmptyView?.emptyMessageDes?.text = ""
         setUpOrderNotiList()
         setUpSystemNotiList()
 
@@ -81,6 +84,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
         notiBinding?.cvOrder?.setOnClickListener {
             notiBinding?.rlOrder?.visibility = View.VISIBLE
             notiBinding?.rlSystem?.visibility = View.GONE
+            notiBinding?.systemEmptyView?.rootView?.visibility = View.GONE
             notiBinding?.tvDateResult?.text = ""
             viewModel.fetchUserNotiList(1,"")
             checkUpdate(true)
@@ -89,6 +93,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
         notiBinding?.cvSystem?.setOnClickListener {
             notiBinding?.rlSystem?.visibility  = View.VISIBLE
             notiBinding?.rlOrder?.visibility = View.GONE
+            notiBinding?.orderEmptyView?.rootView?.visibility = View.GONE
             notiBinding?.tvDateResult?.text = ""
             viewModel.fetchSystemNot(1,"")
             checkUpdate(false)
@@ -180,6 +185,11 @@ class NotiFragment : Fragment(), ItemIdDelegate {
             } else {
                 notiBinding?.cvMessageBadge?.visibility = View.GONE
             }
+            notiBinding?.systemEmptyView?.root?.visibility = if (state.data.data.notification.data.isNotEmpty()){
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
             systemNotiAdapter?.setNewData(state.data.data.notification.data)
         }
 
@@ -227,6 +237,12 @@ class NotiFragment : Fragment(), ItemIdDelegate {
             } else {
                 notiBinding?.cvOrderBadge?.visibility = View.GONE
             }
+            notiBinding?.orderEmptyView?.root?.visibility = if (state.data.data.notification.data.isNotEmpty()){
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+
             notiAdapter?.setNewData(state.data.data.notification.data)
         }
     }

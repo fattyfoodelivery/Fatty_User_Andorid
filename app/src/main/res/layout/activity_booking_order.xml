@@ -74,19 +74,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Send Parcel Everywhere"
+                    android:text="@string/txt_send_parcel_every_where_nin_just_one_click"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/margin_2xlarge"
+                    android:textAlignment="center"
                     android:textSize="24sp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textColor="@color/text_primary_01"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="in Just One Click!"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="24sp"
-                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
                     android:textColor="@color/fattyPrimary"/>
 

@@ -97,7 +97,7 @@ class WishListActivity : AppCompatActivity()  {
         if (state.data.success) {
             state.data.data
             binding.tvTitle.text = "My Wishlist( ${state.data.data.size} )"
-            wishListAdapter.setNewData(state.data.data)
+            wishListAdapter.submitList(state.data.data)
             if (state.data.data.isEmpty()){
                 binding.emptyView.root.visibility = View.VISIBLE
             }else{
@@ -180,7 +180,6 @@ class WishListActivity : AppCompatActivity()  {
                 EqualSpacingItemDecoration.VERTICAL
             )
         )
-        binding.rvWishList.setHasFixedSize(true)
         binding.rvWishList.isNestedScrollingEnabled = true
         wishListAdapter = WishListAdapter(this@WishListActivity) { data,str,pos ->
             when(str) {

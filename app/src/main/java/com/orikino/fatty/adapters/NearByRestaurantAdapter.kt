@@ -3,7 +3,7 @@ package com.orikino.fatty.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.orikino.fatty.NearRestaurantViewHolder
+import com.orikino.fatty.viewholder.NearRestaurantViewHolder
 import com.orikino.fatty.databinding.ItemNearbyRestaurantsBinding
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.viewholder.BaseViewHolder

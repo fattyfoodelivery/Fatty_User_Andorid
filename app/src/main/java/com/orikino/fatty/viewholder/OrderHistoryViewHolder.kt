@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemOrderHistoriesBinding
 import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
+import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -17,7 +18,7 @@ import com.squareup.picasso.Picasso
 class OrderHistoryViewHolder(
     var binding: ItemOrderHistoriesBinding,
     var callback: (MyOrderHistoryResponse.Data.Data, str: String, pos: Int) -> Unit
-) : BaseViewHolder<MyOrderHistoryResponse.Data.Data>(binding.root) {
+) : NewBaseViewHolder<MyOrderHistoryResponse.Data.Data>(binding.root) {
 
     override fun setData(data: MyOrderHistoryResponse.Data.Data, position: Int) {
 
@@ -377,10 +378,6 @@ class OrderHistoryViewHolder(
             callback.invoke(data,"view_rating",position)
         }*/
 
-
-    }
-
-    override fun onClick(v: View?) {
 
     }
 }

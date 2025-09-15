@@ -91,6 +91,8 @@ object ApiRouteConstant {
 
     const val routeFeedbackDeliveryToRider = "api/v1/fatty/202221/lashio/main/admin/customers/orders/reviews"
 
+    const val routeDeleteAccount = "api/v1/fatty/202221/lashio/main/admin/customers/destroy"
+
     /*
     * interface DeliveryRatingApi {
     //@POST("api/v1/fatty/202221/lashio/main/admin/customers/orders/reviews")

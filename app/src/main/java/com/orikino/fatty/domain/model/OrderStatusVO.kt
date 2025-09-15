@@ -7,10 +7,6 @@ data class OrderStatusVO(
     var order_status_id : Int = 0 ,
     @SerializedName("order_status_name")
     var order_status_name : String = "",
-    @SerializedName("order_status_name_mm")
-    var order_status_name_mm : String = "",
-    @SerializedName("order_status_name_ch")
-    var order_status_name_ch : String = "",
     @SerializedName("order_type")
     var order_type : String = ""
 )

@@ -3,6 +3,11 @@ package com.orikino.fatty.ui.views.activities.auth.login
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannedString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ScrollView
@@ -28,6 +33,7 @@ import com.orikino.fatty.ui.views.activities.account_setting.term_condition.Term
 import com.orikino.fatty.ui.views.activities.auth.verify.VerifyOTPActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.components.CustomSpinner
+import com.orikino.fatty.utils.CustomColoredUnderlineSpan
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
@@ -76,11 +82,9 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
         setUpPushy()
         setUpPhoneNo()
         typePhoneNo()
-        navigateToPolicy()
-        navigateToTermAndCondition()
         navigateToVerifyOTPScreen()
         languageSpinnerSetUp()
-
+        agreeTextBind()
         loginBinding.edtMmCode.clearFocus()
         loginBinding.edtPhone.requestFocus()
         loginBinding.spinnerLang.setSpinnerEventsListener(this)
@@ -102,6 +106,80 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
 
     }
 
+    private fun agreeTextBind(){
+        val agreeSpan = getText(R.string.by_continuing_you_automatically_accept_to_fatty_s) as SpannedString
+        val annotationSpan =
+            agreeSpan.getSpans(0 , agreeSpan.length - 1 , android.text.Annotation::class.java)
+        val spannableString = SpannableString(agreeSpan)
+
+        for (annotation in annotationSpan) {
+            if (annotation.key == "flat") {
+                val value = annotation.value
+                if (value == "terms") {
+
+                    spannableString.setSpan(
+                        object : ClickableSpan() {
+                            override fun onClick(p0 : View) {
+                                try {
+                                    //showShortToast("Click terms and privacy policy")
+                                    navigateToTermAndCondition()
+                                } catch (e : Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        } ,
+                        agreeSpan.getSpanStart(annotation) ,
+                        agreeSpan.getSpanEnd(annotation) ,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+
+                    spannableString.setSpan(
+                        CustomColoredUnderlineSpan(
+                            ContextCompat.getColor(
+                                loginBinding.root.context,
+                                R.color.fattyPrimary
+                            ), 4.0f
+                        ),
+                        agreeSpan.getSpanStart(annotation) ,
+                        agreeSpan.getSpanEnd(annotation) ,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }else if (value == "privacy") {
+
+                    spannableString.setSpan(
+                        object : ClickableSpan() {
+                            override fun onClick(p0 : View) {
+                                try {
+                                    //showShortToast("Click terms and privacy policy")
+                                    navigateToPolicy()
+                                } catch (e : Exception) {
+                                    e.printStackTrace()
+                                }
+                            }
+                        } ,
+                        agreeSpan.getSpanStart(annotation) ,
+                        agreeSpan.getSpanEnd(annotation) ,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+
+                    spannableString.setSpan(
+                        CustomColoredUnderlineSpan(
+                            ContextCompat.getColor(
+                                loginBinding.root.context,
+                                R.color.fattyPrimary
+                            ), 4.0f
+                        ),
+                        agreeSpan.getSpanStart(annotation) ,
+                        agreeSpan.getSpanEnd(annotation) ,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+            }
+        }
+        loginBinding.tvTermsAndPrivacy.text = spannableString
+        loginBinding.tvTermsAndPrivacy.movementMethod = LinkMovementMethod()
+    }
+
     private fun onBack() {
         loginBinding.imvBack.setOnClickListener { finish() }
     }
@@ -118,23 +196,13 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
     }
 
     private fun navigateToPolicy() {
-        loginBinding.lbtnPrivacy.setOnClickListener {
-            //startActivity(PrivacyActivity.getIntent())
-            //startActivity<PrivacyActivity>()
-            val intent = Intent(this,PrivacyActivity::class.java)
-            startActivity(intent)
-        }
-
+        val intent = Intent(this,PrivacyActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToTermAndCondition() {
-        loginBinding.lbtnTermsConditions.setOnClickListener {
-            //startActivity(TermAndConditionActivity.getIntent())
-            //startActivity<TermAndConditionActivity>()
-            val intent = Intent(this,TermAndConditionActivity::class.java)
-            startActivity(intent)
-        }
-
+        val intent = Intent(this,TermAndConditionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setUpPushy() {

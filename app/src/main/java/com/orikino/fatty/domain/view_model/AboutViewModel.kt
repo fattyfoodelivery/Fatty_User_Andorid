@@ -10,6 +10,7 @@ import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.domain.model.CustomerVO
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.domain.viewstates.AboutViewState
+import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,7 @@ class AboutViewModel @Inject constructor(
 ) : ViewModel() {
 
     var viewState: MutableLiveData<AboutViewState> = MutableLiveData()
+    var versionViewState : MutableLiveData<BaseViewState> = MutableLiveData()
     var userName: String = ""
     var image: String =""
 
@@ -42,6 +44,28 @@ class AboutViewModel @Inject constructor(
                 }
             }catch (e : Exception) {
                 viewState.postValue(AboutViewState.OnFailAbout(Constants.CONNECTION_ISSUE))
+            }
+        }
+    }
+
+    fun deleteAccount(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                viewState.postValue(AboutViewState.OnLoadingDelete)
+                val response = aboutRepository.deleteAccount()
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        viewState.postValue(AboutViewState.OnSuccessDeleteAccount(it))
+                    }
+                }
+                else{
+                    when(response.code()){
+                        500 -> { viewState.postValue(AboutViewState.OnFailDeleteAccount(Constants.SERVER_ISSUE)) }
+                        403 -> { viewState.postValue(AboutViewState.OnFailDeleteAccount(Constants.DENIED)) }
+                        406 -> { viewState.postValue(AboutViewState.OnFailDeleteAccount(Constants.ANOTHER_LOGIN)) }
+                    }
+                }
+            }catch (e : Exception){
             }
         }
     }
@@ -250,5 +274,24 @@ class AboutViewModel @Inject constructor(
         }
     }
 
-
+    fun getVersionUpdate(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val response = aboutRepository.versionUpdate()
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        versionViewState.postValue(BaseViewState.OnSuccessVersionUpdate(it))
+                    }
+                }else{
+                    when(response.code()){
+                        500 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.SERVER_ISSUE)) }
+                        403 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.DENIED)) }
+                        406 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.ANOTHER_LOGIN)) }
+                    }
+                }
+            }catch (e : Exception){
+                versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.CONNECTION_ISSUE))
+            }
+        }
+    }
 }

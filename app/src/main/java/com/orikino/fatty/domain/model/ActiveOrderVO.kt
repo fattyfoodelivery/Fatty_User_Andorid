@@ -27,6 +27,10 @@ data class ActiveOrderVO(
     var delivery_fee : Double  = 0.0,
     @SerializedName("delivery_fee_yuan")
     var delivery_fee_yuan : Double  = 0.0,
+    @SerializedName("additional_fee")
+    var additional_fee : Double  = 0.0,
+    @SerializedName("additional_fee_yuan")
+    var additional_fee_yuan : Double  = 0.0,
     @SerializedName("currency_id")
     var currency_id : Int  = 0,
     @SerializedName("exchange_rate")

@@ -2,9 +2,11 @@ package com.orikino.fatty.ui.views.activities.account_setting.about
 
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebChromeClient
@@ -17,6 +19,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityAboutUsBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.domain.viewstates.AboutViewState
+import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
 
@@ -32,6 +35,8 @@ class AboutUsActivity : AppCompatActivity() {
             return Intent(FattyApp.getInstance(),AboutUsActivity::class.java)
         }
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

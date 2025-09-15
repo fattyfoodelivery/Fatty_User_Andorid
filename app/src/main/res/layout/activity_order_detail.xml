@@ -542,6 +542,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp">
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_delivery_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/delivery_fees"
@@ -557,32 +558,6 @@
                         android:padding="2dp"
                         android:text=""
                         android:contentDescription="@string/text_desc"
-                        android:textColor="@color/textPrimary02"
-                        android:fontFamily="@font/outfit_regular"
-                        android:layout_alignParentEnd="true"
-                        tools:ignore="RelativeOverlap" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/rl_total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:visibility="visible">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_bills"
-                        android:textSize="16sp"
-                        android:padding="2dp"
-                        android:textColor="@color/text_primary_01"
-                        android:fontFamily="@font/outfit_regular"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_bill_total_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="16sp"
-                        android:padding="2dp"
                         android:textColor="@color/textPrimary02"
                         android:fontFamily="@font/outfit_regular"
                         android:layout_alignParentEnd="true"
@@ -614,24 +589,26 @@
                         android:layout_alignParentEnd="true"/>
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/rl_abnormal"
+                    android:id="@+id/rl_additional"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/abnormal_fees"
+                        android:text="@string/extra_fees"
                         android:textSize="16sp"
+                        android:padding="2dp"
                         android:textColor="@color/text_secondary_01"
                         android:fontFamily="@font/outfit_regular"/>
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_abnormal_fee"
+                        android:id="@+id/tv_additional_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textSize="16sp"
+                        android:padding="2dp"
                         android:textColor="@color/textPrimary02"
                         android:fontFamily="@font/outfit_regular"
                         android:layout_alignParentEnd="true"/>
@@ -645,7 +622,40 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="24dp"
                 android:src="@drawable/dot_line" />
-
+            <RelativeLayout
+                android:id="@+id/rl_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="4dp"
+                android:visibility="visible">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_bills"
+                    android:textSize="16sp"
+                    android:padding="2dp"
+                    android:textColor="@color/text_primary_01"
+                    android:fontFamily="@font/outfit_regular"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_bill_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:padding="2dp"
+                    android:textColor="@color/textPrimary02"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/view_six"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/dot_line" />
             <RelativeLayout
                 android:id="@+id/rl_payment"
                 android:layout_width="match_parent"

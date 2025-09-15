@@ -526,16 +526,19 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 viewModel.foodMenuByRestaurantLiveDataList.value?.distance!! <= viewModel.foodMenuByRestaurantLiveDataList.value?.limit_distance!! -> {
                     if (viewModel.foodMenuByRestaurantLiveDataList.value?.restaurant_emergency_status == 1) {
                         showSnackBar(
-                            resources.getString(R.string.restaurant_unavailable)
+                            resources.getString(R.string.unavailable)
                         )
                     } else {
                         when (data.food_emergency_status) {
                             1 -> {
-                                showNoItemDialog(
-                                    resources.getString(R.string.notice),
-                                    resources.getString(R.string.notice_message),
-                                    "OK"
+                                showSnackBar(
+                                    resources.getString(R.string.unavailable)
                                 )
+//                                showNoItemDialog(
+//                                    resources.getString(R.string.notice),
+//                                    resources.getString(R.string.notice_message),
+//                                    "OK"
+//                                )
 
                             }
 

@@ -31,7 +31,7 @@ class RestaurantAdapter(private val context: Context,val callback: (RecommendRes
             binding.tvRestaurantAddress.text = data.restaurant_address
             binding.tvEstimateTime.text = "${data.distance_time}mins ・ ${data.distance}km"
 
-            if (data.restaurant_emergency_status == 0) {
+            if (data.restaurant_emergency_status == 1) {
                 binding.tvUnavailable.show()
             } else {
                 binding.tvUnavailable.gone()

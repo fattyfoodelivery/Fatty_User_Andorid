@@ -236,7 +236,7 @@ class AccountFragment : Fragment() {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             PreferenceUtils.writeUserVO(state.data.data)
-            CustomToast(requireContext(),state.data.message,true).createCustomToast()
+            CustomToast(requireContext(), getString(R.string.txt_update_successfully),true).createCustomToast()
             updateUserPhoto()
         }
     }
@@ -348,7 +348,7 @@ class AccountFragment : Fragment() {
             setCancelable(false)
             dialogView.tvTitle.text = title
             dialogView.tvDesc.text = message
-
+            dialogView.ivClose.setOnClickListener { dismiss() }
             dialogView.btnCancel.setOnClickListener {
                 dismiss()
             }

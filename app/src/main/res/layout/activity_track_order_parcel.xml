@@ -91,6 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:layout_marginStart="18dp">
                     <TextView
@@ -105,8 +106,8 @@
                         android:id="@+id/tv_cus_order_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:text=""
-                        android:layout_gravity="center_horizontal"
                         android:textSize="12sp"
                         android:fontFamily="@font/outfit_regular"
                         android:textColor="@color/fattyPrimary"/>
@@ -429,7 +430,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Parcel Type"
+                       android:text="@string/txt_parcel_type"
                        android:fontFamily="@font/outfit_medium"
                        android:textSize="14sp"
                        android:textColor="@color/text_grey_one"/>
@@ -450,7 +451,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Item Quantity"
+                        android:text="@string/txt_item_quantity"
                         android:fontFamily="@font/outfit_medium"
                         android:textSize="14sp"
                         android:textColor="@color/text_grey_one"/>
@@ -491,9 +492,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp">
                     <TextView
+                        android:id="@+id/tv_delivery_fee_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Fees"
+                        android:text="@string/delivery_fees"
                         android:fontFamily="@font/outfit_regular"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary02"/>
@@ -516,16 +518,39 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Extra Fees"
-                        android:fontFamily="@font/outfit_medium"
+                        android:text="@string/extra_fees"
+                        android:fontFamily="@font/outfit_regular"
                         android:textSize="14sp"
-                        android:textColor="@color/text_grey_one"/>
+                        android:textColor="@color/textPrimary02"/>
                     <TextView
                         android:id="@+id/tv_extra_cost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textSize="14sp"
+                        android:layout_alignParentEnd="true"
+                        android:textColor="@color/textPrimary02"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_additional"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_additonal_fee"
+                        android:fontFamily="@font/outfit_regular"
+                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary02"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_additional_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/outfit_regular"
                         android:textSize="14sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textPrimary02"/>
@@ -543,7 +568,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Amount : "
+                        android:text="@string/total_bills"
                         android:fontFamily="@font/outfit_semibold"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_01"/>
@@ -579,7 +604,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/outfit_semibold"
                     android:paddingTop="8dp"
-                    android:text="@string/payment_details"
+                    android:text="@string/payment_method"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     />

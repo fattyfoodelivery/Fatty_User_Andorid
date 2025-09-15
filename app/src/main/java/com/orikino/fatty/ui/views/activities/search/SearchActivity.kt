@@ -400,9 +400,10 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     }
 
     private fun showConfirmDialog() {
-        val title = "Apply filters?"
-        val desc = "If you exit without applying, the filter you selected won't work."
-        val btn = "Apply"
+        val title = getString(R.string.txt_apply_filters)
+        val desc =
+            getString(R.string.txt_if_you_exit_without_applying_the_filter_you_selected_won_t_work)
+        val btn = getString(R.string.apply_filter)
 
         ConfirmDialog.Builder(this@SearchActivity,title,desc,btn,
             callback = {

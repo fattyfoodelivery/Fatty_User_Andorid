@@ -18,6 +18,7 @@ import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.activities.track.TrackOrderParcelActivity
 import com.orikino.fatty.utils.ConfirmDialog
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
@@ -102,9 +103,12 @@ class BookingOrderActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderOnLoadCheckParcel() {}
+    private fun renderOnLoadCheckParcel() {
+        LoadingProgressDialog.showLoadingProgress(this)
+    }
 
     private fun renderOnSuccessCheckParcel(state: TrackParcelViewState.OnSuccessCheckParcel) {
+        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success == true) {
             PreferenceUtils.writeParcelZoneId(0)
             state.data.data?.order_id?.let { PreferenceUtils.writeCustomerOrderId(it) }
@@ -112,17 +116,13 @@ class BookingOrderActivity : AppCompatActivity() {
             PreferenceUtils.writeParcelInfo(ParcelInfoVO())
             MODE = "current"
             state.data.data?.order_id?.let { showGotBookingView(it) }
-            /*if (state.data.success) {
-                Preference.writeSenderReceiver(ParcelSenderReceiverVO())
-                Preference.writeParcelInfo(ParcelInfoVO())
-                startActivity<PlacedOrderActivity>(
-                    PlacedOrderActivity.orderStatus to "parcel",
-                    PlacedOrderActivity.ORDER_ID to state.data.data.customer_order_id
-                )
-                finish()
-            }*/
-
-
+        }else{
+            AlertDialog.Builder(this)
+                .setMessage(state.data.message)
+                .setPositiveButton(getString(R.string.str_ok)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
@@ -302,6 +302,7 @@ class BookingOrderActivity : AppCompatActivity() {
 
 
     private fun renderOnFailCheckParcel(state : TrackParcelViewState.OnFailCheckParcel) {
+        LoadingProgressDialog.hideLoadingProgress()
         when(state.message) {
             "Another Login" -> {
                 PreferenceUtils.clearCache()

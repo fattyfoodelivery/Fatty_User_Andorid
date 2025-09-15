@@ -1,7 +1,8 @@
-package com.orikino.fatty
+package com.orikino.fatty.viewholder
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemNearbyRestaurantsBinding
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.utils.PreferenceUtils
@@ -9,7 +10,6 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
-import com.orikino.fatty.viewholder.BaseViewHolder
 import com.squareup.picasso.Picasso
 
 class NearRestaurantViewHolder(var binding : ItemNearbyRestaurantsBinding, var callback : (NearByRestaurantVO,String,Int) -> Unit) : BaseViewHolder<NearByRestaurantVO>(binding.root)  {

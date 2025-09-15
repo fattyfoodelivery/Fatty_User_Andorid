@@ -7,7 +7,7 @@ interface SplashRepository {
 
     suspend fun onBoardAds(): Response<OnBoardingResponse>
 
-    /*suspend fun versionUpdate(versionCode: Int): Response<VersionUpdateResponse>
+    suspend fun versionUpdate(): Response<VersionUpdateResponse>
 
-    suspend fun adsEngagement(adsId: Int): Response<AdsEngagementResponse>*/
+    //suspend fun adsEngagement(adsId: Int): Response<AdsEngagementResponse>
 }

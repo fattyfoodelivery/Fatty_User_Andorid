@@ -17,6 +17,9 @@ interface AboutService {
     @GET(ApiRouteConstant.routeAboutApp)
     suspend fun fetchAbout(): Response<AboutAppResponse>
 
+    @GET(ApiRouteConstant.routeDeleteAccount)
+    suspend fun deleteAccount() : Response<DeleteAccountResponse>
+
     @GET(ApiRouteConstant.routeAppTutorial)
     suspend fun fetchTutorial(): Response<TutorialResponse>
 
@@ -43,4 +46,8 @@ interface AboutService {
         @Header("device_id")device_id: String,
         @Body customerVO: CustomerVO
     ): Response<UpdateUserInfoResponse>
+
+    @POST(ApiRouteConstant.routeVersionCheck)
+    suspend fun versionUpdate(
+    ) : Response<VersionUpdateResponse>
 }

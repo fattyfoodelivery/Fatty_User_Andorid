@@ -16,14 +16,15 @@ android {
         applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 29
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
         multiDexEnabled = true
+        resourceConfigurations.addAll(listOf("my", "en","zh"))
     }
 
     buildTypes {

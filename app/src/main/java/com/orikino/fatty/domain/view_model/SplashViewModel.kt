@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orikino.fatty.data.repository.SplashRepositoryImpl
+import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.domain.viewstates.SplashViewState
 import com.orikino.fatty.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
     var viewState: MutableLiveData<SplashViewState> = MutableLiveData()
-
+    var versionViewState : MutableLiveData<BaseViewState> = MutableLiveData()
 
     fun onBoardingAd() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -38,6 +39,27 @@ class SplashViewModel @Inject constructor(
             }catch (e : Exception) {
                 Log.d("SPLASHSHSHSHH", "onBoardingAd: ${e.message} adnddd ${e.localizedMessage}")
                 viewState.postValue(SplashViewState.OnBoardAdFail(Constants.CONNECTION_ISSUE))
+            }
+        }
+    }
+
+    fun getVersionUpdate(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val response = repository.versionUpdate()
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        versionViewState.postValue(BaseViewState.OnSuccessVersionUpdate(it))
+                    }
+                }else{
+                    when(response.code()){
+                        500 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.SERVER_ISSUE)) }
+                        403 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.DENIED)) }
+                        406 -> { versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.ANOTHER_LOGIN)) }
+                    }
+                }
+            }catch (e : Exception){
+                versionViewState.postValue(BaseViewState.OnFailVersionUpdate(Constants.CONNECTION_ISSUE))
             }
         }
     }

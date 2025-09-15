@@ -20,4 +20,6 @@ class AboutRepositoryImpl @Inject constructor(
     override suspend fun fetchHelpCenter(): Response<AppHelpCenterResponse> = service.fetchHelpCenter()
     override suspend fun fetchLogout(customer_id : Int): Response<LogoutResponse> = service.logout(customer_id)
     override suspend fun updateProfile(device_id : String,customerVO: CustomerVO): Response<UpdateUserInfoResponse> = service.updateUserInto(device_id,customerVO)
+    override suspend fun versionUpdate(): Response<VersionUpdateResponse> = service.versionUpdate()
+    override suspend fun deleteAccount(): Response<DeleteAccountResponse> = service.deleteAccount()
 }

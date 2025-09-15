@@ -274,7 +274,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
                 emptyViewSetUp()
             } else {
                 hideEmptyView()
-                state.data.data?.data?.let { orderHistoryAdapter?.setNewData(it) }
+                state.data.data?.data?.let { orderHistoryAdapter?.submitList(it) }
             }
         }
     }
@@ -466,7 +466,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
             dialogView.btnRemove.text = resources.getString(R.string.confirm)
             dialogView.btnRemove.setOnClickListener {
                 dismiss()
-                orderHistoryAdapter?.setNewData(mutableListOf())
+                orderHistoryAdapter?.submitList(mutableListOf())
 
                 //viewModel.orderHistoriesList.clear()
                 //viewModel.pastOrderHistoriesList.clear()

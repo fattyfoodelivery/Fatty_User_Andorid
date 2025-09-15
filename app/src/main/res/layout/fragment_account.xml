@@ -419,7 +419,7 @@
                     android:layout_weight="0.8"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/outfit_regular"
-                    android:text="@string/version_update"
+                    android:text="@string/update_version"
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
                     android:layout_marginStart="10dp"/>
@@ -565,7 +565,7 @@
                 android:background="@color/white"
                 android:weightSum="1"
                 android:padding="8dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginTop="1dp"
                 android:layout_gravity="center_vertical">
 

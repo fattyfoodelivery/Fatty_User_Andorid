@@ -21,16 +21,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
     <string name="intro_title_one">Find a restaurant</string>
-    <string name="intro_near_you" translatable="false">Near you</string>
-    <string name="intro_track" translatable="false">Track</string>
-    <string name="intro_in_hour" translatable="false">In 1 hour</string>
+    <string name="intro_near_you">Near you</string>
+    <string name="intro_track">Track</string>
+    <string name="intro_in_hour">In 1 hour</string>
     <string name="intro_dec_one">By allowing location access, you can search for \n restaurants near you and receive more accurate\n delivery.</string>
     <string name="intro_title_two">your food Parcel\ninstantly</string>
-    <string name="intro_your_parcel" translatable="false">Your food Parcel</string>
-    <string name="intro_instantly" translatable="false">Instantly</string>
+    <string name="intro_your_parcel">Your food Parcel</string>
+    <string name="intro_instantly">Instantly</string>
     <string name="intro_dec_two">des two</string>
     <string name="intro_title_three">Get delivery anywhere</string>
-    <string name="intro_get_any_where" translatable="false">Get delivery anywhere</string>
+    <string name="intro_get_any_where">Get delivery anywhere</string>
     <string name="intro_dec_three">des three</string>
     <string name="phone_number">Phone Number</string>
     <string name="phone_no_error">Please enter correct phone number</string>
@@ -54,7 +54,7 @@
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
 
-    <string name="invaild_otp" translatable="false">Invalid phone number or OTP code</string>
+    <string name="invaild_otp">Invalid phone number or OTP code</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="continues">Continue</string>
@@ -84,13 +84,13 @@
     <string name="please_rate_our_service">Please rate our service</string>
     <string name="how_was_your_delivery">How was your delivery?</string>
     <string name="more_info">More Info</string>
-    <string name="are_you_sure_you_want_to_send_a_parcel">Are you sure you want to send \n a parcel?</string>
+    <string name="are_you_sure_you_want_to_send_a_parcel">Are you sure you want to send a parcel?</string>
 
-    <string name="if_you_proceed_we_ll_call_you_to_confirm_after_you_ve_booked">If you proceed, we’ll call you to confirm \n after you’ve booked.</string>
+    <string name="if_you_proceed_we_ll_call_you_to_confirm_after_you_ve_booked">If you proceed, we’ll call you to confirm after you’ve booked.</string>
     <string name="we_ve_got_your_booking">We’ve Got Your Booking!</string>
     <string name="we_ve_received_your_parcel_booking_and_you_ll_receive_an_order_confirmation_call_from_us">We’ve received your parcel booking and you’ll receive an order confirmation call from us.</string>
-    <string name="view_my_parcel" translatable="false">View My Parcel</string>
-    <string name="logout_label" translatable="false">Logout</string>
+    <string name="view_my_parcel">View My Parcel</string>
+    <string name="logout_label">Logout</string>
     <string name="logout_title">Are you sure you want ot logout?</string>
     <string name="booked_successfully">Booked Successfully!</string>
     <string name="order_id_4">Order ID: </string>
@@ -152,7 +152,7 @@
     <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
     </string>
-    <string name="by_continuing_you_automatically_accept_to_fatty_s">By continuing, you automatically accept to Fatty\'s</string>
+    <string name="by_continuing_you_automatically_accept_to_fatty_s">By continuing, you automatically accept to Fatty\'s <annotation flat="terms">Terms &amp; Conditions</annotation> and <annotation flat="privacy">Privacy Policy</annotation>.</string>
     <string name="recent">Recents</string>
     <string name="filter">Filter</string>
     <string name="desserts">DESSERTS</string>
@@ -176,6 +176,7 @@
     <string name="bill_details">Bill Details</string>
     <string name="item_totals">Item Totals:</string>
     <string name="delivery_fees">Delivery Fees:</string>
+    <string name="delivery_fees_abnormal">Delivery Fees (Abnormal):</string>
     <string name="extra_fees">Extra Fees:</string>
     <string name="abnormal_fees">Abnormal Fees :</string>
     <string name="deliver_to">Deliver To</string>
@@ -279,16 +280,16 @@
     <string name="order_details">Order Details</string>
     <string name="opening_time">Opening time</string>
     <string name="closing_time">Closing time</string>
-    <string name="submit" translatable="false">Submit</string>
-    <string name="order_summary" translatable="false">Order Summary</string>
-    <string name="delivery_details" translatable="false">Delivery Details</string>
-    <string name="item" translatable="false">item(s)</string>
-    <string name="login" translatable="false">Login</string>
-    <string name="hello" translatable="false">Hello</string>
-    <string name="menus" translatable="false">Menus</string>
+    <string name="submit" >Submit</string>
+    <string name="order_summary" >Order Summary</string>
+    <string name="delivery_details">Delivery Details</string>
+    <string name="item" >item(s)</string>
+    <string name="login">Login</string>
+    <string name="hello">Hello</string>
+    <string name="menus">Menus</string>
     <string name="add_to_cart">Add To Cart</string>
 
-    <string name="let_s_rate_our_rider_s_delivery_services" translatable="false">Let\'s rate our rider\'s delivery services</string>
+    <string name="let_s_rate_our_rider_s_delivery_services">Let\'s rate our rider\'s delivery services</string>
     <string name="very_bad">Very Bad</string>
     <string name="perfect">Perfect</string>
     <string name="worst">Worst</string>
@@ -326,5 +327,31 @@
     <string name="choose_currency">Choose Currency</string>
     <string name="txt_choose_region">Choose Region</string>
     <string name="txt_total_items">%1$s item(s)</string>
-
+    <string name="unavailable">Unavailable Now</string>
+    <string name="txt_information">Information</string>
+    <string name="txt_you_need_to_update_new_version">You need to update new version!</string>
+    <string name="version_updat_ok">OK</string>
+    <string name="txt_cancel">Cancel</string>
+    <string name="your_note_exceeds_30_characters">Your note exceeds 30 characters!</string>
+    <string name="new_version_is_available">New version is available!</string>
+    <string name="your_app_will_be_the_latest_version">Your app will be the latest version</string>
+    <string name="we_have_sent_a_6_digit_to">We have sent a 6-digit to %s</string>
+    <string name="txt_enter_your_phone_number">Enter your phone number</string>
+    <string name="txt_please_fill_your_information_correctly">Please fill your information correctly</string>
+    <string name="txt_edit_phone_number">Edit Phone Number</string>
+    <string name="txt_current_phone_number">Current Phone Number : %s</string>
+    <string name="txt_new_phone_number">New Phone Number</string>
+    <string name="txt_update">Update</string>
+    <string name="txt_please_enter_phone_number">Please enter phone number</string>
+    <string name="txt_phone_edit_error">Please choose your address from address list!</string>
+    <string name="txt_send_parcel_every_where_nin_just_one_click">Send Parcel Every Where \nin Just One Click!</string>
+    <string name="txt_additonal_fee">Additional Fee</string>
+    <string name="txt_parcel_type">Parcel Type</string>
+    <string name="txt_item_quantity">Item Quantity</string>
+    <string name="txt_categories">Categories</string>
+    <string name="txt_apply_filters">Apply filters?</string>
+    <string name="txt_if_you_exit_without_applying_the_filter_you_selected_won_t_work">If you exit without applying, the filter you selected won\'t work.</string>
+    <string name="txt_update_successfully">Update successfully</string>
+    <string name="testaurant_unavailable_now">Unavailable Now</string>
+    <string name="txt_accept_by_rider_p">Accept By Rider (P)</string>
 </resources>

@@ -160,22 +160,15 @@
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal">
                 <TextView
+                    android:id="@+id/tv_otp_send_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_2xlarge"
                     android:textColor="@color/text_secondary_01"
                     android:textSize="16sp"
-                    android:text="We have sent a 6-digit to"
+                    android:text="@string/we_have_sent_a_6_digit_to"
                     android:fontFamily="@font/outfit_regular"
                     />
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary_01"
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"
-                    android:text=""
-                    android:fontFamily="@font/outfit_regular"/>
             </LinearLayout>
 
 

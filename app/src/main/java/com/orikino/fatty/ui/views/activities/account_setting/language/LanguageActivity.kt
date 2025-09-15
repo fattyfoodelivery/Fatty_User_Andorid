@@ -95,6 +95,7 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun chooseChina() {
+        PreferenceUtils.writeLanguage("zh")
         languageBinding.llChina.setBackgroundResource(R.drawable.lang_selected_bg)
         languageBinding.imgChinaStatus.setImageResource(R.drawable.radio_check)
         languageBinding.llEng.setBackgroundResource(0)
@@ -104,6 +105,7 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun chooseMyanmar() {
+        PreferenceUtils.writeLanguage("my")
         languageBinding.llMm.setBackgroundResource(R.drawable.lang_selected_bg)
         languageBinding.imgMmStatus.setImageResource(R.drawable.radio_check)
         languageBinding.llEng.setBackgroundResource(0)
@@ -114,6 +116,7 @@ class LanguageActivity : AppCompatActivity() {
     }
 
     private fun chooseEnglish() {
+        PreferenceUtils.writeLanguage("en")
         languageBinding.llEng.setBackgroundResource(R.drawable.lang_selected_bg)
         languageBinding.imgEngStatus.setImageResource(R.drawable.radio_check)
         languageBinding.llChina.setBackgroundResource(0)

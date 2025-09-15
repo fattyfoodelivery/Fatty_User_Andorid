@@ -11,6 +11,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -22,6 +23,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.orikino.fatty.BuildConfig
 import com.orikino.fatty.R
 import com.orikino.fatty.R.string.to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen
 import com.orikino.fatty.databinding.ActivitySplashBinding
@@ -29,6 +31,7 @@ import com.orikino.fatty.databinding.LayoutLoginDialogBinding
 import com.orikino.fatty.domain.model.CustomerVO
 import com.orikino.fatty.service.RegisterForPushNotificationsAsync
 import com.orikino.fatty.domain.view_model.SplashViewModel
+import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.ui.views.activities.account_setting.language.LanguageActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.domain.viewstates.SplashViewState
@@ -51,6 +54,7 @@ import io.nlopez.smartlocation.OnLocationUpdatedListener
 import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
 import me.pushy.sdk.Pushy
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
@@ -102,6 +106,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
     }
 
     private fun startNewCountdown(durationMillis: Long) {
+        splashBinding.tvSkip.visibility = View.VISIBLE
         countDownTimerInstance?.cancel() // Cancel any existing timer
 
         timeRemainingWhenPaused = durationMillis
@@ -162,7 +167,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         //checkConnection()
         // showBatteryOptimizationsWhitelistDialog()
 
-        if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+        if (isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
             // If the timer wasn't cancelled for navigation, there's time left,
             // and no timer instance is currently running (e.g., was paused), resume it.
             startNewCountdown(timeRemainingWhenPaused)
@@ -217,6 +222,84 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         viewModel.viewState.observe(this, Observer {
             render(it)
         })
+        viewModel.versionViewState.observe(this, Observer{
+            renderVersion(it)
+        })
+    }
+    private fun renderVersion(state: BaseViewState) {
+        when (state) {
+            is BaseViewState.OnSuccessVersionUpdate -> {
+               // viewModel.onBoardingAd()
+                val apiVersionString = state.data.data?.current_version // As per your existing code structure
+                val appVersionCode = BuildConfig.VERSION_CODE // Using VERSION_CODE for integer comparison
+
+                var needsUpdate = false
+                if (!apiVersionString.isNullOrEmpty()) {
+                    try {
+                        val apiVersionInt = apiVersionString.toInt()
+                        Log.d("VersionCheck", "API version: $apiVersionInt, App version code: $appVersionCode")
+                        if (appVersionCode < apiVersionInt) { // Compare integers
+                            needsUpdate = true
+                            Log.i("VersionCheck", "App version mismatch. App: $appVersionCode, API: $apiVersionInt. Update required.")
+                            val isForceUpdate = state.data.data?.is_force_update ?: false
+                            val updateLink = state.data.data?.link ?: ""
+                            if (updateLink.isNotEmpty()) {
+                                //viewModel.onBoardingAd()
+                                showUpdateDialog(isForceUpdate = isForceUpdate, updateLink = updateLink)
+                            } else {
+                                Log.e("VersionCheck", "Update link is missing from API response.")
+                                // If update link is missing, but update is needed, what to do?
+                                // For now, proceed as if no update needed if link is missing.
+                                needsUpdate = false // Revert needsUpdate if link is missing
+                            }
+                        } else {
+                            Log.i("VersionCheck", "App version is up to date.")
+                        }
+                    } catch (e: NumberFormatException) {
+                        Log.e("VersionCheck", "API version string is not a valid integer: $apiVersionString")
+                        // If API version is not a valid number, assume no update or handle as an error
+                    }
+                } else {
+                    Log.w("VersionCheck", "API version string is null or empty.")
+                }
+
+                if (!needsUpdate) {
+                    viewModel.onBoardingAd()
+                }
+            }
+            is BaseViewState.OnFailVersionUpdate -> {
+                viewModel.onBoardingAd()
+            }
+            else -> {}
+        }
+    }
+
+    private fun showUpdateDialog(isForceUpdate: Boolean, updateLink: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.txt_information))
+        builder.setMessage(getString(R.string.txt_you_need_to_update_new_version))
+
+        builder.setPositiveButton(getString(R.string.version_updat_ok)) { dialog, _ ->
+            try {
+                val intent = Intent(Intent.ACTION_VIEW, updateLink.toUri())
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Cannot open link: Invalid URL.", Toast.LENGTH_LONG).show()
+            }
+            dialog.dismiss()
+        }
+
+        if (!isForceUpdate) {
+            builder.setNegativeButton(getString(R.string.txt_cancel)) { dialog, _ ->
+                dialog.dismiss()
+                viewModel.onBoardingAd()
+            }
+        }
+
+        builder.setCancelable(!isForceUpdate) // Dialog is not cancelable if it's a force update
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun render(state: SplashViewState) {
@@ -262,6 +345,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                                 if (intent.resolveActivity(packageManager) != null) {
                                     startActivity(intent)
                                 } else {
+                                    startNewCountdown(timeRemainingWhenPaused)
                                     Toast.makeText(this, "Cannot open link: No application can handle this request.", Toast.LENGTH_SHORT).show()
                                 }
                             } catch (e: ActivityNotFoundException) {
@@ -389,7 +473,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                     report.let {
                         if (it.areAllPermissionsGranted()) {
-                            viewModel.onBoardingAd() // This will trigger render methods, which can start the countdown
+                            viewModel.getVersionUpdate() // This will trigger render methods, which can start the countdown
                         } else {
                             // Permissions not granted, still might want a failsafe countdown
                             // or a different user experience.

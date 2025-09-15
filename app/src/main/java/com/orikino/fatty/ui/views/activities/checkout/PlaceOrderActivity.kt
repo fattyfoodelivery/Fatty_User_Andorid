@@ -69,14 +69,14 @@ class PlaceOrderActivity : AppCompatActivity() {
     private fun checkOrder() {
         when (orderStatus) {
             "parcel" -> {
-                binding.tvOrderId.text = "${resources.getString(R.string.order_id)} : $orderId"
+                binding.tvOrderId.text = "${resources.getString(R.string.order_id)} $orderId"
                 binding.tvOrderStatus.text = resources.getString(R.string.order_success)
                 MainActivity.isParcel = true
                 PreferenceUtils.needToShow = false
             }
             else -> {
                 MainActivity.isParcel = false
-                binding.tvOrderId.text = "${resources.getString(R.string.order_id)} : $orderId"
+                binding.tvOrderId.text = "${resources.getString(R.string.order_id)} $orderId"
                 if (isKPay) try {
 
                     startPay(this@PlaceOrderActivity, orderInfo, sing, singType)

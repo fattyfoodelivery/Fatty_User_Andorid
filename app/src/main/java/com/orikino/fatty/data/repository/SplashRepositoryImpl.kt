@@ -1,7 +1,14 @@
 package com.orikino.fatty.data.repository
 
+import android.net.http.HttpException
+import android.net.http.NetworkException
 import com.orikino.fatty.data.apiService.SplashService
 import com.orikino.fatty.domain.responses.OnBoardingResponse
+import com.orikino.fatty.domain.responses.VersionUpdateResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -102,31 +109,31 @@ class SplashRepositoryImpl @Inject constructor(
         }*/
 
 
-    /*override suspend fun versionUpdate(versionCode: Int): Response<VersionUpdateResponse> = service.versionUpdate(version_code = versionCode)*/
-    /* {
-        var response = VersionUpdateResponse()
-        return flow {
-            withContext(Dispatchers.IO) {
-                try {
-                    response = service.versionUpdate(versionCode)
-                } catch (e: Throwable) {
-                    when (e) {
-                        is NetworkException -> throw NetworkException("Connection Issue")
-                        is HttpException -> throw when {
-                            e.response()
-                                ?.code() == 500 -> AppException("Server Error")
-                            e.response()
-                                ?.code() == 403 -> AppException("DENIED")
-                            e.response()?.code() == 406 -> AppException("Another Login")
-                            else -> AppException("Something Wrong")
-                        }
-                        else -> throw AppException("Failed")
-                    }
-                }
-            }
-            emit(response)
-        }
-    }*/
+    override suspend fun versionUpdate(): Response<VersionUpdateResponse> = service.versionUpdate()
+//    {
+//        var response = VersionUpdateResponse()
+//        return flow {
+//            withContext(Dispatchers.IO) {
+//                try {
+//                    response = service.versionUpdate(versionCode)
+//                } catch (e: Throwable) {
+//                    when (e) {
+//                        is NetworkException -> throw NetworkException("Connection Issue")
+//                        is HttpException -> throw when {
+//                            e.response()
+//                                ?.code() == 500 -> AppException("Server Error")
+//                            e.response()
+//                                ?.code() == 403 -> AppException("DENIED")
+//                            e.response()?.code() == 406 -> AppException("Another Login")
+//                            else -> AppException("Something Wrong")
+//                        }
+//                        else -> throw AppException("Failed")
+//                    }
+//                }
+//            }
+//            emit(response)
+//        }
+//    }
 
     /*override suspend fun adsEngagement(adsId: Int): Response<AdsEngagementResponse>  = service.adsEngagement(merchant_ads_id = adsId)*/
     /*{

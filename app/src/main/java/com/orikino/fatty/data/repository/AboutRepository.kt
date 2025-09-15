@@ -21,4 +21,8 @@ interface AboutRepository {
     suspend fun fetchLogout(customerId : Int) : Response<LogoutResponse>
 
     suspend fun updateProfile(device_id : String,customerVO: CustomerVO) : Response<UpdateUserInfoResponse>
+
+    suspend fun versionUpdate(): Response<VersionUpdateResponse>
+
+    suspend fun deleteAccount() : Response<DeleteAccountResponse>
 }

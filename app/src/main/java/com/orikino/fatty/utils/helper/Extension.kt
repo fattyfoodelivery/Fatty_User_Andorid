@@ -9,8 +9,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.Color
+import android.graphics.Typeface
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -18,22 +19,27 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,8 +48,22 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.orikino.fatty.R
-import com.orikino.fatty.domain.model.*
+import com.orikino.fatty.domain.model.CategoryVO
+import com.orikino.fatty.domain.model.CityVO
+import com.orikino.fatty.domain.model.CurrencyVO
+import com.orikino.fatty.domain.model.FoodMenuByRestaurantVO
+import com.orikino.fatty.domain.model.FoodSubItemVO
+import com.orikino.fatty.domain.model.FoodVO
+import com.orikino.fatty.domain.model.MenuVO
+import com.orikino.fatty.domain.model.NearByRestaurantVO
+import com.orikino.fatty.domain.model.NewRecommendRestaurantVO
+import com.orikino.fatty.domain.model.OptionVO
+import com.orikino.fatty.domain.model.RecommendRestaurantVO
+import com.orikino.fatty.domain.model.SearchFoodsVO
+import com.orikino.fatty.domain.model.SearchRestaurantVO
+import com.orikino.fatty.domain.model.TopRelatedCategoryVO
 import com.orikino.fatty.domain.responses.TempRestDetailResponse
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SmartScrollListener
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -52,8 +72,9 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
-import androidx.core.graphics.toColorInt
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 const val rcCamera = 1
 const val rcGallery = 2
@@ -163,21 +184,88 @@ fun Context.correctLocale() {
     PreferenceUtils.readLanguage()?.let { forceUpdateLocale(it) }
 }
 
+fun setColorSpannable(text : String , color : Int , startIndex : Int , endIndex : Int) : SpannableString {
+    val spannableString = SpannableString(text)
+    spannableString.setSpan(
+        ForegroundColorSpan(color) ,
+        startIndex ,
+        endIndex ,
+        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return spannableString
+}
+
+fun setBoldSpannable(text : String , startIndex : Int , endIndex : Int) : SpannableString {
+    val spannableString = SpannableString(text)
+    spannableString.setSpan(
+        StyleSpan(Typeface.BOLD) ,
+        startIndex ,
+        endIndex ,
+        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    return spannableString
+}
 
 fun Context.forceUpdateLocale(language: String, callback: () -> Unit = {}) {
     currentResource(language)
     callback.invoke()
 }
 
-fun Context.currentResource(language: String): Resources {
+fun Context.currentResource(language: String) {
     PreferenceUtils.writeLanguage(language)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language))
+    } else {
+        //updateResourcesLegacy(this, language)
+        LocaleHelper().setLocale(this, language)
+    }
+}
+
+private fun updateResources(context: Context, language: String): Context? {
     val locale = Locale(language)
     Locale.setDefault(locale)
-    val configuration = this.resources.configuration
+
+    val configuration = context.resources.configuration
     configuration.setLocale(locale)
-    createConfigurationContext(configuration)
+    configuration.setLayoutDirection(locale)
+
+    return context.createConfigurationContext(configuration)
+}
+
+@Suppress("deprecation")
+private fun updateResourcesLegacy(context: Context, language: String): Context {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+
+    val resources = context.resources
+
+    val configuration = resources.configuration
+    configuration.locale = locale
+    configuration.setLayoutDirection(locale)
+
     resources.updateConfiguration(configuration, resources.displayMetrics)
-    return resources
+
+    return context
+}
+
+private fun changeLanguageLegacy(context: Context, language: String) {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+
+    // Update resources for the current context
+    val currentResources = context.resources
+    val currentConfig = Configuration(currentResources.configuration)
+    currentConfig.setLocale(locale)
+    currentResources.updateConfiguration(currentConfig, currentResources.displayMetrics)
+
+    // Update resources for the application context
+    val applicationContext = context.applicationContext
+    if (applicationContext != null && applicationContext.resources != currentResources) {
+        val applicationResources = applicationContext.resources
+        val applicationConfig = Configuration(applicationResources.configuration)
+        applicationConfig.setLocale(locale)
+        applicationResources.updateConfiguration(applicationConfig, applicationResources.displayMetrics)
+    }
 }
 
 
@@ -458,19 +546,19 @@ private fun dateAsString(date: Date?, pattern: String): String {
         throw NullPointerException("Date can't be null")
 }
 
-fun OrderStatusVO.toDefaultStatusName() : String? {
-    return when (PreferenceUtils.readLanguage()) {
-        "en" -> {
-            this.order_status_name ?: "Order Success, waiting for accept by restaurant"
-        }
-        "zh" -> {
-            this.order_status_name_ch
-        }
-        else -> {
-            this.order_status_name_mm
-        }
-    }
-}
+//fun OrderStatusVO.toDefaultStatusName() : String? {
+//    return when (PreferenceUtils.readLanguage()) {
+//        "en" -> {
+//            this.order_status_name ?: "Order Success, waiting for accept by restaurant"
+//        }
+//        "zh" -> {
+//            this.order_status_name_ch
+//        }
+//        else -> {
+//            this.order_status_name_mm
+//        }
+//    }
+//}
 
 
 

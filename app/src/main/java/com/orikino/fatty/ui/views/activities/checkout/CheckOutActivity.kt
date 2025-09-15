@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ import com.orikino.fatty.adapters.FoodOrderAdapter
 import com.orikino.fatty.adapters.PaymentMethodAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityCheckOutBinding
+import com.orikino.fatty.databinding.LayoutDialogEditPhoneBinding
 import com.orikino.fatty.databinding.LayoutDialogRemoveCartBinding
 import com.orikino.fatty.domain.model.CreateFoodOrderVO
 import com.orikino.fatty.domain.model.CreateFoodVO
@@ -31,6 +33,8 @@ import com.orikino.fatty.domain.model.CustomerAddressVO
 import com.orikino.fatty.domain.model.FoodMenuByRestaurantVO
 import com.orikino.fatty.domain.model.KPayResponseVO
 import com.orikino.fatty.domain.view_model.OrderViewModel
+import com.orikino.fatty.domain.viewstates.AddressViewState
+import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressDefinedActivity
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressPickUpMapBoxActivity
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.ManageAddressActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
@@ -108,6 +112,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private var isBack = false
     private var phoneNo: String? = null
     var isCheckCashPayment = true
+    private var defaultAddress : CustomerAddressVO? = null
 
     companion object {
 
@@ -153,7 +158,6 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         phoneNo = intent.getStringExtra(PHONE_NO)
         if (phoneNo == null) viewModel.customerAddressPhone = PreferenceUtils.readUserVO()?.customer_phone
         else viewModel.customerAddressPhone = phoneNo
-        binding.tvCurrentPhone.text = viewModel.customerAddressPhone
 
 
         setUpFoodOrderRecyclerView()
@@ -172,10 +176,45 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     }
 
     private fun setUpPhone() {
-        binding.tbtnEditPhone.gone()
-        /*binding.tvEditPhone.setOnClickListener {
+        //binding.tbtnEditPhone.gone()
+        binding.btnEditPhone.setOnClickListener {
+            if (defaultAddress != null){
+                showPhoneEditDialog()
+            }else{
+                Toast.makeText(this, getString(R.string.txt_phone_edit_error),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
-        }*/
+    private fun showPhoneEditDialog(){
+        val dialogView =
+            LayoutDialogEditPhoneBinding.inflate(LayoutInflater.from(this@CheckOutActivity))
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView.root)
+        dialogView.tvDesc.text = getString(R.string.txt_current_phone_number, defaultAddress?.customer_phone)
+        alertDialog = builder.create().apply {
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+            setCancelable(true)
+            dialogView.ivClose.setOnClickListener {
+                dismiss()
+            }
+            dialogView.btnCancel.setOnClickListener {
+                dismiss()
+            }
+            dialogView.btnUpdate.setOnClickListener {
+                if (dialogView.edtPhone.text.toString().isNotEmpty()){
+                    defaultAddress?.let { data ->
+                        viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,dialogView.edtPhone.text.toString(),data.building_system?:"",data.address_type, data.is_default)
+                    }
+                }else{
+                    showSnackBar(getString(R.string.txt_please_enter_phone_number))
+                }
+                dismiss()
+            }
+
+            show()
+        }
     }
 
     private fun checkGPS() {
@@ -193,6 +232,9 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             foodOrderAdapter.setNewData(it)
         }
         checkGPS()
+        PreferenceUtils.readUserVO().customer_id?.let {
+            viewModel.fetchCustomerAddressList(it)
+        }
     }
 
     private fun onBackPress() {
@@ -214,11 +256,9 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 PreferenceUtils.writeRestaurantNote(trimmedNote)
                 binding.tvNoteCount.text = "${trimmedNote.length}/30"
                 if (trimmedNote.length > 30) {
-                    binding.edtNote.isEnabled = false
                     binding.edtNote.clearFocus()
-                    CustomToast(this@CheckOutActivity, "Your note exceeds 30 characters!",false).createCustomToast()
-                } else {
-                    binding.edtNote.isEnabled = true
+                    CustomToast(this@CheckOutActivity,
+                        getString(R.string.your_note_exceeds_30_characters),false).createCustomToast()
                 }
             }
 
@@ -260,7 +300,8 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
                 when (aa.size) {
                     0 -> {
-                        when {
+                        //Old code removed, because these condition are not necessary only else state metter
+                        /*when {
                             isSelected -> {
                                 PreferenceUtils.readSelectedAddress()?.latitude?.let {
                                     viewModel.lat = it
@@ -291,42 +332,60 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                                     geoCodeLocationToAddress()
                                 }
                             }
+                        }*/
+                        val gpsTracker = GpsTracker(this)
+                        if (gpsTracker.canGetLocation()) {
+                            viewModel.lat = gpsTracker.latitude
+                            viewModel.lng = gpsTracker.longitude
+                            geoCodeLocationToAddress()
                         }
+
+                        //set to default login phone for address not selected
+                        binding.tvCurrentPhone.text = viewModel.customerAddressPhone
+                        defaultAddress = null
                     }
 
                     else -> {
-                        when {
-                            isSelected -> {
-                                PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                    viewModel.lat = it
-                                }
-                                PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                    viewModel.lng = it
-                                }
-                                geoCodeLocationToAddress()
-                            }
+                        //Old code removed, because these condition are not necessary only else state metter
+                        /* when {
+                             isSelected -> {
+                                 PreferenceUtils.readSelectedAddress()?.latitude?.let {
+                                     viewModel.lat = it
+                                 }
+                                 PreferenceUtils.readSelectedAddress()?.longitude?.let {
+                                     viewModel.lng = it
+                                 }
+                                 geoCodeLocationToAddress()
+                             }
 
-                            isBack -> {
-                                if (PreferenceUtils.readSelectedAddress()?.latitude == 0.0 && PreferenceUtils.readSelectedAddress()?.longitude == 0.0) {
-                                    viewModel.lat = aa[0].address_latitude
-                                    viewModel.lng = aa[0].address_longitude
-                                } else {
-                                    PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                        viewModel.lat = it
-                                    }
-                                    PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                        viewModel.lng = it
-                                    }
-                                }
-                                geoCodeLocationToAddress()
-                            }
+                             isBack -> {
+                                 if (PreferenceUtils.readSelectedAddress()?.latitude == 0.0 && PreferenceUtils.readSelectedAddress()?.longitude == 0.0) {
+                                     viewModel.lat = aa[0].address_latitude
+                                     viewModel.lng = aa[0].address_longitude
+                                 } else {
+                                     PreferenceUtils.readSelectedAddress()?.latitude?.let {
+                                         viewModel.lat = it
+                                     }
+                                     PreferenceUtils.readSelectedAddress()?.longitude?.let {
+                                         viewModel.lng = it
+                                     }
+                                 }
+                                 geoCodeLocationToAddress()
+                             }
 
-                            else -> {
-                                viewModel.lat = aa[0].address_latitude
-                                viewModel.lng = aa[0].address_longitude
-                                geoCodeLocationToAddress()
-                            }
-                        }
+                             else -> {
+                                 viewModel.lat = aa[0].address_latitude
+                                 viewModel.lng = aa[0].address_longitude
+                                 geoCodeLocationToAddress()
+                             }
+                         }*/
+                        viewModel.lat = aa[0].address_latitude
+                        viewModel.lng = aa[0].address_longitude
+                        binding.tvCurrentPhone.text = aa[0].customer_phone
+
+                        defaultAddress = aa[0]
+                        //geoCodeLocationToAddress()
+                        showAddress(defaultAddress?.current_address!!)
                     }
                 }
             } catch (e: Exception) {
@@ -376,11 +435,11 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
     private fun editAddress() {
         binding.rlManageAddress.setOnClickListener {
-            finish()
+           // finish()
             startActivity(ManageAddressActivity.getIntent(true))
         }
         binding.tbtEditAddress.setOnClickListener {
-            finish()
+           // finish()
             startActivity(ManageAddressActivity.getIntent(true))
         }
         binding.tbnAddMore.setOnClickListener {
@@ -397,6 +456,9 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private fun subscribeUI() {
         //viewModel.fetchPaymentList()
         viewModel.viewState.observe(this) { render(it) }
+        viewModel.addressViewState.observe(this){
+            renderEditPhone(it)
+        }
         viewModel.cartList.observe(this) {
             if (it.isNullOrEmpty()) {
                 PreferenceUtils.writeRestaurant(FoodMenuByRestaurantVO())
@@ -435,6 +497,69 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             }
         }
         addressObserver()
+    }
+
+    private fun renderEditPhone(state : AddressViewState){
+        when(state){
+            is AddressViewState.OnLoadingAddCurrentAddress -> renderOnLoadingAddAddress()
+            is AddressViewState.OnSuccessAddCurrentAddress -> renderOnSuccessAddCurrentAddress(state)
+            is AddressViewState.OnFailAddCurrentAddress -> renderOnFailAddAddress(state)
+            else -> {}
+        }
+    }
+
+    private fun renderOnLoadingAddAddress() {
+        LoadingProgressDialog.showLoadingProgress(this)
+    }
+
+    private fun renderOnSuccessAddCurrentAddress(state: AddressViewState.OnSuccessAddCurrentAddress) {
+        LoadingProgressDialog.hideLoadingProgress()
+        if (state.data.success) {
+            PreferenceUtils.readUserVO().customer_id?.let {
+                viewModel.fetchCustomerAddressList(it)
+            }
+        }
+    }
+
+    private fun renderOnFailAddAddress(state: AddressViewState.OnFailAddCurrentAddress) {
+        LoadingProgressDialog.hideLoadingProgress()
+        when (state.message) {
+            "Server Issue" -> {
+                showSnackBar("Server Issue")
+            }
+
+            "Another Login" -> {
+                WarningDialog.Builder(
+                    this,
+                    resources.getString(R.string.already_login_title),
+                    resources.getString(R.string.already_login_msg),
+                    resources.getString(R.string.force_login),
+                    callback = {
+                        PreferenceUtils.clearCache()
+                        finish()
+                        //startActivity<SplashActivity>()
+                        val intent = Intent(this, SplashActivity::class.java)
+                        startActivity(intent)
+
+                    })
+                    .show(supportFragmentManager, AddressDefinedActivity::class.simpleName)
+            }
+
+            "Denied" -> WarningDialog.Builder(
+                this,
+                resources.getString(R.string.maintain_title),
+                resources.getString(R.string.maintain_msg),
+                "OK",
+                callback = {
+                    finishAffinity()
+
+                })
+                .show(supportFragmentManager, AddressDefinedActivity::class.simpleName)
+
+            else -> {
+                showSnackBar(state.message)
+            }
+        }
     }
 
     private fun render(state: OrderViewState) {
@@ -560,13 +685,36 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
             viewModel.deliveryFee = state.data.data.delivery_fee
             viewModel.deliveryFeeOrigin = state.data.data.delivery_fee_origin
-            billTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee).plus(abnormalFee)
+
+            var calculatedBillTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee).plus(abnormalFee)
+
+            if (PreferenceUtils.readCurrCurrency()?.currency_symbol == "MMK"){ // --- Start of your custom rounding logic ---
+                val remainder = calculatedBillTotalPrice % 100
+                val base =
+                    calculatedBillTotalPrice - remainder // Gets the hundreds part (e.g., 201 -> 200)
+
+                calculatedBillTotalPrice = if (remainder > 0 && remainder <= 50) {
+                    base + 50
+                } else if (remainder > 50) {
+                    base + 100
+                } else { // This handles cases where remainder is 0 (e.g. 200, 300) or exactly 50
+                    if (remainder == 0.0) base else base + 50 // if exactly 0, keep as is, if 50, make it 50
+                }
+                // --- End of your custom rounding logic ---}
+            }
+
+            billTotalPrice = calculatedBillTotalPrice // Assign the modified value
+
             binding.tvBillTotalPrice.text =
                 "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.tvTotal.text =
                 "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
-
             binding.llNoti.gone()
+//            billTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee).plus(abnormalFee)
+//            binding.tvBillTotalPrice.text =
+//                "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
+//            binding.tvTotal.text =
+//                "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
 
             // origin code
             /*if (state.data.data.delivery_fee > 0) {
@@ -642,7 +790,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
             dialogView?.btnClose?.setOnClickListener {
                 dismiss()
-                finish()
+                //finish()
                 startActivity(ManageAddressActivity.getIntent(true))
             }
             dialogView?.btnRemove?.text = resources.getString(R.string.confirm)
@@ -780,11 +928,6 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             LoadingProgressDialog.hideLoadingProgress()
             viewModel.shouldFetchData = false
             viewModel.paymentMethodID = state.data.data[0].payment_method_id
-
-            PreferenceUtils.readUserVO().customer_id?.let {
-                viewModel.fetchCustomerAddressList(it)
-            }
-
         }
     }
 
@@ -848,6 +991,24 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             viewModel.deliveryFee = state.data.data.delivery_fee
             viewModel.deliveryFeeOrigin = state.data.data.delivery_fee_origin
             billTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee)
+            var calculatedBillTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee).plus(abnormalFee)
+
+            if (PreferenceUtils.readCurrCurrency()?.currency_symbol == "MMK"){ // --- Start of your custom rounding logic ---
+                val remainder = calculatedBillTotalPrice % 100
+                val base =
+                    calculatedBillTotalPrice - remainder // Gets the hundreds part (e.g., 201 -> 200)
+
+                calculatedBillTotalPrice = if (remainder > 0 && remainder <= 50) {
+                    base + 50
+                } else if (remainder > 50) {
+                    base + 100
+                } else { // This handles cases where remainder is 0 (e.g. 200, 300) or exactly 50
+                    if (remainder == 0.0) base else base + 50 // if exactly 0, keep as is, if 50, make it 50
+                }
+                // --- End of your custom rounding logic ---}
+            }
+
+            billTotalPrice = calculatedBillTotalPrice // Assign the modified value
             binding.tvBillTotalPrice.text = "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.tvTotal.text = "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.llNoti.gone()
@@ -985,7 +1146,14 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 )
             } else {
                 qty = data.food_qty.minus(1)
-                total = data.initial_price * qty
+                var subItemPrice = 0.0
+                data.sub_item.forEach {
+                    it.option.forEach {
+                        subItemPrice = subItemPrice.plus(it.food_sub_item_price)
+                    }
+                }
+                total = (data.initial_price + subItemPrice) * qty
+
                 result[pos].food_qty = qty
                 result[pos].food_price = total
                 PreferenceUtils.writeFoodOrderList(result)
@@ -998,7 +1166,13 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
     private fun itemPlusClick(data: CreateFoodVO,pos: Int) {
         qty = data.food_qty.plus(1)
-        total = data.initial_price * qty
+        var subItemPrice = 0.0
+        data.sub_item.forEach {
+            it.option.forEach {
+                subItemPrice = subItemPrice.plus(it.food_sub_item_price)
+            }
+        }
+        total = (data.initial_price + subItemPrice) * qty
 
         result = viewModel.cartList.value?.filterIndexed { index, createFoodVO ->
             index != pos

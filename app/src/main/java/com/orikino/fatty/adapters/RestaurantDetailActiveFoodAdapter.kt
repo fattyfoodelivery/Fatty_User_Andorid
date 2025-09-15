@@ -47,6 +47,14 @@ class RestaurantDetailActiveFoodAdapter(
                 placeholder(R.drawable.food_default_icon)
             }
 
+            if (data.food_emergency_status == 1){
+                binding.imvAddFood.alpha = 0.5f
+                binding.tvUnavailable.visibility = View.VISIBLE
+            }else{
+                binding.imvAddFood.alpha = 1f
+                binding.tvUnavailable.visibility = View.GONE
+            }
+
             binding.imvFood.setOnClickListener {
                 callback.invoke(data,"image",position)
             }

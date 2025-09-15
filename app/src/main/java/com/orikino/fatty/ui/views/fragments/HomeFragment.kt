@@ -1078,7 +1078,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         topCategoryAdapter = TopCategoryAdapter(mutableListOf(), onClickItem = {
             startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
         }, onClickMore = {
-            startActivity(FoodCategoryActivity.getIntent("Categories"))
+            startActivity(FoodCategoryActivity.getIntent(getString(R.string.txt_categories)))
         })
         binding?.rvFoodCategory?.adapter = topCategoryAdapter
     }
