@@ -35,7 +35,13 @@ class AboutUsActivity : AppCompatActivity() {
             return Intent(FattyApp.getInstance(),AboutUsActivity::class.java)
         }
     }
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.account_setting.app_version
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +18,7 @@ import com.orikino.fatty.databinding.ActivityVersionUpdateBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.utils.CustomTimer
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.gone
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -135,5 +138,11 @@ class VersionUpdateActivity : AppCompatActivity() {
         //customTimer?.cancelTimer()
     }
 
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

@@ -21,7 +21,7 @@
     <string name="account">မိမိ</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="next">Next</string>
+    <string name="next">နောက်တစ်ဆင့်</string>
     <string name="intro_title_one">Find a restaurant\nnear you</string>
     <string name="intro_near_you">Near you</string>
     <string name="intro_track">Track</string>
@@ -41,7 +41,7 @@
     <string name="_123456789">123456789</string>
     <string name="terms_amp_conditions">စည်းကမ်းသတ်မှတ်ချက်များ</string>
     <string name="str_no_notifications">အကြောင်းကြားချက်များမရှိပါ။</string>
-    <string name="clear_cart_data">This action will clear previous cart data!</string>
+    <string name="clear_cart_data">ရှေဆက်ခြင်းသည် ခြင်းတောင်းထဲရှိအစားအစာကိုပယ်ဖျက်နိုင်သည်</string>
     <string name="hyperlink_term_condition"><a href="https://www.fattyfoodmyanmar.com.mm">Terms &amp; Conditions</a></string>
     <string name="hyperlink_privacy_policy"><a href="https://www.fattyfoodmyanmar.com.mm">Privacy Policy</a></string>
     <string name="privacy_policy">အချက်အလက်မူဝါဒ</string>
@@ -71,12 +71,12 @@
     <string name="near_for_you">သင့်အနီးအနား ရှိဆိုင်များ</string>
     <string name="_5_0000_00_mmk">5,0000.00 MMK</string>
     <string name="ordering_guide">အသုံးပြုနည်း</string>
-    <string name="please_add_items_into_your_cart">Please add items into your cart</string>
+    <string name="please_add_items_into_your_cart">ကျေးဇူးပြု၍ cartထဲသို့ ပစ္စည်းများထည့်ပါ။</string>
     <string name="no_food_items_to_checkout">ငွေရှင်းရန် အစားအသောက်များမရှိပါ။</string>
-    <string name="already_login_title">Already Login!</string>
+    <string name="already_login_title">အကောင့်ဝင်ထားပြီးဖြစ်သည်။</string>
     <string name="confirm">အတည်ပြုပါ</string>
-    <string name="already_login_msg">This phone number is already login from another device, please logout and try again!</string>
-    <string name="force_login">Force Update</string>
+    <string name="already_login_msg">ဤဖုန်းနံပါတ်သည် အခြားဖုန်းမှ အကောင့်ဝင်ထားနေသည်။ အကောင့်ထွက်ပြီး ပြန်ဝင်ပါ</string>
+    <string name="force_login">အကောင့်ဝင်မည်</string>
     <string name="please_rate_our_service">Please rate our service</string>
     <string name="let_s_rate_our_rider_s_delivery_services">Let\'s rate our rider\'s delivery services</string>
     <string name="how_was_your_delivery">How was your delivery?</string>
@@ -162,7 +162,7 @@
     <string name="don_t_get_the_code">ကုဒ်ကို မရဘူးလား?</string>
     <string name="resend_otp">OTP ပြန်ပို့ရန်</string>
     <string name="confirm_location">နေရာအတည်ပြုရန်</string>
-    <string name="manage_address">လိပ်စာကို စီမံပါ။</string>
+    <string name="manage_address">လိပ်စာများ</string>
     <string name="choose_payment_method">ငွေပေးချေမှုနည်းလမ်းကို ရွေးချယ်ရန်</string>
     <string name="any_restaurant_request_type_here">တောင်းဆိုမှု တစ်စုံတစ်ရာ ရှိပါသလား။ ဒီမှာ ရိုက်ပါ။</string>
     <string name="bill_details">ဘေလ်အသေးစိတ်</string>
@@ -228,7 +228,7 @@
     <string name="mmk">MMK</string>
     <string name="customer_care">Customer Care</string>
     <string name="to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen">To receive notifications in the background, please set \"Battery\" to \"Unrestricted\" in the next screen.</string>
-    <string name="my_account">My Account</string>
+    <string name="my_account">热门商家</string>
     <string name="skip">Skip</string>
     <string name="login_message">Please login to order food or booking parcel</string>
     <string name="apply_filter">လုပ်ဆောင်မည်</string>
@@ -236,7 +236,7 @@
     <string name="out_of_service">Out of services</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
-    <string name="resend_code">OTP ပြန်ပို့ရန်</string>
+    <string name="resend_code">ပြန်လည်ပေးပို့မည််</string>
     <string name="send_again">Send Again</string>
     <string name="select_profile_photo">Select Profile Photo</string>
     <string name="take_photo">Take Photo</string>
@@ -257,7 +257,7 @@
     <string name="are_you_sure_to_delete_this_order">Are you sure to delete this order?</string>
     <string name="str_delete">Delete</string>
     <string name="please_add_items_to_your_cart">ကျေးဇူးပြု၍ cartထဲသို့ ပစ္စည်းများထည့်ပါ။</string>
-    <string name="order_id">Order ID :</string>
+    <string name="order_id">အော်ဒါနံပါတ် :</string>
     <string name="notifications">အသိပေးချက်များ</string>
     <string name="order_details">Order Details</string>
     <string name="opening_time">Opening time</string>
@@ -304,7 +304,7 @@
     <string name="your_parcel_has_been_successfully_reserved">Your parcel has been successfully reserved.</string>
     <string name="send_parcel">ပါဆယ်ပို့ပါ</string>
     <string name="version_update">Version Update</string>
-    <string name="choose_currency">Choose Currency</string>
+    <string name="choose_currency">ငွေကြေးအမျိုးအစားရွေးချယ်ပါ</string>
     <string name="txt_choose_region">Choose Region</string>
     <string name="txt_total_items">%1$s မျိုး</string>
     <string name="unavailable">ယနေ့ပစ္စည်းမရှိပါ</string>
@@ -335,5 +335,13 @@
     <string name="txt_update_successfully">အပ်ဒိတ် အောင်မြင်ပါပြီ။</string>
     <string name="testaurant_unavailable_now">ဆိုင်ပိတ်သည်</string>
     <string name="txt_accept_by_rider_p">ပို့ဆောင်သူမှ လက်ခံပြီး</string>
+    <string name="txt_my_wishlist">စိတ်ကြိုက် ( %1$d )</string>
+    <string name="txt_skip"><![CDATA[ကျော်မည် >>]]></string>
+    <string name="txt_top_rated_restaurants">အမှာအများဆုံးစားသောက်ဆိုင်များ</string>
+    <string name="force_update">ပြင်ဆင်ရန်</string>
+    <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">ထိုသို့ပြုလုပ်ခြင်းဖြင့် ပြန်ယူနိုင်မည်မဟုတ်ပါ။</string>
+    <string name="are_you_sure_you_want_to_cancel_this_order">Are you sure you want to cancel  this order?</string>
+    <string name="added_to_favourite_item">အကြိုက်ဆုံးအရာ ထည့်ပြီးပါပြီ။</string>
+    <string name="txt_delivery_details">ပို့ဆောင်မှု အချက်အလက်</string>
 
 </resources>

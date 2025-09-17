@@ -1,7 +1,9 @@
 package com.orikino.fatty.ui.views.activities.auth.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -37,6 +39,7 @@ import com.orikino.fatty.utils.CustomColoredUnderlineSpan
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
@@ -463,5 +466,13 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
 
     override fun onPopupWindowClosed(spinner: Spinner?) {
         loginBinding.spinnerLang.background = resources.getDrawable(R.drawable.bg_lang_spinner_up)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 }

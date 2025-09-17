@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.orikino.fatty.databinding.ActivityWebviewBinding
 import java.net.URISyntaxException
 import androidx.core.net.toUri
+import com.orikino.fatty.utils.LocaleHelper
 
 class WebviewActivity : AppCompatActivity() {
     private lateinit var binding : ActivityWebviewBinding
@@ -134,6 +136,14 @@ class WebviewActivity : AppCompatActivity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
             }
+        }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
         }
     }
 }

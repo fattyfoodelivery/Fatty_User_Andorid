@@ -1,12 +1,15 @@
 package com.orikino.fatty.ui.views.activities.account_setting.play_guide
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.MediaController
 import androidx.appcompat.app.AppCompatActivity
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityPlayGuideBinding
+import com.orikino.fatty.utils.LocaleHelper
 
 class PlayGuideActivity : AppCompatActivity() {
 
@@ -60,6 +63,13 @@ class PlayGuideActivity : AppCompatActivity() {
 
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 //    override fun onStart() {
 //        super.onStart()
 //        player?.playWhenReady = true

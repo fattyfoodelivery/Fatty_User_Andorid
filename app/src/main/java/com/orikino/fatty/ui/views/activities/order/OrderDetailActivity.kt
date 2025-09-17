@@ -1,5 +1,7 @@
 package com.orikino.fatty.ui.views.activities.order
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import com.orikino.fatty.domain.viewstates.OrderDetailWithRatingViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
@@ -297,5 +300,13 @@ class OrderDetailActivity : AppCompatActivity() {
                     calendar.get(Calendar.SECOND) * 1000
 
         val timeDiff = startMillis - endMillis
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 }

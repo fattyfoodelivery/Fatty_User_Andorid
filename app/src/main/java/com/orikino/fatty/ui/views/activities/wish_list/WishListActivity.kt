@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.wish_list
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,6 +19,7 @@ import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewAct
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.show
@@ -96,7 +99,7 @@ class WishListActivity : AppCompatActivity()  {
         binding.swipeRefresh.isRefreshing = false
         if (state.data.success) {
             state.data.data
-            binding.tvTitle.text = "My Wishlist( ${state.data.data.size} )"
+            binding.tvTitle.text = getString(R.string.txt_my_wishlist, state.data.data.size)
             wishListAdapter.submitList(state.data.data)
             if (state.data.data.isEmpty()){
                 binding.emptyView.root.visibility = View.VISIBLE
@@ -203,7 +206,13 @@ class WishListActivity : AppCompatActivity()  {
         binding.rvWishList.adapter = wishListAdapter
     }
 
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 
 
 }

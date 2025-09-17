@@ -2,9 +2,11 @@ package com.orikino.fatty.ui.views.activities.splash
 
 import android.Manifest
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PowerManager
@@ -55,6 +57,7 @@ import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
 import me.pushy.sdk.Pushy
 import androidx.core.net.toUri
+import com.orikino.fatty.utils.LocaleHelper
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
@@ -496,6 +499,14 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                     token?.continuePermissionRequest()
                 }
             }).check()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 
     // Required by OnLocationUpdatedListener, but not used in current logic

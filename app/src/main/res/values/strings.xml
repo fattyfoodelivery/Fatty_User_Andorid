@@ -253,7 +253,7 @@
     <string name="out_of_service">Out of services</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
-    <string name="resend_code">Resend Code</string>
+    <string name="resend_code">Resend code</string>
     <string name="send_again">Send Again</string>
     <string name="select_profile_photo">Select Profile Photo</string>
     <string name="take_photo">Take Photo</string>
@@ -324,7 +324,7 @@
     <string name="your_parcel_has_been_successfully_reserved">Your parcel has been successfully reserved.</string>
     <string name="send_parcel">Send Parcel</string>
     <string name="version_update">Version Update</string>
-    <string name="choose_currency">Choose Currency</string>
+    <string name="choose_currency">Choose your currency type</string>
     <string name="txt_choose_region">Choose Region</string>
     <string name="txt_total_items">%1$s item(s)</string>
     <string name="unavailable">Unavailable Now</string>
@@ -354,4 +354,12 @@
     <string name="txt_update_successfully">Update successfully</string>
     <string name="testaurant_unavailable_now">Unavailable Now</string>
     <string name="txt_accept_by_rider_p">Accept By Rider (P)</string>
+    <string name="txt_my_wishlist">我喜欢 ( %1$d )</string>
+    <string name="txt_skip"><![CDATA[Skip >>]]></string>
+    <string name="txt_top_rated_restaurants">Top-Rated Restaurants</string>
+    <string name="force_update">Force Update</string>
+    <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">By doing so, you won’t be able to bring it back.</string>
+    <string name="are_you_sure_you_want_to_cancel_this_order">Are you sure you want to cancel  this order?</string>
+    <string name="added_to_favourite_item">Added to favourite item.</string>
+    <string name="txt_delivery_details">Delivery Details</string>
 </resources>

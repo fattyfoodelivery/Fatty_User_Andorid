@@ -1,10 +1,12 @@
 package com.orikino.fatty.ui.views.activities.account_setting.manage_address
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +30,7 @@ import com.orikino.fatty.domain.model.ManageAddress
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.utils.FattyMap
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.activatedBtn
 import com.orikino.fatty.utils.helper.deactivatedBtn
@@ -398,5 +401,11 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
         return ss
     }
 
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

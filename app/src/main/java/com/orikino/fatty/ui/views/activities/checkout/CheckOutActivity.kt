@@ -1,9 +1,11 @@
 package com.orikino.fatty.ui.views.activities.checkout
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -47,6 +49,7 @@ import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SHA
 import com.orikino.fatty.utils.WarningDialog
@@ -1248,5 +1251,13 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     }
     override fun onTapTryAgain() {
 
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 }

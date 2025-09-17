@@ -29,6 +29,7 @@ import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.ui.views.fragments.NotiFragment
 import com.orikino.fatty.ui.views.fragments.OrderFragment
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.helper.correctLocale
@@ -426,5 +427,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         stopService()
         super.onDestroy()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 }

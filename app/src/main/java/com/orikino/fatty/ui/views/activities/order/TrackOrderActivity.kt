@@ -1,7 +1,9 @@
 package com.orikino.fatty.ui.views.activities.order
 
+import android.content.Context
 import android.content.Intent
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +16,7 @@ import com.orikino.fatty.domain.model.ActiveOrderVO
 import com.orikino.fatty.service.FattyPushyService
 import com.orikino.fatty.domain.view_model.TrackOrderViewModel
 import com.orikino.fatty.domain.viewstates.TrackOrderViewState
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.showSnackBar
 
 class TrackOrderActivity : AppCompatActivity() {
@@ -221,4 +224,11 @@ class TrackOrderActivity : AppCompatActivity() {
     private fun renderOnSuccessRiderLocation() {}
     private fun renderOnFailRiderLocation() {}
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

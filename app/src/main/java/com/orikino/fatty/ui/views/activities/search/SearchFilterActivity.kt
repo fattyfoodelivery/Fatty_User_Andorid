@@ -1,9 +1,11 @@
 package com.orikino.fatty.ui.views.activities.search
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -18,6 +20,7 @@ import com.orikino.fatty.domain.model.SearchFilterSubCategoryVO
 import com.orikino.fatty.domain.responses.SearchCategoryFilterResponse
 import com.orikino.fatty.domain.view_model.SearchViewModel
 import com.orikino.fatty.domain.viewstates.SearchViewState
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.createChip
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -159,5 +162,12 @@ class SearchFilterActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 
 }

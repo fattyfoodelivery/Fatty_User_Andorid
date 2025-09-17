@@ -1,7 +1,9 @@
 package com.orikino.fatty.ui.views.activities.account_setting.currency
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +19,7 @@ import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -166,4 +169,11 @@ class CurrencyActivity : AppCompatActivity() {
         CustomToast(this,"Successfully change to ${data.currency_id}",true).createCustomToast()
     }*/
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

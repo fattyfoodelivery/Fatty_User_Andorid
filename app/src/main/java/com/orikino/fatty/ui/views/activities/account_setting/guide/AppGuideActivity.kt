@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.account_setting.guide
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -13,6 +15,7 @@ import com.orikino.fatty.domain.viewstates.AboutViewState
 import com.orikino.fatty.ui.views.activities.account_setting.play_guide.PlayGuideActivity
 import com.orikino.fatty.utils.delegate.ItemStringDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,5 +92,13 @@ class AppGuideActivity : AppCompatActivity() , ItemStringDelegate {
         val intent = Intent(FattyApp.getInstance(), PlayGuideActivity::class.java)
         intent.putExtra(PlayGuideActivity.V_URL, itemString)
         startActivity(intent)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 }

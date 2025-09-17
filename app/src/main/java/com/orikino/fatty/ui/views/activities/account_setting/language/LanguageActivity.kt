@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.account_setting.language
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -10,6 +12,7 @@ import com.orikino.fatty.databinding.ActivityLanguageBinding
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.intro.IntroActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.forceUpdateLocale
 
@@ -58,7 +61,6 @@ class LanguageActivity : AppCompatActivity() {
         this.forceUpdateLocale(language) {
             finishAffinity()
         }
-        finishAffinity()
         when {
             fromIntro && change -> startActivity(LanguageActivity.getIntent())
             change -> {
@@ -131,6 +133,14 @@ class LanguageActivity : AppCompatActivity() {
             "my" -> chooseMyanmar()
             "en" -> chooseEnglish()
             else -> chooseChina()
+        }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
         }
     }
 }

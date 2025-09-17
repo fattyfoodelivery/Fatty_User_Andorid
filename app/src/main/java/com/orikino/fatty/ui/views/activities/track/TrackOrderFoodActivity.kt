@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.track
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,6 +12,7 @@ import com.orikino.fatty.databinding.ActivityTrackOrderFoodBinding
 import com.orikino.fatty.domain.view_model.TrackOrderViewModel
 import com.orikino.fatty.domain.viewstates.TrackOrderViewState
 import com.orikino.fatty.service.FattyPushyService
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -177,6 +180,14 @@ class TrackOrderFoodActivity : AppCompatActivity() {
     private fun stopService() {
         val intent = Intent(this, FattyPushyService::class.java)
         stopService(intent)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
     }
 
 }

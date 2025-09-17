@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.intro
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -10,6 +12,7 @@ import com.orikino.fatty.adapters.IntroSlideAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityIntroBinding
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 
@@ -163,6 +166,12 @@ class IntroActivity : AppCompatActivity() {
         introBinding.onBoardingThirdCircle.background =
             ContextCompat.getDrawable(this, R.drawable.selected_dot)
     }
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 
 }

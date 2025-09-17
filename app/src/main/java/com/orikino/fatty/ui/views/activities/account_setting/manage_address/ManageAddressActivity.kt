@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.account_setting.manage_address
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,7 @@ import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.domain.model.*
 import com.orikino.fatty.domain.viewstates.AddressViewState
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -300,4 +303,11 @@ class ManageAddressActivity : AppCompatActivity(){
 
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

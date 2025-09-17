@@ -21,7 +21,7 @@
     <string name="account">账号</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="next">Next</string>
+    <string name="next">下一步</string>
     <string name="intro_title_one">Find a restaurant\nnear you</string>
     <string name="intro_near_you">Near you</string>
     <string name="intro_track">查看</string>
@@ -41,7 +41,7 @@
     <string name="_123456789">123456789</string>
     <string name="terms_amp_conditions">条款和条件</string>
     <string name="str_no_notifications">无通知</string>
-    <string name="clear_cart_data">This action will clear previous cart data!</string>
+    <string name="clear_cart_data">继续将删除之前的预览数据</string>
     <string name="hyperlink_term_condition"><a href="https://www.fattyfoodmyanmar.com.mm">Terms &amp; Conditions</a></string>
     <string name="hyperlink_privacy_policy"><a href="https://www.fattyfoodmyanmar.com.mm">Privacy Policy</a></string>
     <string name="privacy_policy">隐私政策</string>
@@ -71,12 +71,12 @@
     <string name="near_for_you">附近</string>
     <string name="_5_0000_00_mmk">5,0000.00 MMK</string>
     <string name="ordering_guide">使用方法</string>
-    <string name="please_add_items_into_your_cart">Please add items into your cart</string>
+    <string name="please_add_items_into_your_cart">请添加食物</string>
     <string name="no_food_items_to_checkout">暂无可结算的食物</string>
-    <string name="already_login_title">Already Login!</string>
+    <string name="already_login_title">账号已登录</string>
     <string name="confirm">确认</string>
-    <string name="already_login_msg">This phone number is already login from another device, please logout and try again!</string>
-    <string name="force_login">Force Update</string>
+    <string name="already_login_msg">此号码已在其他设备上登录，请退出后重新登录</string>
+    <string name="force_login">登录</string>
     <string name="please_rate_our_service">Please rate our service</string>
     <string name="how_was_your_delivery">How was your delivery?</string>
     <string name="more_info">More Info</string>
@@ -161,7 +161,7 @@
     <string name="don_t_get_the_code">没收到代码？</string>
     <string name="resend_otp">请先登录</string>
     <string name="confirm_location">确认位置</string>
-    <string name="manage_address">管理地址</string>
+    <string name="manage_address">地址管理</string>
     <string name="choose_payment_method">选择付款方式</string>
     <string name="any_restaurant_request_type_here">有餐厅要求吗？请在此输入</string>
     <string name="bill_details">账单详情</string>
@@ -227,7 +227,7 @@
     <string name="mmk">MMK</string>
     <string name="customer_care">Customer Care</string>
     <string name="to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen">To receive notifications in the background, please set \"Battery\" to \"Unrestricted\" in the next screen.</string>
-    <string name="my_account">My Account</string>
+    <string name="my_account">账号</string>
     <string name="skip">Skip</string>
     <string name="login_message">Please login to order food or booking parcel</string>
     <string name="apply_filter">做</string>
@@ -256,7 +256,7 @@
     <string name="are_you_sure_to_delete_this_order">Are you sure to delete this order?</string>
     <string name="str_delete">Delete</string>
     <string name="please_add_items_to_your_cart">请添加食物</string>
-    <string name="order_id">Order ID :</string>
+    <string name="order_id">订单编号 :</string>
     <string name="notifications">通知</string>
     <string name="order_details">Order Details</string>
     <string name="opening_time">Opening time</string>
@@ -304,7 +304,7 @@
     <string name="your_parcel_has_been_successfully_reserved">Your parcel has been successfully reserved.</string>
     <string name="send_parcel">寄送包裹</string>
     <string name="version_update">Version Update</string>
-    <string name="choose_currency">Choose Currency</string>
+    <string name="choose_currency">请选择货币</string>
     <string name="txt_choose_region">Choose Region</string>
     <string name="txt_total_items">%1$s 份</string>
     <string name="unavailable">暂时无法订购</string>
@@ -335,5 +335,13 @@
     <string name="testaurant_unavailable_now">商家已歇业</string>
     <string name="txt_accept_by_rider_p">骑手已接单(外卖)输入您的电话号码
 </string>
+    <string name="txt_my_wishlist">My Wishlist ( %1$d )</string>
+    <string name="txt_skip"><![CDATA[跳过 >>]]></string>
+    <string name="txt_top_rated_restaurants">热门商家</string>
+    <string name="force_update">更新</string>
+    <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">移除后，您将无法将其恢复。</string>
+    <string name="are_you_sure_you_want_to_cancel_this_order">Are you sure you want to cancel  this order?</string>
+    <string name="added_to_favourite_item">已添加到收藏夹</string>
+    <string name="txt_delivery_details">配送详情</string>
 
 </resources>

@@ -186,7 +186,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             /*requireActivity().startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to "Top-Rated"
             )*/
-            context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
+            context?.startActivity(TopRelatedCategoryActivity.getIntent(getString(R.string.txt_top_rated_restaurants), 0))
         }
     }
 
@@ -461,11 +461,18 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             if (it == true) shouldUpdateOrFetchHome()
             MainActivity.isCurrencyUpdate.postValue(false)
         }
-        PreferenceUtils.wishListCount.observe(viewLifecycleOwner) {
-            //top_badge.text = "$it"
-        }
         viewModel.viewState.observe(viewLifecycleOwner) { render(it) }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null // Important for view binding memory leak prevention
     }
 
     private fun render(state: HomeViewState) {

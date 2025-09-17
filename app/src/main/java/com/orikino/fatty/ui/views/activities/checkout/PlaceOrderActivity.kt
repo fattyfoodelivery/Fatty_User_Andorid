@@ -1,6 +1,8 @@
 package com.orikino.fatty.ui.views.activities.checkout
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +12,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityPlaceOrderBinding
 import com.orikino.fatty.ui.views.activities.base.MainActivity
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.showSnackBar
 
@@ -101,4 +104,11 @@ class PlaceOrderActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

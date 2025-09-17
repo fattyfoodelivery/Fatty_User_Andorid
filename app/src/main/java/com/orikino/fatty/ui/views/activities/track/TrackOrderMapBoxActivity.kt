@@ -1,10 +1,12 @@
 package com.orikino.fatty.ui.views.activities.track
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -29,6 +31,7 @@ import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.chat.ChattingActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
@@ -625,4 +628,11 @@ class TrackOrderMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ {
         //binding.mapBoxMap.onLowMemory()
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }

@@ -1,9 +1,11 @@
 package com.orikino.fatty.ui.views.activities.search
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -74,6 +76,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlin.text.isNotEmpty
 import androidx.core.graphics.toColorInt
+import com.orikino.fatty.utils.LocaleHelper
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity(), AddOnDelegate {
@@ -703,7 +706,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                         )
                     }
                 } else
-                    showSnackBar(resources.getString(R.string.notice_message))
+                    showSnackBar(resources.getString(R.string.unavailable))
             }
         }
         /*tv_food_name.text = data.toDefaultFoodName()
@@ -884,5 +887,11 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         showGameOverDialog(foodList)
     }
 
-
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
+        }
+    }
 }
