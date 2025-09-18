@@ -346,8 +346,8 @@
     <string name="txt_phone_edit_error">Please choose your address from address list!</string>
     <string name="txt_send_parcel_every_where_nin_just_one_click">Send Parcel Every Where \nin Just One Click!</string>
     <string name="txt_additonal_fee">Additional Fee</string>
-    <string name="txt_parcel_type">Parcel Type</string>
-    <string name="txt_item_quantity">Item Quantity</string>
+    <string name="txt_parcel_type">Parcel Type:</string>
+    <string name="txt_item_quantity">Item Quantity:</string>
     <string name="txt_categories">Categories</string>
     <string name="txt_apply_filters">Apply filters?</string>
     <string name="txt_if_you_exit_without_applying_the_filter_you_selected_won_t_work">If you exit without applying, the filter you selected won\'t work.</string>
@@ -362,4 +362,8 @@
     <string name="are_you_sure_you_want_to_cancel_this_order">Are you sure you want to cancel  this order?</string>
     <string name="added_to_favourite_item">Added to favourite item.</string>
     <string name="txt_delivery_details">Delivery Details</string>
+    <string name="txt_count"> ( %1$d )</string>
+    <string name="txt_food">Food</string>
+    <string name="txt_cancel_item">Cancel Item</string>
+    <string name="no_order_yet">No order yet</string>
 </resources>

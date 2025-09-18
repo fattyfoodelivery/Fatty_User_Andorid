@@ -28,6 +28,7 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.phoneCall
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
+import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -175,7 +176,7 @@ class TrackOrderParcelActivity : AppCompatActivity() {
         _binding.tvTrackOrderDate.text = data.order_date.plus(" | ").plus(data.order_time)
 //        _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
         _binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(if (data.currency_id == 1) "MMK" else "¥")
-
+        _binding.tvDeliverDate.text = ( data.distance_time?.toHourMinuteString()).plus("/").plus(data.distance.toString().plus(" km"))
         _binding.tvParcelTypeName.text = data.parcel_type?.parcel_type_name
         _binding.tvParcelQtyCount.text = data.item_qty.toString()
         //_binding.tvDeliveryFee.text = data.delivery_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
@@ -202,12 +203,12 @@ class TrackOrderParcelActivity : AppCompatActivity() {
             _binding.rlAdditional.gone()
         }
         _binding.tvTotalAmount.text = data.bill_total_price.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
-        _binding.tvPaymentName.text = data.payment_method?.payment_method_name
         if (data.payment_method?.payment_method_id == 1) {
             _binding.imvPayment.setImageResource(R.drawable.ic_cash)
-
+            _binding.tvPaymentName.text = getString(R.string.cash_on_delivery)
         } else {
             _binding.imvPayment.setImageResource(R.drawable.kbz_payment)
+            _binding.tvPaymentName.text = data.payment_method?.payment_method_name
         }
     }
 

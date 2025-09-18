@@ -58,6 +58,7 @@ import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProv
 import me.pushy.sdk.Pushy
 import androidx.core.net.toUri
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.loadPhoto
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
@@ -344,13 +345,8 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                         val url = state.data.data?.display_type_description ?: ""
                         if (url.isNotEmpty()) {
                             try {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                                if (intent.resolveActivity(packageManager) != null) {
-                                    startActivity(intent)
-                                } else {
-                                    startNewCountdown(timeRemainingWhenPaused)
-                                    Toast.makeText(this, "Cannot open link: No application can handle this request.", Toast.LENGTH_SHORT).show()
-                                }
+                                val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                                startActivity(intent)
                             } catch (e: ActivityNotFoundException) {
                                 if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
                                     // If the timer wasn't cancelled for navigation, there's time left,

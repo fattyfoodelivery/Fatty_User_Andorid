@@ -52,6 +52,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultMenuName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
+import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
@@ -158,7 +159,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         }*/
     }
 
-    private fun favourite(data: FoodMenuByRestaurantVO) {
+    private fun favourite() {
         binding.imvFav.setOnClickListener {
             if (PreferenceUtils.readUserVO().customer_id == 0) {
                 SuccessDialog.Builder(
@@ -172,9 +173,9 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     })
                     .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
             } else {
-                if (!data.is_wish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
-                else binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
-                viewModel.fetchOperateWishList(data.restaurant_id)
+//                if (!isWish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
+//                else binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
+                viewModel.fetchOperateWishList(restaurant_id)
             }
         }
     }
@@ -205,12 +206,12 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     binding.imageView4.gone()
                     binding.tvRatingCount.text = resources.getString(R.string.no_review)
                 }
-                favourite(it)
+                favourite()
                 binding.tvTitleRestName.text = it.toDefaultRestaurantName()
                 binding.tvTitleDistance.text = "${it.average_time} Min"
                 binding.tvRestaurantName.text = it.toDefaultRestaurantName()
                 binding.tvRestaurantAddress.text = it.restaurant_address
-                binding.tvDurationDistance.text = "${it.average_time} Min"
+                binding.tvDurationDistance.text = it.distance_time.toHourMinuteString()
                 binding.imvRestaurant.load(
                     PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(it.restaurant_image)
                 )
@@ -345,7 +346,6 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
 
     private fun renderOnSuccessFetchList(state: RestaurantDetailViewState.OnSuccessFetchList) {
         if (state.data.success) {
-            CustomToast(this, getString(R.string.added_to_favourite_item), true).createCustomToast()
         }
     }
 
@@ -400,7 +400,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 this,
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
-                "OK",
+                getString(R.string.str_ok),
                 callback = { finishAffinity() })
                 .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
 
@@ -408,8 +408,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 WarningDialog.Builder(
                     this,
                     resources.getString(R.string.alert),
-                    state.message!!,
-                    "OK",
+                    resources.getString(R.string.no_internet_title),
+                    getString(R.string.str_ok),
                     callback = { finish() })
                     .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
             }
@@ -421,6 +421,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
 
     private fun renderOnSuccessOperateWishList(state: RestaurantDetailViewState.OnSuccessOperateList) {
         if (state.data.success) {
+            if (state.data.data.is_wish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
+            else binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
             PreferenceUtils.wishListCount.postValue(state.data.data.wishlist_count)
             PreferenceUtils.wishListRestaurant.postValue(
                 Pair(
@@ -428,13 +430,17 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     state.data.data.is_wish
                 )
             )
-            PreferenceUtils.readUserVO().customer_id?.let {
-                viewModel.fetchWishList(
-                    it,
-                    PreferenceUtils.readUserVO().latitude ?: 0.0,
-                    PreferenceUtils.readUserVO().longitude ?: 0.0
-                )
+            if (state.data.data.is_wish){
+                CustomToast(this, getString(R.string.added_to_favourite_item), true).createCustomToast()
             }
+            //viewModel.fetchFoodRestMenuByRestId(restaurant_id)
+//            PreferenceUtils.readUserVO().customer_id?.let {
+//                viewModel.fetchWishList(
+//                    it,
+//                    PreferenceUtils.readUserVO().latitude ?: 0.0,
+//                    PreferenceUtils.readUserVO().longitude ?: 0.0
+//                )
+//            }
         }
     }
 

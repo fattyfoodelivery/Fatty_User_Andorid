@@ -163,16 +163,7 @@ class NotificationDetailActivity : AppCompatActivity() {
                           """.trimIndent(), null )*/
 
 
-                view?.evaluateJavascript(
-                    """
-            (function() {
-                var phonePattern = /\b\d{9,11}\b/g;
-                document.body.innerHTML = document.body.innerHTML.replace(phonePattern, function(phone) {
-                    return '<a href="tel:' + phone + '">' + phone + '</a>';
-                });
-            })();
-            """.trimIndent(), null
-                )
+
             }
         }
 

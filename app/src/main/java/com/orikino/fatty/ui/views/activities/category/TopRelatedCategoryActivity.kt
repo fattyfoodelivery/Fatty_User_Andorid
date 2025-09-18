@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -46,6 +47,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
 
     private var topRelatedCategoryAdapter : TopRelatedCategoryAdapter? = null
     private var recommendedRestaurantAdapter: NearByIdRestAdapter? = null
+    private var titleName : String = ""
 
     private var cat_name : String? = ""
     private var cat_id : Int? = null
@@ -72,12 +74,15 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
 
         cat_name?.let {
             if (it == "Top-Rated") {
-                _binding.tvTitle.text = ContextCompat.getString(this,R.string.top_related)
+                titleName = getString(R.string.txt_top_rated_restaurants)
+                _binding.tvTitle.text = titleName
             } else {
+                titleName = cat_name ?: ""
                 _binding.tvTitle.text = cat_name
             }
         }
-
+        _binding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
+        _binding.emptyView.emptyMessageDes.text = ""
 
         setUpObserver()
         setUpTopRelated()
@@ -354,8 +359,14 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
     private fun renderOnSuccessRestaurantByCategory(state: HomeViewState.OnSuccessRestaurantByCategory) {
         stopShimmer()
         LoadingProgressDialog.hideLoadingProgress()
+        _binding.tvTitle.text = "$titleName (${state.data.data.count { it.listing_type != 2 }})"
         if (state.data.success) {
-            recommendedRestaurantAdapter?.submitList(state.data.data)
+            if (state.data.data.isEmpty()){
+                _binding.emptyView.rootView.visibility = View.VISIBLE
+            }else{
+                _binding.emptyView.rootView.visibility = View.GONE
+                recommendedRestaurantAdapter?.submitList(state.data.data)
+            }
         }
     }
 
@@ -363,7 +374,13 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
         stopShimmer()
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
-            topRelatedCategoryAdapter?.setNewData(state.data.data)
+            if (state.data.data.isEmpty()){
+                _binding.emptyView.rootView.visibility = View.VISIBLE
+            }else{
+                _binding.emptyView.rootView.visibility = View.GONE
+                topRelatedCategoryAdapter?.setNewData(state.data.data)
+            }
+
         }
     }
 

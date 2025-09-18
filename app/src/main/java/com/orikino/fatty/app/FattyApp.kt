@@ -13,6 +13,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.decode.GifDecoder
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.correctLocale
@@ -23,7 +26,7 @@ import me.pushy.sdk.Pushy
 
 
 @HiltAndroidApp
-class FattyApp : Application() , LifecycleObserver {
+class FattyApp : Application() , LifecycleObserver, ImageLoaderFactory {
 
     companion object {
         val TAG = FattyApp::class.java.simpleName
@@ -35,6 +38,14 @@ class FattyApp : Application() , LifecycleObserver {
         fun getInstance(): Context {
             return instance.applicationContext
         }
+    }
+
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader.Builder(this)
+            .components {
+                add(GifDecoder.Factory())
+            }
+            .build()
     }
 
     override fun onCreate() {

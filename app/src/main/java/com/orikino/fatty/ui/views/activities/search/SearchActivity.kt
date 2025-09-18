@@ -88,7 +88,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     private lateinit var mEmptyViewPod: EmptyViewPod
     private var restaurantInfO = FoodMenuByRestaurantVO()
     lateinit var foodAdapter: FoodAdapter
-    val keywords: MutableList<String> = mutableListOf()
+    var keywords: MutableList<String> = mutableListOf()
     var vType : Int = 0
     var foodSize : Int = 0
     var restSize : Int = 0
@@ -174,7 +174,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                 searchBinding.rvFood.show()
                 searchBinding.rvRestaurant.show()
                 viewModel.customerSearch(searchQuery)
-                keywords.add(searchQuery)
+                keywords = PreferenceUtils.readSearchRecent()
+                if (!keywords.contains(searchQuery))
+                    keywords.add(searchQuery)
                 PreferenceUtils.writeSearchRecent(keywords)
             }else{
                 searchBinding.ivClear.gone()
@@ -282,8 +284,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         LoadingProgressDialog.hideLoadingProgress()
         searchBinding.filterView.swipeRefresh.isRefreshing = false
         if (state.data.success) {
-            setUpFilterRestaurants(state.data.data)
             restSize = state.data.data.size
+            setUpFilterRestaurants(state.data.data)
         }
     }
 
@@ -292,7 +294,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         searchBinding.llSegmentControl.show()
         searchBinding.rvRestaurant.show()
         searchBinding.chipFood.text = "0"
-        searchBinding.tvResult.text = "Restaurants ・ ${restSize}"
+        searchBinding.rvRestaurant.show()
+
+        searchBinding.tvResult.text = "${getString(R.string.restaurants)} ・ ${restSize}"
         searchBinding.chipRestaurant.text = "$restSize"
         restaurantAdapter.setNewData(data)
 
@@ -342,8 +346,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     @SuppressLint("ResourceAsColor")
     private fun setUpSearchView() {
         searchBinding.chipFood.setOnCheckedChangeListener { compoundButton, b ->
-
-            searchBinding.tvResult.text = "Food ・ $foodSize"
+            searchBinding.tvResult.show()
+            searchBinding.tvResult.text = "${getString(R.string.txt_food)} ・ $foodSize"
             if (b) {
                 searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
                 searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
@@ -356,7 +360,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         }
 
         searchBinding.chipRestaurant.setOnCheckedChangeListener { compoundButton, b ->
-            searchBinding.tvResult.text = "Restaurants ・ $restSize"
+            searchBinding.tvResult.show()
+            searchBinding.tvResult.text = "${getString(R.string.restaurants)} ・ ${restSize}"
             if (b) {
                 searchBinding.rvFood.gone()
                 searchBinding.chipRestaurant.setChipIconTintResource(R.color.fattyPrimary)
@@ -393,6 +398,10 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             }
             searchBinding.filterView.btnApply.setOnClickListener {
                 showConfirmDialog()
+            }
+            searchBinding.filterView.btnCancel.setOnClickListener {
+                searchBinding.filterView.root.gone()
+                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
             searchBinding.filterView.swipeRefresh.setOnRefreshListener {
                 searchBinding.filterView.swipeRefresh.isRefreshing = true
@@ -567,15 +576,13 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             searchBinding.rvRestaurant.show()
             restaurantAdapter.setNewData(state.data.data)
             searchBinding.chipRestaurant.text = state.data.data.size.toString()
-
-
-
         }
     }
     private fun successSearchFoodAndRestaurant(state : SearchViewState.OnSuccessSearchFoodAndRestaurant) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             clearSelectedChips()
+            searchBinding.tvResult.show()
             searchBinding.tvResult.text = "Foods ・ ${state.data.data.food.size}"
 
             searchBinding.chipFood.text = "${state.data.data.food.size}"
@@ -828,6 +835,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 //    }
 
     private fun setTag(keywords: MutableList<String>) {
+        searchBinding.chipRecentFood.removeAllViews()
         for (name in keywords) {
             val tagName =   name
             val chip = Chip(this)
@@ -856,7 +864,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             chip.chipBackgroundColor = colorsStateList
             chip.setOnCloseIconClickListener {
                 searchBinding.chipRecentFood.removeView(chip)
-                PreferenceUtils.readSearchRecent().remove(tagName)
+                val recents = PreferenceUtils.readSearchRecent()
+                recents.remove(tagName)
+                PreferenceUtils.writeSearchRecent(recents)
             }
             chip.setOnClickListener {
                 hideSoftKeyboard()

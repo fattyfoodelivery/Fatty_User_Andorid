@@ -101,7 +101,7 @@
     <string name="sender">ပေးပို့သူ</string>
     <string name="receiver">လက်ခံသူ</string>
     <string name="payment_details">Payment Details</string>
-    <string name="cash_on_delivery">Cash On Delivery</string>
+    <string name="cash_on_delivery">ပစ္စည်းရောက်ငွေချေ</string>
     <string name="success_delivery_title">Delivered Successfully!</string>
     <string name="success_delivery_desc">Your order is delivered successfully.</string>
     <string name="rate_our">Rate Your Order</string>
@@ -171,7 +171,7 @@
     <string name="delivery_fees_abnormal">ပို့ဆောင်ခ (Abnormal):</string>
     <string name="extra_fees">အပိုကြေးများ:</string>
     <string name="abnormal_fees">Abnormal Fees :</string>
-    <string name="deliver_to">ပေးပို့ရန်</string>
+    <string name="deliver_to">သို့</string>
     <string name="address">လိပ်စာ</string>
     <string name="add_more_items">နောက်ထပ်ပစ္စည်းထည့်ပါ။</string>
     <string name="spicy_level">Spicy Level</string>
@@ -195,7 +195,7 @@
     <string name="add_new_address">လိပ်စာအသစ်ထည့်ပါ။</string>
     <string name="set_delivery_location">Delivery Location သတ်မှတ်ပါ။</string>
     <string name="building_suites_street">အဆောက်အဦး/အခန်း/လမ်း</string>
-    <string name="enter_building_suites_street">Enter Building/Suites/Street</string>
+    <string name="enter_building_suites_street">အိမ်နံပါတ်/တိုက်/လမ်းနံပါတ်</string>
     <string name="work">အလုပ်</string>
     <string name="other">တခြား</string>
     <string name="set_as_default_address">မူရင်းလိပ်စာအဖြစ် သတ်မှတ်ပါ။</string>
@@ -203,15 +203,15 @@
     <string name="confirm_address">လိပ်စာကို အတည်ပြုပါ။</string>
     <string name="confirm_address_message">FATTY Delivery သည် သင့်မှာယူမှုကို ပို့ဆောင်ပေးမည်ဖြစ်သည်။</string>
     <string name="other_address">အခြားလိပ်စာ</string>
-    <string name="remove_from_cart">Do you want to remove this food from cart?</string>
+    <string name="remove_from_cart">ဤအစားအစာကို ဖယ်ရှားလိုပါသလား။</string>
     <string name="note">အထူးဦးစားပေးများ (ဥပမာ ဟင်းသီးဟင်းရွက်များ)</string>
     <string name="fail_to_create">Fail to create!</string>
     <string name="sure_to_confirm">Are you sure to confirm?</string>
     <string name="sure_to_cancel">Are you sure to cancel?</string>
-    <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure">သေချာလား?</string>
     <string name="oops">Oops!</string>
     <string name="data_not_found">It seem like the data app you are looking for couldn\'t be found. please reload again</string>
-    <string name="no_internet_title">No internet connection</string>
+    <string name="no_internet_title">အင်တာနက်ချိတ်ဆက်မှုမရှိပါ။</string>
     <string name="no_internet_msg">Please check your internet connection</string>
     <string name="choose_your_service_region_label">သင်၏ဝန်ဆောင်မှုဒေသကိုရွေးချယ်ပါ။</string>
     <string name="choose_address">Choose Address</string>
@@ -222,13 +222,13 @@
     <string name="exchange_rate">Exchange Rate</string>
     <string name="promotion_details">Promotion Details</string>
     <string name="choose_region">Choose region(Required)</string>
-    <string name="alert">Alert!</string>
+    <string name="alert">သတိပေးချက်</string>
     <string name="dialog_ok">OK</string>
     <string name="language">ဘာသာစကား</string>
     <string name="mmk">MMK</string>
     <string name="customer_care">Customer Care</string>
     <string name="to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen">To receive notifications in the background, please set \"Battery\" to \"Unrestricted\" in the next screen.</string>
-    <string name="my_account">热门商家</string>
+    <string name="my_account">မိမိ</string>
     <string name="skip">Skip</string>
     <string name="login_message">Please login to order food or booking parcel</string>
     <string name="apply_filter">လုပ်ဆောင်မည်</string>
@@ -249,7 +249,7 @@
     <string name="kpay_refund">Kpay Refund</string>
     <string name="kpay_success">KBZPay Success</string>
     <string name="kpay_fail">KBZPay Fail</string>
-    <string name="order_from">Order From</string>
+    <string name="order_from">ထံမှ</string>
     <string name="order_to">Order To</string>
     <string name="str_track">အသေးစိတ်</string>
     <string name="str_review">Review</string>
@@ -266,9 +266,9 @@
     <string name="order_summary">အော်ဒါအသေးစိတ်</string>
     <string name="delivery_details">ပါဆယ်အသေးစိတ်</string>
     <string name="item">မျိုး</string>
-    <string name="login">nan</string>
-    <string name="hello">nan</string>
-    <string name="menus">nan</string>
+    <string name="login">Login</string>
+    <string name="hello">Hello</string>
+    <string name="menus">Menus</string>
     <string name="add_to_cart">ထည့်ရန်</string>
     <string name="very_bad">Very Bad</string>
     <string name="perfect">Perfect</string>
@@ -289,7 +289,7 @@
     <string name="txt_more">နောက်ထပ်</string>
     <string name="please_enter_you_name">အမည်ကို ထည့်သွင်းပါ။</string>
     <string name="txt_checkout">ငွေရှင်းရန်</string>
-    <string name="parcels_are_delivered_anywhere">ပါဆယ်ထုပ်များကို ဘယ်နေရာမဆို ပို့ပေးပါတယ်။</string>
+    <string name="parcels_are_delivered_anywhere">ပါဆယ်များကို ဘယ်နေရာမဆို ပို့ပေးပါတယ်။</string>
     <string name="book_delivery_now">ယခုပေးပို့ပါ</string>
     <string name="make_your_first_search">သင်၏ပထမဆုံးရှာဖွေမှုကိုပြုလုပ်ပါ။</string>
     <string name="str_orders">အော်ဒါများ</string>
@@ -300,7 +300,7 @@
     <string name="delete_account">အကောင့်ဖျက်ရန်</string>
     <string name="delete_account_warning_desc">သင့်အကောင့်ဖျက်ပြီးနောက်၊ သင်၏အကောင့်အချက်အလက်၊ မှာယူမှုမှတ်တမ်း၊ သိမ်းဆည်းထားသောလိပ်စာများနှင့် သတင်းအချက်လက်များ ဆုံးရှူးလိမ့်မည်။ တူညီသောအကောင့်ကို အသုံးပြု၍ မှာကြားမှုများ ပြုလုပ်နိုင်မည် မဟုတ်ပါ။ မှာယူမှုမှတ်တမ်းဆုံးရှုးလိမ့်မည်။</string>
     <string name="no_data_available">ဒေတာမရှိပါ။</string>
-    <string name="view_my_order">ပါဆယ်အော်ဒါ ကြည့်ရှုရန်</string>
+    <string name="view_my_order">အော်ဒါ ကြည့်ရှုရန်</string>
     <string name="your_parcel_has_been_successfully_reserved">Your parcel has been successfully reserved.</string>
     <string name="send_parcel">ပါဆယ်ပို့ပါ</string>
     <string name="version_update">Version Update</string>
@@ -328,7 +328,7 @@
 </string>
     <string name="txt_additonal_fee">ဝန်ဆောင်ခ</string>
     <string name="txt_parcel_type">ပါဆယ်အမျိုးအစား</string>
-    <string name="txt_item_quantity">ပစ္စည်းအရေအတွက်</string>
+    <string name="txt_item_quantity">ပစ္စည်းအရေအတွက်:</string>
     <string name="txt_categories">အမျိုးအစားများ</string>
     <string name="txt_apply_filters">စစ်ဆေးမှု ပြုလုပ်ပါမလား?</string>
     <string name="txt_if_you_exit_without_applying_the_filter_you_selected_won_t_work">စစ်ဆေးမှုမပြုလုပ်ထားဘဲ ထွက်ပါက၊ ရွေးချယ်ထားသော စစ်ထုတ်မှု အဖြေသည် အလုပ်မလုပ်ပါ။</string>
@@ -340,8 +340,12 @@
     <string name="txt_top_rated_restaurants">အမှာအများဆုံးစားသောက်ဆိုင်များ</string>
     <string name="force_update">ပြင်ဆင်ရန်</string>
     <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">ထိုသို့ပြုလုပ်ခြင်းဖြင့် ပြန်ယူနိုင်မည်မဟုတ်ပါ။</string>
-    <string name="are_you_sure_you_want_to_cancel_this_order">Are you sure you want to cancel  this order?</string>
+    <string name="are_you_sure_you_want_to_cancel_this_order">အော်ဒါကို ပယ်ဖျက်လိုသည်မှာ သေချာပါသလား။</string>
     <string name="added_to_favourite_item">အကြိုက်ဆုံးအရာ ထည့်ပြီးပါပြီ။</string>
     <string name="txt_delivery_details">ပို့ဆောင်မှု အချက်အလက်</string>
+    <string name="txt_count"> ( %1$d )</string>
+    <string name="txt_food">အစားအသောက်များ</string>
+    <string name="txt_cancel_item">ပယ်ဖျက်ပြီး</string>
+    <string name="no_order_yet">အော်ဒါမတင်ရသေးပါ</string>
 
 </resources>

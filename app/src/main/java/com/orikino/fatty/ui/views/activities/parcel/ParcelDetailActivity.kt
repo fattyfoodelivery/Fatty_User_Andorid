@@ -23,6 +23,7 @@ import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
+import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -101,15 +102,14 @@ class ParcelDetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun bindCheckParcelInfo(data : ActiveOrderVO) {
         data.order_status?.let { localizeOrderStatus(it) }
-        binding.tvOrderId.text = "${"Order ID "}: ${data.customer_order_id}"
+        binding.tvOrderId.text = "${getString(R.string.order_id)} ${data.customer_order_id}"
         binding.tvParcelTypeName.text = data.parcel_type?.parcel_type_name
         binding.tvParcelPrice.text= data.item_total_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         binding.tvParcelQtyCount.text = data.item_qty.toString()
         binding.tvOrderStatus.text = data.order_status?.order_status_name
         binding.tvParcelEstimatedDate.text = data.order_date.plus(" | ").plus(data.order_time)
            // (data.estimated_start_time)?.let { dateFormat(it).plus(" | ").plus(data.order_time) }
-        //binding.tvDeliverDurationDistance.text = data.rider_restaurant_distance.toString().plus("Mins /").plus(data.order_time)
-
+        binding.tvDeliverDurationDistance.text = ( data.distance_time?.toHourMinuteString()).plus("/").plus(data.distance.toString().plus(" km"))
         binding.tvOrderFrom.text = "Sender"
         binding.tvSenderName.text = data.rider?.rider_user_name
         binding.tvSenderAddress.text = data.from_parcel_city_name
@@ -170,7 +170,7 @@ class ParcelDetailActivity : AppCompatActivity() {
 
         if (data.payment_method?.payment_method_id == 1) {
             binding.imvPayment.setImageResource(R.drawable.ic_cash)
-            binding.tvPaymentName.text = data.payment_method?.payment_method_name
+            binding.tvPaymentName.text = getString(R.string.cash_on_delivery)
         } else {
             binding.imvPayment.setImageResource(R.drawable.kbz_payment)
             binding.tvPaymentName.text = data.payment_method?.payment_method_name

@@ -131,7 +131,7 @@ class VerifyOTPActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
-        countDownTimerOtp = object : CountDownTimer(30 * 1000, 1000) {
+        countDownTimerOtp = object : CountDownTimer(60 * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
                 verifyBinding.tvResendCode.text = "( $seconds )"

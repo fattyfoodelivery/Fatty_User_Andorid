@@ -81,7 +81,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private var topCategoryAdapter: TopCategoryAdapter? = null
     private var recommendedRestaurantAdapter: RecommendedRestaurantAdapter? = null
     private var nearByIdRestAdapter: NearByIdRestAdapter? = null
-    //private lateinit var adsSlideAdapter: AdsSlideAdapter
+    private var homeSlideAdapter : HomeSlideAdapter? = null
     private var addresses: List<Address> = listOf()
     private  var nearByRestaurantList : MutableList<NearByRestaurantVO>? = mutableListOf() // Full list from network
     var lastSelected = 0
@@ -90,6 +90,13 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private var currentDisplayCount = 0 // Tracks how many items are currently shown from nearByRestaurantList
     private val loadMoreThreshold = 15 // How many items to load at a time
     private var isLoadingMore = false
+
+    // For Ads Slider Auto Scroll
+    private val sliderHandler = Handler(Looper.getMainLooper())
+    private lateinit var sliderRunnable: Runnable
+    private val SLIDER_DELAY_MS = 3000L // 3 seconds
+    private var adsDataSize = 0
+
 
     companion object {
         private const val GOOGLE_PLAY_STORE_PACKAGE = "com.android.vending"
@@ -186,7 +193,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             /*requireActivity().startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to "Top-Rated"
             )*/
-            context?.startActivity(TopRelatedCategoryActivity.getIntent(getString(R.string.txt_top_rated_restaurants), 0))
+            context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
         }
     }
 
@@ -427,7 +434,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.shimmerView?.stopShimmer()
         binding?.shimmerView?.gone()
         binding?.rlTopView?.show()
-        binding?.tvYouMightLike?.show()
+       // binding?.tvYouMightLike?.show()
         binding?.tvNearYou?.show()
         if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
     }
@@ -470,8 +477,14 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopAutoSlider()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        stopAutoSlider() // Important: remove callbacks
         binding = null // Important for view binding memory leak prevention
     }
 
@@ -594,7 +607,9 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             binding?.tvYouMightLike?.show()
             recommendedRestaurantAdapter?.setNewData(state.data.recommend_restaurant)
 
-        } else binding?.tvYouMightLike?.gone()
+        } else {
+            binding?.tvYouMightLike?.gone()
+        }
 
 //        if (state.data.recommend_restaurant.size > 3) tvRestaurantSeeMore.visibility = View.VISIBLE
 //        else tvRestaurantSeeMore.visibility = View.GONE
@@ -604,6 +619,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             setUpAdsOneSlider(state.data.upanddown_ads)
         } else {
             binding?.coverViewPager?.visibility = View.GONE
+            stopAutoSlider() // Stop slider if there are no ads
         }
 
         PreferenceUtils.wishListCount.postValue(state.data.wishlist_count)
@@ -757,10 +773,10 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     }
 
     private fun setUpAdsOneSlider(data: MutableList<UpAndDownVO>) {
-        var homeSlideAdapter : HomeSlideAdapter? = null
-        val numberOfScreens = data.size
-        homeSlideAdapter = HomeSlideAdapter(this
-            , numberOfScreens,data){ position ->
+        stopAutoSlider() // Stop any previous slider
+
+        this.adsDataSize = data.size
+        this.homeSlideAdapter = HomeSlideAdapter(this, adsDataSize, data) { position ->
             //swipePagerWithCoverPopupView()
             when(data[position].display_type_id){
                 1 -> {
@@ -794,10 +810,40 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     //do nothing
                 }
             }
-
         }
-        binding?.coverViewPager?.adapter = homeSlideAdapter
+        binding?.coverViewPager?.adapter = this.homeSlideAdapter
         binding?.coverViewPager?.isUserInputEnabled = true
+
+        if (adsDataSize > 1) {
+            sliderRunnable = Runnable {
+                binding?.coverViewPager?.let { viewPager ->
+                    var nextPage = viewPager.currentItem + 1
+                    if (nextPage >= adsDataSize) {
+                        nextPage = 0 // Loop back to the first item
+                    }
+                    viewPager.setCurrentItem(nextPage, true) // Smooth scroll
+                    sliderHandler.postDelayed(this.sliderRunnable, SLIDER_DELAY_MS)
+                }
+            }
+            // Start scrolling if the fragment is resumed, otherwise onResume will handle it.
+            if (isResumed) {
+                startAutoSlider()
+            }
+        }
+    }
+
+    private fun startAutoSlider() {
+        // Only start if runnable is initialized and there's more than one ad
+        if (::sliderRunnable.isInitialized && adsDataSize > 1) {
+            sliderHandler.removeCallbacks(sliderRunnable) // Remove existing before posting new
+            sliderHandler.postDelayed(sliderRunnable, SLIDER_DELAY_MS)
+        }
+    }
+
+    private fun stopAutoSlider() {
+        if (::sliderRunnable.isInitialized) { // Check if runnable has been initialized
+            sliderHandler.removeCallbacks(sliderRunnable)
+        }
     }
 
     private fun setUpRecommendedRestaurants() {
@@ -949,6 +995,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     override fun onResume() {
         super.onResume()
         checkGPS()
+        startAutoSlider() // Start or resume auto-slider
     }
 
 

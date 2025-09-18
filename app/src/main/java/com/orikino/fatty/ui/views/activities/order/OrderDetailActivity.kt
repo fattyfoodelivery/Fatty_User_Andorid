@@ -26,6 +26,7 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
+import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -122,7 +123,7 @@ class OrderDetailActivity : AppCompatActivity() {
     private fun bindOrderDetailInfo(data: ActiveOrderVO) {
         binding.tvOrderId.text = resources.getString(R.string.order_id_4).plus(" ").plus(data.customer_order_id)
         binding.tvOrderEstimatedDate.text = data.order_date.plus(" | ").plus(data.order_time)
-        binding.tvDeliverDurationDistance.text = (data.order_time).plus("Min /").plus(data.rider_restaurant_distance.toString().plus("km"))
+        binding.tvDeliverDurationDistance.text = ( data.distance_time?.toHourMinuteString()).plus("/").plus(data.distance.toString().plus(" km"))
         data.order_status?.let { localizeOrderStatus(it) }
     }
 
@@ -189,7 +190,12 @@ class OrderDetailActivity : AppCompatActivity() {
         }else{
             binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
         }
-        binding.tvPaymentName.text = data.payment_method?.payment_method_name
+        if (data.payment_method?.payment_method_id == 1){
+            binding.tvPaymentName.text = getString(R.string.cash_on_delivery)
+        }else{
+            binding.tvPaymentName.text = data.payment_method?.payment_method_name
+        }
+
         if (data.currency_id == 1) {
             if (data.payment_method?.payment_method_id == 1) {
                 binding.imvPayment.setImageResource(R.drawable.ic_cash)
@@ -233,7 +239,7 @@ class OrderDetailActivity : AppCompatActivity() {
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_red_circle_close)
             }
             18 -> {
-                binding.tvOrderStatusMsg.text = resources.getString(R.string.order_id_4)
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
                 binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }

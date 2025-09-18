@@ -600,7 +600,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 bindOrderInfo(state.data.data?.response!!)
                 finish()
 
-                startActivity(state.data.data?.order?.order_id.toString().let {
+                startActivity(state.data.data?.order?.customer_order_id.toString().let {
                     PlaceOrderActivity.getIntent(
                         it,true,orderInfo,sign,signType)
                 })
@@ -1156,7 +1156,6 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                     }
                 }
                 total = (data.initial_price + subItemPrice) * qty
-
                 result[pos].food_qty = qty
                 result[pos].food_price = total
                 PreferenceUtils.writeFoodOrderList(result)
@@ -1167,38 +1166,47 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         }
     }
 
-    private fun itemPlusClick(data: CreateFoodVO,pos: Int) {
-        qty = data.food_qty.plus(1)
-        var subItemPrice = 0.0
-        data.sub_item.forEach {
-            it.option.forEach {
-                subItemPrice = subItemPrice.plus(it.food_sub_item_price)
-            }
-        }
-        total = (data.initial_price + subItemPrice) * qty
-
-        result = viewModel.cartList.value?.filterIndexed { index, createFoodVO ->
-            index != pos
-        }?.toMutableList() ?: mutableListOf()
-
+    private fun itemPlusClick(data: CreateFoodVO, pos: Int) {
         try {
-            result.add(
-                CreateFoodVO(
+            val newQty = data.food_qty.plus(1)
+            var subItemPrice = 0.0
+            data.sub_item.forEach { subItem ->
+                subItem.option.forEach { option ->
+                    subItemPrice = subItemPrice.plus(option.food_sub_item_price)
+                }
+            }
+            val newTotal = (data.initial_price + subItemPrice) * newQty
+
+            val currentList = viewModel.cartList.value?.toMutableList()
+
+            if (currentList != null && pos >= 0 && pos < currentList.size) {
+                // Create a new CreateFoodVO instance with the updated values
+                val updatedItem = CreateFoodVO(
                     food_id = data.food_id,
                     food_name = data.food_name,
                     initial_price = data.initial_price,
-                    food_qty = qty,
-                    food_price = total,
+                    food_qty = newQty, // Use the new quantity
+                    food_image = data.food_image,
+                    food_price = newTotal, // Use the new total price
                     food_note = data.food_note,
-                    sub_item = data.sub_item
+                    sub_item = data.sub_item // Assuming sub_item does not change here
                 )
-            )
 
-            PreferenceUtils.writeFoodOrderList(result)
-            viewModel.cartList.postValue(PreferenceUtils.readFoodOrderList())
+                // Replace the item at the same position
+                currentList[pos] = updatedItem
+
+                PreferenceUtils.writeFoodOrderList(currentList)
+                // Post the updated list to LiveData; original code re-reads, so sticking to that pattern.
+                viewModel.cartList.postValue(PreferenceUtils.readFoodOrderList())
+            } else {
+                // Handle the case where the list is null or position is out of bounds, if necessary
+                // For example, you could log an error here.
+            }
         } catch (e: Exception) {
+            // Handle any exceptions, e.g., log the error
         }
     }
+
 
 
     private fun showConfirmDialog(title: String, message: String, data: CreateFoodVO) {
