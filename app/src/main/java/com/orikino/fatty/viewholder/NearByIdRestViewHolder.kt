@@ -13,6 +13,8 @@ import com.orikino.fatty.utils.helper.toDefaultAddress
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.squareup.picasso.Picasso
+import java.util.Locale
+import kotlin.text.format
 
 class NearByIdRestViewHolder(
     val binding: ItemNearbyRestaurantsBinding,
@@ -50,8 +52,7 @@ class NearByIdRestViewHolder(
 // ... inside setData method
         //binding.tvDurationDistance.text = "${mData.distance_time}mins ・ ${mData.distance}km" // Old line
         val timeInMinutes = mData.distance_time
-        val distanceText = "${mData.distance}km"
-
+        val distanceText = String.format(Locale.US, "%.2fkm", mData.distance)
         if (timeInMinutes >= 60) {
             val hours = timeInMinutes / 60
             val remainingMinutes = timeInMinutes % 60

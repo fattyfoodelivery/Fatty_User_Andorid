@@ -172,11 +172,11 @@ class AccountFragment : Fragment() {
 
 
     private fun setUpProfileInfo() {
-
         if (!isUpdate) {
             accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
             accountBinding?.tvUserName?.text = PreferenceUtils.readUserVO().customer_name
             accountBinding?.tvUserPhone?.text = PreferenceUtils.readUserVO().customer_phone
+            Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
                 error(R.drawable.add_profile)
                 placeholder(R.drawable.add_profile)
@@ -191,8 +191,9 @@ class AccountFragment : Fragment() {
             }
         } else {
             accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
-            accountBinding?.tvUserName?.text = customer.customer_name
-            accountBinding?.tvUserPhone?.text = customer.customer_phone
+            accountBinding?.tvUserName?.text = PreferenceUtils.readUserVO().customer_name
+            accountBinding?.tvUserPhone?.text =PreferenceUtils.readUserVO().customer_phone
+            Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
                 error(R.drawable.add_profile)
                 placeholder(R.drawable.add_profile)
@@ -242,6 +243,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun updateUserPhoto() {
+        Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
         accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)){
             error(R.drawable.add_profile)
             placeholder(R.drawable.add_profile)
@@ -362,7 +364,7 @@ class AccountFragment : Fragment() {
     }
 
     private fun updateUserName() {
-        var customerName : String = ""
+        var customerName : String = PreferenceUtils.readUserVO().customer_name ?: ""
         val dialogView = ItemEditDialogBinding.inflate(LayoutInflater.from(requireContext()))
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(dialogView.root)
@@ -400,7 +402,6 @@ class AccountFragment : Fragment() {
                     is_restricted = PreferenceUtils.readUserVO().is_restricted,
                     customer_name = customerName,
                     customer_phone = PreferenceUtils.readUserVO().customer_phone,
-                    image = PreferenceUtils.readUserVO().image,
                     latitude = PreferenceUtils.readUserVO().latitude,
                     longitude = PreferenceUtils.readUserVO().longitude,
                     fcm_token = PreferenceUtils.readUserVO().fcm_token

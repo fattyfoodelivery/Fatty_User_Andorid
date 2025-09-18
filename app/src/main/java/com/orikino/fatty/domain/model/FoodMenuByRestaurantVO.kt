@@ -65,6 +65,8 @@ data class FoodMenuByRestaurantVO(
     var rating : Double = 0.0,
     @SerializedName("distance")
     var distance : Double = 0.0,
+    @SerializedName("distance_time")
+    var distance_time : Int = 0,
     @SerializedName("wishlist")
     var wishlist : Int = 0,
     @SerializedName("is_wish")

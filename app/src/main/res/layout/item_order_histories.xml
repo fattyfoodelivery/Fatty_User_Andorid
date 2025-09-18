@@ -267,7 +267,7 @@
                             android:id="@+id/tv_order_actions_status"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
-                            android:text="@string/str_cancel"
+                            android:text="@string/txt_cancel"
                             android:visibility="visible"
                             android:textAllCaps="false"
                             android:textSize="16sp"

@@ -83,7 +83,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
         setUpObserver()
         filterOrderByDate()
         clickFoodAndParcelBtn()
-
+        orderBinding?.emptyVew?.emptyMessage?.text = getString(R.string.no_order_yet)
         orderBinding?.swipeRefresh?.setOnRefreshListener {
             orderBinding?.swipeRefresh?.isRefreshing = true
             PreferenceUtils.readUserVO().customer_id?.let {
@@ -296,8 +296,8 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
         orderBinding?.emptyVew?.root?.show()
         orderBinding?.emptyVew?.root?.setDelegate(this)
         orderBinding?.emptyVew?.root?.setEmptyData(
-            "No Orders Yet",
-            "No Orders Yet",
+            getString(R.string.no_order_yet),
+            "",
             resources.getDrawable(R.drawable.ic_food_empty_144dp)
         )
     }
@@ -405,8 +405,8 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
     private fun itemActionCancelClick(data : MyOrderHistoryResponse.Data.Data) {
         PreferenceUtils.isBackground = false
         if (data.order_status_id == 1 || data.order_status_id == 19) showConfirmDialog(
-            "Are you sure you want to cancel  this order?",//resources.getString(R.string.are_you_sure_to_delete_this_order),
-            "By doing so, you won’t be able to bring it back.",
+            getString(R.string.are_you_sure_you_want_to_cancel_this_order),//resources.getString(R.string.are_you_sure_to_delete_this_order),
+            getString(R.string.by_doing_so_you_won_t_be_able_to_bring_it_back),
             //resources.getString(R.string.sure_to_cancel),
             data
         )

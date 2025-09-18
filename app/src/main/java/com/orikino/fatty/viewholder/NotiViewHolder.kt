@@ -6,6 +6,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemNotificationsBinding
 import com.orikino.fatty.domain.responses.UserNotificationVO
 import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
 
 class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserNotificationVO,String,Int) -> Unit) : BaseViewHolder<UserNotificationVO>(binding.root)  {
 
@@ -34,6 +35,7 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
             binding.tvOrderName.text = data.title
             binding.tvOrderStauts.text = data.body
             binding.imvFood.gone()
+            binding.imvParcel.show()
             binding.imvParcel.setImageResource(R.drawable.dummy_parcel_item)
             when(data.order_status_id) {
                 "11" -> {
@@ -44,13 +46,23 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
         } else {
             binding.tvOrderName.text = data.title
             binding.imvParcel.gone()
+            binding.imvFood.show()
             binding.imvFood.setImageResource(R.drawable.food_default_icon)
             binding.tvOrderStauts.text = data.body
             when (data.order_status_id) {
+                "0" -> {
+                    binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))
+                }
                 "1" -> {
                     binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.success200))
                 }
                 "2" -> {
+                    binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))
+                }
+                "9" -> {
+                    binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))
+                }
+                "16" -> {
                     binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))
                 }
                 "19" -> {

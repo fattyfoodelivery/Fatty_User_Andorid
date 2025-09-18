@@ -4,6 +4,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemAdsRestaurantBinding
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.helper.loadPhoto
 import com.squareup.picasso.Picasso
 
 class AdsRestaurantViewHolder(
@@ -14,11 +15,7 @@ class AdsRestaurantViewHolder(
         mData: NearByRestaurantVO,
         currentPage: Int
     ) {
-        Picasso.get()
-            .load(mData.image)
-            .error(R.drawable.restaurant_default_img)
-            .placeholder(R.drawable.restaurant_default_img)
-            .into(binding.ivSlide)
+        binding.ivSlide.loadPhoto(mData.image)
         binding.root.setOnClickListener {
             onClick.invoke(mData, "ads", 0)
         }

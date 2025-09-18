@@ -97,7 +97,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Booking ID : "
+                        android:text="@string/order_id"
                         android:layout_gravity="center_horizontal"
                         android:textSize="14sp"
                         android:fontFamily="@font/outfit_regular"
@@ -139,26 +139,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="2"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp">
 
                     <TextView
                         android:id="@+id/tv_deliver"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:fontFamily="@font/outfit_semibold"
                         android:paddingTop="8dp"
-                        android:text="@string/delivery_details"
+                        android:text="@string/txt_delivery_details"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_deliver_date"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/outfit_regular"
@@ -167,7 +171,7 @@
                         android:textColor="@color/text_gray_two"
                         android:textSize="14sp" />
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_address"

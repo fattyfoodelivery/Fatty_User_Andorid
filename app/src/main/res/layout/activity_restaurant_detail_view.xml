@@ -166,13 +166,17 @@
                         android:layout_marginStart="18dp"/>
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_title_rest_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Title"
                         android:textColor="@color/white"
                         android:fontFamily="@font/outfit_medium"
                         android:textSize="18sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:visibility="gone"
+                        android:layout_toStartOf="@+id/ll_menu"
+                        android:layout_marginEnd="@dimen/margin_2xSmall"
                         android:layout_toEndOf="@id/iv_back"
                         android:layout_marginStart="18dp"/>
                     <androidx.appcompat.widget.AppCompatTextView
@@ -188,6 +192,7 @@
                         android:layout_below="@+id/tv_title_rest_name"
                         android:layout_marginStart="18dp"/>
                     <LinearLayout
+                        android:id="@+id/ll_menu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

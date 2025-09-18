@@ -2,6 +2,8 @@ package com.orikino.fatty.viewholder
 
 import android.annotation.SuppressLint
 import android.view.View
+import coil.load
+import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemFoodOrderCheckoutBinding
 import com.orikino.fatty.domain.model.CreateFoodVO
 import com.orikino.fatty.utils.PreferenceUtils
@@ -23,6 +25,10 @@ class FoodOrderViewHolder(
             _bind.tvAddMore.show()
         } else {
             _bind.tvAddMore.gone()
+        }
+        _bind.imvFoodItem.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image)) {
+            error(R.drawable.food_default_icon)
+            placeholder(R.drawable.food_default_icon)
         }
         itemQty = data.food_qty
 

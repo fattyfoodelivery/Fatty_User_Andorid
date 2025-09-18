@@ -67,7 +67,7 @@
             android:hint="@string/txt_enter_your_phone_number"
             android:background="@drawable/bg_edt"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="16sp"
             android:cursorVisible="true"
             android:layout_marginTop="8dp"

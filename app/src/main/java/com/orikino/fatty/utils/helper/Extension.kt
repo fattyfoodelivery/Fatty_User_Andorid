@@ -211,6 +211,16 @@ fun Context.forceUpdateLocale(language: String, callback: () -> Unit = {}) {
     callback.invoke()
 }
 
+fun Int.toHourMinuteString(): String {
+    val hours = this / 60
+    val minutes = this % 60
+    return when {
+        hours > 0 && minutes > 0 -> "$hours h $minutes mins"
+        hours > 0 -> "$hours h"
+        else -> "$minutes mins"
+    }
+}
+
 fun Context.currentResource(language: String) {
     PreferenceUtils.writeLanguage(language)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

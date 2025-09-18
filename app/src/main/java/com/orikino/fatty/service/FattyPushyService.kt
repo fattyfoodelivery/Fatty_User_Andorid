@@ -17,7 +17,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.orikino.fatty.R
 import com.orikino.fatty.ui.views.activities.base.MainActivity
-import com.orikino.fatty.ui.views.activities.delivery_rating.DeliveryRatingActivity
 import com.orikino.fatty.ui.views.activities.order.OrderDetailActivity
 import com.orikino.fatty.ui.views.activities.parcel.ParcelDetailActivity
 import com.orikino.fatty.utils.PreferenceUtils
@@ -28,6 +27,7 @@ class FattyPushyService : Service() {
     private var orderTypeIntent: Intent? = null
     private var ratingFinishedChecking: Boolean = false
     private var idForFoodRating: Int = 0
+    private val NOTIFICATION_ID = 1001 // Consistent Notification ID
 
     override fun onCreate() {}
 
@@ -111,18 +111,9 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,OrderDetailActivity::class.java)
                         intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                        intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        }
+                        // Removed redundant intent creation inside if/else, the outer one is sufficient
+                        // if (checkService() == 0) { ... } else { ... }
+                        intent // return the intent created above
                     }
 
                     "rider_arrived" -> {
@@ -132,18 +123,8 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,OrderDetailActivity::class.java)
                         intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
+                         // Removed redundant intent creation inside if/else
                         intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        }
                     }
 
                     "rider_start_delivery" -> {
@@ -153,18 +134,8 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,OrderDetailActivity::class.java)
                         intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
+                        // Removed redundant intent creation inside if/else
                         intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,OrderDetailActivity::class.java)
-                            intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
-                            intent
-                        }
                     }
 
                     "restaurant_cancel_order" -> {
@@ -184,52 +155,46 @@ class FattyPushyService : Service() {
                     }
 
                     "rider_order_finished" -> {
-                        PreferenceUtils.needToShow = false
+                       /* PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
                         ratingFinishedChecking = true
-                        DeliveryRatingActivity.getIntent(this, idForFoodRating, orderType)
+                        DeliveryRatingActivity.getIntent(this, idForFoodRating, orderType)*/
+                        PreferenceUtils.acceptOrder.postValue(true)
+                        PreferenceUtils.needToShow = false
+                        PreferenceUtils.isBackground = false
+                        val intent = Intent(this,OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
+                        // Removed redundant intent creation inside if/else
+                        intent
                     }
 
                     else -> Intent().apply {
                         this.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     }
                 }
-            } else -> {
+            } else -> { // Assuming this is for parcel type
                 orderTypeIntent = when (type) {
                     "new_order" -> {
                         PreferenceUtils.acceptOrder.postValue(true)
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-
-                        if (checkService() == 0) {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        }
+                        val intent = Intent(this,ParcelDetailActivity::class.java)
+                        intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
+                        intent
                     }
 
                     "rider_accept_parcel_order" -> {
                         PreferenceUtils.acceptOrder.postValue(true)
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-
-                        if (checkService() == 0) {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        }
+                        val intent = Intent(this,ParcelDetailActivity::class.java)
+                        intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
+                        intent
                     }
 
                     "rider_arrived_pickup_address" -> {
@@ -239,18 +204,8 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,ParcelDetailActivity::class.java)
                         intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
                         intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        }
                     }
 
                     "rider_start_delivery_parcel" -> {
@@ -260,18 +215,8 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,ParcelDetailActivity::class.java)
                         intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
                         intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        }
                     }
 
                     "rider_parcel_update" -> {
@@ -281,18 +226,8 @@ class FattyPushyService : Service() {
                         val intent = Intent(this,ParcelDetailActivity::class.java)
                         intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
                         intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
                         intent
-                        if (checkService() == 0) {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        } else {
-                            val intent = Intent(this,ParcelDetailActivity::class.java)
-                            intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
-                            intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
-                            intent
-                        }
                     }
 
                     "rider_parcel_cancel_order" -> {
@@ -303,11 +238,19 @@ class FattyPushyService : Service() {
                     }
 
                     "rider_parcel_order_finished" -> {
-                        PreferenceUtils.acceptOrder.postValue(true)
+                       /* PreferenceUtils.acceptOrder.postValue(true)
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
                         ratingFinishedChecking = true
-                        DeliveryRatingActivity.getIntent(this, idForFoodRating, orderType)
+                        DeliveryRatingActivity.getIntent(this, idForFoodRating, orderType)*/
+                        PreferenceUtils.acceptOrder.postValue(true)
+                        PreferenceUtils.needToShow = false
+                        PreferenceUtils.isBackground = false
+                        val intent = Intent(this,ParcelDetailActivity::class.java)
+                        intent.putExtra(ParcelDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
+                        // Removed redundant intent creation inside if/else
+                        intent
                     }
 
                     else -> Intent().apply {
@@ -351,14 +294,24 @@ class FattyPushyService : Service() {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 
         // Automatically configure a Notification Channel for devices running Android O+
+        // This line is for Pushy's automatic notification display. If you handle all notifications
+        // manually, this might be optional, but generally harmless.
         Pushy.setNotificationChannel(builder, this)
-        notificationManager.notify(1001, builder.build())
-        startForeground(1, builder.notification)
 
-        if (ratingFinishedChecking ) {
-            orderTypeIntent?.flags =  Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(orderTypeIntent)
-        }
+        val notification = builder.build()
+
+        // Start the foreground service with the notification. This also displays the notification.
+        startForeground(NOTIFICATION_ID, notification)
+
+        // The following line was causing the duplicate and has been removed:
+        // notificationManager.notify(1001, builder.build());
+        // And also this one which used the deprecated builder.notification and a different ID:
+        // startForeground(1, builder.notification)
+
+//        if (ratingFinishedChecking ) {
+//            orderTypeIntent?.flags =  Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(orderTypeIntent)
+//        }
         return START_STICKY
     }
 

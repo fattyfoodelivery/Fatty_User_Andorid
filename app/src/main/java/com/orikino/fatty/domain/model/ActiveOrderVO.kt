@@ -109,6 +109,10 @@ data class ActiveOrderVO(
     var order_date : String ?= null,
     @SerializedName("order_time")
     var order_time : String ?= null,
+    @SerializedName("distance_time")
+    var distance_time : Int ?= null,
+    @SerializedName("distance")
+    var distance : Double ?= null,
     @SerializedName("rider_accept_time")
     var rider_accept_time : String ?= null,
     @SerializedName("parcel_extra")

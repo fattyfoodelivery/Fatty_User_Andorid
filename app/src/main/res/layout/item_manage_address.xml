@@ -77,8 +77,10 @@
 
                 <LinearLayout
                     android:id="@+id/ll_set_default"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_toStartOf="@+id/btn_layout"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -96,16 +98,19 @@
                         android:id="@+id/tv_default"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:fontFamily="@font/outfit_regular"
                         android:text="@string/set_as_default_address"
                         android:textColor="@color/textPrimary02"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
 
 
                 <LinearLayout
+                    android:id="@+id/btn_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

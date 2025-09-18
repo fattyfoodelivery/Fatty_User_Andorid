@@ -50,6 +50,7 @@ data class CreateFoodVO(
     var restaurant_id : Int =0,
     var food_id: Int = 0,
     var food_name : String = "",
+    var food_image : String = "",
     var initial_price : Double = 0.0,
     var food_qty: Int = 0,
     var food_note: String? = null,

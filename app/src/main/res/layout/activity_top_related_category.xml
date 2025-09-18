@@ -29,15 +29,29 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_back"
                     app:tint="@color/fattyWhite"/>
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_toEndOf="@id/iv_back"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/top_related"
-                    android:textSize="22sp"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
-                    android:textColor="@color/fattyWhite"/>
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true">
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-32dp"
+                        android:text="@string/top_related"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/outfit_medium"
+                        android:textColor="@color/fattyWhite"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </RelativeLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -84,6 +98,10 @@
                 </LinearLayout>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
+            <include
+                android:id="@+id/empty_view"
+                layout="@layout/layout_empty_view"
+                android:visibility="gone"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_related_category"
                 android:layout_width="match_parent"

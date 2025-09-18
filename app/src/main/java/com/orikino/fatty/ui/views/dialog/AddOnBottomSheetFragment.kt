@@ -118,7 +118,7 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
 
         binding.llExtraAdd.setOnClickListener {
             processAddToCart()
-            dialog?.dismiss()
+            // Dialog dismiss is handled within addToCart or processAddToCart logic
         }
         binding.ivClose.setOnClickListener {
             dialog?.dismiss()
@@ -127,81 +127,122 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
     }
 
     private fun processAddToCart() {
-        viewModel.foodOrderList.clear()
-        if (PreferenceUtils.readFoodOrderList()?.isNotEmpty() == true) {
-            if (restVO.restaurant_id != PreferenceUtils.readFoodOrderList()
-                    ?.get(0)?.restaurant_id
-            ) {
+        // viewModel.foodOrderList.clear() // Clearing here might not be needed if addToCart manages the list correctly
+        val currentCart = PreferenceUtils.readFoodOrderList()
+        if (!currentCart.isNullOrEmpty()) {
+            if (restVO.restaurant_id != currentCart[0].restaurant_id) {
                 dialog?.dismiss()
-                addToCartOnDiffRestaurant()
-                delegate?.onDeleteItem(viewModel.foodOrderList)
+                addToCartOnDiffRestaurant() // This prepares viewModel.foodOrderList for the delegate
+                delegate?.onDeleteItem(viewModel.foodOrderList) // Delegate handles confirmation and cart clearing
             } else {
+                addToCart() // Merges or adds to current restaurant's cart
                 if (isFastOrder) {
-                    addToCart()
                     val intent = Intent(requireContext(), CheckOutActivity::class.java)
                     intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
                     intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
                     intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
                     startActivity(intent)
                 } else {
-                    addToCart()
                     delegate?.onAddToCart()
                 }
+                dialog?.dismiss() // Dismiss after successful add/merge or navigation
             }
         } else {
+            // Cart is empty, so just add
+            addToCart()
             if (isFastOrder) {
-                addToCart()
                 val intent = Intent(requireContext(), CheckOutActivity::class.java)
                 intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
                 intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
                 intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
                 startActivity(intent)
             } else {
-                addToCart()
                 delegate?.onAddToCart()
             }
+            dialog?.dismiss() // Dismiss after successful add or navigation
         }
+    }
+
+    // Helper function to compare lists of CreateFoodSubItem
+    // Relies on CreateFoodSubItem and CreateFoodOption being data classes for proper equals()
+    private fun areSubItemsEqual(list1: List<CreateFoodSubItem>, list2: List<CreateFoodSubItem>): Boolean {
+        // Data class `equals` should handle comparison of content and order.
+        return list1 == list2
     }
 
     private fun addToCart() {
         PreferenceUtils.writeRestaurant(restVO)
         PreferenceUtils.writeAddToCart(true)
-        viewModel.foodOrderList.add(
-            CreateFoodVO(
-                local_food_id = (PreferenceUtils.readFoodOrderList()?.size ?: 0) + 1,
+
+        val currentOrderList = PreferenceUtils.readFoodOrderList()?.toMutableList() ?: mutableListOf()
+        val newItemNote = binding.edtNote.text.toString().trim()
+        val quantityToAdd = viewModel.qty?.value ?: 1
+
+        // Calculate the price of a single unit of the item with its selected options.
+        val singleItemPriceWithSelectedOptions = viewModel.originalPrice + viewModel.subItemTotalPrice
+
+        var itemMerged = false
+        for (i in currentOrderList.indices) {
+            val existingItem = currentOrderList[i]
+            if (existingItem.food_id == foodVO.food_id &&
+                existingItem.food_note == newItemNote &&
+                areSubItemsEqual(existingItem.sub_item, foodSubItemList)
+            ) {
+                val newQuantity = existingItem.food_qty + quantityToAdd
+                val newTotalPrice = singleItemPriceWithSelectedOptions * newQuantity
+
+                currentOrderList[i] = existingItem.copy(
+                    food_qty = newQuantity,
+                    food_price = newTotalPrice
+                )
+                itemMerged = true
+                break
+            }
+        }
+
+        if (!itemMerged) {
+            val maxLocalFoodId = currentOrderList.maxOfOrNull { it.local_food_id } ?: 0
+            val newFoodVO = CreateFoodVO(
+                local_food_id = maxLocalFoodId + 1,
                 restaurant_id = restVO.restaurant_id,
                 food_id = foodVO.food_id,
                 food_name = foodVO.toDefaultFoodName() ?: "",
-                initial_price = viewModel.originalPrice, // Base price
-                food_qty = viewModel.qty?.value ?: 1,
-                food_note = binding.edtNote.text.toString().trim(),
-                food_price = viewModel.price, // Total price including options
-                sub_item = foodSubItemList // Use the updated list
+                food_image = foodVO.food_image ?: "",
+                initial_price = viewModel.originalPrice,
+                food_qty = quantityToAdd,
+                food_note = newItemNote,
+                food_price = singleItemPriceWithSelectedOptions * quantityToAdd,
+                sub_item = foodSubItemList.map { subItem ->
+                    subItem.copy(option = subItem.option.map { opt -> opt.copy() }.toMutableList())
+                }.toMutableList() // Deep copy
             )
-        )
-        val currentOrderList = PreferenceUtils.readFoodOrderList()
-        if (currentOrderList.isNullOrEmpty()) {
-            PreferenceUtils.writeFoodOrderList(viewModel.foodOrderList)
-        } else {
-            val resultList = currentOrderList.toMutableList() // Make it mutable
-            resultList.addAll(viewModel.foodOrderList)
-            PreferenceUtils.writeFoodOrderList(resultList)
+            currentOrderList.add(newFoodVO)
         }
-        dialog?.dismiss()
+
+        PreferenceUtils.writeFoodOrderList(currentOrderList)
+        // dialog?.dismiss() // Dismissal is handled in processAddToCart or after navigation
     }
 
+
     private fun addToCartOnDiffRestaurant() {
+        // This function prepares the item in viewModel.foodOrderList for the delegate
+        // to handle after user confirmation about switching restaurants.
+        // It should not merge, but create the item as if it's the first in a new order.
+        viewModel.foodOrderList.clear() // Ensure it only contains the item to be added
         viewModel.foodOrderList.add(
             CreateFoodVO(
-                local_food_id = (PreferenceUtils.readFoodOrderList()?.size ?: 0) + 1,
+                local_food_id = 1, // Or some other logic if this ID matters before actual save
                 restaurant_id = restVO.restaurant_id,
                 food_id = foodVO.food_id,
                 food_name = foodVO.toDefaultFoodName() ?: "",
-                initial_price = viewModel.originalPrice, // Base price
+                food_image = foodVO.food_image ?: "",
+                initial_price = viewModel.originalPrice,
                 food_qty = viewModel.qty?.value ?: 1,
                 food_note = binding.edtNote.text.toString().trim(),
-                food_price = viewModel.price, // Total price including options
-                sub_item = foodSubItemList // Use the updated list
+                food_price = viewModel.price, // Price as calculated for the current quantity and options
+                sub_item = foodSubItemList.map { subItem -> // Deep copy
+                    subItem.copy(option = subItem.option.map { opt -> opt.copy() }.toMutableList())
+                }.toMutableList()
             )
         )
     }
@@ -211,7 +252,6 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
         val linearLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvFoodAdd.layoutManager = linearLayoutManager
-        // Clear foodSubItemList before preparing default options to avoid duplicates if setUpRecyclerView is called multiple times
         foodSubItemList.clear()
         val preparedList = prepareDefaultOptions(subItemList as ArrayList<FoodSubItemVO>)
         addOnAdapter?.submitList(preparedList)
@@ -222,21 +262,15 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
     override fun onSelectItem(
         data: OptionVO,
         subItem: FoodSubItemVO,
-        isRequire: Int // This parameter from AddOnItemListDelegate might not be directly used now for price logic
+        isRequire: Int
     ) {
         modifyOptionList(subItem, data)
-        updatePrice() // Centralized price update
+        updatePrice()
     }
 
     private fun prepareDefaultOptions(data: ArrayList<FoodSubItemVO>): ArrayList<FoodSubItemVO> {
-        // This function will select default items and also populate foodSubItemList
-        // foodSubItemList should be cleared before calling this if there's a chance of re-initialization
         data.forEach { foodSubItemVO ->
             if (foodSubItemVO.required_type == 1 && foodSubItemVO.option.isNotEmpty()) {
-                // Ensure default option is actually selected in the adapter
-                // foodSubItemVO.option[0].isSelected = true (Adapter should handle UI selection)
-
-                // Add the default selected option to foodSubItemList
                 val defaultOptionVO = foodSubItemVO.option[0]
                 val subItemEntry = CreateFoodSubItem(
                     foodSubItemVO.required_type,
@@ -248,15 +282,12 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
                     defaultOptionVO.toDefaultOptionName() ?: ""
                 )
                 subItemEntry.option.add(optionEntry)
-
-                // Check if this sub_item_id already exists to avoid duplicates
-                // (though clearing foodSubItemList before this helps)
                 if (foodSubItemList.none { it.food_sub_item_id == subItemEntry.food_sub_item_id }) {
                     foodSubItemList.add(subItemEntry)
                 }
             }
         }
-        return data // Return original list for adapter to display all options
+        return data
     }
 
     private fun modifyOptionList(foodSubVO: FoodSubItemVO, optionVO: OptionVO) {
@@ -273,8 +304,6 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
                 existingSubItem.option.clear()
                 existingSubItem.option.add(convertedOption)
             } else {
-                // This case should ideally be handled by prepareDefaultOptions if it's a required item.
-                // However, if it can be added dynamically:
                 val newSubItemEntry = CreateFoodSubItem(
                     foodSubVO.required_type,
                     foodSubVO.food_sub_item_id,
@@ -284,20 +313,16 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
             }
         } else { // Multiple selections
             if (existingSubItem != null) {
-                // Check if this specific option (by food_sub_item_data_id) exists
                 val optionExists = existingSubItem.option.any { it.food_sub_item_data_id == convertedOption.food_sub_item_data_id }
                 if (optionExists) {
                     existingSubItem.option.removeAll { it.food_sub_item_data_id == convertedOption.food_sub_item_data_id }
                 } else {
                     existingSubItem.option.add(convertedOption)
                 }
-                // If, after removal, an optional sub-item group has no options, remove the group itself
-                if (existingSubItem.option.isEmpty()) { // No need to check required_type again, it's already in the else block
+                if (existingSubItem.option.isEmpty()) {
                     foodSubItemList.remove(existingSubItem)
                 }
             } else {
-                // Sub-item group does not exist, create it and add the option
-                // This means it's the first option selected for this multi-select group
                 val newSubItemEntry = CreateFoodSubItem(
                     foodSubVO.required_type,
                     foodSubVO.food_sub_item_id,
@@ -320,7 +345,7 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
         viewModel.subItemTotalPrice = calculatedOptionsTotal
 
         val currentQty = viewModel.qty?.value ?: 1
-        val basePrice = viewModel.originalPrice // Price of food item without any options
+        val basePrice = viewModel.originalPrice
 
         viewModel.price = (basePrice + viewModel.subItemTotalPrice) * currentQty
 

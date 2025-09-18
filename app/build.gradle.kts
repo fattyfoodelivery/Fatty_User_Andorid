@@ -139,7 +139,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // image load
-    implementation("io.coil-kt:coil:2.5.0")
+    implementation("io.coil-kt:coil:2.7.0")
+    implementation("io.coil-kt:coil-gif:2.7.0") // Check for the latest version
     implementation ("com.squareup.picasso:picasso:2.8")
     // circle image view
     implementation("de.hdodenhof:circleimageview:3.1.0")

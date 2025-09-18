@@ -54,39 +54,33 @@
                 android:orientation="vertical"
                 android:layout_marginStart="16dp">
 
-                <LinearLayout
-                    android:id="@+id/ll_order"
+                <TextView
+                    android:id="@+id/tv_order_stauts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-                    <TextView
-                        android:id="@+id/tv_order_stauts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/outfit_regular"
-                        android:gravity="top"
-                        android:text=""
-                        android:lines="2"
-                        android:textAlignment="viewStart"
-                        android:textColor="@color/success200"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="4dp"
-                        tools:ignore="RtlCompat" />
+                    android:ellipsize="end"
+                    android:fontFamily="@font/outfit_regular"
+                    android:gravity="top"
+                    android:text=""
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/success200"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="4dp"
+                    tools:ignore="RtlCompat" />
 
-                    <TextView
-                        android:id="@+id/tv_order_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:fontFamily="@font/outfit_regular"
-                        android:text=""
-                        android:textColor="@color/text_primary_01"
-                        android:textSize="16sp"
-                        android:textAlignment="viewStart"
-                        android:ellipsize="end"
-                        tools:ignore="RtlCompat" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_order_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text=""
+                    android:maxLines="1"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="16sp"
+                    android:textAlignment="viewStart"
+                    android:ellipsize="end"
+                    tools:ignore="RtlCompat" />
                 <TextView
                     android:id="@+id/tv_noti_msg"
                     android:layout_width="match_parent"
@@ -95,6 +89,8 @@
                     android:gravity="center|top"
                     android:visibility="gone"
                     android:text=""
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textAlignment="viewStart"
                     android:textColor="@color/text_secondary_01"
                     android:textSize="16sp"
@@ -108,6 +104,8 @@
                     android:fontFamily="@font/outfit_regular"
                     android:textColor="@color/textPrimary02"
                     android:text=""
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="12sp"
                     android:gravity="center"
                     android:textAlignment="viewStart"
