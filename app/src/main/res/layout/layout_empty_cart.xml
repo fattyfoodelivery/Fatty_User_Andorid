@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.orikino.fatty.utils.viewpod.EmptyViewPod xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_onboard_rounded">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/emptyImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_4xlarge"
+            app:srcCompat="@drawable/ic_empty_cart"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emptyMessage"
+            android:text="@string/no_food_items_to_checkout"
+            android:textSize="20sp"
+            android:layout_below="@id/emptyImage"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/text_secondary_02"
+            android:fontFamily="@font/outfit_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emptyMessageDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/emptyMessage"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/please_add_items_into_your_cart"
+            android:textColor="@color/text_secondary_02"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_expore"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/positive_button"
+            android:fontFamily="@font/outfit_regular"
+            android:text="@string/explore_now"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+
+    </RelativeLayout>
+
+
+
+</com.orikino.fatty.utils.viewpod.EmptyViewPod>
