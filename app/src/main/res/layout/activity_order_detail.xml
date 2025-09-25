@@ -465,9 +465,6 @@
                             android:textColor="@color/text_primary_01"
                             android:textSize="16sp" />
 
-
-
-
                     </LinearLayout>
 
                 </LinearLayout>

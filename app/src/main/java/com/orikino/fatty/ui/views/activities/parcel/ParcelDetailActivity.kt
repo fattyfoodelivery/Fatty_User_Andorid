@@ -110,7 +110,7 @@ class ParcelDetailActivity : AppCompatActivity() {
         binding.tvParcelEstimatedDate.text = data.order_date.plus(" | ").plus(data.order_time)
            // (data.estimated_start_time)?.let { dateFormat(it).plus(" | ").plus(data.order_time) }
         binding.tvDeliverDurationDistance.text = ( data.distance_time?.toHourMinuteString()).plus("/").plus(data.distance.toString().plus(" km"))
-        binding.tvOrderFrom.text = "Sender"
+        binding.tvOrderFrom.text = getString(R.string.sender)
         binding.tvSenderName.text = data.rider?.rider_user_name
         binding.tvSenderAddress.text = data.from_parcel_city_name
         binding.tvSenderPhone.text = data.rider?.rider_user_phone
@@ -231,7 +231,7 @@ class ParcelDetailActivity : AppCompatActivity() {
             }
             12 -> {
                 binding.tvOrderStatus.text = type.order_status_name
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
             15 -> {
                 binding.tvOrderStatus.text = type.order_status_name

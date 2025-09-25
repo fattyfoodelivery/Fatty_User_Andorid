@@ -8,7 +8,7 @@
     <string name="chinese">Chinese</string>
     <string name="english">English</string>
     <string name="donnot_receive_code">Didn\'t receive a code? Resend code in</string>
-    <string name="otp_send_msg">OTP code will send to</string>
+    <string name="otp_send_msg">OTP Code ကို %s သို့ ပေးပို့ပါမည်။</string>
     <string name="fill_sms_code">Please fill sms code</string>
     <string name="gps_permission_title">Please enable location in setting</string>
     <string name="gps_permission_msg">If your phone brand is xiaomi, you need to choose high accuracy for gps enable</string>
@@ -119,7 +119,7 @@
     <string name="yes_i_will_delete">ဟုတ်ကဲ့ ဖျက်ပါ့မယ်</string>
     <string name="acc_del_title">အကောင့်ဖျက်မလား?</string>
     <string name="acc_del_des">သင့်အကောင့်ကို ဖျက်လိုသည်မှာ သေချာပါသလား။ သင့်အကောင့်ပြန်အသုံးပြု၍ မရနိုင်ပါ။</string>
-    <string name="str_del">Delete</string>
+    <string name="str_del">ပယ်ဖျက်မည်</string>
     <string name="str_cancel">မလုပ်တော့ပါ</string>
     <string name="process_finish_a_few_min">လုပ်ငန်းစဉ်သည် စက္ကန့်အနည်းငယ်အတွင်း ပြီးဆုံးမည်ဖြစ်သည်။</string>
     <string name="please_wait">ကျေးဇူးပြုပြီးခဏစောင့်ပါ...</string>
@@ -130,7 +130,7 @@
     <string name="no_internet">No internet</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="please_check_internet_and_try_againg">Please check your connection and try again.</string>
-    <string name="please_check_internet_connection">Please check your internet connection</string>
+    <string name="please_check_internet_connection">Internet ချိတ်ဆက်မှုမရှိပါ။ ပြန်လည်စစ်ဆေးပါ။</string>
     <string name="try_again">Try Again</string>
     <string name="app_lated_version">Your app is on the latest version</string>
     <string name="update_fail">Sorry, update failed</string>
@@ -230,10 +230,10 @@
     <string name="to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen">To receive notifications in the background, please set \"Battery\" to \"Unrestricted\" in the next screen.</string>
     <string name="my_account">မိမိ</string>
     <string name="skip">Skip</string>
-    <string name="login_message">Please login to order food or booking parcel</string>
+    <string name="login_message">အစားအသောက်မှာယူရန် သို့မဟုတ် ပါဆယ်ကို ကြိုတင်မှာယူရန် ဝင်ရောက်ပါ။</string>
     <string name="apply_filter">လုပ်ဆောင်မည်</string>
     <string name="my_wishlist">စိတ်ကြိုက်</string>
-    <string name="out_of_service">Out of services</string>
+    <string name="out_of_service">ဝန်ဆောင်မှု မရရှိသေးပါ</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
     <string name="resend_code">ပြန်လည်ပေးပို့မည််</string>
@@ -260,14 +260,14 @@
     <string name="order_id">အော်ဒါနံပါတ် :</string>
     <string name="notifications">အသိပေးချက်များ</string>
     <string name="order_details">Order Details</string>
-    <string name="opening_time">Opening time</string>
-    <string name="closing_time">Closing time</string>
+    <string name="opening_time">ဖွင့်ချိန်</string>
+    <string name="closing_time">ပိတ်ချိန်</string>
     <string name="submit">Submit</string>
     <string name="order_summary">အော်ဒါအသေးစိတ်</string>
     <string name="delivery_details">ပါဆယ်အသေးစိတ်</string>
     <string name="item">မျိုး</string>
-    <string name="login">Login</string>
-    <string name="hello">Hello</string>
+    <string name="login">လော့ဂ်အင်ဝင်ပါ</string>
+    <string name="hello">မင်္ဂလာပါ</string>
     <string name="menus">Menus</string>
     <string name="add_to_cart">ထည့်ရန်</string>
     <string name="very_bad">Very Bad</string>
@@ -294,7 +294,7 @@
     <string name="make_your_first_search">သင်၏ပထမဆုံးရှာဖွေမှုကိုပြုလုပ်ပါ။</string>
     <string name="str_orders">အော်ဒါများ</string>
     <string name="str_message">စာပေးပို့ခြင်း</string>
-    <string name="str_about">About</string>
+    <string name="str_about">Fatty အကြောင်း</string>
     <string name="str_log_out">အကောင့်ထွက်ရန်</string>
     <string name="str_log_out_question">အကောင့်ထွက်မလား?</string>
     <string name="delete_account">အကောင့်ဖျက်ရန်</string>
@@ -347,5 +347,8 @@
     <string name="txt_food">အစားအသောက်များ</string>
     <string name="txt_cancel_item">ပယ်ဖျက်ပြီး</string>
     <string name="no_order_yet">အော်ဒါမတင်ရသေးပါ</string>
+    <string name="txt_filter_cancel">ရှင်းလင်းမည်</string>
+    <string name="txt_parcel_details">ပါဆယ်အသေးစိတ်</string>
+    <string name="txt_order_cancel">ပယ်ဖျက်မည်</string>
 
 </resources>

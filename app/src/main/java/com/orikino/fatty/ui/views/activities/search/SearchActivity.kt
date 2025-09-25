@@ -77,6 +77,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlin.text.isNotEmpty
 import androidx.core.graphics.toColorInt
 import com.orikino.fatty.utils.LocaleHelper
+import kotlin.collections.map
+import kotlin.collections.toList
 
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity(), AddOnDelegate {
@@ -93,6 +95,10 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     var foodSize : Int = 0
     var restSize : Int = 0
     private var searchQuery : String = ""
+    private var lunchCategory : MutableList<SearchFilterSubCategoryVO>? = null
+    private var dissertCategory : MutableList<SearchFilterSubCategoryVO>? = null
+    private var drinkCategory : MutableList<SearchFilterSubCategoryVO>? = null
+    private var isResume = false
 
     companion object {
 
@@ -134,6 +140,30 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     override fun onResume() {
         super.onResume()
         checkGPS()
+
+        if (viewModel.subList.isNotEmpty()) {
+            val result = Gson().toJson(viewModel.subList)
+            PreferenceUtils.readUserVO().customer_id?.let {
+                PreferenceUtils.readUserVO().latitude?.let { it1 ->
+                    PreferenceUtils.readUserVO().longitude?.let { it2 ->
+                        viewModel.filterRestaurantWithCateID(result,
+                            it, it1, it2
+                        )
+                    }
+                }
+            }
+        }else if (searchQuery.isNotEmpty()){
+            isResume = true
+            searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
+            searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
+
+            viewModel.searchFoodListLiveData.postValue(mutableListOf())
+            viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
+            viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+            searchBinding.llRecentView.gone()
+            searchBinding.llSegmentControl.show()
+            viewModel.customerSearch(searchQuery)
+        }
     }
     private fun checkGPS() {
         var gpsTracker = GpsTracker(this)
@@ -222,7 +252,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         searchBinding.tvResult.gone()
         searchBinding.llRecentView.show()
         setTag(PreferenceUtils.readSearchRecent())
-
     }
     private fun setUpObserver() {
         viewModel.viewState.observe(this) { render(it) }
@@ -238,7 +267,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             if (it.isNotEmpty()) {
                 hideEmptyView()
                 searchBinding.rvRestaurant.show()
-                restaurantAdapter.setNewData(it)
+                restaurantAdapter.submitList(it.toList())
+                searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
             }
         }
         /*viewModel.filterRestaurantListLiveData.observe(this) {
@@ -255,9 +285,12 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             searchBinding.filterView.tvLucnch.text = it[0].main_category
             searchBinding.filterView.tvDessert.text = it[1].main_category
             searchBinding.filterView.tvDrink.text = it[2].main_category
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,it[0].sub_category)
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,it[1].sub_category)
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,it[2].sub_category)
+            lunchCategory = it[0].sub_category
+            dissertCategory = it[1].sub_category
+            drinkCategory = it[2].sub_category
+            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
+            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
+            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
         })
 
 
@@ -298,9 +331,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
         searchBinding.tvResult.text = "${getString(R.string.restaurants)} ・ ${restSize}"
         searchBinding.chipRestaurant.text = "$restSize"
-        restaurantAdapter.setNewData(data)
-
-
+        restaurantAdapter.submitList(data.toList())
+        searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
     }
     private fun render(state: SearchViewState) {
         when (state) {
@@ -352,10 +384,13 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                 searchBinding.chipFood.setChipIconTintResource(R.color.fattyPrimary)
                 searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
                 searchBinding.rvRestaurant.gone()
+                searchBinding.rvFood.show()
             } else {
                 searchBinding.chipFood.setChipIconTintResource(R.color.black)
                 searchBinding.chipFood.setTextColor(ColorStateList.valueOf(Color.parseColor("#000000")))
                 searchBinding.rvRestaurant.show()
+                searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
+                searchBinding.rvFood.gone()
             }
         }
 
@@ -363,13 +398,16 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             searchBinding.tvResult.show()
             searchBinding.tvResult.text = "${getString(R.string.restaurants)} ・ ${restSize}"
             if (b) {
-                searchBinding.rvFood.gone()
                 searchBinding.chipRestaurant.setChipIconTintResource(R.color.fattyPrimary)
                 searchBinding.chipRestaurant.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
+                searchBinding.rvFood.gone()
+                searchBinding.rvRestaurant.show()
+                searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
             } else {
                 searchBinding.chipRestaurant.setChipIconTintResource(R.color.black)
                 searchBinding.chipRestaurant.setTextColor(ColorStateList.valueOf(Color.parseColor("#000000")))
                 searchBinding.rvFood.show()
+                searchBinding.rvRestaurant.gone()
 
             }
         }
@@ -400,8 +438,12 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                 showConfirmDialog()
             }
             searchBinding.filterView.btnCancel.setOnClickListener {
-                searchBinding.filterView.root.gone()
-                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                viewModel.subList.clear()
+                cleanSearch()
+                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
+                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
+                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
             }
             searchBinding.filterView.swipeRefresh.setOnRefreshListener {
                 searchBinding.filterView.swipeRefresh.isRefreshing = true
@@ -428,13 +470,13 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     private fun filterApply() {
         searchBinding.chipRestaurant.setChipIconTintResource(R.color.fattyPrimary)
         searchBinding.chipRestaurant.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
-
+        viewModel.searchFoodListLiveData.postValue(mutableListOf())
         searchBinding.edtSearch.clearFocus()
         searchBinding.edtSearch.text?.clear()
         viewModel.isFilter = true
         viewModel.isFood = false
 
-        if (viewModel.subList.size > 0) {
+        if (viewModel.subList.isNotEmpty()) {
             val result = Gson().toJson(viewModel.subList)
             PreferenceUtils.readUserVO().customer_id?.let {
                 PreferenceUtils.readUserVO().latitude?.let { it1 ->
@@ -538,17 +580,28 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                     state.data.data.is_wish
                 )
             )
-            viewModel.searchRestaurantListLiveData.value?.forEach {
-                if (state.data.data.restaurant_id == it.restaurant_id) {
-                    it.is_wish = state.data.message == "successfull customer wishlist create"
-                    viewModel.searchRestaurantListLiveData.observe(this) {
-                        /*rvSearchRestaurants.update(
-                            it
-                        )*/
-                        restaurantAdapter.setNewData(it)
-                    }
+            val currentAdapterList = restaurantAdapter.currentList
+            val newAdapterList = currentAdapterList.map { restaurant ->
+                if (state.data.data.restaurant_id == restaurant.restaurant_id) {
+                    restaurant.copy(is_wish = state.data.message == "successfull customer wishlist create")
+                } else {
+                    restaurant
                 }
             }
+            restaurantAdapter.submitList(newAdapterList.toList())
+            searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
+//            viewModel.searchRestaurantListLiveData.value?.forEach {
+//                if (state.data.data.restaurant_id == it.restaurant_id) {
+//                    it.is_wish = state.data.success
+//                    viewModel.searchRestaurantListLiveData.observe(this) {
+//                        /*rvSearchRestaurants.update(
+//                            it
+//                        )*/
+//                        restaurantAdapter.setNewData(it)
+//                    }
+//                }
+//
+//            }
         }
     }
 
@@ -574,28 +627,34 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             searchBinding.llSegmentControl.show()
             searchBinding.chipFood.text = "0"
             searchBinding.rvRestaurant.show()
-            restaurantAdapter.setNewData(state.data.data)
+            restaurantAdapter.submitList(state.data.data.toList())
+            searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
             searchBinding.chipRestaurant.text = state.data.data.size.toString()
         }
     }
     private fun successSearchFoodAndRestaurant(state : SearchViewState.OnSuccessSearchFoodAndRestaurant) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
-            clearSelectedChips()
-            searchBinding.tvResult.show()
-            searchBinding.tvResult.text = "Foods ・ ${state.data.data.food.size}"
+            if (!isResume) {
+                clearSelectedChips()
+                searchBinding.tvResult.show()
+                searchBinding.tvResult.text = "Foods ・ ${state.data.data.food.size}"
 
-            searchBinding.chipFood.text = "${state.data.data.food.size}"
-            searchBinding.chipRestaurant.text = "${state.data.data.restaurant.size}"
-            viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+                searchBinding.chipFood.text = "${state.data.data.food.size}"
+                searchBinding.chipRestaurant.text = "${state.data.data.restaurant.size}"
+                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+            }
+
 
             when (state.data.data.food.size) {
                 0 -> {
-                    viewModel.searchFoodListLiveData.postValue(mutableListOf())
+                    if (!isResume)
+                        viewModel.searchFoodListLiveData.postValue(mutableListOf())
                     foodAdapter.setNewData(state.data.data.food)
                 }
                 else -> {
-                    viewModel.searchFoodListLiveData.postValue(state.data.data.food)
+                    if (!isResume)
+                        viewModel.searchFoodListLiveData.postValue(state.data.data.food)
                     foodAdapter.setNewData(state.data.data.food)
                     foodSize = state.data.data.food.size
                 }
@@ -603,15 +662,20 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
             when (state.data.data.restaurant.size) {
                 0 -> {
-                    viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
-                    restaurantAdapter.setNewData(state.data.data.restaurant)
+                    if (!isResume)
+                        viewModel.searchRestaurantListLiveData.postValue(mutableListOf())
+                    restaurantAdapter.submitList(state.data.data.restaurant.toList())
+                    searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
                 }
                 else -> {
-                    viewModel.searchRestaurantListLiveData.postValue(state.data.data.restaurant)
-                    restaurantAdapter.setNewData(state.data.data.restaurant)
+                    if (!isResume)
+                        viewModel.searchRestaurantListLiveData.postValue(state.data.data.restaurant)
+                    restaurantAdapter.submitList(state.data.data.restaurant.toList())
+                    searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
                     restSize = state.data.data.restaurant.size
                 }
             }
+            isResume = false
 
         }
     }
@@ -882,6 +946,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                 searchBinding.llSegmentControl.show()
                 searchBinding.rvFood.show()
                 searchBinding.rvRestaurant.show()
+                searchQuery = tagName
                 viewModel.customerSearch(tagName)
                 viewModel.isRecent = true
             }

@@ -8,7 +8,7 @@
     <string name="chinese">Chinese</string>
     <string name="english">English</string>
     <string name="donnot_receive_code">Didn\'t receive a code? Resend code in</string>
-    <string name="otp_send_msg">OTP code will send to</string>
+    <string name="otp_send_msg">OTP 代码将发送至 %s</string>
     <string name="fill_sms_code">Please fill sms code</string>
     <string name="gps_permission_title">Please enable location in setting</string>
     <string name="gps_permission_msg">If your phone brand is xiaomi, you need to choose high accuracy for gps enable</string>
@@ -118,7 +118,7 @@
     <string name="yes_i_will_delete">是的，我会删除</string>
     <string name="acc_del_title">删除帳戶？</string>
     <string name="acc_del_des">您确定要删除您的帐户吗？如果删除，您将无法再使用该帐户。</string>
-    <string name="str_del">Delete</string>
+    <string name="str_del">删除</string>
     <string name="str_cancel">取消</string>
     <string name="process_finish_a_few_min">该过程将在几秒钟内完成。</string>
     <string name="please_wait">请稍等...</string>
@@ -129,7 +129,7 @@
     <string name="no_internet">No internet</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="please_check_internet_and_try_againg">Please check your connection and try again.</string>
-    <string name="please_check_internet_connection">Please check your internet connection</string>
+    <string name="please_check_internet_connection">请检查网络后重新加载</string>
     <string name="try_again">Try Again</string>
     <string name="app_lated_version">Your app is on the latest version</string>
     <string name="update_fail">Sorry, update failed</string>
@@ -229,10 +229,10 @@
     <string name="to_receive_notifications_in_the_background_please_set_battery_to_unrestricted_in_the_next_screen">To receive notifications in the background, please set \"Battery\" to \"Unrestricted\" in the next screen.</string>
     <string name="my_account">账号</string>
     <string name="skip">Skip</string>
-    <string name="login_message">Please login to order food or booking parcel</string>
+    <string name="login_message">请登录订购餐食或包裹</string>
     <string name="apply_filter">做</string>
     <string name="my_wishlist">喜欢</string>
-    <string name="out_of_service">Out of services</string>
+    <string name="out_of_service">停止服务</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
     <string name="resend_code">请先登录</string>
@@ -250,7 +250,7 @@
     <string name="kpay_fail">KBZPay Fail</string>
     <string name="order_from">订单号</string>
     <string name="order_to">Order To</string>
-    <string name="str_track">Track</string>
+    <string name="str_track">查看</string>
     <string name="str_review">Review</string>
     <string name="no_review">No Review</string>
     <string name="are_you_sure_to_delete_this_order">Are you sure to delete this order?</string>
@@ -259,14 +259,14 @@
     <string name="order_id">订单编号 :</string>
     <string name="notifications">通知</string>
     <string name="order_details">Order Details</string>
-    <string name="opening_time">Opening time</string>
-    <string name="closing_time">Closing time</string>
+    <string name="opening_time">开放时间</string>
+    <string name="closing_time">关闭时间</string>
     <string name="submit">Submit</string>
     <string name="order_summary">订单详情</string>
     <string name="delivery_details">包裹详情</string>
     <string name="item">份</string>
-    <string name="login">Login</string>
-    <string name="hello">Hello</string>
+    <string name="login">登录</string>
+    <string name="hello">您好</string>
     <string name="menus">Menus</string>
     <string name="add_to_cart">添加</string>
     <string name="let_s_rate_our_rider_s_delivery_services">Let\'s rate our rider\'s delivery services</string>
@@ -347,5 +347,8 @@
     <string name="txt_food">食物</string>
     <string name="txt_cancel_item">取消项目</string>
     <string name="no_order_yet">還沒有點單</string>
+    <string name="txt_filter_cancel">清除</string>
+    <string name="txt_parcel_details">包裹详情</string>
+    <string name="txt_order_cancel">取消</string>
 
 </resources>

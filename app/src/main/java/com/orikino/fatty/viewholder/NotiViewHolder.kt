@@ -1,14 +1,14 @@
 package com.orikino.fatty.viewholder
 
-import android.view.View
 import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemNotificationsBinding
 import com.orikino.fatty.domain.responses.UserNotificationVO
+import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 
-class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserNotificationVO,String,Int) -> Unit) : BaseViewHolder<UserNotificationVO>(binding.root)  {
+class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserNotificationVO,String,Int) -> Unit) : NewBaseViewHolder<UserNotificationVO>(binding.root)  {
 
     override fun setData(data: UserNotificationVO, position: Int) {
 
@@ -36,7 +36,7 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
             binding.tvOrderStauts.text = data.body
             binding.imvFood.gone()
             binding.imvParcel.show()
-            binding.imvParcel.setImageResource(R.drawable.dummy_parcel_item)
+            binding.imvParcel.setImageResource(R.drawable.ic_parcel_noti)
             when(data.order_status_id) {
                 "11" -> {
                     binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.success200))
@@ -94,8 +94,5 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
             binding.tvStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))
             binding.cvNotiStatus.setCardBackgroundColor(ContextCompat.getColor(this.itemView.context,R.color.surfaceUnread))
         }*/
-    }
-
-    override fun onClick(v: View?) {
     }
 }

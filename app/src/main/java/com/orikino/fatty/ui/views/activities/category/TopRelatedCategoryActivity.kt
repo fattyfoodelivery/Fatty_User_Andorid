@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -37,6 +38,9 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 @AndroidEntryPoint
 class TopRelatedCategoryActivity : AppCompatActivity(){
@@ -48,6 +52,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
     private var topRelatedCategoryAdapter : TopRelatedCategoryAdapter? = null
     private var recommendedRestaurantAdapter: NearByIdRestAdapter? = null
     private var titleName : String = ""
+    private val TEMP_HTML_FILENAME = "temp_ad_content.html"
 
     private var cat_name : String? = ""
     private var cat_id : Int? = null
@@ -384,6 +389,20 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
         }
     }
 
+    private fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {
+        return try {
+            val file = File(context.cacheDir, filename)
+            FileOutputStream(file).use {
+                it.write(htmlContent.toByteArray(Charsets.UTF_8))
+            }
+            file.absolutePath
+        } catch (e: IOException) {
+            Log.e("SplashActivity", "Error saving HTML to file: $filename", e)
+            Toast.makeText(context, "Error preparing content for display.", Toast.LENGTH_SHORT).show()
+            null
+        }
+    }
+
     private fun setUpTopRelated() {
         val linearLayoutManager =
             LinearLayoutManager(FattyApp.getInstance(), LinearLayoutManager.VERTICAL,false)
@@ -432,8 +451,17 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                                 startActivity(intent)
                             }
                             2 -> {
-                                val intent = WebviewActivity.getIntent(this,data.toDefaultRestaurantName().toString(),data.display_type_description)
-                                startActivity(intent)
+                                val htmlContent = data.display_type_description
+                                val title = data.restaurant_name
+                                if (htmlContent.isNotEmpty()) {
+                                    val filePath = saveHtmlToFile(this, htmlContent, TEMP_HTML_FILENAME)
+                                    if (filePath != null) {
+                                        val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath)
+                                        startActivity(intent)
+                                    }
+                                }
+//                                val intent = WebviewActivity.getIntent(this,data.toDefaultRestaurantName().toString(),data.display_type_description)
+//                                startActivity(intent)
                             }
                             3 -> {
                                 val url = data.display_type_description

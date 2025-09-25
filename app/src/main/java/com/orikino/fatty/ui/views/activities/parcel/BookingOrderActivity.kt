@@ -224,12 +224,15 @@ class BookingOrderActivity : AppCompatActivity() {
             dialogBinding?.rbtnLashioCheck?.isClickable = true
             dialogBinding?.rbtnLashioCheck?.isFocusable = true
             if (PreferenceUtils.readZoneId() == 1){
+                lastSelected = 1
                 dialogBinding?.rbtnLashioCheck?.isChecked = true
                 dialogBinding?.rbtnMuseCheck?.isChecked = false
             }else{
+                lastSelected = 2
                 dialogBinding?.rbtnMuseCheck?.isChecked = true
                 dialogBinding?.rbtnLashioCheck?.isChecked = false
             }
+            PreferenceUtils.writeParcelZoneId(PreferenceUtils.readZoneId() ?: 1)
             dialogBinding?.rbtnLashioCheck?.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     if (lastSelected != 1) {

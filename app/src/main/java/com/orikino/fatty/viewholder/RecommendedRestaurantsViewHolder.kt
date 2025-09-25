@@ -8,6 +8,7 @@ import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class RecommendedRestaurantsViewHolder(
     var binding : ItemRecommendedRestaurantsBinding,
@@ -16,7 +17,22 @@ class RecommendedRestaurantsViewHolder(
 
     override fun setData(data: RecommendRestaurantVO, position: Int) {
 
-        binding.tvDurationDistance.text = "${data.distance_time}mins ・ ${data.distance}km"
+        val timeInMinutes = data.distance_time
+        val distanceText = String.format(Locale.US, "%.2fkm", data.distance)
+        if (timeInMinutes == 0){
+            binding.tvDurationDistance.text = distanceText
+        }else if (timeInMinutes >= 60) {
+            val hours = timeInMinutes / 60
+            val remainingMinutes = timeInMinutes % 60
+            if (remainingMinutes == 0) {
+                binding.tvDurationDistance.text = "${hours}hr ・ ${distanceText}"
+            } else {
+                binding.tvDurationDistance.text = "${hours}hr ${remainingMinutes}mins ・ ${distanceText}"
+            }
+        } else {
+            binding.tvDurationDistance.text = "${timeInMinutes}mins ・ ${distanceText}"
+        }
+
 
         binding.tvRestaurantName.text = data.toDefaultRestaurantName()
         Picasso.get()

@@ -36,10 +36,12 @@ class NotificationDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityNotificationDetailBinding
     private var notiId : Int = 0
     private var notiBody : String? = ""
+    private var notiTitle : String? = null
 
     companion object {
         const val NOTI_ID = "noti_id"
         const val NOTI_BODY = "noti_body"
+        const val NOTI_TITLE = "noti_title"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +52,10 @@ class NotificationDetailActivity : AppCompatActivity() {
 
         notiId = intent.getIntExtra(NOTI_ID,0)
         notiBody = intent.getStringExtra(NOTI_BODY)
+        notiTitle = intent.getStringExtra(NOTI_TITLE)
+        if (notiTitle != null) {
+            binding.tvTitle.text = notiTitle
+        }
 
         if (notiBody?.isEmpty() == true) {
             setUpObserver()

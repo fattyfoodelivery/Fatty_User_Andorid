@@ -40,6 +40,7 @@ import com.orikino.fatty.ui.views.activities.account_setting.manage_address.Addr
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressPickUpMapBoxActivity
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.ManageAddressActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.fragments.HomeFragment
@@ -712,7 +713,19 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.tvTotal.text =
                 "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
-            binding.llNoti.gone()
+           // binding.llNoti.gone()
+            if (state.data.data.is_abnormal){
+                binding.llAbnormal.show()
+                binding.tvAbnormalAlert.text = state.data.data.abnormal_alert
+            }else{
+                binding.llAbnormal.gone()
+            }
+            if (state.data.data.is_peaktime){
+                binding.llPeakTime.show()
+                binding.tvPeakTimeAlert.text = state.data.data.peaktime_alert
+            }else{
+                binding.llPeakTime.gone()
+            }
 //            billTotalPrice = itemTotalPrice.plus(state.data.data.delivery_fee).plus(abnormalFee)
 //            binding.tvBillTotalPrice.text =
 //                "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
@@ -815,7 +828,11 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                                 viewModel.lng,
                                 viewModel.paymentMethodID,
                                 viewModel.address,
-                                viewModel.customerAddressPhone!!,
+                                if (defaultAddress == null){
+                                    viewModel.customerAddressPhone ?: ""
+                                }else{
+                                    defaultAddress?.customer_phone ?: ""
+                                },
                                 abnormalFee
                             )
                         }
@@ -1010,11 +1027,22 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 }
                 // --- End of your custom rounding logic ---}
             }
-
             billTotalPrice = calculatedBillTotalPrice // Assign the modified value
             binding.tvBillTotalPrice.text = "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
             binding.tvTotal.text = "${billTotalPrice.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
-            binding.llNoti.gone()
+            //binding.llNoti.gone()
+            if (state.data.data.is_abnormal){
+                binding.llAbnormal.show()
+                binding.tvAbnormalAlert.text = state.data.data.abnormal_alert
+            }else{
+                binding.llAbnormal.gone()
+            }
+            if (state.data.data.is_peaktime){
+                binding.llPeakTime.show()
+                binding.tvPeakTimeAlert.text = state.data.data.peaktime_alert
+            }else{
+                binding.llPeakTime.gone()
+            }
             /*if (state.data.data.delivery_fee > 0) {
                 tv_notice.visibility = View.VISIBLE
                 when {
@@ -1244,6 +1272,11 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         )
 
         binding.emptyViewPod.root.setDelegate(this)
+        binding.emptyViewPod.btnExpore.setOnClickListener {
+            finishAffinity()
+            MainActivity.isFirstTime = true
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     private fun showEmptyView() {

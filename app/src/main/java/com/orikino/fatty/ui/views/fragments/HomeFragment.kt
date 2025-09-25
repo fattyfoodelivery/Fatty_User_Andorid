@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +69,9 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.Locale
 import kotlin.collections.map
 
@@ -96,6 +100,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private lateinit var sliderRunnable: Runnable
     private val SLIDER_DELAY_MS = 3000L // 3 seconds
     private var adsDataSize = 0
+    private val TEMP_HTML_FILENAME = "temp_ad_content.html"
 
 
     companion object {
@@ -144,6 +149,20 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 layoutParams.height = targetHeight
                 viewPager.layoutParams = layoutParams
             }
+        }
+    }
+
+    private fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {
+        return try {
+            val file = File(context.cacheDir, filename)
+            FileOutputStream(file).use {
+                it.write(htmlContent.toByteArray(Charsets.UTF_8))
+            }
+            file.absolutePath
+        } catch (e: IOException) {
+            Log.e("SplashActivity", "Error saving HTML to file: $filename", e)
+            Toast.makeText(context, "Error preparing content for display.", Toast.LENGTH_SHORT).show()
+            null
         }
     }
 
@@ -787,8 +806,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     context?.startActivity(intent)
                 }
                 2 -> {
-                    val intent = WebviewActivity.getIntent(requireContext(),data[position].restaurant_name,data[position].display_type_description)
-                    context?.startActivity(intent)
+                    val htmlContent = data[position].display_type_description
+                    val title = data[position].restaurant_name
+                    if (htmlContent.isNotEmpty()) {
+                        val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
+                        if (filePath != null) {
+                            val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath)
+                            startActivity(intent)
+                        }
+                    }
                 }
                 3 -> {
                     val url = data[position].display_type_description
@@ -902,8 +928,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                             context?.startActivity(intent)
                         }
                         2 -> {
-                            val intent = WebviewActivity.getIntent(requireContext(),data.toDefaultRestaurantName().toString(),data.display_type_description)
-                            context?.startActivity(intent)
+                            val htmlContent = data.display_type_description
+                            val title = data.restaurant_name
+                            if (htmlContent.isNotEmpty()) {
+                                val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
+                                if (filePath != null) {
+                                    val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath)
+                                    startActivity(intent)
+                                }
+                            }
                         }
                         3 -> {
                             val url = data.display_type_description

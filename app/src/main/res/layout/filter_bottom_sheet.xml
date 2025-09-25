@@ -80,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"
                         android:text="Menus"
+                        android:visibility="gone"
                         android:textAllCaps="false"
                         android:textColor="@color/text_primary_01"
                         android:textSize="20sp" />
@@ -156,7 +157,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="@string/str_cancel"
+                android:text="@string/txt_filter_cancel"
                 android:fontFamily="@font/outfit_regular"
                 android:gravity="center"
                 android:textAllCaps="false"

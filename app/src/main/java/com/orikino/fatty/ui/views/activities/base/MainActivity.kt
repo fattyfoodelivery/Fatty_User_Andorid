@@ -363,22 +363,13 @@ class MainActivity : AppCompatActivity() {
                             MainActivity::class.simpleName
                         )
                 }
-                PreferenceUtils.readFoodOrderList()!!
-                    .isNotEmpty() && PreferenceUtils.readUserVO().customer_id != 0 -> {
-                    /*startActivity<CheckOutActivity>(
-                        CheckOutActivity.LAT to PreferenceUtils.readUserVO().latitude,
-                        CheckOutActivity.LNG to PreferenceUtils.readUserVO().longitude,
-                        CheckOutActivity.ADDRESS_TYPE to ""
-                    )*/
+                else -> {
                     val intent = Intent(this, CheckOutActivity::class.java)
                     intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
                     intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
                     intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
                     startActivity(intent)
-
-                }
-                else -> {
-                    showSnackBar(resources.getString(R.string.empty_cart))
+                    //showSnackBar(resources.getString(R.string.empty_cart))
                 }
             }
         }

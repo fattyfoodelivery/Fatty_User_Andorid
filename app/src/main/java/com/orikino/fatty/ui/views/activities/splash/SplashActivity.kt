@@ -59,6 +59,9 @@ import me.pushy.sdk.Pushy
 import androidx.core.net.toUri
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.loadPhoto
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
@@ -81,6 +84,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
     companion object {
         private const val GOOGLE_PLAY_STORE_PACKAGE = "com.android.vending"
         const val timerMills: Long = 5000L // Ensure it's Long
+        private const val TEMP_HTML_FILENAME = "temp_ad_content.html"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,12 +124,12 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
             override fun onTick(millisUntilFinished: Long) {
                 timeRemainingWhenPaused = millisUntilFinished
                 val seconds = millisUntilFinished / 1000
-                splashBinding.tvSkip.text = getString(R.string.skip).plus(" ").plus(seconds)
+                splashBinding.tvSkip.text = getString(R.string.txt_skip).plus(" ").plus(seconds)
             }
 
             override fun onFinish() {
                 timeRemainingWhenPaused = 0L
-                splashBinding.tvSkip.text = getString(R.string.skip)
+                splashBinding.tvSkip.text = getString(R.string.txt_skip)
                 countDownTimerInstance = null // Timer is done
                 if (!isTimerCancelledForNavigation) { // Only navigate if not cancelled for prior navigation
                     navigateToLanguageScreen()
@@ -135,6 +139,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
     }
 
     private fun cancelTimer(){
+        isTimerCancelledForNavigation = true
         countDownTimerInstance?.cancel()
         countDownTimerInstance = null
     }
@@ -187,8 +192,8 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         } else {
             showNoInternetDialog(
                 resources.getString(R.string.no_internet_title),
-                resources.getString(R.string.no_internet),
-                "OK"
+                resources.getString(R.string.please_check_internet_connection),
+                getString(R.string.str_ok)
             )
         }
     }
@@ -318,9 +323,23 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         LoadingProgressDialog.showLoadingProgress(this@SplashActivity)
     }
 
+    private fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {
+        return try {
+            val file = File(context.cacheDir, filename)
+            FileOutputStream(file).use {
+                it.write(htmlContent.toByteArray(Charsets.UTF_8))
+            }
+            file.absolutePath
+        } catch (e: IOException) {
+            Log.e("SplashActivity", "Error saving HTML to file: $filename", e)
+            Toast.makeText(context, "Error preparing content for display.", Toast.LENGTH_SHORT).show()
+            null
+        }
+    }
+
     private fun renderOnBoardAdSuccess(state: SplashViewState.OnBoardAdSuccess) {
         splashBinding.imvAds.show()
-        LoadingProgressDialog.hideLoadingProgress()
+//        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             if (countDownTimerInstance == null && !isTimerCancelledForNavigation) { // Start only if not already running/navigating
                 startNewCountdown(timerMills)
@@ -330,42 +349,54 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                 placeholder(R.drawable.on_board_ads) // Ensure you have this drawable
             }
             splashBinding.imvAds.setOnClickListener {
-
-                when(state.data.data?.display_type_id){
+                val adData = state.data.data
+                when(adData?.display_type_id){
                     1 -> {
-                        cancelTimerAndNavigate(Pair(true, state.data.data?.restaurant_id ?: 0))
+                        cancelTimerAndNavigate(Pair(true, adData.restaurant_id ?: 0))
                     }
                     2 -> {
                         cancelTimer()
-                        val intent = WebviewActivity.getIntent(this,state.data.data?.restaurant_name ?: "",state.data.data?.display_type_description ?: "")
-                        startActivity(intent)
+                        val htmlContent = adData.display_type_description ?: ""
+                        val title = adData.restaurant_name ?: ""
+                        if (htmlContent.isNotEmpty()) {
+                            val filePath = saveHtmlToFile(this, htmlContent, TEMP_HTML_FILENAME)
+                            if (filePath != null) {
+                                val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath)
+                                startActivity(intent)
+                            } else {
+                                // Fallback or error handling if file couldn't be saved
+                                if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+                                    startNewCountdown(timeRemainingWhenPaused)
+                                }
+                                Toast.makeText(this, "Could not display content.", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
+                                startNewCountdown(timeRemainingWhenPaused)
+                            }
+                            Toast.makeText(this, "No content to display.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     3 -> {
                         cancelTimer()
-                        val url = state.data.data?.display_type_description ?: ""
+                        val url = adData.display_type_description ?: ""
                         if (url.isNotEmpty()) {
                             try {
                                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                                 startActivity(intent)
                             } catch (e: ActivityNotFoundException) {
                                 if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
-                                    // If the timer wasn't cancelled for navigation, there's time left,
-                                    // and no timer instance is currently running (e.g., was paused), resume it.
                                     startNewCountdown(timeRemainingWhenPaused)
                                 }
                                 Toast.makeText(this, "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
                             } catch (e: Exception) {
                                 if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
-                                    // If the timer wasn't cancelled for navigation, there's time left,
-                                    // and no timer instance is currently running (e.g., was paused), resume it.
                                     startNewCountdown(timeRemainingWhenPaused)
                                 }
                                 Toast.makeText(this, "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
                             }
                         } else {
                             if (!isTimerCancelledForNavigation && timeRemainingWhenPaused > 0 && countDownTimerInstance == null) {
-                                // If the timer wasn't cancelled for navigation, there's time left,
-                                // and no timer instance is currently running (e.g., was paused), resume it.
                                 startNewCountdown(timeRemainingWhenPaused)
                             }
                             Toast.makeText(this, "No URL provided for this item.", Toast.LENGTH_SHORT).show()
@@ -394,7 +425,12 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
 
         when(state.message) {
             CONNECTION_ISSUE -> {
-                showSnackBar(resources.getString(R.string.no_internet))
+                //showSnackBar(resources.getString(R.string.no_internet_title))
+                showNoInternetDialog(
+                    resources.getString(R.string.no_internet_title),
+                    resources.getString(R.string.please_check_internet_connection),
+                    getString(R.string.str_ok)
+                )
             }
 
             DENIED -> WarningDialog.Builder(this,

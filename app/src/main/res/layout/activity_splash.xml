@@ -48,7 +48,7 @@
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skip >>"
+                android:text="@string/txt_skip"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/outfit_regular"
                 android:textSize="18sp"

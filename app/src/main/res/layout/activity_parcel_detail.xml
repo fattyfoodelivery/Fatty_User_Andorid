@@ -423,7 +423,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/outfit_regular"
-                                android:text="Receiver"
+                                android:text="@string/receiver"
                                 android:visibility="visible"
                                 android:textColor="@color/text_secondary_03"
                                 android:textSize="14sp" />

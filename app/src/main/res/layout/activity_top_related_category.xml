@@ -37,9 +37,10 @@
                     android:layout_centerHorizontal="true">
                     <TextView
                         android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-32dp"
+                        android:textAlignment="center"
+                        android:layout_marginEnd="32dp"
                         android:text="@string/top_related"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"

@@ -102,6 +102,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
 
     override fun onResume() {
         super.onResume()
+        notiBinding?.tvDateResult?.text = ""
         viewModel.fetchUserNotiList(1,"")
         viewModel.fetchSystemNot(1,"")
     }
@@ -190,7 +191,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
             } else {
                 View.VISIBLE
             }
-            systemNotiAdapter?.setNewData(state.data.data.notification.data)
+            systemNotiAdapter?.submitList(state.data.data.notification.data)
         }
 
     }
@@ -243,7 +244,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
                 View.VISIBLE
             }
 
-            notiAdapter?.setNewData(state.data.data.notification.data)
+            notiAdapter?.submitList(state.data.data.notification.data)
         }
     }
     private fun renderOnFailUserNotiList(state : InboxViewState.OnFailUserNotiList) {
@@ -379,6 +380,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
                         NotificationDetailActivity.NOTI_BODY to data.body
                     )*/
                     val intent = Intent(requireContext(), NotificationDetailActivity::class.java)
+                    intent.putExtra("noti_title", data.title)
                     intent.putExtra("noti_id", data.id)
                     intent.putExtra("noti_body", data.body)
                     startActivity(intent)

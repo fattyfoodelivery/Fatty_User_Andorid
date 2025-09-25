@@ -212,7 +212,7 @@ class VerifyOTPActivity : AppCompatActivity() {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             startTimer()
-            showSnackBar("${resources.getString(R.string.otp_send_msg)}${resultPhone}")
+            showSnackBar(getString(R.string.otp_send_msg, resultPhone))
         }
     }
 

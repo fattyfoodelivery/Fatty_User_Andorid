@@ -89,7 +89,14 @@ data class FoodDeliveryFeeVO(
     var define_amount: Double = 0.0,
     @SerializedName("system_deli_distance")
     var system_deli_distance: Double = 0.0,
-
     @SerializedName("abnormal_fee")
-    var abnormal_fee: Double = 0.0
+    var abnormal_fee: Double = 0.0,
+    @SerializedName("is_abnormal")
+    var is_abnormal: Boolean = false,
+    @SerializedName("is_peaktime")
+    var is_peaktime: Boolean = false,
+    @SerializedName("abnormal_alert")
+    var abnormal_alert: String = "",
+    @SerializedName("peaktime_alert")
+    var peaktime_alert: String = ""
 )

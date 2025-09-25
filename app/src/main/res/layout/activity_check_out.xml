@@ -43,7 +43,7 @@
 
     <include
         android:id="@+id/emptyViewPod"
-        layout="@layout/layout_empty_view"
+        layout="@layout/layout_empty_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
@@ -587,6 +587,8 @@
                 android:orientation="vertical"
                 android:layout_marginTop="16dp">
                 <LinearLayout
+                    android:id="@+id/ll_peak_time"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -597,9 +599,9 @@
                         android:scaleType="centerCrop"
                         android:contentDescription="@string/content_desc" />
                     <TextView
+                        android:id="@+id/tv_peak_time_alert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Extra fees will increase by +50 MMK if you ordered within 12pm to 1am or 5pm to 6pm (peak hours)."
                         android:textColor="@color/fattyPrimary"
                         android:layout_marginStart="8dp"
                         android:textSize="14sp"
@@ -608,6 +610,8 @@
                     <!--Abnormal Fees will increase by +150 MMK because difficult situations in the city.-->
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/ll_abnormal"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -620,9 +624,9 @@
                         app:tint="@color/textError"
                         android:contentDescription="@string/content_desc" />
                     <TextView
+                        android:id="@+id/tv_abnormal_alert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Abnormal Fees will increase by +150 MMK because difficult situations in the city."
                         android:textColor="@color/textError"
                         android:layout_marginStart="8dp"
                         android:textSize="14sp"

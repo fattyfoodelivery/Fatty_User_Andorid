@@ -27,8 +27,8 @@ class FoodOrderViewHolder(
             _bind.tvAddMore.gone()
         }
         _bind.imvFoodItem.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image)) {
-            error(R.drawable.food_default_icon)
-            placeholder(R.drawable.food_default_icon)
+            error(R.drawable.ic_error_food)
+            placeholder(R.drawable.ic_error_food)
         }
         itemQty = data.food_qty
 
