@@ -14,6 +14,7 @@ import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
+import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 
@@ -53,14 +54,14 @@ class RestaurantAdapter(private val context: Context,val callback: (RecommendRes
             } else {
                 binding.tvUnavailable.gone()
             }
-            if (mData.rating == 0.0) {
-                binding.imvRateCount.gone()
-                binding.tvRatingCount.text = context.resources.getString(R.string.no_review)
-            } else {
-                binding.imvRateCount.show()
-                binding.tvRatingCount.text = mData.rating.toString()
-            }
-            binding.tvFoodType.text = mData.toDefaultRestaurantCategoryName()
+//            if (mData.rating == 0.0) {
+//                binding.imvRateCount.gone()
+//                binding.tvRatingCount.text = context.resources.getString(R.string.no_review)
+//            } else {
+//                binding.imvRateCount.show()
+//                binding.tvRatingCount.text = mData.rating.toString()
+//            }
+            binding.tvFoodType.text = mData.category.toDefaultCategoryName()
             binding.imvRestaurant.load(
                 PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(mData.restaurant_image)
             ) {

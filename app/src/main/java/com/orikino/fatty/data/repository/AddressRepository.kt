@@ -20,7 +20,8 @@ interface AddressRepository {
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean) : Response<CustomerAddressResponse>
+        is_default : Boolean,
+        secondary_phone : String?) : Response<CustomerAddressResponse>
 
     suspend fun updateCurrentAddress(
         customer_address_id: Int,
@@ -31,7 +32,8 @@ interface AddressRepository {
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
+        is_default : Boolean,
+        secondary_phone : String?
     ) : Response<CustomerAddressResponse>
 
 

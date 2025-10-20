@@ -15,8 +15,8 @@
         android:gravity="center_vertical">
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/emptyImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
             android:layout_centerHorizontal="true"
             app:srcCompat="@drawable/ic_food_empty_144dp"
             android:layout_above="@id/emptyMessage"

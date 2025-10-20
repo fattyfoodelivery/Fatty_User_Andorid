@@ -401,6 +401,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="4dp"
+                        android:visibility="gone"
                         android:contentDescription="@string/content_desc"
                         android:src="@drawable/ic_chat_40dp"/>
                 </LinearLayout>

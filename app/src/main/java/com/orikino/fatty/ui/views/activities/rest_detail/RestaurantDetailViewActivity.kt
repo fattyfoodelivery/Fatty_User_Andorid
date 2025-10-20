@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -211,7 +212,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 binding.tvTitleDistance.text = "${it.average_time} Min"
                 binding.tvRestaurantName.text = it.toDefaultRestaurantName()
                 binding.tvRestaurantAddress.text = it.restaurant_address
-                binding.tvDurationDistance.text = it.distance_time.toHourMinuteString()
+                binding.tvDurationDistance.text = "${it.distance_time.toHourMinuteString()}・${it.distance} km"
                 binding.imvRestaurant.load(
                     PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(it.restaurant_image)
                 )
@@ -706,6 +707,19 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
             binding.tabFoodMenu.addTab(
                 binding.tabFoodMenu.newTab().setText(menu.toDefaultMenuName())
             )
+        }
+
+        val tabStrip = binding.tabFoodMenu.getChildAt(0) as? ViewGroup
+        tabStrip?.let {
+            for (i in 0 until it.childCount) {
+                val tab = it.getChildAt(i)
+                val params = tab.layoutParams as ViewGroup.MarginLayoutParams
+                // 16dp margin to the right of each tab
+                val margin = (8 * resources.displayMetrics.density).toInt()
+                params.marginEnd = margin
+                tab.layoutParams = params
+            }
+            binding.tabFoodMenu.requestLayout()
         }
     }
 

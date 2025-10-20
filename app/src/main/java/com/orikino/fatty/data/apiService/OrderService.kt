@@ -57,7 +57,8 @@ interface OrderService {
         @Field("payment_method_id") payment_method_id : Int,
         @Field("current_address") current_address : String,
         @Field("customer_address_phone") customer_address_phone : String ?= PreferenceUtils.readUserVO()?.customer_phone,
-        @Field("abnormal_fee") abnormal_fee: Double
+        @Field("abnormal_fee") abnormal_fee: Double,
+        @Field("secondary_phone") secondary_phone : String?
     ): Response<OrderResponse>
 
 

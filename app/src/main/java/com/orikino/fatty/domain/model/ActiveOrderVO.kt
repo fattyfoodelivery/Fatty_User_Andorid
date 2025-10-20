@@ -63,6 +63,8 @@ data class ActiveOrderVO(
     var customer_address_phone : String ?= null,*/
     @SerializedName("customer_address_phone")
     var customer_address_phone : String ?= null,
+    @SerializedName("customer_address_secondary_phone")
+    var customer_address_secondary_phone : String? = null,
     @SerializedName("current_address")
     var current_address :String ?= null,
     @SerializedName("foods")
@@ -249,6 +251,5 @@ data class CreateNewFoodOrderVO(
 
 data class OrderCustomer(
     val customer_name : String? = "",
-    val customer_phone : String? = "",
-
+    val customer_phone : String? = ""
 )

@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import coil.load
@@ -33,6 +34,7 @@ import com.orikino.fatty.ui.views.activities.account_setting.about.AboutUsActivi
 import com.orikino.fatty.ui.views.activities.account_setting.app_version.VersionUpdateActivity
 import com.orikino.fatty.ui.views.activities.account_setting.currency.CurrencyActivity
 import com.orikino.fatty.ui.views.activities.account_setting.delete.AccountDeleteActivity
+import com.orikino.fatty.ui.views.activities.account_setting.edit_profile.EditProfileActivity
 import com.orikino.fatty.ui.views.activities.account_setting.guide.AppGuideActivity
 import com.orikino.fatty.ui.views.activities.account_setting.help_center.HelpCenterActivity
 import com.orikino.fatty.ui.views.activities.account_setting.language.SettingLanguageActivity
@@ -155,16 +157,16 @@ class AccountFragment : Fragment() {
     }
 
     private fun setUpEditProfile() {
-        accountBinding?.imvProfile?.setOnClickListener {
-            ImagePicker.with(this)
-                .compress(1024)
-                .cropSquare()
-                .maxResultSize(70,70)
-                .maxResultSize(1080, 1080)
-                .createIntent { intent ->
-                    startForProfileImageResult.launch(intent)
-                }
-        }
+//        accountBinding?.imvProfile?.setOnClickListener {
+//            ImagePicker.with(this)
+//                .compress(1024)
+//                .cropSquare()
+//                .maxResultSize(70,70)
+//                .maxResultSize(1080, 1080)
+//                .createIntent { intent ->
+//                    startForProfileImageResult.launch(intent)
+//                }
+//        }
 
 
     }
@@ -178,8 +180,8 @@ class AccountFragment : Fragment() {
             accountBinding?.tvUserPhone?.text = PreferenceUtils.readUserVO().customer_phone
             Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
-                error(R.drawable.add_profile)
-                placeholder(R.drawable.add_profile)
+                error(R.drawable.ic_profile_placeholder)
+                placeholder(R.drawable.ic_profile_placeholder)
             }
 
             if(PreferenceUtils.readUserVO().is_restricted == 1){
@@ -195,8 +197,8 @@ class AccountFragment : Fragment() {
             accountBinding?.tvUserPhone?.text =PreferenceUtils.readUserVO().customer_phone
             Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
             accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
-                error(R.drawable.add_profile)
-                placeholder(R.drawable.add_profile)
+                error(R.drawable.ic_profile_placeholder)
+                placeholder(R.drawable.ic_profile_placeholder)
             }
             if(customer.is_restricted == 1){
                 accountBinding?.rlUserStatus?.show()
@@ -245,8 +247,8 @@ class AccountFragment : Fragment() {
     private fun updateUserPhoto() {
         Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
         accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)){
-            error(R.drawable.add_profile)
-            placeholder(R.drawable.add_profile)
+            error(R.drawable.ic_profile_placeholder)
+            placeholder(R.drawable.ic_profile_placeholder)
         }
     }
     private fun renderOnFailUpdateProfile(state: AboutViewState.OnFailUpdateProfile) {
@@ -287,8 +289,9 @@ class AccountFragment : Fragment() {
 
         accountBinding?.apply {
             cvEdit.setOnClickListener {
-                PreferenceUtils.needToShow = false
-                updateUserName()
+//                PreferenceUtils.needToShow = false
+//                updateUserName()
+                startActivity(EditProfileActivity.getIntent())
             }
             llManageAddress.setOnClickListener {
                 PreferenceUtils.needToShow = false
@@ -335,7 +338,7 @@ class AccountFragment : Fragment() {
 
             llLogout.setOnClickListener {
                 PreferenceUtils.needToShow = false
-                showConfirmDialog(resources.getString(R.string.logout_title),"",resources.getString(R.string.logout_label))
+                showConfirmDialog(getString(R.string.txt_log_out),resources.getString(R.string.logout_title),resources.getString(R.string.logout_label))
             }
 
         }
@@ -350,6 +353,8 @@ class AccountFragment : Fragment() {
             setCancelable(false)
             dialogView.tvTitle.text = title
             dialogView.tvDesc.text = message
+            dialogView.btnContact.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.logout_button))
+            dialogView.ivClose.visibility  = View.GONE
             dialogView.ivClose.setOnClickListener { dismiss() }
             dialogView.btnCancel.setOnClickListener {
                 dismiss()

@@ -58,7 +58,8 @@ class AddressViewModel @Inject constructor(
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
+        is_default : Boolean,
+        otherPhone : String?
     ) {
         viewModelScope.launch {
             try {
@@ -71,7 +72,8 @@ class AddressViewModel @Inject constructor(
                     customer_phone,
                     building_system,
                     address_type,
-                    is_default
+                    is_default,
+                    otherPhone
                 )
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -167,7 +169,8 @@ class AddressViewModel @Inject constructor(
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
+        is_default : Boolean,
+        otherPhone: String?
     ) {
         viewModelScope.launch {
             try {
@@ -179,7 +182,8 @@ class AddressViewModel @Inject constructor(
                     customer_phone,
                     building_system,
                     address_type,
-                    is_default
+                    is_default,
+                    otherPhone
                 )
                 if (response.isSuccessful) {
                     response.body()?.let {

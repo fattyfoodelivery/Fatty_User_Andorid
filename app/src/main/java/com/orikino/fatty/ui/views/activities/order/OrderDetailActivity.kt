@@ -153,7 +153,12 @@ class OrderDetailActivity : AppCompatActivity() {
         binding.tvSenderName.text = data.restaurant?.toDefaultRestaurantName()
         binding.tvReceiverName.text = PreferenceUtils.readUserVO().customer_name
         binding.tvReceiverAddress.text = data.current_address
-        binding.tvReceiverPhone.text = data.customer_address_phone?.let { convertPhoneNumber(it) }
+        if (data.customer_address_secondary_phone == null){
+            binding.tvReceiverPhone.text = data.customer_address_phone?.let { convertPhoneNumber(it) }
+        }else{
+            binding.tvReceiverPhone.text =
+                "${data.customer_address_phone?.let { convertPhoneNumber(it) }}, ${convertPhoneNumber(data.customer_address_secondary_phone!!)}"
+        }
     }
 
     fun convertPhoneNumber(input: String): String {

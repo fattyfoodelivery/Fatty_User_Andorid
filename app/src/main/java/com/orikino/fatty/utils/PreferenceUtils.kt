@@ -44,6 +44,8 @@ object PreferenceUtils {
     private const val SEARCH_RECENT = "search_recent"
     private const val CURR_ID = "currency-id"
 
+    private const val SHOWED_ONBOARDING = "showed_onboarding"
+
 
     var needToShow = true
     var isHome = MutableLiveData(false)
@@ -67,6 +69,11 @@ object PreferenceUtils {
 
 
     var FROM_HOME = 1
+
+    fun writeShowedOnboarding(value: Boolean) {
+        Paper.book().write(SHOWED_ONBOARDING, value)
+    }
+    fun readShowedOnboarding(): Boolean? = Paper.book().read(SHOWED_ONBOARDING, false)
 
     fun writeUserVO(value: CustomerVO) {
         Paper.book().write(USER_INFO, value)

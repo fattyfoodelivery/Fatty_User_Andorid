@@ -46,14 +46,14 @@ class TopRelatedCategoryAdapter(
                 binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
             }
 
-            if (data.rating == 0.0) {
-                binding.imvRation.gone()
-                binding.tvRatingCount.text =
-                    ContextCompat.getString(binding.root.context, R.string.no_review)
-            } else {
-                binding.imvRation.show()
-                binding.tvRatingCount.text = data.rating.toString()
-            }
+//            if (data.rating == 0.0) {
+//                binding.imvRation.gone()
+//                binding.tvRatingCount.text =
+//                    ContextCompat.getString(binding.root.context, R.string.no_review)
+//            } else {
+//                binding.imvRation.show()
+//                binding.tvRatingCount.text = data.rating.toString()
+//            }
             if (data.orders_count == 0) {
                 binding.llOrderCountView.gone()
             } else {

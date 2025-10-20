@@ -72,6 +72,10 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -328,6 +332,19 @@ fun Activity.getImageMultipleFile(name: String, file: File): MultipartBody.Part 
 
 fun Fragment.showSnackBar(message: String) {
     Snackbar.make(requireActivity().window.decorView, message, Snackbar.LENGTH_SHORT).show()
+}
+
+fun getCurrentDate(): String {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        // For Android 8.0 (API 26) and above
+        val currentDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.US)
+        currentDate.format(formatter)
+    } else {
+        // For older Android versions
+        val sdf = java.text.SimpleDateFormat("MMM dd, yyyy", Locale.US)
+        sdf.format(java.util.Date())
+    }
 }
 
 fun Int.toThousandSeparator() = String.format(Locale.US, "%,.2f", this)
@@ -944,6 +961,34 @@ fun MenuVO.toDefaultMenuName(): String? {
     }
 }
 
+fun formatReadableDate(date: String?): String {
+    if (date == null){
+        return "Invalid Date"
+    }
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        // For Android 8.0 (API 26) and above, use LocalDate if no time info is present
+        try {
+            val serverDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US)
+            val fullFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy", Locale.US)
+
+            // Use LocalDate for dates without time or timezone info
+            val localDate = LocalDate.parse(date, serverDateFormat)
+            localDate.format(fullFormat) // Format with month, day, and year
+        } catch (e: DateTimeParseException) {
+            "Invalid Date" // Handle parsing errors
+        }
+    } else {
+        // For API levels < 26, use SimpleDateFormat
+        try {
+            val serverDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+            val fullFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
+            val parsedDate = serverDateFormat.parse(date)
+            parsedDate?.let { fullFormat.format(it) } ?: "Invalid Date"
+        } catch (e: Exception) {
+            "Invalid Date" // Handle parsing errors
+        }
+    }
+}
 fun Context.showDatePickerDialog(callback: (String) -> Unit) {
     val c = Calendar.getInstance()
     val year = c.get(Calendar.YEAR)

@@ -3,26 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/margin_large"
     tools:context=".ui.views.fragments.IntroSlideFragment"
     android:background="@color/white">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="75dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-        <!--<androidx.appcompat.widget.AppCompatTextView
+       <!-- <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text=""
-            android:fontFamily="@font/outfit_regular"
+            android:text="Find A Restaurant Near You"
+            android:fontFamily="@font/outfit_medium"
             android:textColor="@color/text_primary_01"
             android:textAlignment="center"
             android:textSize="32sp"/>
@@ -31,7 +29,7 @@
             android:id="@+id/tv_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Desc"
+            android:text="By allowing location access, you can search for restaurants near you and receive more accurate delivery."
             android:fontFamily="@font/outfit_regular"
             android:textColor="@color/text_gray_two"
             android:textAlignment="center"
@@ -41,11 +39,10 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_intro_one"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="match_parent"
             tools:src="@drawable/intro_one"
-            android:scaleType="fitXY"
-            android:contentDescription="@string/content_desc"
-            android:layout_marginTop="18dp"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/content_desc"/>
 
         <!--By allowing location access, you can search for restaurants near you and receive more \naccurate delivery.-->
 

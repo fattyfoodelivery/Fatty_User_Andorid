@@ -171,7 +171,8 @@ class OrderViewModel @Inject constructor(
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
+        is_default : Boolean,
+        secondary_phone : String?
     ) {
         viewModelScope.launch {
             try {
@@ -185,7 +186,8 @@ class OrderViewModel @Inject constructor(
                     customer_phone,
                     building_system,
                     address_type,
-                    is_default
+                    is_default,
+                    secondary_phone
                 )
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -228,7 +230,8 @@ class OrderViewModel @Inject constructor(
         payment_method_id : Int,
         current_address : String,
         customer_address_phone : String,
-        abnormal_fee: Double
+        abnormal_fee: Double,
+        secondary_phone: String?
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             viewState.postValue(OrderViewState.OnLoadingCreateFoodOrder)
@@ -244,7 +247,8 @@ class OrderViewModel @Inject constructor(
                   bill_total_price,
                   customer_address_latitude,
                   customer_address_longitude,
-                  payment_method_id, current_address, customer_address_phone, abnormal_fee
+                  payment_method_id, current_address, customer_address_phone, abnormal_fee,
+                  secondary_phone
               )
              if (response.isSuccessful) {
                  response.body()?.let {

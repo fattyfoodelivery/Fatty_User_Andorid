@@ -382,6 +382,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
             if (state.data.data.isEmpty()){
                 _binding.emptyView.rootView.visibility = View.VISIBLE
             }else{
+                _binding.tvTitle.text = "$titleName (${state.data.data.count { it.listing_type != 2 }})"
                 _binding.emptyView.rootView.visibility = View.GONE
                 topRelatedCategoryAdapter?.setNewData(state.data.data)
             }

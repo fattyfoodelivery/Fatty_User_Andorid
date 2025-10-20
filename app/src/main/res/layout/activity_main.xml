@@ -45,11 +45,13 @@
         android:elevation="0dp"
         tools:ignore="RtlHardcoded">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:padding="20dp"
             android:contentDescription="@string/content_desc"
+            android:background="@drawable/bg_cart"
             android:elevation="0dp"
             app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,14 +66,13 @@
             android:layout_height="16dp"
             android:layout_marginStart="18dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_round"
-            android:backgroundTint="@color/textError"
+            android:background="@drawable/bg_cart_count"
             android:elevation="6dp"
             android:fontFamily="@font/outfit_regular"
             android:gravity="center"
             android:text=""
             android:visibility="gone"
-            android:textColor="@color/white"
+            android:textColor="@color/red"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_fab"
             app:layout_constraintEnd_toEndOf="@id/btn_fab"

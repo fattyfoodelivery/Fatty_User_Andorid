@@ -12,7 +12,8 @@ data class MenuVO(
     @SerializedName("food_menu_name_ch")
     var food_menu_name_ch: String ?= null,
     @SerializedName("food")
-    var food: MutableList<FoodVO> = mutableListOf()
+    var food: MutableList<FoodVO> = mutableListOf(),
+    var isShow : Boolean = true
     /*@SerializedName("food_menu_id")
     var food_menu_id: Int = 0,
     @SerializedName("food_menu_name")

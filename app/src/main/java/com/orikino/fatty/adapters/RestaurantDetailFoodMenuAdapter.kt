@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.orikino.fatty.databinding.ItemRvFoodMenuBinding
 import com.orikino.fatty.domain.model.FoodVO
 import com.orikino.fatty.domain.model.MenuVO
+import com.orikino.fatty.utils.helper.toDefaultMenuName
 import com.orikino.fatty.viewholder.BaseViewHolder
 
 class RestaurantDetailFoodMenuAdapter(
@@ -22,18 +23,27 @@ class RestaurantDetailFoodMenuAdapter(
     inner class RestaurantDetailFoodMenuViewHolder(val binding : ItemRvFoodMenuBinding) : BaseViewHolder<MenuVO>(binding.root) {
 
         override fun setData(data: MenuVO, position: Int) {
-
+            binding.tvActiveMenu.text = data.toDefaultMenuName()
             val restaurantDetailActiveFoodAdapter = RestaurantDetailActiveFoodAdapter(binding.root.context) { data,str,pos ->
-
                 callback.invoke(data,str,position)
-
             }
+            restaurantDetailActiveFoodAdapter.setMenuName(menu = data)
             restaurantDetailActiveFoodAdapter.setNewData(data.food)
             binding.rvActiveFood.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = restaurantDetailActiveFoodAdapter
             }
-
+            binding.ivShowHide.setOnClickListener {
+                data.isShow = !data.isShow
+                notifyItemChanged(bindingAdapterPosition)
+            }
+            if (data.isShow) {
+                binding.rvActiveFood.visibility = View.VISIBLE
+                binding.ivShowHide.rotation = 180f
+            } else {
+                binding.rvActiveFood.visibility = View.GONE
+                binding.ivShowHide.rotation = 0f
+            }
 
         }
 

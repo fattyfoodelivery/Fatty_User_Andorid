@@ -166,7 +166,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/outfit_regular"
                     android:text="addr"
-                    android:lines="2"
+                    android:maxLines="2"
                     android:ellipsize="end"
                     android:textColor="@color/text_primary_01"
                     android:textSize="14sp" />

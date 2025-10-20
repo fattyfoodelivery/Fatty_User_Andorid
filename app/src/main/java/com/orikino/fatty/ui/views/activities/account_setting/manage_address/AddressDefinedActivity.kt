@@ -9,6 +9,8 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -46,6 +48,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
@@ -110,8 +113,28 @@ class AddressDefinedActivity : AppCompatActivity() {
         cameraAnimateToCurrentAddress()
 
         onBackPress()
+        setUpRestNote()
+    }
 
+    private fun setUpRestNote() {
+        _binding.edtBuilding.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val trimmedNote = s?.toString()?.trim() ?: ""
+                PreferenceUtils.writeRestaurantNote(trimmedNote)
+                _binding.tvNoteCount.text = "${trimmedNote.length}/120"
+                if (trimmedNote.length > 120) {
+                    _binding.edtBuilding.clearFocus()
+                    CustomToast(this@AddressDefinedActivity,
+                        "Building/Suites/Street exceeds 120 characters!",false).createCustomToast()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
     override fun onStart() {
@@ -408,6 +431,11 @@ class AddressDefinedActivity : AppCompatActivity() {
 
     private fun addCustomerLocation() {
         _binding.btnConfirmLocation.setOnClickListener {
+            val otherPhone = if(_binding.edtOtherPhone.text.isNullOrEmpty()){
+                null
+            }else{
+                _binding.edtOtherPhone.text.toString()
+            }
             other = _binding.edtBuilding.text.toString()
             currentAddress = _binding.edtLocationAddress.text.toString()
             customer_phone = _binding.edtPhone.text.toString()
@@ -422,7 +450,8 @@ class AddressDefinedActivity : AppCompatActivity() {
                         customer_phone,
                         building,
                         status,
-                        _binding.rbtDefaultAddress.isChecked
+                        _binding.rbtDefaultAddress.isChecked,
+                        otherPhone
                     )
                 } else PreferenceUtils.readUserVO().customer_id?.let { it1 ->
                     viewModel.addCurrentAddress(
@@ -433,7 +462,8 @@ class AddressDefinedActivity : AppCompatActivity() {
                         customer_phone,
                         building,
                         status,
-                        _binding.rbtDefaultAddress.isChecked
+                        _binding.rbtDefaultAddress.isChecked,
+                        otherPhone
                     )
                 }
             } else {

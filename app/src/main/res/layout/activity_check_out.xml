@@ -212,6 +212,61 @@
                         android:layout_alignParentEnd="true"/>
 
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_other_phone"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_call_other"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_customer_call"
+                        app:tint="@color/fattyPrimary"
+                        android:contentDescription="@string/content_desc"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/iv_call_other"
+                        android:layout_marginStart="12dp"
+                        android:layout_toStartOf="@id/btn_edit_other_phone">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="@string/txt_other_phone_number"
+                            android:textColor="@color/text_secondary_01"
+                            android:textSize="16sp"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_other_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text=""
+                            android:textColor="@color/textPrimary02"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/btn_edit_other_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/outfit_regular"
+                        android:text="@string/edit"
+                        android:visibility="visible"
+                        android:textColor="@color/fattyPrimary"
+                        android:textSize="16sp"
+                        android:paddingEnd="12dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -251,7 +306,7 @@
                         android:id="@+id/rl_cash"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="8dp"
                         android:background="@drawable/bg_selected">
                         <androidx.appcompat.widget.AppCompatImageView
@@ -288,7 +343,7 @@
                         android:id="@+id/rl_kpay"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="8dp"
                         android:layout_marginStart="12dp"
                         android:background="@drawable/bg_unselectd">
@@ -377,50 +432,51 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/outfit_regular"
                     android:text="@string/add_more_items"
+                    android:visibility="gone"
                     android:textAlignment="textStart"
                     android:layout_below="@id/rv_food_item"
                     android:textColor="@color/fattyPrimary"
                     android:textSize="16sp"/>
-
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tbn_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="@string/txt_notes"
+                    android:textAlignment="textStart"
+                    android:layout_below="@id/rv_food_item"
+                    android:textColor="@color/textPrimary02"
+                    android:textSize="16sp"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_food_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
+                    android:layout_marginTop="@dimen/margin_2xSmall"
+                    android:paddingHorizontal="@dimen/margin_2xSmall"
+                    android:paddingVertical="@dimen/margin_2xSmall"
                     android:visibility="visible"
-                    android:layout_below="@id/tbn_add_more"
-                    android:background="@drawable/bg_unselectd">
-                    <ImageView
-                        android:id="@+id/iv_rest_note"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:scaleType="fitXY"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/content_desc"
-                        android:src="@drawable/resturant_menu"/>
+                    android:layout_below="@id/tbn_note"
+                    android:background="@drawable/bg_address_checked">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edt_note"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:hint="@string/any_restaurant_request_type_here"
-                        android:layout_marginStart="8dp"
-                        android:lines="1"
+                        android:minLines="4"
+                        android:maxLines="4"
+                        android:gravity="top"
                         android:layout_marginEnd="@dimen/margin_2xSmall"
-                        android:ellipsize="end"
                         android:maxLength="30"
                         android:textSize="14sp"
                         android:scrollHorizontally="true"
                         android:layout_centerVertical="true"
-                        android:background="@color/natural_200"
+                        android:background="@color/transparent"
                         android:textColor="@color/textPrimary02"
-                        android:layout_toEndOf="@id/iv_rest_note"
                         android:layout_toStartOf="@id/tv_note_count"
                         android:autofillHints=""
-                        android:inputType="text" />
+                        android:inputType="textMultiLine"/>
 
                     <TextView
                         android:id="@+id/tv_note_count"
@@ -430,7 +486,7 @@
                         android:textColor="@color/text_secondary_02"
                         android:textSize="12sp"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"/>
+                        android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
 
             </RelativeLayout>

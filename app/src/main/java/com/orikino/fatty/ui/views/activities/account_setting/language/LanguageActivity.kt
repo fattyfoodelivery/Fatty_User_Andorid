@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityLanguageBinding
+import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.intro.IntroActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
@@ -69,7 +70,16 @@ class LanguageActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }//startActivity(SplashActivity.getIntent())
-            else -> startActivity(IntroActivity.getIntent())
+            else -> {
+                if (PreferenceUtils.readShowedOnboarding() == false){
+                    PreferenceUtils.writeShowedOnboarding(true)
+                    startActivity(IntroActivity.getIntent())
+                }else{
+                    val intent = Intent(this,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 

@@ -12,6 +12,7 @@
     <color name="onboard">#FFCF00</color>
     <color name="fatty">#FF6704</color>
     <color name="fattyPrimary">#FF6704</color>
+    <color name="fattyPrimaryTransparent">#1AFF6704</color>
     <color name="fattyPrimaryLight">#FEE7D3</color>
     <color name="fattySecondary">#C49A6C</color>
     <color name="fattyWhite">#FFFFFF</color>
@@ -71,4 +72,5 @@
     <color name="shimmer_layout">#D9D9D9</color>
     <color name="tab_selected">#FF6704</color>
     <color name="tab_unselected">#F7F7F7</color>
+    <color name="bg_pending">#1AFF6704</color>
 </resources>

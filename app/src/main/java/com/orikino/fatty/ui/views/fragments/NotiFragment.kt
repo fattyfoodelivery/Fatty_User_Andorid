@@ -28,6 +28,7 @@ import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.formatReadableDate
 import com.orikino.fatty.utils.helper.showDatePickerDialog
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,9 +65,11 @@ class NotiFragment : Fragment(), ItemIdDelegate {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        notiBinding?.systemEmptyView?.emptyMessage?.text = getString(R.string.no_data_available)
+        notiBinding?.systemEmptyView?.emptyImage?.setImageResource(R.drawable.ic_no_noti)
+        notiBinding?.systemEmptyView?.emptyMessage?.text = getString(R.string.str_no_notifications)
         notiBinding?.systemEmptyView?.emptyMessageDes?.text = ""
-        notiBinding?.orderEmptyView?.emptyMessage?.text = getString(R.string.no_data_available)
+        notiBinding?.orderEmptyView?.emptyImage?.setImageResource(R.drawable.ic_no_noti)
+        notiBinding?.orderEmptyView?.emptyMessage?.text = getString(R.string.str_no_notifications)
         notiBinding?.orderEmptyView?.emptyMessageDes?.text = ""
         setUpOrderNotiList()
         setUpSystemNotiList()
@@ -126,7 +129,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
         try {
             filterDate = date
 
-            notiBinding?.tvDateResult?.text = filterDate
+            notiBinding?.tvDateResult?.text = formatReadableDate(filterDate)
 
             if (isCheckOrder) {
                 PreferenceUtils.readUserVO().customer_id.let { cusId ->

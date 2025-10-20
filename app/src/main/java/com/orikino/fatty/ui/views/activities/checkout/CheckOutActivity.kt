@@ -183,7 +183,15 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         //binding.tbtnEditPhone.gone()
         binding.btnEditPhone.setOnClickListener {
             if (defaultAddress != null){
-                showPhoneEditDialog()
+                showPhoneEditDialog(false)
+            }else{
+                Toast.makeText(this, getString(R.string.txt_phone_edit_error),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.btnEditOtherPhone.setOnClickListener {
+            if (defaultAddress != null){
+                showPhoneEditDialog(true)
             }else{
                 Toast.makeText(this, getString(R.string.txt_phone_edit_error),
                     Toast.LENGTH_SHORT).show()
@@ -191,12 +199,16 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         }
     }
 
-    private fun showPhoneEditDialog(){
+    private fun showPhoneEditDialog(isOtherPhone : Boolean){
         val dialogView =
             LayoutDialogEditPhoneBinding.inflate(LayoutInflater.from(this@CheckOutActivity))
         val builder = AlertDialog.Builder(this)
         builder.setView(dialogView.root)
-        dialogView.tvDesc.text = getString(R.string.txt_current_phone_number, defaultAddress?.customer_phone)
+        dialogView.tvDesc.text = if (isOtherPhone){
+            getString(R.string.txt_current_phone_number, defaultAddress?.secondary_phone)
+        }else{
+            getString(R.string.txt_current_phone_number, defaultAddress?.customer_phone)
+        }
         alertDialog = builder.create().apply {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(true)
@@ -208,8 +220,14 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             }
             dialogView.btnUpdate.setOnClickListener {
                 if (dialogView.edtPhone.text.toString().isNotEmpty()){
-                    defaultAddress?.let { data ->
-                        viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,dialogView.edtPhone.text.toString(),data.building_system?:"",data.address_type, data.is_default)
+                    if (isOtherPhone){
+                        defaultAddress?.let { data ->
+                            viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone,data.building_system?:"",data.address_type, data.is_default, dialogView.edtPhone.text.toString())
+                        }
+                    }else{
+                        defaultAddress?.let { data ->
+                            viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,dialogView.edtPhone.text.toString(),data.building_system?:"",data.address_type, data.is_default, data.secondary_phone)
+                        }
                     }
                 }else{
                     showSnackBar(getString(R.string.txt_please_enter_phone_number))
@@ -386,6 +404,12 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                         viewModel.lat = aa[0].address_latitude
                         viewModel.lng = aa[0].address_longitude
                         binding.tvCurrentPhone.text = aa[0].customer_phone
+                        if (aa[0].secondary_phone != null){
+                            binding.llOtherPhone.visibility = View.VISIBLE
+                            binding.tvOtherPhone.text = aa[0].secondary_phone
+                        }else{
+                            binding.llOtherPhone.visibility = View.GONE
+                        }
 
                         defaultAddress = aa[0]
                         //geoCodeLocationToAddress()
@@ -446,14 +470,14 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
            // finish()
             startActivity(ManageAddressActivity.getIntent(true))
         }
-        binding.tbnAddMore.setOnClickListener {
-            /*startActivity<RestaurantDetailViewActivity>(
-                RestaurantDetailViewActivity.RESTAURANT_ID to PreferenceUtils.readRestaurant()?.restaurant_id
-            )*/
-            val intent = Intent(this,RestaurantDetailViewActivity::class.java)
-            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,PreferenceUtils.readRestaurant()?.restaurant_id)
-            startActivity(intent)
-        }
+//        binding.tbnAddMore.setOnClickListener {
+//            /*startActivity<RestaurantDetailViewActivity>(
+//                RestaurantDetailViewActivity.RESTAURANT_ID to PreferenceUtils.readRestaurant()?.restaurant_id
+//            )*/
+//            val intent = Intent(this,RestaurantDetailViewActivity::class.java)
+//            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,PreferenceUtils.readRestaurant()?.restaurant_id)
+//            startActivity(intent)
+//        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -833,7 +857,12 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                                 }else{
                                     defaultAddress?.customer_phone ?: ""
                                 },
-                                abnormalFee
+                                abnormalFee,
+                                if (defaultAddress == null){
+                                    null
+                                }else{
+                                    defaultAddress?.secondary_phone
+                                }
                             )
                         }
                     }

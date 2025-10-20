@@ -42,7 +42,8 @@ class OrderRepositoryImpl @Inject constructor(
         payment_method_id: Int,
         current_address: String,
         customer_address_phone: String,
-        abnormal_fee: Double
+        abnormal_fee: Double,
+        secondary_phone : String?
     ): Response<OrderResponse> =
         orderService.createFoodOrder(
             customer_id,
@@ -59,7 +60,8 @@ class OrderRepositoryImpl @Inject constructor(
             payment_method_id,
             current_address,
             customer_address_phone,
-            abnormal_fee
+            abnormal_fee,
+            secondary_phone
         )
 
     override suspend fun foodDeliveryFee(

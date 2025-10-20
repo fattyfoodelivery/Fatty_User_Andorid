@@ -196,6 +196,18 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
     }
 
     private fun cameraAnimateToCurrentAddress() {
+        _binding.btnMyLocation.setOnClickListener {
+            getMyLocation {
+                locations.latitude = it.latitude
+                locations.longitude = it.longitude
+                fattyMap.animateCamera(
+                    LatLng(
+                        it.latitude,
+                        it.longitude
+                    )
+                )
+            }
+        }
         _binding.imvLocation.setOnClickListener {
             getMyLocation {
                 locations.latitude = it.latitude

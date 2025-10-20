@@ -3,6 +3,8 @@ package com.orikino.fatty.ui.views.dialog
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import com.orikino.fatty.ui.views.activities.checkout.CheckOutActivity
 import com.orikino.fatty.ui.views.base.BaseBottomSheet
 import com.orikino.fatty.ui.views.delegate.AddOnDelegate
 import com.orikino.fatty.ui.views.delegate.AddOnItemListDelegate
+import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toDefaultOptionName
@@ -85,7 +88,7 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
         initUi()
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "StringFormatMatches")
     private fun initUi() {
         // Set the base price of the food item once. This should not include option prices.
         viewModel.originalPrice = foodVO.food_price?.toDouble() ?: 0.0
@@ -124,6 +127,7 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
             dialog?.dismiss()
         }
         updatePrice() // Call initially to set price based on default options and quantity
+        setUpRestNote()
     }
 
     private fun processAddToCart() {
@@ -221,6 +225,27 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
 
         PreferenceUtils.writeFoodOrderList(currentOrderList)
         // dialog?.dismiss() // Dismissal is handled in processAddToCart or after navigation
+    }
+
+    private fun setUpRestNote() {
+        binding.edtNote.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val trimmedNote = s?.toString()?.trim() ?: ""
+                PreferenceUtils.writeRestaurantNote(trimmedNote)
+                binding.tvNoteCount.text = "${trimmedNote.length}/100"
+                if (trimmedNote.length > 100) {
+                    binding.edtNote.clearFocus()
+                    CustomToast(requireContext(),
+                        "Note exceeds 100 characters!",false).createCustomToast()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
 
@@ -349,6 +374,6 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
 
         viewModel.price = (basePrice + viewModel.subItemTotalPrice) * currentQty
 
-        binding.tvTotalAmt.text = "${viewModel.price.toThousandSeparator()} "
+        binding.tvTotalAmt.text = "${viewModel.price.toThousandSeparator()} ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
     }
 }

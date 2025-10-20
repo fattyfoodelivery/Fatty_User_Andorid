@@ -260,7 +260,7 @@ class ManageAddressActivity : AppCompatActivity(){
                 "root" -> onTapItemChange(pos)
                 "default" -> viewModel.setUpDefaultAddress(data.customer_address_id)
                 "delete" -> viewModel.deleteAddress(data.customer_address_id)
-                "update" -> viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone?: "",data.building_system?:"",data.address_type, data.is_default)
+                "update" -> viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone?: "",data.building_system?:"",data.address_type, data.is_default, data.secondary_phone)
             }
         }
         manageAddressBinding.rvCustomerAddress.adapter = addressAdapter

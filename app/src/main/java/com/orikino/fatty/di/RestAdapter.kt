@@ -32,6 +32,6 @@ fun createOkHttpClient(
     builder.networkInterceptors().add(httpLoggingInterceptor)
     builder.addInterceptor(AuthTokenInterceptor())
     builder.addInterceptor(InternetConnectivityInterceptor(context))
-    builder.addInterceptor(chuckerInterceptor)
+    //builder.addInterceptor(chuckerInterceptor)
     return builder.build()
 }

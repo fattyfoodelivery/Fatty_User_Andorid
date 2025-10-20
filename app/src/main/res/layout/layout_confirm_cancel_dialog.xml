@@ -27,7 +27,6 @@
                 android:text="Status"
                 android:textSize="18sp"
                 android:layout_marginEnd="18dp"
-                android:layout_marginTop="8dp"
                 android:layout_toStartOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
                 android:fontFamily="@font/outfit_regular"/>
@@ -67,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="@string/str_cancel"
+                android:text="@string/txt_cancel"
                 android:fontFamily="@font/outfit_regular"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"

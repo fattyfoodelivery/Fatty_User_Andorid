@@ -208,6 +208,19 @@
             android:name=".ui.views.activities.webview.WebviewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.account_setting.edit_profile.EditProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.parcel.BookingSuccessActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.parcel.AlreadyBookedActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.parcel.BookingPendingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
         <!--
  <activity

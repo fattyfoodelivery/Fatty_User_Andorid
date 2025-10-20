@@ -26,8 +26,9 @@ class AddressRepositoryImpl @Inject constructor(
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
-    ): Response<CustomerAddressResponse>  = addressService.addCurrentAddress(customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, is_default)
+        is_default : Boolean,
+        secondary_phone : String?
+    ): Response<CustomerAddressResponse>  = addressService.addCurrentAddress(customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, is_default, secondary_phone)
 
     override suspend fun updateCurrentAddress(
         customer_address_id: Int,
@@ -38,8 +39,9 @@ class AddressRepositoryImpl @Inject constructor(
         customer_phone: String,
         building_system: String,
         address_type: String,
-        is_default : Boolean
-    ): Response<CustomerAddressResponse> = addressService.updateCurrentAddress(customer_address_id, customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, is_default)
+        is_default : Boolean,
+        secondary_phone : String?
+    ): Response<CustomerAddressResponse> = addressService.updateCurrentAddress(customer_address_id, customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, is_default, secondary_phone)
 
     override suspend fun deleteCustomerAddressById(customer_address_id: Int): Response<DeleteAddressResponse> = addressService.deleteAddressById(customer_address_id)
 }

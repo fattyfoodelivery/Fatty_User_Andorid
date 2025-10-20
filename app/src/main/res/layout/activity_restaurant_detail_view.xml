@@ -250,6 +250,7 @@
             android:clipToPadding="false"
             app:tabIndicatorHeight="0dp"
             app:tabRippleColor="@null"
+            app:tabStyle="@style/MyCustomTab"
             android:layout_margin="12dp"
             app:tabTextAppearance="@style/TabTextAppearance"/>
         <androidx.recyclerview.widget.RecyclerView
@@ -260,7 +261,8 @@
             android:paddingEnd="12dp"
             android:layout_below="@id/tab_food_menu"
             android:background="@color/transparent"
-            android:layout_marginBottom="80dp"/>
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"/>
     </RelativeLayout>
 
     <FrameLayout

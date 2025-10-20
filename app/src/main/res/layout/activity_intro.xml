@@ -50,7 +50,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -58,68 +58,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <LinearLayout
-                android:id="@+id/ll_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:id="@+id/tv_title_horizontal_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:text="Track"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textColor="@color/fattyPrimary"
-                    android:textAlignment="center"
-                    android:textSize="32sp"/>
-                <TextView
-                    android:id="@+id/tv_title_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:text=""
-                    android:layout_marginStart="8dp"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/outfit_regular"
-                    android:textColor="@color/text_primary_01"
-                    android:textAlignment="center"
-                    android:textSize="32sp"/>
-            </LinearLayout>
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:maxLines="2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_large"
                 android:text=""
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/outfit_regular"
-                android:textColor="@color/text_primary_01"
-                android:textAlignment="center"
-                android:textSize="32sp"/>
-            <TextView
-                android:id="@+id/tv_title_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text=""
-                android:fontFamily="@font/outfit_regular"
                 android:textColor="@color/fattyPrimary"
                 android:textAlignment="center"
-                android:textSize="32sp"/>
+                android:textSize="26sp"/>
             <TextView
                 android:id="@+id/tv_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/outfit_regular"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
                 android:textColor="@color/text_gray_two"
                 android:textAlignment="center"
+                android:layout_marginHorizontal="@dimen/margin_large"
                 android:textSize="16sp"
                 android:text="@string/intro_dec_one"
                 android:lineSpacingExtra="4dp"
@@ -127,7 +87,10 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/intro_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_des"
+                android:layout_marginTop="@dimen/margin_32"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="7:5"
                 android:src="@drawable/intro_one"/>
 
             <LinearLayout
@@ -136,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/intro_viewpager"
                 android:orientation="horizontal"
                 android:layout_marginTop="18dp">
 
@@ -161,7 +125,7 @@
                     android:background="@drawable/unselected_dot" />
 
             </LinearLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
        <!-- <TextView
             android:id="@+id/tv_title"

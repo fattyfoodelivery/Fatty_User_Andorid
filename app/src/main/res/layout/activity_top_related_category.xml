@@ -27,12 +27,13 @@
                     android:id="@+id/iv_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_back"
                     app:tint="@color/fattyWhite"/>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_toEndOf="@id/iv_back"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_centerHorizontal="true">
                     <TextView

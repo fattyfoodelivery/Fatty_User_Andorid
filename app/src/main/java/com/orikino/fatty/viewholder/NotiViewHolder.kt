@@ -32,8 +32,8 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
 
 
         if (data.order_type == "parcel") {
-            binding.tvOrderName.text = data.title
-            binding.tvOrderStauts.text = data.body
+            binding.tvOrderName.text = data.body
+            binding.tvOrderStauts.text = data.title
             binding.imvFood.gone()
             binding.imvParcel.show()
             binding.imvParcel.setImageResource(R.drawable.ic_parcel_noti)
@@ -44,11 +44,11 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
             }
 
         } else {
-            binding.tvOrderName.text = data.title
+            binding.tvOrderName.text = data.body
             binding.imvParcel.gone()
             binding.imvFood.show()
             binding.imvFood.setImageResource(R.drawable.food_default_icon)
-            binding.tvOrderStauts.text = data.body
+            binding.tvOrderStauts.text = data.title
             when (data.order_status_id) {
                 "0" -> {
                     binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.textError))

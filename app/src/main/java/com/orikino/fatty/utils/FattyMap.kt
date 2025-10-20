@@ -38,7 +38,6 @@ class FattyMap(
             CameraUpdateFactory.newCameraPosition(cameraPosition)
         )
 
-
     }
 
     fun animateCamera(latLng: LatLng) {

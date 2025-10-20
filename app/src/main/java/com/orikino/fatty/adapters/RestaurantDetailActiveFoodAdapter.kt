@@ -8,14 +8,21 @@ import coil.load
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemAddFoodBinding
 import com.orikino.fatty.domain.model.FoodVO
+import com.orikino.fatty.domain.model.MenuVO
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultFoodName
+import com.orikino.fatty.utils.helper.toDefaultMenuName
 import com.orikino.fatty.viewholder.BaseViewHolder
 
 class RestaurantDetailActiveFoodAdapter(
     val context: Context,
     val callback: (FoodVO, String, Int) -> Unit
 ) : BaseAdapter<RestaurantDetailActiveFoodAdapter.RestaurantDetailActiveFoodViewHolder, FoodVO>(context) {
+    private var menu : MenuVO? = null
+
+    fun setMenuName(menu : MenuVO){
+        this.menu = menu
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<FoodVO> {
         return RestaurantDetailActiveFoodViewHolder(
@@ -23,25 +30,27 @@ class RestaurantDetailActiveFoodAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),menu!!
         )
     }
 
    inner class RestaurantDetailActiveFoodViewHolder(
-        val binding : ItemAddFoodBinding
+        val binding : ItemAddFoodBinding,
+       val menu : MenuVO
     ) : BaseViewHolder<FoodVO>(binding.root) {
 
         var item : FoodVO? = null
         override fun setData(data: FoodVO, position: Int) {
             item = data
             binding.tvFoodName.text = data.toDefaultFoodName()
-            binding.tvPrice.text = data.food_price?.plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            binding.tvPrice.text = data.food_price?.plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
 
             /*if(PreferenceUtils.readCurrencyId()?.currency_id == 1) {
                 binding.tvPrice.text = data.food_price?.plus(" MMK")
             } else {
                 binding.tvPrice.text = data.food_price?.plus(" Yuan")
             }*/
+            binding.tvFoodCategory.text = menu.toDefaultMenuName()
             binding.imvFood.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image)) {
                 error(R.drawable.food_default_icon)
                 placeholder(R.drawable.food_default_icon)

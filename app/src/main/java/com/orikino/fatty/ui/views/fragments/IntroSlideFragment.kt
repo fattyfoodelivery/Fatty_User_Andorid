@@ -49,19 +49,19 @@ class IntroSlideFragment : Fragment() {
             ),
             FattyIntroVO(
                 requireContext().resources.getString(R.string.intro_title_two),
-                requireContext().resources.getString(R.string.intro_dec_one)
+                requireContext().resources.getString(R.string.intro_dec_two)
             ),
             FattyIntroVO(
                 requireContext().resources.getString(R.string.intro_title_three),
-                requireContext().resources.getString(R.string.intro_dec_one)
+                requireContext().resources.getString(R.string.intro_dec_three)
             )
         )
 
         val texts = introList
         val images = arrayListOf(R.drawable.intro_one, R.drawable.intro_two, R.drawable.intro_three)
 
-        //introSlideBinding?.tvTitle?.text = texts[this.position ?: 0].introTile
-        //introSlideBinding?.tvDesc?.text = texts[this.position ?: 0].introDes
+//        introSlideBinding?.tvTitle?.text = texts[this.position ?: 0].introTile
+//        introSlideBinding?.tvDesc?.text = texts[this.position ?: 0].introDes
         introSlideBinding?.imgIntroOne?.setImageResource(images[position ?: 0])
 
 

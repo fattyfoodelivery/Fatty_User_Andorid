@@ -21,5 +21,7 @@ data class CustomerAddressVO(
     var address_type: String = "",
     @SerializedName("is_default")
     var is_default: Boolean = false,
+    @SerializedName("secondary_phone")
+    var secondary_phone : String? = null,
     var onTapPositon : Boolean = false
 )

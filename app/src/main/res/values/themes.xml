@@ -41,6 +41,11 @@
     <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="MyCustomTab" parent="Widget.Design.TabLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
 
     <style name="FullScreenDialog" parent="Theme.Fatty">
         <item name="android:backgroundDimEnabled">false</item>
@@ -142,6 +147,9 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/fattyPrimary</item>
         <item name="android:navigationBarColor">@color/fattyPrimary</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.CornerRound" parent="">
+        <item name="cornerSize">50%</item>
     </style>
 
 

@@ -120,12 +120,18 @@ class BookingOrderActivity : AppCompatActivity() {
             MODE = "current"
             state.data.data?.order_id?.let { showGotBookingView(it) }
         }else{
-            AlertDialog.Builder(this)
-                .setMessage(state.data.message)
-                .setPositiveButton(getString(R.string.str_ok)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+//            AlertDialog.Builder(this)
+//                .setMessage(state.data.message)
+//                .setPositiveButton(getString(R.string.str_ok)) { dialog, _ ->
+//                    dialog.dismiss()
+//                }
+//                .show()
+            startActivity(AlreadyBookedActivity.getIntent(this, when(lastSelected){
+                1 -> getString(R.string.lashio)
+                2 -> getString(R.string.muse)
+                else -> getString(R.string.lashio)
+            }))
+            finish()
         }
     }
 
@@ -135,11 +141,16 @@ class BookingOrderActivity : AppCompatActivity() {
         binding.llGotBookingView.show()
         binding.btnViewMyOrderGotBooking.show()
         MODE = "current"
-        MainActivity.isNotification = true
+        MainActivity.isNotification = false
         PreferenceUtils.needToShow = false
-        startActivity(MainActivity.getIntent(this))
+        //startActivity(MainActivity.getIntent(this))
+        //navigateToTrackOrderView(orderId)
+        startActivity(BookingSuccessActivity.getIntent(this,when(lastSelected){
+            1 -> getString(R.string.lashio)
+            2 -> getString(R.string.muse)
+            else -> getString(R.string.lashio)
+        }))
         finish()
-        navigateToTrackOrderView(orderId)
     }
 
     private fun checkParcelInfo() {
@@ -336,6 +347,8 @@ class BookingOrderActivity : AppCompatActivity() {
                 .show(this.supportFragmentManager, SplashActivity::class.simpleName)
             else -> {
                 showSnackBar(state.message!!)
+                startActivity(BookingUnavailableActivity.getIntent(this))
+                finish()
             }
         }
     }

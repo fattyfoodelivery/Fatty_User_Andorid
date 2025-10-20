@@ -236,6 +236,10 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
 
     private fun navigateToVerifyOTPScreen() {
         loginBinding.btnContinue.setOnClickListener {
+//            result = "+959" + loginBinding.edtPhone.text.toString()
+//            val intent = Intent(this,VerifyOTPActivity::class.java)
+//            intent.putExtra(VerifyOTPActivity.PHONE,result)
+//            startActivity(intent)
             verifyPhone()
         }
 

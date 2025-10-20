@@ -39,7 +39,8 @@ interface OrderRepository {
         payment_method_id : Int,
         current_address : String,
         customer_address_phone : String,
-        abnormal_fee: Double
+        abnormal_fee: Double,
+        secondary_phone : String?
     ) : Response<OrderResponse>
 
     suspend fun foodDeliveryFee(

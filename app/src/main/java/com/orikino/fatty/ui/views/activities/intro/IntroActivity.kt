@@ -105,33 +105,33 @@ class IntroActivity : AppCompatActivity() {
             0 -> {
                 this.position = position
                 introBinding.tvTitle.show()
-                introBinding.llHorizontal.gone()
-                introBinding.tvTitleColor.show()
+//                introBinding.llHorizontal.gone()
+//                introBinding.tvTitleColor.show()
                 introBinding.tvTitle.text = resources.getString(R.string.intro_title_one)
-                introBinding.tvTitleColor.text = resources.getString(R.string.intro_near_you)
+                //introBinding.tvTitleColor.text = resources.getString(R.string.intro_near_you)
                 introBinding.tvDes.text = resources.getString(R.string.intro_dec_one)
                 introBinding.introViewpager.setCurrentItem(position, true)
                 firstSelected()
             }
             1 -> {
                 this.position = position
-                introBinding.llHorizontal.show()
-                introBinding.tvTitleColor.gone()
-                introBinding.tvTitleHorizontalColor.text = resources.getString(R.string.intro_track)
-                introBinding.tvTitleHorizontal.text = resources.getString(R.string.intro_your_parcel)
-                introBinding.tvTitle.text = resources.getString(R.string.intro_instantly)
-                introBinding.tvDes.text = resources.getString(R.string.intro_dec_one)
+//                introBinding.llHorizontal.show()
+//                introBinding.tvTitleColor.gone()
+//                introBinding.tvTitleHorizontalColor.text = resources.getString(R.string.intro_track)
+//                introBinding.tvTitleHorizontal.text = resources.getString(R.string.intro_your_parcel)
+                introBinding.tvTitle.text = resources.getString(R.string.intro_title_two)
+                introBinding.tvDes.text = resources.getString(R.string.intro_dec_two)
                 introBinding.introViewpager.setCurrentItem(position, true)
                 secondSelected()
             }
             2 -> {
                 this.position = position
                 introBinding.tvTitle.show()
-                introBinding.llHorizontal.gone()
-                introBinding.tvTitleColor.show()
-                introBinding.tvTitle.text = resources.getString(R.string.intro_get_any_where)
-                introBinding.tvTitleColor.text = resources.getString(R.string.intro_in_hour)
-                introBinding.tvDes.text = resources.getString(R.string.intro_dec_one)
+//                introBinding.llHorizontal.gone()
+//                introBinding.tvTitleColor.show()
+                introBinding.tvTitle.text = resources.getString(R.string.intro_title_three)
+                //introBinding.tvTitleColor.text = resources.getString(R.string.intro_in_hour)
+                introBinding.tvDes.text = resources.getString(R.string.intro_dec_three)
                 introBinding.btnNext.text = resources.getString(R.string.get_started)
                 introBinding.introViewpager.setCurrentItem(position, true)
                 thirdSelected()

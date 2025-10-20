@@ -17,6 +17,7 @@ import com.orikino.fatty.adapters.OrderHistoryAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.FragmentOrderBinding
 import com.orikino.fatty.databinding.ItemShowRatingViewDialogBinding
+import com.orikino.fatty.databinding.LayoutConfirmCancelDialogBinding
 import com.orikino.fatty.databinding.LayoutDialogRemoveCartBinding
 import com.orikino.fatty.domain.model.OrderDetailVO
 import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
@@ -406,7 +407,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
         PreferenceUtils.isBackground = false
         if (data.order_status_id == 1 || data.order_status_id == 19) showConfirmDialog(
             getString(R.string.are_you_sure_you_want_to_cancel_this_order),//resources.getString(R.string.are_you_sure_to_delete_this_order),
-            getString(R.string.by_doing_so_you_won_t_be_able_to_bring_it_back),
+            "",
             //resources.getString(R.string.sure_to_cancel),
             data
         )
@@ -451,20 +452,26 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
 
 
     private fun showConfirmDialog(title: String, message: String, order: MyOrderHistoryResponse.Data.Data) {
-        val dialogView = LayoutDialogRemoveCartBinding.inflate(LayoutInflater.from(requireContext()))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
+        val dialogView = LayoutConfirmCancelDialogBinding.inflate(LayoutInflater.from(requireContext()))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
         val builder = AlertDialog.Builder(requireContext())
         builder.setView(dialogView.root)
         builder.create().apply {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(false)
             dialogView.tvTitle.text = title
-            dialogView.tvTitleDesc.text = message
+            if(message.isEmpty()){
+                dialogView.tvDesc.gone()
+            } else {
+                dialogView.tvDesc.show()
+            }
+            dialogView.tvDesc.text = message
 
-            dialogView.btnClose.setOnClickListener {
+            dialogView.btnCancel.setOnClickListener {
                 dismiss()
             }
-            dialogView.btnRemove.text = resources.getString(R.string.confirm)
-            dialogView.btnRemove.setOnClickListener {
+            dialogView.ivClose.setOnClickListener { dismiss() }
+            dialogView.btnContact.text = resources.getString(R.string.confirm)
+            dialogView.btnContact.setOnClickListener {
                 dismiss()
                 orderHistoryAdapter?.submitList(mutableListOf())
 

@@ -27,8 +27,10 @@ class OrderHistoryViewHolder(
         binding.tvOrderId.text =
             ContextCompat.getString(binding.root.context, R.string.order_id).plus(data.customer_order_id)
 
+        val itemText = if (data.item_count == 1) ContextCompat.getString(binding.root.context, R.string.txt_item) else ContextCompat.getString(binding.root.context, R.string.txt_items)
+
         binding.tvItemQty.text =
-            "${data.item_count}".plus(if (data.item_count == 1) " Item" else " Items")
+            "${data.item_count}".plus(" $itemText")
 
 
 
@@ -108,7 +110,10 @@ class OrderHistoryViewHolder(
                 }
 
                 9 -> {
-                    binding.tvOrderActionsStatus.gone()
+                    binding.tvOrderActionsStatus.show()
+                    binding.tvOrderActionsStatus.text =
+                        ContextCompat.getString(binding.root.context, R.string.txt_view)
+                    binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.tvOrderStatusMsg.setTextColor(
@@ -120,7 +125,10 @@ class OrderHistoryViewHolder(
                 }
 
                 18 -> {
-                    binding.tvOrderActionsStatus.gone()
+                    binding.tvOrderActionsStatus.show()
+                    binding.tvOrderActionsStatus.text =
+                        ContextCompat.getString(binding.root.context, R.string.txt_view)
+                    binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.tvOrderStatusMsg.setTextColor(
@@ -132,6 +140,7 @@ class OrderHistoryViewHolder(
                 }
 
                 19 -> {
+                    binding.tvOrderActionsStatus.show()
                     binding.tvOrderActionsStatus.text =
                         ContextCompat.getString(binding.root.context, R.string.txt_order_cancel)
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_gray)
@@ -141,7 +150,10 @@ class OrderHistoryViewHolder(
                 }
 
                 else -> {
-                    binding.tvOrderActionsStatus.gone()
+                    binding.tvOrderActionsStatus.show()
+                    binding.tvOrderActionsStatus.text =
+                        ContextCompat.getString(binding.root.context, R.string.txt_view)
+                    binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_success_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
                     binding.tvOrderStatusMsg.setTextColor(Color.parseColor("#FF00B11E"))
                     binding.tvOrderStatusMsg.text = data.order_status

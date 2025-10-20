@@ -16,7 +16,12 @@ class AddressViewHolder(var binding : ItemManageAddressBinding,var callbacks: (C
 
         binding.tvAddressType.text = data.address_type
         binding.tvAddress.text = data.current_address
-        binding.tvPhone.text = data.customer_phone
+        if (data.secondary_phone == null){
+            binding.tvPhone.text = data.customer_phone
+        }else{
+            binding.tvPhone.text = "${data.customer_phone }, ${data.secondary_phone}"
+        }
+
         data.customer_phone.let { binding.tvPhone.text }
 
 

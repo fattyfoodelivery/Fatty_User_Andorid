@@ -301,13 +301,15 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         if (!isForceUpdate) {
             builder.setNegativeButton(getString(R.string.txt_cancel)) { dialog, _ ->
                 dialog.dismiss()
-                viewModel.onBoardingAd()
             }
         }
 
         builder.setCancelable(!isForceUpdate) // Dialog is not cancelable if it's a force update
 
         val dialog = builder.create()
+        dialog.setOnDismissListener {
+            viewModel.onBoardingAd()
+        }
         dialog.show()
     }
 
