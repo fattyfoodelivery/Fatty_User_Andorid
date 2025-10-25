@@ -63,19 +63,15 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
     private var addressVO = CustomerAddressVO()
     var addresss: String? = null
     private var from_view  : Int ? = 0
-
-
+    private var isEdit : Boolean = false
 
     companion object {
         const val INTENT_FROM = "from_intent"
+        const val IS_EDIT = "isEdit"
 
-        private const val PARAM1 = "param1"
-        private const val PARAM2 = "param2"
-
-        fun getIntent(param1 : String,route : Int) : Intent {
+        fun getIntent(isEdit : Boolean = false) : Intent {
             return Intent(FattyApp.getInstance(),AddressPickUpMapBoxActivity::class.java).apply {
-                this.putExtra(PARAM1,param1)
-                this.putExtra(PARAM2,route)
+                putExtra(IS_EDIT,isEdit)
             }
         }
     }
@@ -83,7 +79,7 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
         super.onCreate(savedInstanceState)
         _binding = ActivityAddressPickUpMapBoxBinding.inflate(layoutInflater)
         setContentView(_binding.root)
-
+        isEdit = intent.getBooleanExtra(IS_EDIT,false)
 
         setUpMapBox()
 
@@ -91,8 +87,8 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
         //_binding.mapView.getMapAsync(this)
 
 
-        val title = intent.getStringExtra(PARAM1)
-        _binding.tvAddress.text = title
+//        val title = intent.getStringExtra(PARAM1)
+//        _binding.tvAddress.text = title
 
         //from = intent.getIntExtra(PARAM2,0)
 
@@ -112,7 +108,12 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
     private fun setUpMapBox() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_view) as? SupportMapFragment
         mapFragment?.getMapAsync { map ->
-            fattyMap = FattyMap(this, map)
+            if (isEdit){
+                val address = PreferenceUtils.readToEditAddress()
+                fattyMap = FattyMap(this, map, LatLng(address?.address_latitude!!,address.address_longitude))
+            }else{
+                fattyMap = FattyMap(this, map)
+            }
 
             fattyMap.setCameraIdleListener(onLocationReady = {
                 locations.latitude = it.latitude
@@ -287,7 +288,7 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
                     //startActivity<AddressDefinedActivity>()
-                    startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude))
+                    startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude, isEdit))
                     finish()
                 }
             } else if (from_view == 2) {
@@ -301,8 +302,7 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
                 finish()
             } else if (from_view == 3) {
                 finish()
-            }
-            else {
+            } else {
                 if (locations.latitude != 0.0 && locations.longitude != 0.0) {
                     if (PreferenceUtils.readManageAddress()?.isMapUpdate == true) {
                         PreferenceUtils.readManageAddress()?.status?.let { it1 ->
@@ -319,7 +319,7 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
                             )
                         }
                         finish()
-                        startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude))
+                        startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude, isEdit))
                         //startActivity<CustomerDeliverAddressUpdateActivity>()
                     } else {
                         PreferenceUtils.readManageAddress()?.customer_address?.let { it1 ->
@@ -338,7 +338,7 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
                             )
                         }
                         finish()
-                        startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude))
+                        startActivity(AddressDefinedActivity.getIntent(locations.latitude,locations.longitude, isEdit))
                         //startActivity<CustomerDeliverAddressUpdateActivity>()
                     }
                 }

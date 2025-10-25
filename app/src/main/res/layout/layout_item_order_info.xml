@@ -35,7 +35,7 @@
             android:fontFamily="@font/outfit_regular"
             android:visibility="gone"
             android:textAlignment="center"
-            android:textColor="@color/red"/>
+            android:textColor="@color/textError"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_amount"

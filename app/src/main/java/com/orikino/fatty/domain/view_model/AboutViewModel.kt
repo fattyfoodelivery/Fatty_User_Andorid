@@ -30,6 +30,7 @@ class AboutViewModel @Inject constructor(
     fun fetchAboutApp() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                viewState.postValue(AboutViewState.OnLoadingAbout)
                 val response = aboutRepository.fetchAbout()
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -73,6 +74,7 @@ class AboutViewModel @Inject constructor(
     fun fetchTermAndCondition() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                viewState.postValue(AboutViewState.OnLoadingTermCondition)
                 val response = aboutRepository.fetchTermCondition()
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -94,6 +96,7 @@ class AboutViewModel @Inject constructor(
     fun fetchPrivacy() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                viewState.postValue(AboutViewState.OnLoadingPrivacyPolicy)
                 val response = aboutRepository.fetchPrivacyPolicy()
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -165,6 +168,7 @@ class AboutViewModel @Inject constructor(
     fun fetchHelpCenter() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                viewState.postValue(AboutViewState.OnLoadingHelpCenter)
                 val response = aboutRepository.fetchHelpCenter()
                 if (response.isSuccessful) {
                     response.body()?.let {

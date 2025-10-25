@@ -90,7 +90,7 @@
                 android:id="@+id/tv_parcel_title"
                 android:text="@string/txt_parcel_sending_unavailable"
                 android:layout_marginHorizontal="@dimen/margin_32"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:textColor="@color/text_primary_01"
                 android:textAlignment="center"
                 android:fontFamily="@font/outfit_medium"

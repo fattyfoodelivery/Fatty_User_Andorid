@@ -4,13 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ActivityBookingUnavailableBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookingUnavailableActivity: AppCompatActivity() {
     private lateinit var binding: ActivityBookingUnavailableBinding
     companion object{
-        fun getIntent(context: Context): Intent {
-            return Intent(context, BookingSuccessActivity::class.java)
+        const val FROM_TIME = "FROM_TIME"
+        const val TO_TIME = "TO_TIME"
+        fun getIntent(context: Context, fromTime : String, toTime : String): Intent {
+            return Intent(context, BookingUnavailableActivity::class.java).apply {
+                putExtra(FROM_TIME, fromTime)
+                putExtra(TO_TIME, toTime)
+            }
         }
     }
 
@@ -22,6 +30,7 @@ class BookingUnavailableActivity: AppCompatActivity() {
     }
 
     private fun initView(){
+        binding.tvParcelSubtitle.text = getString(R.string.txt_booking_unavailabel_desc, intent.getStringExtra(FROM_TIME), intent.getStringExtra(TO_TIME))
         binding.ivBack.setOnClickListener {
             finish()
         }

@@ -86,9 +86,8 @@ class PlaceOrderActivity : AppCompatActivity() {
                     showSnackBar("Kpay Error Found")
                     MainActivity.isOrderHistory = true
                     PreferenceUtils.needToShow = false
-                    finish()
+                    finishAffinity()
                     startActivity(MainActivity.getIntent(this))
-
                 }
             }
         }

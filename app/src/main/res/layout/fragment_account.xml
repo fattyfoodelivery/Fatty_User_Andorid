@@ -163,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/setting"
                 android:textAllCaps="true"
+                android:visibility="gone"
                 android:fontFamily="@font/outfit_regular"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary_01"/>
@@ -395,6 +396,7 @@
                 android:textAllCaps="true"
                 android:fontFamily="@font/outfit_regular"
                 android:textSize="14sp"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_secondary_01"/>
             <LinearLayout
@@ -404,7 +406,6 @@
                 android:background="@color/white"
                 android:weightSum="1"
                 android:padding="8dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView

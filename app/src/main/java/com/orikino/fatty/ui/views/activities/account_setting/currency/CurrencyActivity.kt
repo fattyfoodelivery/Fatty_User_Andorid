@@ -19,6 +19,7 @@ import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,16 +72,18 @@ class CurrencyActivity : AppCompatActivity() {
                 renderSucessCurrency(state)
             }
             else -> {
-
+                LoadingProgressDialog.showLoadingProgress(this)
             }
         }
     }
 
     private fun renderError(state: com.orikino.fatty.domain.viewstates.AboutViewState.OnFailCurrency) {
+        LoadingProgressDialog.hideLoadingProgress()
         CustomToast(this,state.message,false).createCustomToast()
     }
 
     private fun renderSucessCurrency(state: com.orikino.fatty.domain.viewstates.AboutViewState.OnSuccessCurrency) {
+        LoadingProgressDialog.hideLoadingProgress()
         // Log the list AS SOON AS IT'S RECEIVED in the state from LiveData
         Log.d("Activity_renderSuccess", "Received state.data: ${state.data.map { Pair(it.currency_id, it.isCheck) }}")
         Log.d("Activity_renderSuccess", "Current isSelecting flag: $isSelecting")

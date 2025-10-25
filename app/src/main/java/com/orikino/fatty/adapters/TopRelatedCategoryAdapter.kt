@@ -54,12 +54,12 @@ class TopRelatedCategoryAdapter(
 //                binding.imvRation.show()
 //                binding.tvRatingCount.text = data.rating.toString()
 //            }
-            if (data.orders_count == 0) {
-                binding.llOrderCountView.gone()
-            } else {
-                binding.llOrderCountView.show()
-                binding.tvOrderCount.text = data.orders_count.toString()
-            }
+//            if (data.orders_count == 0) {
+//                binding.llOrderCountView.gone()
+//            } else {
+//                binding.llOrderCountView.show()
+//                binding.tvOrderCount.text = data.orders_count.toString()
+//            }
             binding.tvAddress.text = data.address
             binding.tvRatingCount.text = data.rating.toString()
             binding.tvRestaurantName.text = data.restaurant_name

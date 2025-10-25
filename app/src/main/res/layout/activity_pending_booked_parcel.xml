@@ -167,20 +167,34 @@
                     android:layout_toEndOf="@id/iv_pending"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
-            <TextView
+            <RelativeLayout
+                android:id="@+id/rl_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_region"
-                android:text="@string/service_region_s"
-                android:layout_marginStart="@dimen/margin_4xSmall"
-                android:textSize="16sp"
-                android:textColor="@color/fattyPrimary"
-                android:textAlignment="center"
-                android:fontFamily="@font/outfit_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rl_pending"
-                android:layout_marginTop="@dimen/margin_3xlarge"/>
+                android:layout_marginTop="@dimen/margin_3xlarge">
+                <ImageView
+                    android:id="@+id/iv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_receiver_20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_region"
+                    android:layout_marginStart="@dimen/margin_4xSmall"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/fattyPrimary"
+                    app:layout_goneMarginStart="@dimen/margin_2xSmall"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/outfit_regular"
+                    android:layout_toEndOf="@id/iv_location"/>
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,7 +206,7 @@
                 android:textAlignment="center"
                 android:fontFamily="@font/outfit_regular"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_region"
+                app:layout_constraintTop_toBottomOf="@id/rl_location"
                 android:layout_marginTop="@dimen/margin_small"/>
             <View
                 android:id="@+id/divider_2"

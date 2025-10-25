@@ -43,6 +43,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultRestaurantAddress
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
+import com.orikino.fatty.utils.helper.toHourMinuteString
 import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
 import java.lang.Exception
@@ -296,8 +297,9 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
             _binding.tvRatingCount.text = restaurant.rating.toString()
             _binding.tvRestaurantName.text = restaurant.toDefaultRestaurantName()
             _binding.tvRestaurantAddress.text = restaurant.restaurant_address_en
-            _binding.tvDurationDistance.text = restaurant.average_time.toString()
-                .plus("mins ・ ").plus(restaurant.distance).plus("km")
+            _binding.tvDurationDistance.text = "${restaurant.distance_time.toHourMinuteString()}・${restaurant.distance} km"
+//                restaurant.average_time.toString()
+//                .plus("mins ・ ").plus(restaurant.distance).plus("km")
             _binding.imvRestaurant.load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(restaurant.restaurant_image))
 
             //restAvailableTimeAdapter?.setNewData(restaurant.available_time)

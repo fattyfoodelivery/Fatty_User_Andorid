@@ -45,6 +45,7 @@
                 android:layout_alignParentStart="true"
                 app:srcCompat="@drawable/ic_back"
                 app:tint="@color/fattyWhite"
+                android:visibility="gone"
                 android:layout_centerVertical="true"/>
 
         </RelativeLayout>

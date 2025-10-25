@@ -560,10 +560,11 @@
 
                     </RelativeLayout>
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@drawable/order_his_parcel"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner8dp"
+                        android:src="@drawable/parcel_default_img"
                         android:layout_below="@id/rl_parcel_type_spec"
                         android:layout_marginTop="16dp"/>
 

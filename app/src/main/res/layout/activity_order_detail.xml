@@ -443,6 +443,15 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/outfit_semibold"
                             android:text="name"
+                            android:visibility="gone"
+                            android:textColor="@color/text_primary_01"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/tv_receiver_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/outfit_regular"
+                            android:text="phone"
                             android:visibility="visible"
                             android:textColor="@color/text_primary_01"
                             android:textSize="16sp" />
@@ -455,15 +464,7 @@
                             android:visibility="visible"
                             android:textColor="@color/text_primary_01"
                             android:textSize="14sp" />
-                        <TextView
-                            android:id="@+id/tv_receiver_phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/outfit_regular"
-                            android:text="phone"
-                            android:visibility="visible"
-                            android:textColor="@color/text_primary_01"
-                            android:textSize="16sp" />
+
 
                     </LinearLayout>
 

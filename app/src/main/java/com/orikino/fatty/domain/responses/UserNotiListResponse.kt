@@ -20,7 +20,7 @@ data class UserNotification(
 data class UserNotificationVO(
     var id : Int = 0,
     var order_id : String = "",
-    var order_status_id : String = "",
+    var order_status_id : String? = "",
     var order_type : String = "",
     var title : String = "",
     var body : String = "",

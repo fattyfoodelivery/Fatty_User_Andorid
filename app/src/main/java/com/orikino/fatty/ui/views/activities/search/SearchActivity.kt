@@ -475,8 +475,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     }
 
     private fun filterApply() {
-        searchBinding.chipRestaurant.setChipIconTintResource(R.color.fattyPrimary)
-        searchBinding.chipRestaurant.setTextColor(ColorStateList.valueOf(Color.parseColor("#FF6704")))
+        clearSelectedChips()
+
+        searchBinding.chipRestaurant.isChecked = true
         viewModel.searchFoodListLiveData.postValue(mutableListOf())
         searchBinding.edtSearch.clearFocus()
         searchBinding.edtSearch.text?.clear()
@@ -655,10 +656,12 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     private fun successSearchFoodAndRestaurant(state : SearchViewState.OnSuccessSearchFoodAndRestaurant) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
+            foodSize = state.data.data.food.size
+            restSize = state.data.data.restaurant.size
             if (!isResume) {
                 clearSelectedChips()
                 searchBinding.tvResult.show()
-                searchBinding.tvResult.text = "${getString(R.string.txt_food)} ・ ${restSize}"
+                searchBinding.tvResult.text = "${getString(R.string.txt_food)} ・ ${foodSize}"
 
                 searchBinding.chipFood.text = "${state.data.data.food.size}"
                 searchBinding.chipRestaurant.text = "${state.data.data.restaurant.size}"
@@ -676,7 +679,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                     if (!isResume)
                         viewModel.searchFoodListLiveData.postValue(state.data.data.food)
                     foodAdapter.setNewData(state.data.data.food)
-                    foodSize = state.data.data.food.size
                 }
             }
 
@@ -692,7 +694,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                         viewModel.searchRestaurantListLiveData.postValue(state.data.data.restaurant)
                     restaurantAdapter.submitList(state.data.data.restaurant.toList())
                     searchBinding.rvRestaurant.requestLayout() // Changed from invalidate
-                    restSize = state.data.data.restaurant.size
                 }
             }
             isResume = false
@@ -750,7 +751,17 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         searchBinding.rvFood.setHasFixedSize(true)
         searchBinding.rvFood.isNestedScrollingEnabled = true
         foodAdapter = FoodAdapter(this) { data,str,pos ->
-            addFoodToCart(data)
+            when(str){
+                "root" -> {
+                    val intent = Intent(this,RestaurantDetailViewActivity::class.java)
+                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant.restaurant_id)
+                    startActivity(intent)
+                }
+                else -> {
+                    addFoodToCart(data)
+                }
+            }
+
         }
         searchBinding.rvFood.adapter = foodAdapter
     }
@@ -783,7 +794,8 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                     val transformToFoodVO = FoodVO(
                         food_id = data.food_id,
                         food_name_mm = data.toDefaultFoodName(),
-                        food_price = data.food_price
+                        food_price = data.food_price,
+                        food_image = data.food_image
                     )
                     val bottomSheetFragment =
                         AddOnBottomSheetFragment.newInstance(true,

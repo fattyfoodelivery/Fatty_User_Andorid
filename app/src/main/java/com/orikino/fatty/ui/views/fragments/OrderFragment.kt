@@ -2,6 +2,8 @@ package com.orikino.fatty.ui.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -165,6 +167,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
             is OrderViewState.OnSuccessMyOrder -> renderOnSuccessMyOrder(state)
             is OrderViewState.OnFailMyOrder -> { renderFailedOrder(state) }//{renderOnFailMyOrder(state)
 
+            is OrderViewState.OnLoadingOrderCancel -> {renderOnLoadingOrderCancel()}
             is OrderViewState.OnSuccessOrderCancel -> renderOnSuccessOrderCancel(state)
             is OrderViewState.OnFailOrderCancel -> renderOnFailOrderCancel(state)
 
@@ -275,14 +278,28 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
                 emptyViewSetUp()
             } else {
                 hideEmptyView()
-                state.data.data?.data?.let { orderHistoryAdapter?.submitList(it) }
+                state.data.data?.data?.let {
+                    orderHistoryAdapter?.submitList(it)
+                }
+                orderBinding?.rvOrder?.post {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        orderBinding?.rvOrder?.scrollToPosition(0)
+                    },500)
+                }
             }
         }
     }
 
 
-    private fun renderOnFailOrderCancel(state: OrderViewState.OnFailOrderCancel) {}
+    private fun renderOnFailOrderCancel(state: OrderViewState.OnFailOrderCancel) {
+            LoadingProgressDialog.hideLoadingProgress()
+    }
+
+    private fun renderOnLoadingOrderCancel() {
+        LoadingProgressDialog.showLoadingProgress(requireContext())
+    }
     private fun renderOnSuccessOrderCancel(state: OrderViewState.OnSuccessOrderCancel) {
+        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             PreferenceUtils.readUserVO().customer_id?.let {
                 //viewModel.fetchOrderHistory(it)
@@ -356,14 +373,15 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
     }
 
     private fun itemActionTrackClick(data: MyOrderHistoryResponse.Data.Data) {
-        /*requireActivity().startActivity<TrackOrderParcelActivity>(
-            TrackOrderParcelActivity.ORDER_ID to data.order_id,
-            TrackOrderParcelActivity.VIEW_TYPE to "his"
-        )*/
-        val intent = Intent(requireContext(),TrackOrderParcelActivity::class.java)
-        intent.putExtra(TrackOrderParcelActivity.ORDER_ID,data.order_id)
-        intent.putExtra(TrackOrderParcelActivity.VIEW_TYPE,"his")
+        //toggle this code with comment after food tracking view is implemented
+        val intent = Intent(requireContext(),ParcelDetailActivity::class.java)
+        intent.putExtra(ParcelDetailActivity.ORDER_ID,data.order_id)
+        intent.putExtra(ParcelDetailActivity.PARCEL_HISTORY,true)
         startActivity(intent)
+//        val intent = Intent(requireContext(),TrackOrderParcelActivity::class.java)
+//        intent.putExtra(TrackOrderParcelActivity.ORDER_ID,data.order_id)
+//        intent.putExtra(TrackOrderParcelActivity.VIEW_TYPE,"his")
+//        startActivity(intent)
     }
 
     private fun fetchRatingReview(orderId: Int){
@@ -473,7 +491,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
             dialogView.btnContact.text = resources.getString(R.string.confirm)
             dialogView.btnContact.setOnClickListener {
                 dismiss()
-                orderHistoryAdapter?.submitList(mutableListOf())
+                //orderHistoryAdapter?.submitList(mutableListOf())
 
                 //viewModel.orderHistoriesList.clear()
                 //viewModel.pastOrderHistoriesList.clear()

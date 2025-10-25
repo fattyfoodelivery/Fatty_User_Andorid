@@ -351,7 +351,7 @@ class OrderViewModel @Inject constructor(
     }
     fun fetchOrderCancel(order_id: Int) {
             viewModelScope.launch(Dispatchers.IO) {
-                viewState.postValue(OrderViewState.OnLoadingTrackFoodOrder)
+                viewState.postValue(OrderViewState.OnLoadingOrderCancel)
                 try {
                     val response = orderRepository.foodOrderCancel(order_id)
                     if (response.isSuccessful) {

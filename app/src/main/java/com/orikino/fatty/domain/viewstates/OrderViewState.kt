@@ -8,6 +8,7 @@ sealed class OrderViewState{
     data class OnSuccessMyOrder(val data : MyOrderHistoryResponse) :OrderViewState()
     data class OnFailMyOrder(val message: String?) : OrderViewState()
 
+    object OnLoadingOrderCancel : OrderViewState()
     data class OnSuccessOrderCancel(val data : FoodOrderCancelResponse) : OrderViewState()
     data class OnFailOrderCancel(val message: String) : OrderViewState()
 

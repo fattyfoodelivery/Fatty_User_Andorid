@@ -29,6 +29,8 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.formatReadableDate
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showDatePickerDialog
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -113,13 +115,24 @@ class NotiFragment : Fragment(), ItemIdDelegate {
     private fun filterNotiByDate() {
         notiBinding?.imvCalendar?.setOnClickListener {
             context?.showDatePickerDialog { date ->
-
                 viewModel.currentPage = 0
                 viewModel.currentPage = 1
-
                 viewModel.isLoading = true
+                notiBinding?.imvCalendar?.gone()
+                notiBinding?.tvReset?.show()
                 LoadingProgressDialog.showLoadingProgress(requireContext())
                 changeDateFormat(date)
+            }
+        }
+
+        notiBinding?.tvReset?.setOnClickListener {
+            notiBinding?.imvCalendar?.show()
+            notiBinding?.tvReset?.gone()
+            notiBinding?.tvDateResult?.text = ""
+            if (isCheckOrder) {
+                viewModel.fetchUserNotiList(1,"")
+            } else {
+                viewModel.fetchSystemNot(1,"")
             }
         }
     }
@@ -385,7 +398,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
                     val intent = Intent(requireContext(), NotificationDetailActivity::class.java)
                     intent.putExtra("noti_title", data.title)
                     intent.putExtra("noti_id", data.id)
-                    intent.putExtra("noti_body", data.body)
+                    PreferenceUtils.writeTempNotiBody(data.body)
                     startActivity(intent)
                 }
             }

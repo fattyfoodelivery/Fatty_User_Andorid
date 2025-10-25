@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.location.Location
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +21,27 @@ import com.orikino.fatty.utils.helper.VALUE_MAP_ZOOM
 import io.nlopez.smartlocation.SmartLocation
 
 class FattyMap(
-    private val context: Context, private val mMap: GoogleMap
+    private val context: Context, private val mMap: GoogleMap, private val location : LatLng? = null
 ) {
     init {
         //Mapbox.getInstance(context,"")
-        setupMapView()
+        if (location == null)
+            setupMapView()
+        else
+            setupMapView(location)
     }
 
+    private fun setupMapView(location : LatLng){
+        mMap.clear()
+        val cameraPosition = CameraPosition.Builder()
+            .zoom(VALUE_MAP_ZOOM)
+            .target(location)
+            .tilt(VALUE_MAP_TILE_COUNT)
+            .build()
+        mMap.animateCamera(
+            CameraUpdateFactory.newCameraPosition(cameraPosition)
+        )
+    }
     private fun setupMapView() {
         mMap.clear()
         val cameraPosition = CameraPosition.Builder()

@@ -19,6 +19,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityAboutUsBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.domain.viewstates.AboutViewState
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
@@ -202,10 +203,11 @@ class AboutUsActivity : AppCompatActivity() {
     }
 
     private fun renderLoading() {
-
+        LoadingProgressDialog.showLoadingProgress(this)
     }
 
     private fun renderSuccess(state: AboutViewState.OnSuccessAbout) {
+        LoadingProgressDialog.hideLoadingProgress()
         //_binding.tvAbout.setHtml(state.data.data.about)
         //_binding.tvAbout.setOnClickATagListener { widget, spannedText, href -> true }
         state.data.data.about?.let {
@@ -220,6 +222,6 @@ class AboutUsActivity : AppCompatActivity() {
     }
 
     private fun renderFail() {
-
+        LoadingProgressDialog.hideLoadingProgress()
     }
 }

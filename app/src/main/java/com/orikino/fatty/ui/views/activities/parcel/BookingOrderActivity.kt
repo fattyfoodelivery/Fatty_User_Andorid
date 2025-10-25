@@ -27,6 +27,7 @@ import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
+import com.orikino.fatty.utils.helper.toReadableTime
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -126,12 +127,18 @@ class BookingOrderActivity : AppCompatActivity() {
 //                    dialog.dismiss()
 //                }
 //                .show()
-            startActivity(AlreadyBookedActivity.getIntent(this, when(lastSelected){
-                1 -> getString(R.string.lashio)
-                2 -> getString(R.string.muse)
-                else -> getString(R.string.lashio)
-            }))
-            finish()
+            if (state.data.is_available == false){
+                startActivity(BookingUnavailableActivity.getIntent(this, state.data.start_time.toReadableTime(), state.data.end_time.toReadableTime()))
+                finish()
+            }else{
+                startActivity(AlreadyBookedActivity.getIntent(this, when(lastSelected){
+                    1 -> getString(R.string.lashio)
+                    2 -> getString(R.string.muse)
+                    else -> getString(R.string.lashio)
+                }))
+                finish()
+            }
+
         }
     }
 
@@ -228,7 +235,7 @@ class BookingOrderActivity : AppCompatActivity() {
         alertDialog.setView(dialogBinding?.root)
         alertDialog.create().apply {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
-            setCancelable(false)
+            setCancelable(true)
 
             dialogBinding?.rbtnMuseCheck?.isClickable = true
             dialogBinding?.rbtnMuseCheck?.isFocusable = true
@@ -347,8 +354,6 @@ class BookingOrderActivity : AppCompatActivity() {
                 .show(this.supportFragmentManager, SplashActivity::class.simpleName)
             else -> {
                 showSnackBar(state.message!!)
-                startActivity(BookingUnavailableActivity.getIntent(this))
-                finish()
             }
         }
     }

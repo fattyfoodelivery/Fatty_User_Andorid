@@ -37,7 +37,6 @@ import com.orikino.fatty.domain.model.KPayResponseVO
 import com.orikino.fatty.domain.view_model.OrderViewModel
 import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressDefinedActivity
-import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressPickUpMapBoxActivity
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.ManageAddressActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
@@ -86,6 +85,8 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private var addressType = ""
 
     private var abnormalFee : Double = 0.0
+
+    private var isRemove = false
 
     // Dev
     // private var signKey = "Fattyfood123456"
@@ -247,12 +248,12 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     override fun onResume() {
         super.onResume()
         if (PreferenceUtils.readRestaurantNote() != "") binding.edtNote.setText(PreferenceUtils.readRestaurantNote())
-        viewModel.cartList.observe(this) {
-            PreferenceUtils.cartCount.postValue(it.size)
-            // rvCart.update(it)
-            println("createfoodvo $it")
-            foodOrderAdapter.setNewData(it)
-        }
+//        viewModel.cartList.observe(this) {
+//            PreferenceUtils.cartCount.postValue(it.size)
+//            // rvCart.update(it)
+//            println("createfoodvo $it")
+//            foodOrderAdapter.setNewData(it)
+//        }
         checkGPS()
         PreferenceUtils.readUserVO().customer_id?.let {
             viewModel.fetchCustomerAddressList(it)
@@ -413,7 +414,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
                         defaultAddress = aa[0]
                         //geoCodeLocationToAddress()
-                        showAddress(defaultAddress?.current_address!!)
+                        showAddress(defaultAddress?.current_address!!,defaultAddress?.building_system ?: "")
                     }
                 }
             } catch (e: Exception) {
@@ -425,17 +426,27 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         try {
             val geocoder = Geocoder(this, Locale.US)
             addresses = geocoder.getFromLocation(viewModel.lat, viewModel.lng, 1)!!
-            showAddress(addresses[0].getAddressLine(0))
+            showAddress(addresses[0].getAddressLine(0), "")
         } catch (e: Exception) {
             Log.d("Exception", e.message.toString())
         }
     }
 
-    private fun showAddress(address: String) {
+    private fun showAddress(address: String, buildingSystem : String) {
         forShowAddress = address
         viewModel.address = address
-        binding.tvCurrentAddress.text = viewModel.address
+        val address = if (buildingSystem.isNotEmpty()){
+            "${address}\n${buildingSystem}"
+        }else{
+            address
+        }
+        binding.tvCurrentAddress.text = address
         binding.tvAddressType.text = if (addressType == "") "Other" else addressType
+        if (defaultAddress == null){
+            binding.btnEditPhone.gone()
+        }else{
+            binding.btnEditPhone.show()
+        }
     }
 
     private fun createTimestamp(): String {
@@ -489,8 +500,12 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         }
         viewModel.cartList.observe(this) {
             if (it.isNullOrEmpty()) {
-                PreferenceUtils.writeRestaurant(FoodMenuByRestaurantVO())
-                showEmptyView()
+                if (isRemove){
+                    finish()
+                }else{
+                    PreferenceUtils.writeRestaurant(FoodMenuByRestaurantVO())
+                    showEmptyView()
+                }
             } else {
                 result = it
                 itemTotalPrice = 0.0
@@ -697,7 +712,6 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private fun renderOnSuccessRefreshDeliveryFeee(state: OrderViewState.OnSuccessRefreshFoodDeliveryFee) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
-            binding.tvAddressType
             abnormalFee = state.data.data.abnormal_fee
             if (state.data.data.abnormal_fee > 0) {
                 binding.rlAbnormal.show()
@@ -843,7 +857,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                                 restaurantId,
                                 note,
                                 transformData(),
-                                viewModel.addressID,
+                                defaultAddress?.customer_address_id ?: 0,
                                 viewModel.deliveryFeeOrigin,
                                 viewModel.deliveryFee,
                                 itemTotalPrice,
@@ -1143,28 +1157,28 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         }
     }
 
-    private fun confirmLocationDialog() {
-        val title = resources.getString(R.string.please_confirm_address)
-        val des = resources.getString(R.string.building_14_mict_park_hlaing_township)
-        val btn = resources.getString(R.string.confirm)
-        ConfirmAddressDialog.Builder(
-            FattyApp.getInstance(),
-            title,
-            des,
-            btn,
-            cancelCallback = {
-                startActivity(
-                    AddressPickUpMapBoxActivity.getIntent(
-                        resources.getString(R.string.add_new_address),
-                        2
-                    )
-                )
-            },
-            callback = {
-             //   startActivity(PlaceOrderActivity.getIntent())
-            }
-        ).show(supportFragmentManager, CheckOutActivity::class.java.simpleName)
-    }
+//    private fun confirmLocationDialog() {
+//        val title = resources.getString(R.string.please_confirm_address)
+//        val des = resources.getString(R.string.building_14_mict_park_hlaing_township)
+//        val btn = resources.getString(R.string.confirm)
+//        ConfirmAddressDialog.Builder(
+//            FattyApp.getInstance(),
+//            title,
+//            des,
+//            btn,
+//            cancelCallback = {
+//                startActivity(
+//                    AddressPickUpMapBoxActivity.getIntent(
+//                        resources.getString(R.string.add_new_address),
+//                        2
+//                    )
+//                )
+//            },
+//            callback = {
+//             //   startActivity(PlaceOrderActivity.getIntent())
+//            }
+//        ).show(supportFragmentManager, CheckOutActivity::class.java.simpleName)
+//    }
 
     private fun setUpFoodOrderRecyclerView() {
         val linearLayoutManager =
@@ -1281,6 +1295,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             }
             dialogView.btnRemove.text = resources.getString(R.string.confirm)
             dialogView.btnRemove.setOnClickListener {
+                isRemove = true
                 dismiss()
                 result = viewModel.cartList.value?.filter {
                     it != data

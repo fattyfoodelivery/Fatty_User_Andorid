@@ -130,6 +130,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                     RestaurantMoreInfoActivity.RESTAURANT,
                     Gson().toJson(viewModel.foodMenuByRestaurantLiveDataList.value)
                 )
+                intent.putExtra(RestaurantMoreInfoActivity.RESTAURANT_ID, restaurant_id)
                 startActivity(intent)
 
             } else {
@@ -192,7 +193,6 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     }
 
     private fun subscribeUI() {
-        viewModel.fetchFoodRestMenuByRestId(restaurant_id)
         viewModel.viewState.observe(this) { render(it) }
         viewModel.foodMenuByRestaurantLiveDataList.observe(
             this
@@ -209,7 +209,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 }
                 favourite()
                 binding.tvTitleRestName.text = it.toDefaultRestaurantName()
-                binding.tvTitleDistance.text = "${it.average_time} Min"
+                binding.tvTitleDistance.text =
+                    getString(R.string.txt_preperation_time_min, it.average_time)
                 binding.tvRestaurantName.text = it.toDefaultRestaurantName()
                 binding.tvRestaurantAddress.text = it.restaurant_address
                 binding.tvDurationDistance.text = "${it.distance_time.toHourMinuteString()}・${it.distance} km"
@@ -258,6 +259,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     override fun onResume() {
         super.onResume()
         checkGPS()
+        viewModel.fetchFoodRestMenuByRestId(restaurant_id)
         viewModel.isAnimate = false
         viewModel.isEmptyCart.observe(this) {
             PreferenceUtils.writeAddToCart(it)

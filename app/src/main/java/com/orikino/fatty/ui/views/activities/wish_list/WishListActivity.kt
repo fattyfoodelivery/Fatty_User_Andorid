@@ -99,7 +99,7 @@ class WishListActivity : AppCompatActivity()  {
         binding.swipeRefresh.isRefreshing = false
         if (state.data.success) {
             state.data.data
-            binding.tvTitle.text = getString(R.string.txt_my_wishlist, state.data.data.size)
+            binding.tvTitle.text = getString(R.string.txt_my_wishlist, state.data.data.size.toString())
             wishListAdapter.submitList(state.data.data)
             if (state.data.data.isEmpty()){
                 binding.emptyView.root.visibility = View.VISIBLE

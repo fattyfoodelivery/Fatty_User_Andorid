@@ -28,7 +28,7 @@ class BookingPendingActivity: AppCompatActivity() {
         setContentView(binding.root)
         region = intent.getStringExtra(REGION_EXTRA) ?: ""
         binding.tvDate.text = getCurrentDate()
-        binding.tvRegion.text = getString(R.string.service_region_s, region)
+        binding.tvRegion.text = region
         initView()
     }
 

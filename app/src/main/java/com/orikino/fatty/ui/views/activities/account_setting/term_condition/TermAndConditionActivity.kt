@@ -18,6 +18,7 @@ import androidx.activity.viewModels
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityTermAndConditionBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
@@ -194,9 +195,10 @@ class  TermAndConditionActivity : AppCompatActivity() {
 
 
     private fun renderLoading() {
-
+        LoadingProgressDialog.showLoadingProgress(this)
     }
     private fun renderSuccess(state: com.orikino.fatty.domain.viewstates.AboutViewState.OnSuccessTermCondition) {
+        LoadingProgressDialog.hideLoadingProgress()
         //_binding.tvAbout.setHtml(state.data.data.body)
         //_binding.tvAbout.setOnClickATagListener { widget, spannedText, href -> true }
         state.data.data.body?.let {
@@ -210,7 +212,7 @@ class  TermAndConditionActivity : AppCompatActivity() {
         }
     }
     private fun renderError() {
-
+        LoadingProgressDialog.hideLoadingProgress()
     }
 
     override fun attachBaseContext(newBase: Context?) {

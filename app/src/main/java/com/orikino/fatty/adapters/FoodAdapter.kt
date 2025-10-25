@@ -51,6 +51,7 @@ class FoodAdapter(private val context: Context,val callback : (SearchFoodsVO,Str
             binding.imvAddFood.setOnClickListener {
                 callback.invoke(data,"add_food",position)
             }
+            binding.root.setOnClickListener { callback.invoke(data,"root",position) }
 
         }
 

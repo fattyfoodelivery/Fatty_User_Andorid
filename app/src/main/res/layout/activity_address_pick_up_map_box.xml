@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"
                         android:layout_toEndOf="@+id/iv_location"
-                        android:text="Reset My Current Location"
+                        android:text="@string/txt_reset_my_current_location"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/margin_2xSmall"
                         android:textAllCaps="false"

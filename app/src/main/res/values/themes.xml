@@ -151,6 +151,8 @@
     <style name="ShapeAppearanceOverlay.App.CornerRound" parent="">
         <item name="cornerSize">50%</item>
     </style>
-
+    <style name="ShapeAppearanceOverlay.App.Corner8dp" parent="">
+        <item name="cornerSize">8dp</item>
+    </style>
 
 </resources>

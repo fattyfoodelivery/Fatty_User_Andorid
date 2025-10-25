@@ -124,12 +124,12 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
             override fun onTick(millisUntilFinished: Long) {
                 timeRemainingWhenPaused = millisUntilFinished
                 val seconds = millisUntilFinished / 1000
-                splashBinding.tvSkip.text = getString(R.string.txt_skip).plus(" ").plus(seconds)
+                splashBinding.tvSkip.text = getString(R.string.txt_skip_without_arrow).plus(" ").plus(seconds)
             }
 
             override fun onFinish() {
                 timeRemainingWhenPaused = 0L
-                splashBinding.tvSkip.text = getString(R.string.txt_skip)
+                splashBinding.tvSkip.text = getString(R.string.txt_skip_without_arrow)
                 countDownTimerInstance = null // Timer is done
                 if (!isTimerCancelledForNavigation) { // Only navigate if not cancelled for prior navigation
                     navigateToLanguageScreen()

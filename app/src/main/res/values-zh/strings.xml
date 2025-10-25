@@ -16,6 +16,7 @@
     <string name="maintain_msg">Please try again later!</string>
 
     <string name="home">首页</string>
+    <string name="txt_home">家</string>
     <string name="order">订单</string>
     <string name="notification">通知</string>
     <string name="account">账号</string>
@@ -293,7 +294,7 @@
     <string name="book_delivery_now">立即配送</string>
     <string name="make_your_first_search">进行首次搜索</string>
     <string name="str_orders">订单</string>
-    <string name="str_message">消息</string>
+    <string name="str_message">系统</string>
     <string name="str_about">关于</string>
     <string name="str_log_out">登出</string>
     <string name="str_log_out_question">帳戶登出?</string>
@@ -335,8 +336,9 @@
     <string name="testaurant_unavailable_now">商家已歇业</string>
     <string name="txt_accept_by_rider_p">骑手已接单(外卖)输入您的电话号码
 </string>
-    <string name="txt_my_wishlist">我喜欢 ( %1$d )</string>
+    <string name="txt_my_wishlist">我喜欢 ( %s )</string>
     <string name="txt_skip"><![CDATA[跳过 >>]]></string>
+    <string name="txt_skip_without_arrow"><![CDATA[跳过 ]]></string>
     <string name="txt_top_rated_restaurants">热门商家</string>
     <string name="force_update">更新</string>
     <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">移除后，您将无法将其恢复。</string>
@@ -368,11 +370,17 @@
     <string name="txt_order_pending_subtitle">请稍候。您的订单尚未得到管理员确认。</string>
     <string name="txt_log_out">退出？</string>
     <string name="service_region_s">服务区域：%s</string>
-    <string name="txt_parcel_sending_unavailable">包裹无法寄送</string>
-    <string name="txt_booking_unavailabel_desc">配送时间为上午 %s 点至下午 %s 点。请稍后重试。</string>
+    <string name="txt_parcel_sending_unavailable">服务不可用</string>
+    <string name="txt_booking_unavailabel_desc">配送时间为 %s 点至 %s 点。请稍后重试。</string>
     <string name="txt_back_to_home">返回首页</string>
     <string name="txt_login_continue">下一个</string>
     <string name="txt_item">份</string>
     <string name="txt_items">份</string>
     <string name="txt_view">查看</string>
+    <string name="txt_reset_my_current_location">重新选择我的当前位置</string>
+    <string name="txt_delete_address">删除地址</string>
+    <string name="txt_are_you_sure_to_delete_this_address">您确定要删除此地址吗？</string>
+    <string name="txt_are_you_sure_to_set_up_default_address">您确定要设置为默认地址吗？</string>
+    <string name="txt_reset">重置</string>
+    <string name="txt_preperation_time_min">修改时间 : %1$d Min</string>
 </resources>

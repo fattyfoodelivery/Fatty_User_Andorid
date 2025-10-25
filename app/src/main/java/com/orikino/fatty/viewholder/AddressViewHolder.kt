@@ -12,10 +12,35 @@ class AddressViewHolder(var binding : ItemManageAddressBinding,var callbacks: (C
 
     private var isChecked = false
     override fun setData(data: CustomerAddressVO, position: Int) {
-
-
-        binding.tvAddressType.text = data.address_type
-        binding.tvAddress.text = data.current_address
+        when(data.address_type) {
+            "Home" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+            }
+            "အိမ်" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+            }
+            "家" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+            }
+            "Work" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+            }
+            "အလုပ်" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+            }
+            "工作单位" -> {
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+            }
+            else ->{
+                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.other)
+            }
+        }
+        val address = if (data.building_system.isNullOrEmpty()){
+            data.current_address
+        }else{
+            data.current_address.plus("\n").plus(data.building_system)
+        }
+        binding.tvAddress.text = address
         if (data.secondary_phone == null){
             binding.tvPhone.text = data.customer_phone
         }else{

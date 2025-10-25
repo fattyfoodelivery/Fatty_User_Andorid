@@ -24,6 +24,7 @@ import com.orikino.fatty.ui.views.fragments.NotiFragment
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,17 +52,17 @@ class NotificationDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         notiId = intent.getIntExtra(NOTI_ID,0)
-        notiBody = intent.getStringExtra(NOTI_BODY)
+        notiBody = PreferenceUtils.readTempNotiBody()
         notiTitle = intent.getStringExtra(NOTI_TITLE)
         if (notiTitle != null) {
             binding.tvTitle.text = notiTitle
         }
-
-        if (notiBody?.isEmpty() == true) {
-            setUpObserver()
-        } else {
-            notiBody?.let { bindBody(it) }
-        }
+        notiBody?.let { bindBody(it) }
+//        if (notiBody?.isEmpty() == true) {
+//            setUpObserver()
+//        } else {
+//
+//        }
         setUpObserver()
         updateWebView()
         onBack()
@@ -183,8 +184,8 @@ class NotificationDetailActivity : AppCompatActivity() {
 
 
     private fun setUpObserver() {
-        viewModel.fetchSystemNot(1,"")
-        viewModel.viewState.observe(this) { render(it) }
+        //viewModel.fetchSystemNot(1,"")
+        //viewModel.viewState.observe(this) { render(it) }
     }
 
     private fun render(state : com.orikino.fatty.domain.viewstates.InboxViewState) {

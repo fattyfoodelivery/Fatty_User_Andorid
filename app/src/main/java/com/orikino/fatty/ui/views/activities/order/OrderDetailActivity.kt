@@ -151,8 +151,13 @@ class OrderDetailActivity : AppCompatActivity() {
     private fun bindSendToReceiver(data: ActiveOrderVO) {
         println("cccccc ${data.customer?.customer_name}")
         binding.tvSenderName.text = data.restaurant?.toDefaultRestaurantName()
+        val address = if (data.customer_address?.building_system != null){
+            "${data.customer_address?.current_address}\n${data.customer_address?.building_system}"
+        }else{
+            data.current_address
+        }
         binding.tvReceiverName.text = PreferenceUtils.readUserVO().customer_name
-        binding.tvReceiverAddress.text = data.current_address
+        binding.tvReceiverAddress.text = address
         if (data.customer_address_secondary_phone == null){
             binding.tvReceiverPhone.text = data.customer_address_phone?.let { convertPhoneNumber(it) }
         }else{
@@ -219,10 +224,11 @@ class OrderDetailActivity : AppCompatActivity() {
             }
             2 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_red_circle_close)
             }
             3 -> {
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
+//                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+//                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             4 -> {
@@ -230,7 +236,7 @@ class OrderDetailActivity : AppCompatActivity() {
             }
             5 -> {
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
+//                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             6 -> {
@@ -238,34 +244,38 @@ class OrderDetailActivity : AppCompatActivity() {
             }
             7 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
             8 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             9 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_red_circle_close)
+                //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }
             18 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
+                //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }
             19 -> {
                 binding.tvOrderStatusMsg.text = resources.getString(R.string.kpay_success)
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
+                //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+            }
+            21 -> {
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             20 -> {
                 binding.tvOrderStatusMsg.text = resources.getString(R.string.kpay_fail)
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
+                //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }
             else -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
-                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+                //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
         }
     }

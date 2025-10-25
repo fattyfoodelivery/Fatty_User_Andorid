@@ -2,7 +2,7 @@
 
     <string name="app_name">Fatty Food</string>
     <string name="fatty_food_delivery">Fatty Food Delivery</string>
-    <string name="select_your_language">Select Your Language</string>
+    <string name="select_your_language">Select Language</string>
     <string name="get_started">Get Started</string>
     <string name="myanmar">Myanmar</string>
     <string name="chinese">Chinese</string>
@@ -194,7 +194,7 @@
     <string name="please_confirm_address">Please Confirm Address</string>
     <string name="fatty_is_delivering_your_order_to">Fatty is delivering your order to</string>
     <string name="current_address">Current Address</string>
-    <string name="order_success">Order success</string>
+    <string name="order_success">Order Success</string>
     <string name="order_failed">Order Failed</string>
     <string name="retry">Retry</string>
     <string name="cancel_order">Cancel Order</string>
@@ -205,6 +205,7 @@
     <string name="building_suites_street">Building/Suites/Street</string>
     <string name="enter_building_suites_street">Enter Building/Suites/Street</string>
     <string name="home">Home</string>
+    <string name="txt_home">Home</string>
     <string name="order">Order</string>
     <string name="notification">Notification</string>
     <string name="account">Account</string>
@@ -307,13 +308,13 @@
     <string name="view_rating">View Rating</string>
     <string name="abnormal">(Abnormal)</string>
     <string name="txt_more">More</string>
-    <string name="please_enter_you_name">Please enter your name</string>
+    <string name="please_enter_you_name">Please Enter Name</string>
     <string name="txt_checkout">Checkout</string>
     <string name="parcels_are_delivered_anywhere">Parcels are delivered anywhere in your city</string>
     <string name="book_delivery_now">Book Delivery Now</string>
     <string name="make_your_first_search">Make your first search</string>
     <string name="str_orders">Orders</string>
-    <string name="str_message">Message</string>
+    <string name="str_message">System</string>
     <string name="str_about">About</string>
     <string name="str_log_out">Log Out</string>
     <string name="str_log_out_question">Log Out ?</string>
@@ -354,8 +355,9 @@
     <string name="txt_update_successfully">Update successfully</string>
     <string name="testaurant_unavailable_now">Unavailable Now</string>
     <string name="txt_accept_by_rider_p">Accept By Rider (P)</string>
-    <string name="txt_my_wishlist">我喜欢 ( %1$d )</string>
+    <string name="txt_my_wishlist">Wishlist ( %s )</string>
     <string name="txt_skip"><![CDATA[Skip >>]]></string>
+    <string name="txt_skip_without_arrow"><![CDATA[Skip ]]></string>
     <string name="txt_top_rated_restaurants">Top-Rated Restaurants</string>
     <string name="force_update">Force Update</string>
     <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">By doing so, you won’t be able to bring it back.</string>
@@ -387,11 +389,17 @@
     <string name="txt_order_pending_subtitle">Please wait a moment. Your order hasn’t been confirmed by the admin yet.</string>
     <string name="txt_log_out">Log Out?</string>
     <string name="service_region_s">Service Region : %s</string>
-    <string name="txt_parcel_sending_unavailable">Parcel Sending Unavailable</string>
-    <string name="txt_booking_unavailabel_desc">Delivery hours are available from %s AM to %s PM. Please try again later.</string>
+    <string name="txt_parcel_sending_unavailable">Service Unavailable Now</string>
+    <string name="txt_booking_unavailabel_desc">Delivery hours are available from %s to %s. Please try again later.</string>
     <string name="txt_back_to_home">Back To Home</string>
     <string name="txt_login_continue">Continue</string>
     <string name="txt_item">Item</string>
     <string name="txt_items">Items</string>
     <string name="txt_view">View</string>
+    <string name="txt_reset_my_current_location">Reset My Current Location</string>
+    <string name="txt_delete_address">Delete Address?</string>
+    <string name="txt_are_you_sure_to_delete_this_address">Are you sure to delete this address?</string>
+    <string name="txt_are_you_sure_to_set_up_default_address">Are you sure to set up default address?</string>
+    <string name="txt_reset">Reset</string>
+    <string name="txt_preperation_time_min">Preperation Time : %1$d Min</string>
 </resources>

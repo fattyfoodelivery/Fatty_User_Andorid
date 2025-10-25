@@ -12,6 +12,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityHelpCenterBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.phoneCall
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,13 +86,16 @@ class HelpCenterActivity : AppCompatActivity() {
     }
 
     private fun renderLoading() {
+        LoadingProgressDialog.showLoadingProgress(this)
     }
 
     private fun renderSuccess(state: com.orikino.fatty.domain.viewstates.AboutViewState.OnSuccessHelpCenter) {
+        LoadingProgressDialog.hideLoadingProgress()
         helpCenterAdapter.setNewData(state.data.data)
     }
 
     private fun renderError() {
+        LoadingProgressDialog.hideLoadingProgress()
     }
 
     override fun attachBaseContext(newBase: Context?) {

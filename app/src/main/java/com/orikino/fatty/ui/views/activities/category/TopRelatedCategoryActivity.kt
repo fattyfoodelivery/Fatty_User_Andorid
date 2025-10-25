@@ -105,8 +105,8 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                 PreferenceUtils.readUserVO().customer_id?.let {
                     viewModel.fetchTopRelatedCategory(
                         it,
-                        PreferenceUtils.readUserVO().latitude ?: 0.0,
-                        PreferenceUtils.readUserVO().latitude ?: 0.0
+                        PreferenceUtils.readUserVO().latitude?:0.0,
+                        PreferenceUtils.readUserVO().longitude?:0.0
                     )
                 }
             }else{
@@ -115,11 +115,10 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                         cat_id!!,
                         it,
                         PreferenceUtils.readUserVO().latitude ?: 0.0,
-                        PreferenceUtils.readUserVO().latitude ?: 0.0
+                        PreferenceUtils.readUserVO().longitude ?: 0.0
                     )
                 }
             }
-
         }
 
     }

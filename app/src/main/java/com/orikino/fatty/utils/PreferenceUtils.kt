@@ -46,6 +46,10 @@ object PreferenceUtils {
 
     private const val SHOWED_ONBOARDING = "showed_onboarding"
 
+    private const val TEMP_NOTI_BODY = "temp_noti_body"
+
+    private const val TO_EDIT_ADDRESS = "to_edit_address"
+
 
     var needToShow = true
     var isHome = MutableLiveData(false)
@@ -69,6 +73,18 @@ object PreferenceUtils {
 
 
     var FROM_HOME = 1
+
+    fun writeToEditAddress(value : CustomerAddressVO){
+        Paper.book().write(TO_EDIT_ADDRESS,value)
+    }
+
+    fun readToEditAddress() : CustomerAddressVO? = Paper.book().read(TO_EDIT_ADDRESS)
+
+    fun writeTempNotiBody(value: String) {
+        Paper.book().write(TEMP_NOTI_BODY, value)
+    }
+
+    fun readTempNotiBody(): String? = Paper.book().read(TEMP_NOTI_BODY, "")
 
     fun writeShowedOnboarding(value: Boolean) {
         Paper.book().write(SHOWED_ONBOARDING, value)

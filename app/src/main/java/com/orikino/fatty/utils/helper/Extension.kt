@@ -79,6 +79,7 @@ import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 const val rcCamera = 1
 const val rcGallery = 2
@@ -349,6 +350,21 @@ fun getCurrentDate(): String {
 
 fun Int.toThousandSeparator() = String.format(Locale.US, "%,.2f", this)
 fun Double.toThousandSeparator() = String.format(Locale.US, "%,.2f", this)
+
+fun String.toReadableTime(): String {
+    return try {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val date = inputFormat.parse(this)
+
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.ENGLISH)
+        outputFormat.format(date ?: "")
+    } catch (e: Exception) {
+        e.printStackTrace()
+        this
+    }
+}
+
 
 /*fun AppCompatImageView.loadImageGlide(source: String) {
     Glide.with(context)

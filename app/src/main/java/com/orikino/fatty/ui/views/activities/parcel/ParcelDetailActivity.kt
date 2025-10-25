@@ -233,9 +233,21 @@ class ParcelDetailActivity : AppCompatActivity() {
                 binding.tvOrderStatus.text = type.order_status_name
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
+            14 -> {
+                binding.tvOrderStatus.text = type.order_status_name
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+            }
             15 -> {
                 binding.tvOrderStatus.text = type.order_status_name
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+            }
+            16 -> {
+                binding.tvOrderStatus.text = type.order_status_name
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+            }
+            17 -> {
+                binding.tvOrderStatus.text = type.order_status_name
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
             18 -> {
                 binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_pending)
@@ -250,6 +262,14 @@ class ParcelDetailActivity : AppCompatActivity() {
             20 -> {
                 binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_fail)
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
+            }
+            21 -> {
+                binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_pending)
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+            }
+            else -> {
+                binding.tvOrderStatus.text = type.order_status_name//resources.getString(R.string.kpay_pending)
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
 
         }

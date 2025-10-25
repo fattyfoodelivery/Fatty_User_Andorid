@@ -82,14 +82,19 @@ class AddressDefinedActivity : AppCompatActivity() {
     private var provider: LocationGooglePlayServicesProvider? = null
     private var isReady = MutableLiveData<Boolean>(false)
     private var addresss: String? = null
+    private var isEdit : Boolean = false
+    private var oldAddress : CustomerAddressVO? = null
 
     companion object {
         const val LAT = "lat"
         const val LNG = "lng"
-        fun getIntent(lat: Double, lng: Double): Intent {
+
+        const val IS_EDIT = "isEdit"
+        fun getIntent(lat: Double, lng: Double, isEdit : Boolean = false): Intent {
             val intent = Intent(FattyApp.getInstance(), AddressDefinedActivity::class.java)
             intent.putExtra(LAT, lat)
             intent.putExtra(LNG, lng)
+            intent.putExtra(IS_EDIT,isEdit)
             return intent
         }
     }
@@ -102,6 +107,11 @@ class AddressDefinedActivity : AppCompatActivity() {
         locations.latitude = intent.getDoubleExtra(LAT, 0.0)
         locations.longitude = intent.getDoubleExtra(LNG, 0.0)
 
+        isEdit = intent.getBooleanExtra(IS_EDIT,false)
+
+        if (isEdit){
+            setUpOldData()
+        }
         if (PreferenceUtils.readManageAddress()?.customer_address?.customer_address_id != 0) bindAddressUpdateUI() else defaultType()
         subscribeUI()
         askLocationPermission()
@@ -116,6 +126,51 @@ class AddressDefinedActivity : AppCompatActivity() {
         setUpRestNote()
     }
 
+    private fun setUpOldData(){
+        oldAddress = PreferenceUtils.readToEditAddress()
+        updateStatus = "update"
+        _binding.edtPhone.setText(oldAddress?.customer_phone)
+        if (oldAddress?.secondary_phone != null){
+            _binding.edtOtherPhone.setText(oldAddress?.secondary_phone)
+        }
+        _binding.edtBuilding.setText(oldAddress?.building_system)
+        when(oldAddress?.address_type){
+            "Home" -> {
+                status = "Home"
+                homeSelected()
+            }
+            "အိမ်" -> {
+                status = "Home"
+                homeSelected()
+            }
+            "家" -> {
+                status = "Home"
+                homeSelected()
+            }
+            "အလုပ်" -> {
+                status = "Work"
+                workSelected()
+            }
+            "工作单位" -> {
+                status = "Work"
+                workSelected()
+            }
+            "တခြား" -> {
+                status = "Work"
+                workSelected()
+            }
+            "Work" -> {
+                status = "Work"
+                workSelected()
+            }
+            else -> {
+                status = "Other"
+                otherSelected()
+            }
+        }
+        _binding.rbtDefaultAddress.isChecked = oldAddress?.is_default!!
+    }
+
     private fun setUpRestNote() {
         _binding.edtBuilding.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -123,7 +178,6 @@ class AddressDefinedActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val trimmedNote = s?.toString()?.trim() ?: ""
-                PreferenceUtils.writeRestaurantNote(trimmedNote)
                 _binding.tvNoteCount.text = "${trimmedNote.length}/120"
                 if (trimmedNote.length > 120) {
                     _binding.edtBuilding.clearFocus()
@@ -165,7 +219,7 @@ class AddressDefinedActivity : AppCompatActivity() {
             }
             if (!PreferenceUtils.readManageAddress()?.status!!) {
                 finish()
-                startActivity(AddressPickUpMapBoxActivity.getIntent("", 4))
+                startActivity(AddressPickUpMapBoxActivity.getIntent())
 
             } else finish()
         }
@@ -439,10 +493,11 @@ class AddressDefinedActivity : AppCompatActivity() {
             other = _binding.edtBuilding.text.toString()
             currentAddress = _binding.edtLocationAddress.text.toString()
             customer_phone = _binding.edtPhone.text.toString()
+            building = _binding.edtBuilding.text.toString()
             if (status != "" && currentAddress != "" && customer_phone != "") {
                 if (updateStatus == "update") PreferenceUtils.readUserVO().customer_id?.let { it1 ->
                     viewModel.updateCurrentAddress(
-                        customerAddress.customer_address_id,
+                        oldAddress?.customer_address_id!!,
                         it1,
                         locations.latitude,
                         locations.longitude,
@@ -657,8 +712,10 @@ class AddressDefinedActivity : AppCompatActivity() {
     }
 
     private fun defaultType() {
-        status = "Home"
-        homeSelected()
+        if (!isEdit) {
+            status = "Home"
+            homeSelected()
+        }
 //        if (PreferenceUtils.readManageAddress()?.longitude != 0.0 && PreferenceUtils.readManageAddress()?.latitude != 0.0) {
 //            //locations.latitude = PreferenceUtils.readManageAddress()?.latitude!!
 //            //locations.longitude = PreferenceUtils.readManageAddress()?.longitude!!
@@ -730,47 +787,47 @@ class AddressDefinedActivity : AppCompatActivity() {
         clearSelected()
     }
 
-    private fun showConfirmDialog(title: String, message: String) {
-        var binding = LayoutDialogRemoveCartBinding.inflate(LayoutInflater.from(this))
-        val builder = AlertDialog.Builder(this)
-        builder.setView(dialogView)
-        alertDialog = builder.create().apply {
-            window?.setBackgroundDrawableResource(android.R.color.transparent)
-            setCancelable(false)
-            binding?.tvTitle?.text = title
-            binding?.tvTitleDesc?.text = message
-
-            binding?.btnClose?.setOnClickListener {
-                dismiss()
-            }
-            binding?.btnRemove?.text = resources.getString(R.string.confirm_location)
-            binding?.btnRemove?.setOnClickListener {
-                dismiss()
-                finish()
-                PreferenceUtils.readManageAddress()?.customer_address?.let { it1 ->
-                    PreferenceUtils.readManageAddress()?.status?.let { it2 ->
-                        PreferenceUtils.readManageAddress()?.latitude?.let { it3 ->
-                            PreferenceUtils.readManageAddress()?.longitude?.let { it4 ->
-                                ManageAddress(
-                                    it1,
-                                    it2,
-                                    true,
-                                    it3,
-                                    it4
-                                )
-                            }
-                        }
-                    }
-                }?.let { it2 ->
-                    PreferenceUtils.writeManageAddress(
-                        it2
-                    )
-                }
-                startActivity(AddressPickUpMapBoxActivity.getIntent("", 4))
-            }
-            show()
-        }
-    }
+//    private fun showConfirmDialog(title: String, message: String) {
+//        var binding = LayoutDialogRemoveCartBinding.inflate(LayoutInflater.from(this))
+//        val builder = AlertDialog.Builder(this)
+//        builder.setView(dialogView)
+//        alertDialog = builder.create().apply {
+//            window?.setBackgroundDrawableResource(android.R.color.transparent)
+//            setCancelable(false)
+//            binding?.tvTitle?.text = title
+//            binding?.tvTitleDesc?.text = message
+//
+//            binding?.btnClose?.setOnClickListener {
+//                dismiss()
+//            }
+//            binding?.btnRemove?.text = resources.getString(R.string.confirm_location)
+//            binding?.btnRemove?.setOnClickListener {
+//                dismiss()
+//                finish()
+//                PreferenceUtils.readManageAddress()?.customer_address?.let { it1 ->
+//                    PreferenceUtils.readManageAddress()?.status?.let { it2 ->
+//                        PreferenceUtils.readManageAddress()?.latitude?.let { it3 ->
+//                            PreferenceUtils.readManageAddress()?.longitude?.let { it4 ->
+//                                ManageAddress(
+//                                    it1,
+//                                    it2,
+//                                    true,
+//                                    it3,
+//                                    it4
+//                                )
+//                            }
+//                        }
+//                    }
+//                }?.let { it2 ->
+//                    PreferenceUtils.writeManageAddress(
+//                        it2
+//                    )
+//                }
+//                startActivity(AddressPickUpMapBoxActivity.getIntent("", 4))
+//            }
+//            show()
+//        }
+//    }
 
     /*private fun setUpCancelable() {
         //edt_address.requestFocus()

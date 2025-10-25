@@ -475,11 +475,12 @@
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/fattyPrimary"/>
                 </RelativeLayout>
-                <ImageView
-                    android:id="@+id/imv_parcel_image"
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/order_his_parcel"
+                    android:id="@+id/imv_parcel_image"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner8dp"
+                    android:src="@drawable/parcel_default_img"
                     android:layout_marginTop="16dp"/>
             </LinearLayout>
 

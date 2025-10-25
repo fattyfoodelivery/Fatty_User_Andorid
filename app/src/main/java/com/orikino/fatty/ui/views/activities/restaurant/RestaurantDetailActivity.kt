@@ -112,6 +112,9 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
     override fun onResume() {
         super.onResume()
         checkGPS()
+        PreferenceUtils.readUserVO().customer_id?.let {
+            viewModel.fetchFoodMenuByRestaurant(restaurantInfO.restaurant_id,it,PreferenceUtils.readUserVO().latitude?:0.0,PreferenceUtils.readUserVO().longitude?:0.0)
+        }
         viewModel.isAnimate = false
         viewModel.isEmptyCart.observe(this) {
             PreferenceUtils.writeAddToCart(it)
@@ -191,10 +194,6 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
     }
 
     private fun setUpObserver() {
-
-        PreferenceUtils.readUserVO().customer_id?.let {
-            viewModel.fetchFoodMenuByRestaurant(restaurantInfO.restaurant_id,it,PreferenceUtils.readUserVO().latitude?:0.0,PreferenceUtils.readUserVO().longitude?:0.0)
-        }
         viewModel.viewState.observe(
             this,
             Observer {

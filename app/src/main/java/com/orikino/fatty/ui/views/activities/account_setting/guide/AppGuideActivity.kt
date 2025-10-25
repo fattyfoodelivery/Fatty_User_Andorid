@@ -15,6 +15,7 @@ import com.orikino.fatty.domain.viewstates.AboutViewState
 import com.orikino.fatty.ui.views.activities.account_setting.play_guide.PlayGuideActivity
 import com.orikino.fatty.utils.delegate.ItemStringDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,12 +59,16 @@ class AppGuideActivity : AppCompatActivity() , ItemStringDelegate {
     }
 
 
-    private fun renderOnLoadingTutorial() {}
+    private fun renderOnLoadingTutorial() {
+        LoadingProgressDialog.showLoadingProgress(this)
+    }
     private fun renderOnFailTutorial(state: AboutViewState.OnFailTutorial) {
+        LoadingProgressDialog.hideLoadingProgress()
         showSnackBar(state.message!!)
     }
 
     private fun renderOnSuccessTutorial(state: AboutViewState.OnSuccessTutorial) {
+        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             playerGuideAdapter.setNewData(state.data.data)
         }

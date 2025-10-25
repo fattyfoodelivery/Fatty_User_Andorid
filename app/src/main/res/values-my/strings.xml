@@ -16,6 +16,7 @@
     <string name="maintain_msg">Please try again later!</string>
 
     <string name="home">မူလ</string>
+    <string name="txt_home">အိမ်</string>
     <string name="order">အော်ဒါ</string>
     <string name="notification">အသိပေးချက်</string>
     <string name="account">မိမိ</string>
@@ -166,7 +167,7 @@
     <string name="choose_payment_method">ငွေပေးချေမှုနည်းလမ်းကို ရွေးချယ်ရန်</string>
     <string name="any_restaurant_request_type_here">တောင်းဆိုမှု တစ်စုံတစ်ရာ ရှိပါသလား။ ဒီမှာ ရိုက်ပါ။</string>
     <string name="bill_details">ဘေလ်အသေးစိတ်</string>
-    <string name="item_totals">ပစ္စည်းအရေအတွက်:</string>
+    <string name="item_totals">စုစုပေါင်း:</string>
     <string name="delivery_fees">ပို့ဆောင်ခ:</string>
     <string name="delivery_fees_abnormal">ပို့ဆောင်ခ (Abnormal):</string>
     <string name="extra_fees">အပိုကြေးများ:</string>
@@ -186,14 +187,14 @@
     <string name="please_confirm_address">Please Confirm Address</string>
     <string name="fatty_is_delivering_your_order_to">Fattyက အမှာစာကို ပို့ပေးနေပါတယ်။</string>
     <string name="current_address">လက်ရှိနေရပ်လိပ်စာ</string>
-    <string name="order_success">အော်ဒါအောင်မြင်တယ်။</string>
+    <string name="order_success">အော်ဒါတင်ပြီးပါပြီ</string>
     <string name="order_failed">Order Failed</string>
     <string name="retry">Retry</string>
     <string name="cancel_order">Cancel Order</string>
-    <string name="your_order_has_been_placed_successfully">အော်ဒါက်ို အောင်မြင်စွာ ပြုလုပ်ပြီးပါပြီ</string>
+    <string name="your_order_has_been_placed_successfully">အော်ဒါတင်ခြင်းအောင်မြင်ပါသည်။</string>
     <string name="please_check_your_payment_and_try_again">Please check your payment and try again.</string>
     <string name="add_new_address">လိပ်စာအသစ်ထည့်ပါ။</string>
-    <string name="set_delivery_location">Delivery Location သတ်မှတ်ပါ။</string>
+    <string name="set_delivery_location">ပို့ဆောင်မည့်နေရာကိုအတည်ပြုပါ</string>
     <string name="building_suites_street">အဆောက်အဦး/အခန်း/လမ်း</string>
     <string name="enter_building_suites_street">အိမ်နံပါတ်/တိုက်/လမ်းနံပါတ်</string>
     <string name="work">အလုပ်</string>
@@ -236,7 +237,7 @@
     <string name="out_of_service">ဝန်ဆောင်မှု မရရှိသေးပါ</string>
     <string name="notice_message">This item is unavailable now</string>
     <string name="empty_cart">Empty Cart</string>
-    <string name="resend_code">ပတခါသုံးကုတ် ပြန်တောင်းမည်။</string>
+    <string name="resend_code">တခါသုံးကုတ် ပြန်တောင်းမည်။</string>
     <string name="send_again">Send Again</string>
     <string name="select_profile_photo">Select Profile Photo</string>
     <string name="take_photo">Take Photo</string>
@@ -255,7 +256,7 @@
     <string name="str_review">Review</string>
     <string name="no_review">No Review</string>
     <string name="are_you_sure_to_delete_this_order">Are you sure to delete this order?</string>
-    <string name="str_delete">Delete</string>
+    <string name="str_delete">ဖျက်မည်</string>
     <string name="please_add_items_to_your_cart">ဈေးခြင်းထဲသို့ ထည့်ပါ။</string>
     <string name="order_id">အော်ဒါနံပါတ် :</string>
     <string name="notifications">အသိပေးချက်များ</string>
@@ -293,7 +294,7 @@
     <string name="book_delivery_now">ယခုပေးပို့ပါ</string>
     <string name="make_your_first_search">စတင်ရှာဖွေမှု ပြုလုပ်ပါ။</string>
     <string name="str_orders">အော်ဒါများ</string>
-    <string name="str_message">စာပေးပို့ခြင်း</string>
+    <string name="str_message">စနစ်</string>
     <string name="str_about">ကျွန်ုပ်တို့အကြောင်း</string>
     <string name="str_log_out">အကောင့်ထွက်ရန်</string>
     <string name="str_log_out_question">အကောင့်ထွက်မလား?</string>
@@ -315,7 +316,7 @@
     <string name="your_note_exceeds_30_characters">Your note exceeds 30 characters!</string>
     <string name="new_version_is_available">ဗားရှင်းအသစ် ရပါပြီ။</string>
     <string name="your_app_will_be_the_latest_version">သင့်အက်ပ်သည် နောက်ဆုံးဗားရှင်းဖြစ်လိမ့်မည်။</string>
-    <string name="we_have_sent_a_6_digit_to">ကျွန်ုပ်တို့သည် %s သို့ ဂဏန်း 6 လုံး ပေးပို့ထားပါသည်။</string>
+    <string name="we_have_sent_a_6_digit_to">%s သို့ ဂဏန်း 6 လုံး ပေးပို့ထားပါသည်။</string>
     <string name="txt_enter_your_phone_number">သင့်ဖုန်းနံပါတ်ကို ထည့်ပါ။</string>
     <string name="txt_please_fill_your_information_correctly">သင့်အချက်အလက်များကို မှန်ကန်စွာဖြည့်ပါ။</string>
     <string name="txt_edit_phone_number">ဖုန်းနံပါတ်ကို ပြင်ဆင်ပါ။</string>
@@ -334,8 +335,9 @@
     <string name="txt_update_successfully">အပ်ဒိတ် အောင်မြင်ပါပြီ။</string>
     <string name="testaurant_unavailable_now">ဆိုင်ပိတ်သည်</string>
     <string name="txt_accept_by_rider_p">ပို့ဆောင်သူမှ လက်ခံပြီး</string>
-    <string name="txt_my_wishlist">စိတ်ကြိုက် ( %1$d )</string>
+    <string name="txt_my_wishlist">စိတ်ကြိုက် ( %s )</string>
     <string name="txt_skip"><![CDATA[ကျော်မည် >>]]></string>
+    <string name="txt_skip_without_arrow"><![CDATA[ကျော်မည် ]]></string>
     <string name="txt_top_rated_restaurants">ထိပ်တန်း စားသောက်ဆိုင်များ</string>
     <string name="force_update">ပြင်ဆင်ရန်</string>
     <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">ထိုသို့ပြုလုပ်ခြင်းဖြင့် ပြန်ယူနိုင်မည်မဟုတ်ပါ။</string>
@@ -367,11 +369,17 @@
     <string name="txt_order_pending_subtitle">ကျေးဇူးပြုပြီး ခဏစောင့်ပါ။ သင့်အော်ဒါကို အက်မင်မှ အတည် မပြုသေးပါ။</string>
     <string name="txt_log_out">အကောင့်ထွက်မည်လား?</string>
     <string name="service_region_s">ဝန်ဆောင်မှု ဒေသ : %s</string>
-    <string name="txt_parcel_sending_unavailable">ပါဆယ်ပို့ဆောင်မှု မရနိုင်ပါ။</string>
-    <string name="txt_booking_unavailabel_desc">ပို့ဆောင်မှုအချိန်သည် မနက် %s မှ ညနေ %s အတွင်းသာ ရနိုင်ပါသည်။ ကျေးဇူးပြုပြီး နောက်ပိုင်းတွင် ထပ်မံကြိုးစားပါ။</string>
+    <string name="txt_parcel_sending_unavailable">ဝန်ဆောင်မှု မရနိုင်ပါ။</string>
+    <string name="txt_booking_unavailabel_desc">ပို့ဆောင်မှုအချိန်သည် %s မှ %s အတွင်းသာ ရနိုင်ပါသည်။ ကျေးဇူးပြုပြီး နောက်ပိုင်းတွင် ထပ်မံကြိုးစားပါ။</string>
     <string name="txt_back_to_home">ပင်မစာမျက်နှာသို့</string>
     <string name="txt_login_continue">ဆက်သွားမည်</string>
     <string name="txt_item">မျိုး</string>
     <string name="txt_items">မျိုး</string>
     <string name="txt_view">ကြည့်မည်</string>
+    <string name="txt_reset_my_current_location">လက်ရှိတည်နေရာကို ပြန်ရွေးပါ</string>
+    <string name="txt_delete_address">လိပ်စာဖျက်မည်လား?</string>
+    <string name="txt_are_you_sure_to_delete_this_address">လိပ်စာကို ဖျက်လိုသည်မှာ သေချာပါလား?</string>
+    <string name="txt_are_you_sure_to_set_up_default_address">မူရင်လိပ်စာကို သတ်မှတ်ရန် သေချာပါသလား?</string>
+    <string name="txt_reset">ပြန်သတ်မှတ်ရန်</string>
+    <string name="txt_preperation_time_min">ပြင်ဆင်ရန်ကြာချိန် : %1$d Min</string>
 </resources>

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
@@ -13,6 +15,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.adapters.AddressAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityManageAddressBinding
+import com.orikino.fatty.databinding.LayoutConfirmCancelDialogBinding
 import com.orikino.fatty.domain.view_model.AddressViewModel
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
@@ -23,8 +26,11 @@ import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.domain.model.*
+import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +60,9 @@ class ManageAddressActivity : AppCompatActivity(){
 
         manageAddressBinding = ActivityManageAddressBinding.inflate(layoutInflater)
         setContentView(manageAddressBinding.root)
-
+        manageAddressBinding.emptyView.emptyImage.setImageResource(R.drawable.ic_no_address)
+        manageAddressBinding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
+        manageAddressBinding.emptyView.emptyMessageDes.text = ""
         subscribeUI()
         setUpCustomerAddressList()
         fromCart = intent.getBooleanExtra(FROM_CART, false)
@@ -81,6 +89,10 @@ class ManageAddressActivity : AppCompatActivity(){
         viewModel.viewState.observe(this){ render(it) }
         viewModel.manageAddressLiveDataList.observe(this) {
             addressAdapter?.setNewData(it)
+            if (it.isNotEmpty())
+                manageAddressBinding.emptyView.root.visibility = android.view.View.GONE
+            else
+                manageAddressBinding.emptyView.root.visibility = android.view.View.VISIBLE
         }
     }
 
@@ -118,6 +130,10 @@ class ManageAddressActivity : AppCompatActivity(){
 
     }
     private fun renderOnSuccessDeleteAddress(state: AddressViewState.OnSuccessDeleteAddress) {
+        if (state.data.data.isEmpty())
+            manageAddressBinding.emptyView.root.visibility = android.view.View.VISIBLE
+        else
+            manageAddressBinding.emptyView.root.visibility = android.view.View.GONE
         addressAdapter?.setNewData(state.data.data)
     }
 
@@ -144,7 +160,6 @@ class ManageAddressActivity : AppCompatActivity(){
 
     private fun renderOnSuccessCustomerAddressList(state: AddressViewState.OnSuccessCustomerAddressList) {
         if (state.data.success) viewModel.manageAddressLiveDataList.postValue(state.data.data)
-
     }
 
     private fun renderOnFailCustomerAddressList(state: AddressViewState.OnFailCustomerAddressList) {
@@ -258,39 +273,105 @@ class ManageAddressActivity : AppCompatActivity(){
         addressAdapter = AddressAdapter(FattyApp.getInstance()) { data, str, pos ->
             when (str) {
                 "root" -> onTapItemChange(pos)
-                "default" -> viewModel.setUpDefaultAddress(data.customer_address_id)
-                "delete" -> viewModel.deleteAddress(data.customer_address_id)
-                "update" -> viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone?: "",data.building_system?:"",data.address_type, data.is_default, data.secondary_phone)
+                "default" -> {
+                    setDefault(data)
+                }
+                "delete" -> {
+                    deleteAddress(data)
+
+                }
+                "update" -> {
+                    PreferenceUtils.writeToEditAddress(data)
+                    startActivity(AddressPickUpMapBoxActivity.getIntent(true))
+                    //viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone?: "",data.building_system?:"",data.address_type, data.is_default, data.secondary_phone)
+                }
             }
         }
         manageAddressBinding.rvCustomerAddress.adapter = addressAdapter
     }
 
-    private fun onTapItemChange(pos : Int) {
+    private fun setDefault(data: CustomerAddressVO) {
+        val dialogView = LayoutConfirmCancelDialogBinding.inflate(LayoutInflater.from(this))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView.root)
+        builder.create().apply {
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+            setCancelable(false)
+            dialogView.tvTitle.text = getString(R.string.txt_information)
+            dialogView.tvDesc.text = getString(R.string.txt_are_you_sure_to_set_up_default_address)
+            dialogView.btnContact.text = getString(R.string.confirm)
+            dialogView.btnCancel.text = getString(R.string.str_cancel)
+            dialogView.btnCancel.setOnClickListener {
+                dismiss()
+            }
+            dialogView.ivClose.setOnClickListener { dismiss() }
+            dialogView.btnContact.setOnClickListener {
+                dismiss()
+                //orderHistoryAdapter?.submitList(mutableListOf())
+
+                //viewModel.orderHistoriesList.clear()
+                //viewModel.pastOrderHistoriesList.clear()
+                //viewModel.foodOrderList.clear()
+                //viewModel.parcelOrderHistoriesList.clear()
+                //viewModel.parcelPastOrderHistoriesList.clear()
+                //viewModel.parcelOrderList.clear()
+                viewModel.setUpDefaultAddress(data.customer_address_id)
+            }
+
+            show()
+        }
+
     }
 
-    private fun setDefaultAddress(data: CustomerAddressVO) {
-        //viewModel.setUpDefaultAddress(data.customer_address_id)
-        /*when (data.is_default) {
-            true -> {
-                radioDefault.isChecked = true
-                setAsDefaultAddressDialog(
-                    resources.getString(R.string.remove_default_address),
-                    resources.getString(R.string.sure_to_confirm),
-                    resources.getString(R.string.confirm),
-                    data.customer_address_id
-                )
+    private fun deleteAddress(data: CustomerAddressVO) {
+        showConfirmDialog(
+            getString(R.string.txt_delete_address),//resources.getString(R.string.are_you_sure_to_delete_this_order),
+            getString(R.string.txt_are_you_sure_to_delete_this_address),
+            //resources.getString(R.string.sure_to_cancel),
+            data
+        )
+
+    }
+
+    private fun showConfirmDialog(title: String, message: String, data : CustomerAddressVO) {
+        val dialogView = LayoutConfirmCancelDialogBinding.inflate(LayoutInflater.from(this))//layoutInflater.inflate(R.layout.layout_dialog_remove_cart, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView.root)
+        builder.create().apply {
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+            setCancelable(false)
+            dialogView.tvTitle.text = title
+            if(message.isEmpty()){
+                dialogView.tvDesc.gone()
+            } else {
+                dialogView.tvDesc.show()
             }
-            else -> {
-                radioDefault.isChecked = false
-                setAsDefaultAddressDialog(
-                    resources.getString(R.string.set_as_default_address),
-                    resources.getString(R.string.sure_to_confirm),
-                    resources.getString(R.string.confirm),
-                    data.customer_address_id
-                )
+            dialogView.tvDesc.text = message
+            dialogView.btnContact.text = getString(R.string.str_delete)
+            dialogView.btnCancel.text = getString(R.string.str_cancel)
+            dialogView.btnCancel.setOnClickListener {
+                dismiss()
             }
-        }*/
+            dialogView.ivClose.setOnClickListener { dismiss() }
+            dialogView.btnContact.setOnClickListener {
+                dismiss()
+                //orderHistoryAdapter?.submitList(mutableListOf())
+
+                //viewModel.orderHistoriesList.clear()
+                //viewModel.pastOrderHistoriesList.clear()
+                //viewModel.foodOrderList.clear()
+                //viewModel.parcelOrderHistoriesList.clear()
+                //viewModel.parcelPastOrderHistoriesList.clear()
+                //viewModel.parcelOrderList.clear()
+                viewModel.deleteAddress(data.customer_address_id)
+            }
+
+            show()
+        }
+    }
+
+
+    private fun onTapItemChange(pos : Int) {
     }
 
     private fun deleteAddress() {

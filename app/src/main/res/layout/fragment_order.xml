@@ -66,10 +66,12 @@
 
             <include
                 android:id="@+id/empty_vew"
-                layout="@layout/layout_empty_view"/>
+                layout="@layout/layout_empty_view"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_order"
+                android:layout_marginTop="@dimen/margin_2xSmall"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible"/>

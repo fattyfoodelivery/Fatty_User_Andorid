@@ -63,7 +63,7 @@ class VerifyOTPActivity : AppCompatActivity() {
                 setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 26 , 26 + otpSpanLength)
         }else if (PreferenceUtils.readLanguage() == "my"){
             verifyBinding.tvOtpSendTo.text =
-                setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 16 , 16 + otpSpanLength)
+                setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 0 , 0 + otpSpanLength)
         }else{
             verifyBinding.tvOtpSendTo.text =
                 setColorSpannable(otpSupString , ContextCompat.getColor(this , R.color.black) , 13 , 13 + otpSpanLength)

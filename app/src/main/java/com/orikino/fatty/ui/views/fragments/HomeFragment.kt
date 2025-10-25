@@ -600,6 +600,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     }
 
     private fun renderOnSuccessHome(state: HomeViewState.OnSuccessHome) {
+        binding?.layoutNetworkError?.root?.gone()
         stopShimmerEffect()
         LoadingProgressDialog.hideLoadingProgress()
         val newCategories = state.data.categories.subList(0,8)
@@ -793,21 +794,26 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
     private fun setUpAdsOneSlider(data: MutableList<UpAndDownVO>) {
         stopAutoSlider() // Stop any previous slider
-
-        this.adsDataSize = data.size
-        this.homeSlideAdapter = HomeSlideAdapter(this, adsDataSize, data) { position ->
+        val tempData = data
+        this.adsDataSize = if(data.size == 1){
+            tempData.add(data[0])
+            2
+        }else{
+            data.size
+        }
+        this.homeSlideAdapter = HomeSlideAdapter(this, adsDataSize, tempData) { position ->
             //swipePagerWithCoverPopupView()
-            when(data[position].display_type_id){
+            when(tempData[position].display_type_id){
                 1 -> {
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
                     val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
-                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data[position].restaurant_id)
+                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,tempData[position].restaurant_id)
                     context?.startActivity(intent)
                 }
                 2 -> {
-                    val htmlContent = data[position].display_type_description
-                    val title = data[position].restaurant_name
+                    val htmlContent = tempData[position].display_type_description
+                    val title = tempData[position].restaurant_name
                     if (htmlContent.isNotEmpty()) {
                         val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
                         if (filePath != null) {
@@ -817,7 +823,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     }
                 }
                 3 -> {
-                    val url = data[position].display_type_description
+                    val url = tempData[position].display_type_description
                     if (url.isNotEmpty()) {
                         try {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

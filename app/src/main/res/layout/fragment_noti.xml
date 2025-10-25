@@ -43,6 +43,18 @@
                     android:contentDescription="@string/content_desc"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="18dp"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_reset"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="18dp"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/outfit_medium"
+                    android:textSize="18sp"/>
             </RelativeLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>

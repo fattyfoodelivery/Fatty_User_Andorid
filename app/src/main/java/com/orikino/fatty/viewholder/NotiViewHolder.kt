@@ -68,7 +68,9 @@ class NotiViewHolder(var binding : ItemNotificationsBinding,var callback: (UserN
                 "19" -> {
                     binding.tvOrderStauts.setTextColor(ContextCompat.getColor(this.itemView.context,R.color.success200))
                 }
-                else -> {}
+                else -> {
+
+                }
             }
         }
 

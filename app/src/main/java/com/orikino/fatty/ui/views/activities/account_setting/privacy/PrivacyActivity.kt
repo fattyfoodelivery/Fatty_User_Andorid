@@ -19,6 +19,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.domain.viewstates.AboutViewState
 import com.orikino.fatty.databinding.ActivityPrivacyBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
+import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
@@ -177,20 +178,21 @@ class PrivacyActivity : AppCompatActivity() {
         }
     }
 
-    private fun render(state : com.orikino.fatty.domain.viewstates.AboutViewState) {
+    private fun render(state : AboutViewState) {
         when(state) {
-            is com.orikino.fatty.domain.viewstates.AboutViewState.OnLoadingPrivacyPolicy -> {
-
+            is AboutViewState.OnLoadingPrivacyPolicy -> {
+                LoadingProgressDialog.showLoadingProgress(this)
             }
-            is com.orikino.fatty.domain.viewstates.AboutViewState.OnSuccessPrivacyPolicy -> renderSuccess(state)
+            is AboutViewState.OnSuccessPrivacyPolicy -> renderSuccess(state)
             is AboutViewState.OnFailPrivacyPolicy -> {
-
+                LoadingProgressDialog.hideLoadingProgress()
             }
             else -> {}
         }
     }
 
     private fun renderSuccess(state: AboutViewState.OnSuccessPrivacyPolicy) {
+        LoadingProgressDialog.hideLoadingProgress()
         //_binding.tvLinkPrivacy.setHtml(state.data.data.body)
         //_binding.tvLinkPrivacy.setOnClickATagListener { widget, spannedText, href -> true }
         state.data.data.body?.let {

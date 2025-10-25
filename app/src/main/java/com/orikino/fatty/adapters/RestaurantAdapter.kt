@@ -17,6 +17,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
+import com.orikino.fatty.utils.helper.toHourMinuteString
 
 class RestaurantAdapter(private val context: Context,val callback: (RecommendRestaurantVO,String,Int) -> Unit) : BaseListAdapter<RecommendRestaurantVO, NewBaseViewHolder<RecommendRestaurantVO>>(context, object : DiffUtil.ItemCallback<RecommendRestaurantVO>(){
     override fun areItemsTheSame(
@@ -47,7 +48,8 @@ class RestaurantAdapter(private val context: Context,val callback: (RecommendRes
 
             binding.tvRestaurantName.text = mData.toDefaultRestaurantName()
             binding.tvRestaurantAddress.text = mData.restaurant_address
-            binding.tvEstimateTime.text = "${mData.distance_time}mins ・ ${mData.distance}km"
+            //binding.tvEstimateTime.text = "${mData.distance_time}mins ・ ${mData.distance}km"
+            binding.tvEstimateTime.text = "${mData.distance_time.toHourMinuteString()}・${mData.distance} km"
 
             if (mData.restaurant_emergency_status == 1) {
                 binding.tvUnavailable.show()

@@ -110,10 +110,9 @@
                             android:id="@+id/imv_rider_accept"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            android:padding="14dp"
+                            android:scaleType="centerCrop"
                             android:contentDescription="@string/content_desc"
-                            android:src="@drawable/ic_rider_accept_order" />
+                            android:src="@drawable/parcel_default_img" />
 
 
                         <LinearLayout
@@ -266,8 +265,10 @@
                         <TextView
                             android:id="@+id/tv_order_actions_status"
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
+                            android:layout_height="wrap_content"
+                            android:minWidth="120dp"
                             android:text="@string/txt_order_cancel"
+                            android:textAlignment="center"
                             android:visibility="visible"
                             android:textAllCaps="false"
                             android:textSize="16sp"

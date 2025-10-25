@@ -140,29 +140,31 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
                 delegate?.onDeleteItem(viewModel.foodOrderList) // Delegate handles confirmation and cart clearing
             } else {
                 addToCart() // Merges or adds to current restaurant's cart
-                if (isFastOrder) {
-                    val intent = Intent(requireContext(), CheckOutActivity::class.java)
-                    intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
-                    intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
-                    intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
-                    startActivity(intent)
-                } else {
-                    delegate?.onAddToCart()
-                }
+//                if (isFastOrder) {
+//                    val intent = Intent(requireContext(), CheckOutActivity::class.java)
+//                    intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
+//                    intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
+//                    intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
+//                    startActivity(intent)
+//                } else {
+//
+//                }
+                delegate?.onAddToCart()
                 dialog?.dismiss() // Dismiss after successful add/merge or navigation
             }
         } else {
             // Cart is empty, so just add
             addToCart()
-            if (isFastOrder) {
-                val intent = Intent(requireContext(), CheckOutActivity::class.java)
-                intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
-                intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
-                intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
-                startActivity(intent)
-            } else {
-                delegate?.onAddToCart()
-            }
+//            if (isFastOrder) {
+//                val intent = Intent(requireContext(), CheckOutActivity::class.java)
+//                intent.putExtra(CheckOutActivity.LAT, PreferenceUtils.readUserVO().latitude)
+//                intent.putExtra(CheckOutActivity.LNG, PreferenceUtils.readUserVO().longitude)
+//                intent.putExtra(CheckOutActivity.ADDRESS_TYPE, "")
+//                startActivity(intent)
+//            } else {
+//
+//            }
+            delegate?.onAddToCart()
             dialog?.dismiss() // Dismiss after successful add or navigation
         }
     }
@@ -234,7 +236,6 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val trimmedNote = s?.toString()?.trim() ?: ""
-                PreferenceUtils.writeRestaurantNote(trimmedNote)
                 binding.tvNoteCount.text = "${trimmedNote.length}/100"
                 if (trimmedNote.length > 100) {
                     binding.edtNote.clearFocus()

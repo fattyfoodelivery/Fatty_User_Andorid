@@ -90,6 +90,13 @@
                     android:background="@drawable/positive_button"
                     android:textColor="@color/white"/>
             </LinearLayout>
+            <include
+                android:id="@+id/empty_view"
+                layout="@layout/layout_empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/rl_add_new"
+                android:visibility="gone"/>
         </RelativeLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

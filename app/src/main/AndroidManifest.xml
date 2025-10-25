@@ -68,6 +68,8 @@
         <activity
             android:name=".ui.views.activities.noti_detail.NotificationDetailActivity"
             android:exported="false" />
+        <activity android:name=".ui.views.activities.parcel.BookingUnavailableActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.views.activities.order.TrackOrderActivity"
             android:exported="false" />

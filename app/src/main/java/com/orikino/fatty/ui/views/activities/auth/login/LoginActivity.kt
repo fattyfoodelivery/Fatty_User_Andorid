@@ -450,8 +450,8 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
 
 
     private fun setUpPhoneNo() {
-        if (fromVT == "base") loginBinding.tvSkip.gone()
-        else loginBinding.tvSkip.show()
+        //if (fromVT == "base") loginBinding.tvSkip.gone()
+        //else loginBinding.tvSkip.show()
         loginBinding.edtPhone.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 loginBinding.scrollView.postDelayed(

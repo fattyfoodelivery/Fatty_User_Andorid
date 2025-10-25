@@ -33,7 +33,7 @@ interface AddressService {
         @Field("customer_phone") customer_phone : String,
         @Field("building_system") building_system : String,
         @Field("address_type") address_type : String,
-        @Field("is_default") is_default : Boolean,
+        @Field("is_default") is_default : Int,
         @Field("secondary_phone") secondary_phone : String?
     ) : Response<CustomerAddressResponse>
 
