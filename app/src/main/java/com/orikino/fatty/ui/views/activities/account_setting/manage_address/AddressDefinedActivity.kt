@@ -48,6 +48,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.orikino.fatty.utils.ClickGuard
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -526,6 +527,7 @@ class AddressDefinedActivity : AppCompatActivity() {
             }
             //finish()
         }
+        ClickGuard.guard(_binding.btnConfirmLocation)
     }
 
 
@@ -557,8 +559,12 @@ class AddressDefinedActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderOnFailSetDefaultAddress(state: AddressViewState.OnFailSetDefaultAddress) {}
+    private fun renderOnFailSetDefaultAddress(state: AddressViewState.OnFailSetDefaultAddress) {
+        LoadingProgressDialog.hideLoadingProgress()
+        showSnackBar(state.message)
+    }
     private fun renderOnSuccessSetDefaultAddress(state: AddressViewState.OnSuccessSetDefaultAddress) {
+        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             clearInfo()
             //startActivity<ManageAddressActivity>()
@@ -568,9 +574,12 @@ class AddressDefinedActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderOnLoadingSetDefaultAddress() {}
+    private fun renderOnLoadingSetDefaultAddress() {
+        LoadingProgressDialog.showLoadingProgress(this)
+    }
 
     private fun renderOnSuccessAddCurrentAddress(state: AddressViewState.OnSuccessAddCurrentAddress) {
+        LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             clearInfo()
             //startActivity<ManageAddressActivity>()

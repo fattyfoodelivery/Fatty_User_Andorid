@@ -51,8 +51,10 @@ class HomeRepositoryImpl @Inject constructor(
     override suspend fun fetchTopRelatedCategory(
         customer_id: Int,
         latitude: Double,
-        longitude: Double
-    ): Response<TopRelatedCategoryResponse> = homeService.fetchTopRelatedCategory(customer_id, latitude, longitude)
+        longitude: Double,
+        page : Int,
+        pageSize : Int
+    ): Response<TopRelatedCategoryResponse> = homeService.fetchTopRelatedCategory(customer_id, latitude, longitude, page, pageSize)
 
     override suspend fun fetchCurrency(): Response<CurrencyResponse> = homeService.fetchCurrency()
     override suspend fun fetchWishList(

@@ -23,6 +23,7 @@ class AddressViewModel @Inject constructor(
     fun customerAddressList(customerId: Int) {
         viewModelScope.launch (Dispatchers.IO){
             try {
+                viewState.postValue(AddressViewState.OnLoadingCustomerAddressList)
                 var response = repository.customerAddressList(customerId)
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -63,6 +64,7 @@ class AddressViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
+                viewState.postValue(AddressViewState.OnLoadingAddCurrentAddress)
                 var response = repository.updateCurrentAddress(
                     customer_address_id,
                     customer_id,
@@ -174,6 +176,7 @@ class AddressViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
+                viewState.postValue(AddressViewState.OnLoadingAddCurrentAddress)
                 var response = repository.addCurrentAddress(
                     customerId,
                     address_latitude,

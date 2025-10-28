@@ -39,9 +39,14 @@ class FoodOrderViewHolder(
                 data.food_price.toThousandSeparator()
             } ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
         _bind.tvItemQty.text = "$itemQty"
+        _bind.tvNote.text = data.food_note?.ifEmpty { "-" }
         //callback.onTap(data,"",position)
         _bind.tvAddMore.setOnClickListener {
             callback.invoke(data,"add_more",position)
+        }
+
+        _bind.tvEdit.setOnClickListener {
+            callback.invoke(data,"edit",position)
         }
 
         _bind.cvMinus.setOnClickListener {

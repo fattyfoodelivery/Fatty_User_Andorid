@@ -9,41 +9,42 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.orikino.fatty.HomeViewModel
+import com.orikino.fatty.domain.view_model.HomeViewModel
 import com.orikino.fatty.HomeViewState
 import com.orikino.fatty.R
 import com.orikino.fatty.adapters.NearByIdRestAdapter
-import com.orikino.fatty.adapters.RecommendedRestaurantAdapter
 import com.orikino.fatty.adapters.TopRelatedCategoryAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityTopRelatedCategoryBinding
+import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
 import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.Constants
+import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.SmartScrollListener
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
-import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
 @AndroidEntryPoint
-class TopRelatedCategoryActivity : AppCompatActivity(){
+class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSmartScrollListener {
 
     private lateinit var _binding : ActivityTopRelatedCategoryBinding
 
@@ -56,6 +57,26 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
 
     private var cat_name : String? = ""
     private var cat_id : Int? = null
+
+
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val returnedID = result.data?.getIntExtra("WISHED_LISTED_ID", 0) ?: 0
+            val isWished = result.data?.getBooleanExtra("IS_WISHED", false) ?: false
+            if (returnedID != 0){
+                val temp = topRelatedCategoryAdapter?.currentList?.toMutableList() ?: mutableListOf()
+                val editedIndex = temp.indexOfFirst { it.restaurant_id == returnedID }
+                if (editedIndex != -1) {
+                    val originalItem = temp[editedIndex]
+                    val updatedItem = originalItem.copy(is_wish = isWished)
+                    temp[editedIndex] = updatedItem
+                    //showSnackBar(temp[editedIndex].is_wish.toString())
+                    topRelatedCategoryAdapter?.submitList(temp)
+                }
+            }
+        }
+    }
 
     companion object {
         const val CATG = "catName"
@@ -153,7 +174,10 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
         viewModel.viewStateWish.observe(this, Observer {
             renderWishList(it)
         })
-
+        viewModel.maxPage.observe(this, Observer {
+            if (it != 0)
+                _binding.tvTitle.text = "$titleName ($it)"
+        })
     }
 
     private fun render(state : HomeViewState) {
@@ -192,7 +216,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             viewModel.topRelatedRestaurantLiveDataList.observe(this) {
-                topRelatedCategoryAdapter?.setNewData(it)
+                topRelatedCategoryAdapter?.submitList(it)
             }
 
         }
@@ -206,7 +230,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
         stopShimmer()
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
-            PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,state.data.data.restaurant_id) }
+            //PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,state.data.data.restaurant_id) }
             PreferenceUtils.wishListCount.postValue(state.data.data.wishlist_count)
 
             viewModel.nearRestaurantLiveDataList.value?.forEach { restVO ->
@@ -217,10 +241,14 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                         this
                     ) {
                         //rvNearbyRestaurant.update(it)      ----------------------------------
-                        topRelatedCategoryAdapter?.setNewData(it)
+                        topRelatedCategoryAdapter?.submitList(it)
 
                     }
                 }
+            }
+            if (state.data.data.is_wish){
+                CustomToast(this, getString(R.string.added_to_favourite_item), true).createCustomToast()
+            }else{
             }
             /*CustomToast(
                 requireContext(),
@@ -285,8 +313,12 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
     }
 
     private fun renderOnLoadingTopRelated() {
-        startShimmer()
-        LoadingProgressDialog.showLoadingProgress(this)
+        if (viewModel.getTopRelatedCurrentPage() == 1){
+            startShimmer()
+            LoadingProgressDialog.showLoadingProgress(this)
+        }else{
+        }
+
     }
 
     private fun renderOnFailRestaurantByCategory(state : HomeViewState.OnFailRestaurantByCategory) {
@@ -327,6 +359,12 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
     private fun renderOnFailTopRelated(state : HomeViewState.OnFailTopRelated) {
         stopShimmer()
         LoadingProgressDialog.hideLoadingProgress()
+        val currentList = topRelatedCategoryAdapter?.currentList?.toMutableList() ?: mutableListOf()
+        if (currentList.isNotEmpty() && currentList[currentList.size-1].isLoadingView){
+            currentList.removeAt(currentList.size-1)
+            topRelatedCategoryAdapter?.submitList(currentList)
+        }
+
         when (state.message) {
             Constants.SERVER_ISSUE -> {
                 showSnackBar(state.message)
@@ -381,9 +419,13 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
             if (state.data.data.isEmpty()){
                 _binding.emptyView.rootView.visibility = View.VISIBLE
             }else{
-                _binding.tvTitle.text = "$titleName (${state.data.data.count { it.listing_type != 2 }})"
                 _binding.emptyView.rootView.visibility = View.GONE
-                topRelatedCategoryAdapter?.setNewData(state.data.data)
+                val currentList = topRelatedCategoryAdapter?.currentList?.toMutableList() ?: mutableListOf()
+                if (currentList.isNotEmpty() && currentList[currentList.size-1].isLoadingView){
+                    currentList.removeAt(currentList.size-1)
+                }
+                currentList.addAll(state.data.data)
+                topRelatedCategoryAdapter?.submitList(currentList)
             }
 
         }
@@ -421,20 +463,22 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                     "root" -> {
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-                        /*startActivity<RestaurantDetailViewActivity>(
-                            RestaurantDetailViewActivity.RESTAURANT_ID to data.restaurant_id
-                        )*/
                         val intent = Intent(this, RestaurantDetailViewActivity::class.java)
                         intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID, data.restaurant_id)
-                        startActivity(intent)
+                        startForResult.launch(intent)
                     }
                     "fav" -> {
                         PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,data.restaurant_id) }
-
                     }
                 }
             }
             _binding.rvRelatedCategory.adapter = topRelatedCategoryAdapter
+            _binding.rvRelatedCategory.addOnScrollListener(
+                SmartScrollListener(
+                    this,
+                    _binding.swipeRefresh
+                )
+            )
         }else{
             recommendedRestaurantAdapter = NearByIdRestAdapter(
                 this
@@ -446,9 +490,9 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                             1 -> {
                                 PreferenceUtils.needToShow = false
                                 PreferenceUtils.isBackground = false
-                                val intent = Intent(this,RestaurantDetailViewActivity::class.java)
-                                intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
-                                startActivity(intent)
+                                val intent = Intent(this, RestaurantDetailViewActivity::class.java)
+                                intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID, data.restaurant_id)
+                                startForResult.launch(intent)
                             }
                             2 -> {
                                 val htmlContent = data.display_type_description
@@ -487,9 +531,9 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
                     "cv_rest" -> {
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-                        val intent = Intent(this,RestaurantDetailViewActivity::class.java)
-                        intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
-                        startActivity(intent)
+                        val intent = Intent(this, RestaurantDetailViewActivity::class.java)
+                        intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID, data.restaurant_id)
+                        startForResult.launch(intent)
                     }
                     "fav" -> {
                         if (PreferenceUtils.readUserVO()?.customer_id == 0) {
@@ -522,6 +566,19 @@ class TopRelatedCategoryActivity : AppCompatActivity(){
             super.attachBaseContext(LocaleHelper().onAttach(newBase))
         }else{
             super.attachBaseContext(newBase)
+        }
+    }
+
+    override fun onListEndReach() {
+        val currentList = topRelatedCategoryAdapter?.currentList?.toMutableList() ?: mutableListOf()
+        currentList.add(RecommendRestaurantVO(isLoadingView = true))
+        topRelatedCategoryAdapter?.submitList(currentList)
+        PreferenceUtils.readUserVO().customer_id?.let {
+            viewModel.onListEndReachTopRelated(
+                it,
+                PreferenceUtils.readUserVO().latitude?:0.0,
+                PreferenceUtils.readUserVO().longitude?:0.0
+            )
         }
     }
 

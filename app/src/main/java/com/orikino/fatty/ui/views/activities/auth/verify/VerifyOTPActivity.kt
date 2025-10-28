@@ -253,6 +253,8 @@ class VerifyOTPActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }else{
+            showSnackBar(state.data.message)
         }
 
     }

@@ -206,8 +206,8 @@
     <string name="enter_building_suites_street">Enter Building/Suites/Street</string>
     <string name="home">Home</string>
     <string name="txt_home">Home</string>
-    <string name="order">Order</string>
-    <string name="notification">Notification</string>
+    <string name="order">Orders</string>
+    <string name="notification">Notifications</string>
     <string name="account">Account</string>
     <string name="work">Work</string>
     <string name="other">Other</string>
@@ -367,7 +367,7 @@
     <string name="txt_count"> ( %1$d )</string>
     <string name="txt_food">Foods</string>
     <string name="txt_cancel_item">Cancel Item</string>
-    <string name="no_order_yet">No order yet</string>
+    <string name="no_order_yet">No Order Yet</string>
     <string name="txt_filter_cancel">Clear</string>
     <string name="txt_parcel_details">Parcel Details</string>
     <string name="txt_order_cancel">Cancel</string>
@@ -401,5 +401,7 @@
     <string name="txt_are_you_sure_to_delete_this_address">Are you sure to delete this address?</string>
     <string name="txt_are_you_sure_to_set_up_default_address">Are you sure to set up default address?</string>
     <string name="txt_reset">Reset</string>
-    <string name="txt_preperation_time_min">Preperation Time : %1$d Min</string>
+    <string name="txt_preperation_time_min">Preperation Time : %s mins</string>
+    <string name="txt_default">Default</string>
+    <string name="txt_edit_note">Edit Note</string>
 </resources>

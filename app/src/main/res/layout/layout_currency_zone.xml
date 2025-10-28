@@ -17,18 +17,29 @@
         android:padding="18dp"
         android:backgroundTint="#FFFFFF"
         android:background="@drawable/btn_selected_color">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTitleCurrency"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:singleLine="true"
-            android:padding="2dp"
-            android:fontFamily="@font/outfit_regular"
-            android:text="@string/choose_your_service_region_label"
-            android:textColor="@color/text_primary_01"
-            android:textSize="18sp"/>
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitleCurrency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:singleLine="true"
+                android:padding="2dp"
+                android:fontFamily="@font/outfit_regular"
+                android:text="@string/choose_your_service_region_label"
+                android:textColor="@color/text_primary_01"
+                android:textSize="18sp"/>
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"
+                android:src="@drawable/ic_circle_close_24dp"/>
+        </RelativeLayout>
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/ll_lashio_view"
@@ -45,11 +56,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_mmk"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/mm_flag" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_name_lashio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/fattyDark"
+                    android:layout_toEndOf="@id/img_mmk"
                     android:textSize="16sp"
                     android:text="@string/lashio"
                     android:layout_marginStart="12dp"
@@ -96,11 +116,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_yuan"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/mm_flag" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_name_muse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/fattyDark"
+                    android:layout_toEndOf="@id/img_yuan"
                     android:textSize="16sp"
                     android:text="@string/muse"
                     android:layout_marginStart="12dp"

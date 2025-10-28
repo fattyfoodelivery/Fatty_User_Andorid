@@ -2,35 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/margin_2xSmall"
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_food_name_qty"
-            android:layout_width="0dp"
+            android:id="@+id/tv_food_qty"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_weight="0.4"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:text="x1 Food"
+            android:textColor="@color/textPrimary02"
+            android:fontFamily="@font/outfit_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="1X"
             android:singleLine="false"
-            android:textSize="16sp"
-             />
+            android:textSize="16sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textPrimary02"
+            app:layout_constraintStart_toEndOf="@+id/tv_food_qty"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/outfit_regular"
+            app:layout_constraintEnd_toStartOf="@+id/tv_amount"
+            android:layout_marginStart="@dimen/margin_4xSmall"
+            android:text="Food"
+            android:singleLine="false"
+            android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_food_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:text="@string/txt_cancel_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:textSize="12sp"
             android:fontFamily="@font/outfit_regular"
             android:visibility="gone"
@@ -39,18 +54,33 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_amount"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="150dp"
             android:layout_marginEnd="16dp"
-            android:layout_weight="0.3"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:textColor="@color/textPrimary02"
+            android:fontFamily="@font/outfit_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:text="Ks.1000"
             android:textAlignment="textEnd"
             android:textSize="16sp"
             />
-
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin_4xSmall"
+            android:fontFamily="@font/outfit_regular"
+            app:layout_constraintStart_toStartOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:singleLine="false"
+            android:textAlignment="textStart"
+            android:textColor="@color/text_secondary_01"
+            android:textSize="12sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_food_addon"
@@ -61,25 +91,14 @@
         android:fontFamily="@font/outfit_regular"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
+        android:visibility="gone"
         android:singleLine="false"
         android:text=""
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_food_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/outfit_regular"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:singleLine="false"
-        android:textAlignment="textStart"
-        android:textColor="@color/grey"
-        android:textSize="12sp" />
+
 
 
 </LinearLayout>

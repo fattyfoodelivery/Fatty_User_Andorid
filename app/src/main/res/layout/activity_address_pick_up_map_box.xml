@@ -62,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_my_location"
+                    android:padding="@dimen/margin_small"
                     android:background="@drawable/negative_btn"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"

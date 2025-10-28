@@ -382,5 +382,7 @@
     <string name="txt_are_you_sure_to_delete_this_address">您确定要删除此地址吗？</string>
     <string name="txt_are_you_sure_to_set_up_default_address">您确定要设置为默认地址吗？</string>
     <string name="txt_reset">重置</string>
-    <string name="txt_preperation_time_min">修改时间 : %1$d Min</string>
+    <string name="txt_preperation_time_min">修改时间 : %s mins</string>
+    <string name="txt_default">默认</string>
+    <string name="txt_edit_note">修改备注</string>
 </resources>

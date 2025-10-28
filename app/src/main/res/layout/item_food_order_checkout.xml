@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,6 +11,8 @@
         android:id="@+id/imv_food_item"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/restaurant_default_img"
         android:background="@color/gray_four"
         android:scaleType="centerCrop"
@@ -18,10 +20,13 @@
         android:layout_marginStart="8dp"/>
     <LinearLayout
         android:id="@+id/ll_item_spec"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/imv_food_item"
+        app:layout_constraintTop_toTopOf="@id/imv_food_item"
+        app:layout_constraintBottom_toBottomOf="@id/imv_food_item"
+        app:layout_constraintEnd_toStartOf="@+id/ll_qty"
         android:orientation="vertical"
-        android:layout_centerVertical="true"
         android:layout_toEndOf="@id/imv_food_item"
         android:layout_marginStart="8dp"
         android:layout_toStartOf="@id/ll_qty"
@@ -53,11 +58,45 @@
             android:fontFamily="@font/outfit_regular"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imv_food_item"
+        app:layout_constraintStart_toStartOf="@+id/ll_item_spec"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_below="@id/imv_food_item"
+        android:layout_marginTop="@dimen/margin_4xSmall"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            tools:targetApi="p"
+            android:textColor="@color/text_secondary_01"
+            android:fontFamily="@font/outfit_regular"/>
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/edit"
+            android:textSize="16sp"
+            android:fontFamily="@font/outfit_regular"
+            android:textColor="@color/fattyPrimary"
+            android:paddingHorizontal="@dimen/margin_small"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_qty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imv_food_item"
+        app:layout_constraintBottom_toBottomOf="@id/imv_food_item"
         android:orientation="horizontal"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
@@ -112,10 +151,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add More Items"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/fattyPrimary"
         android:textSize="15sp"
         android:visibility="gone"
         android:layout_below="@id/imv_food_item"
         android:layout_margin="8dp"/>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

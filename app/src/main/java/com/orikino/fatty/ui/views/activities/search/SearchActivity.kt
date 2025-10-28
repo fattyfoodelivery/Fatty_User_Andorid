@@ -440,6 +440,13 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             searchBinding.filterView.btnClose.setOnClickListener {
                 searchBinding.filterView.root.gone()
                 sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                if (viewModel.subList.isEmpty()){
+                    cleanSearch()
+                    viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
+                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
+                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
+                }
             }
             searchBinding.filterView.btnApply.setOnClickListener {
                 showConfirmDialog()

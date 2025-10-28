@@ -1,6 +1,7 @@
 package com.orikino.fatty.ui.views.activities.checkout
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.location.Address
@@ -14,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -37,11 +39,13 @@ import com.orikino.fatty.domain.model.KPayResponseVO
 import com.orikino.fatty.domain.view_model.OrderViewModel
 import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.ui.views.activities.account_setting.manage_address.AddressDefinedActivity
-import com.orikino.fatty.ui.views.activities.account_setting.manage_address.ManageAddressActivity
+import com.orikino.fatty.ui.views.activities.account_setting.manage_address.SelectAddressActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.ui.views.delegate.EditNoteDelegate
+import com.orikino.fatty.ui.views.dialog.EditNoteBottomSheetFragment
 import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.ConfirmAddressDialog
 import com.orikino.fatty.utils.Constants
@@ -118,6 +122,19 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private var phoneNo: String? = null
     var isCheckCashPayment = true
     private var defaultAddress : CustomerAddressVO? = null
+    private var selectedAddressID : Int = 0
+    private var previousSelectedAddressPosition : Int = 0
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val returnedID = result.data?.getIntExtra("SELECTED_ADDRESS_ID", 0) ?: 0
+            val selectedPosition = result.data?.getIntExtra("SELECTED_ADDRESS_POSITION", 0) ?: 0
+            // Use the returned string
+            //Toast.makeText(this@CheckOutActivity, returnedString.toString(), Toast.LENGTH_SHORT).show()
+            selectedAddressID = returnedID
+            previousSelectedAddressPosition = selectedPosition
+        }
+    }
 
     companion object {
 
@@ -138,6 +155,8 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
             return intent
         }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -317,45 +336,21 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         viewModel.manageAddressLiveDataList.observe(this) {
             println("address list size ${it}")
             try {
-                aa = it.filter {
-                    it.is_default
-                }.toMutableList()
+                aa = if (selectedAddressID != 0){
+                   val temp = it.find {address -> address.customer_address_id == selectedAddressID }
+                    if (temp != null)
+                        mutableListOf(temp)
+                    else
+                        mutableListOf()
+                }else{
+                    it.filter { it1 ->
+                        it1.is_default
+                    }.toMutableList()
+                }
+
 
                 when (aa.size) {
                     0 -> {
-                        //Old code removed, because these condition are not necessary only else state metter
-                        /*when {
-                            isSelected -> {
-                                PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                    viewModel.lat = it
-                                }
-                                PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                    viewModel.lng = it
-                                }
-                                geoCodeLocationToAddress()
-                            }
-
-                            isBack -> {
-                                if (PreferenceUtils.readSelectedAddress()?.latitude != 0.0 && PreferenceUtils.readSelectedAddress()?.longitude != 0.0) {
-                                    PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                        viewModel.lat = it
-                                    }
-                                    PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                        viewModel.lng = it
-                                    }
-                                }
-                                geoCodeLocationToAddress()
-                            }
-
-                            else -> {
-                                val gpsTracker = GpsTracker(this)
-                                if (gpsTracker.canGetLocation()) {
-                                    viewModel.lat = gpsTracker.latitude
-                                    viewModel.lng = gpsTracker.longitude
-                                    geoCodeLocationToAddress()
-                                }
-                            }
-                        }*/
                         val gpsTracker = GpsTracker(this)
                         if (gpsTracker.canGetLocation()) {
                             viewModel.lat = gpsTracker.latitude
@@ -369,39 +364,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                     }
 
                     else -> {
-                        //Old code removed, because these condition are not necessary only else state metter
-                        /* when {
-                             isSelected -> {
-                                 PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                     viewModel.lat = it
-                                 }
-                                 PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                     viewModel.lng = it
-                                 }
-                                 geoCodeLocationToAddress()
-                             }
 
-                             isBack -> {
-                                 if (PreferenceUtils.readSelectedAddress()?.latitude == 0.0 && PreferenceUtils.readSelectedAddress()?.longitude == 0.0) {
-                                     viewModel.lat = aa[0].address_latitude
-                                     viewModel.lng = aa[0].address_longitude
-                                 } else {
-                                     PreferenceUtils.readSelectedAddress()?.latitude?.let {
-                                         viewModel.lat = it
-                                     }
-                                     PreferenceUtils.readSelectedAddress()?.longitude?.let {
-                                         viewModel.lng = it
-                                     }
-                                 }
-                                 geoCodeLocationToAddress()
-                             }
-
-                             else -> {
-                                 viewModel.lat = aa[0].address_latitude
-                                 viewModel.lng = aa[0].address_longitude
-                                 geoCodeLocationToAddress()
-                             }
-                         }*/
                         viewModel.lat = aa[0].address_latitude
                         viewModel.lng = aa[0].address_longitude
                         binding.tvCurrentPhone.text = aa[0].customer_phone
@@ -411,7 +374,6 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                         }else{
                             binding.llOtherPhone.visibility = View.GONE
                         }
-
                         defaultAddress = aa[0]
                         //geoCodeLocationToAddress()
                         showAddress(defaultAddress?.current_address!!,defaultAddress?.building_system ?: "")
@@ -475,11 +437,11 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private fun editAddress() {
         binding.rlManageAddress.setOnClickListener {
            // finish()
-            startActivity(ManageAddressActivity.getIntent(true))
+            startForResult.launch(SelectAddressActivity.getIntent(true, previousSelectedAddressPosition))
         }
         binding.tbtEditAddress.setOnClickListener {
            // finish()
-            startActivity(ManageAddressActivity.getIntent(true))
+            startForResult.launch(SelectAddressActivity.getIntent(true, previousSelectedAddressPosition))
         }
 //        binding.tbnAddMore.setOnClickListener {
 //            /*startActivity<RestaurantDetailViewActivity>(
@@ -637,7 +599,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         if (state.data.success) {
             cleanCartCache()
             if (state.data.data?.response?.code == "0") {
-                bindOrderInfo(state.data.data?.response!!)
+               // bindOrderInfo(state.data.data?.response!!)
                 finish()
 
                 startActivity(state.data.data?.order?.customer_order_id.toString().let {
@@ -662,7 +624,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     }
 
     private fun cleanCartCache() {
-        viewModel.cartList.postValue(mutableListOf())
+        //viewModel.cartList.postValue(mutableListOf())
         PreferenceUtils.writeRestaurant(FoodMenuByRestaurantVO())
         PreferenceUtils.writeFoodOrderList(mutableListOf())
         PreferenceUtils.writeIsSelected(0)
@@ -809,20 +771,23 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
 
             LoadingProgressDialog.hideLoadingProgress()
 
-            showAddressPickDialog(
-                resources.getString(R.string.confirm_address),
-                when {
-                    PreferenceUtils.readLanguage() == "my" -> "${resources.getString(
-                        R.string.confirm_address_message
-                    )} <br><br>လက်ရှိလိပ်စာ - ${addressBold()}</br></br>"
-                    PreferenceUtils.readLanguage() == "en" -> "${resources.getString(
-                        R.string.confirm_address_message
-                    )} <br><br>Current Address - ${addressBold()}</br></br>"
-                    else -> "${resources.getString(
-                        R.string.confirm_address_message
-                    )} <br><br>当前位置 - ${addressBold()}</br></br>"
-                }
-            )
+            if (forShowAddress.isNotEmpty()){
+                showAddressPickDialog(
+                    resources.getString(R.string.confirm_address),
+                    when {
+                        PreferenceUtils.readLanguage() == "my" -> "${resources.getString(
+                            R.string.confirm_address_message
+                        )} <br><br>လက်ရှိလိပ်စာ - ${addressBold()}</br></br>"
+                        PreferenceUtils.readLanguage() == "en" -> "${resources.getString(
+                            R.string.confirm_address_message
+                        )} <br><br>Current Address - ${addressBold()}</br></br>"
+                        else -> "${resources.getString(
+                            R.string.confirm_address_message
+                        )} <br><br>当前位置 - ${addressBold()}</br></br>"
+                    }
+                )
+            }
+
         }
     }
 
@@ -838,18 +803,18 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         alertDialog = builder.create().apply {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(true)
-            dialogView.tvTitle?.text = title
-            dialogView.tvTitleDesc?.text = Html.fromHtml(message)
-            dialogView.btnClose?.text = resources.getString(R.string.other_address)
+            dialogView.tvTitle.text = title
+            dialogView.tvTitleDesc.text = Html.fromHtml(message)
+            dialogView.btnClose.text = resources.getString(R.string.other_address)
 
-            dialogView?.btnClose?.setOnClickListener {
+            dialogView.btnClose.setOnClickListener {
                 dismiss()
                 //finish()
-                startActivity(ManageAddressActivity.getIntent(true))
+                startForResult.launch(SelectAddressActivity.getIntent(true, previousSelectedAddressPosition))
             }
-            dialogView?.btnRemove?.text = resources.getString(R.string.confirm)
-            dialogView?.btnRemove?.setOnClickListener {
-                PreferenceUtils.readUserVO()?.customer_id?.let { customerId ->
+            dialogView.btnRemove.text = resources.getString(R.string.confirm)
+            dialogView.btnRemove.setOnClickListener {
+                PreferenceUtils.readUserVO().customer_id?.let { customerId ->
                     PreferenceUtils.readRestaurant()?.restaurant_id?.let { restaurantId ->
                         PreferenceUtils.readRestaurantNote()?.let { note ->
                             viewModel.createFoodOrder(
@@ -1205,6 +1170,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 }
                 "minus" -> itemMinusClick(data,pos)
                 "plus" -> itemPlusClick(data,pos)
+                "edit" -> itemNoteEdit(data,pos)
             }
         }
         binding.rvFoodItem.adapter = foodOrderAdapter
@@ -1237,6 +1203,28 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         }
     }
 
+    private fun itemNoteEdit(data: CreateFoodVO, pos: Int) {
+        val bottomSheetFragment = EditNoteBottomSheetFragment.newInstance(object : EditNoteDelegate{
+
+            override fun onEdit(
+                data: CreateFoodVO,
+                pos: Int
+            ) {
+                val currentList = viewModel.cartList.value?.toMutableList()
+                if (currentList != null && pos >= 0 && pos < currentList.size) {
+
+                    // Replace the item at the same position
+                    currentList[pos] = data
+
+                    PreferenceUtils.writeFoodOrderList(currentList)
+                    // Post the updated list to LiveData; original code re-reads, so sticking to that pattern.
+                    viewModel.cartList.postValue(PreferenceUtils.readFoodOrderList())
+                }
+            }
+        }, data, pos)
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+    }
+
     private fun itemPlusClick(data: CreateFoodVO, pos: Int) {
         try {
             val newQty = data.food_qty.plus(1)
@@ -1255,6 +1243,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
                 val updatedItem = CreateFoodVO(
                     food_id = data.food_id,
                     food_name = data.food_name,
+                    restaurant_id = data.restaurant_id,
                     initial_price = data.initial_price,
                     food_qty = newQty, // Use the new quantity
                     food_image = data.food_image,

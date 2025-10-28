@@ -22,13 +22,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import arrow.core.nel
 import com.orikino.fatty.domain.model.*
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.maps.model.LatLng
-import com.orikino.fatty.HomeViewModel
+import com.orikino.fatty.domain.view_model.HomeViewModel
 import com.orikino.fatty.HomeViewState
 import com.orikino.fatty.R
 import com.orikino.fatty.adapters.HomeSlideAdapter
@@ -67,7 +65,7 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
-import com.orikino.fatty.utils.helper.toDefaultRestaurantName
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -1062,14 +1060,27 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 dialogBinding.tvTitleCurrency.text = getString(R.string.choose_currency)
 
                 if (data.size > 1) {
+                    dialogBinding.imgMmk.show()
+                    dialogBinding.imgYuan.show()
                     dialogBinding.llLashioView.show()
                     dialogBinding.llMuseView.show()
                     dialogBinding.tvNameLashio.text = data[0].currency_symbol
                     dialogBinding.tvNameMuse.text = data[1].currency_symbol
+                    Picasso.get()
+                        .load(data[0].image)
+                        .into(dialogBinding.imgMmk)
+                    Picasso.get()
+                        .load(data[1].image)
+                        .into(dialogBinding.imgYuan)
                 } else {
+                    dialogBinding.imgMmk.show()
+                    dialogBinding.imgYuan.gone()
                     dialogBinding.llLashioView.show()
                     dialogBinding.llMuseView.gone()
                     dialogBinding.tvNameLashio.text = data[0].currency_symbol
+                    Picasso.get()
+                        .load(data[0].image)
+                        .into(dialogBinding.imgMmk)
                 }
             } else {
                 dialogBinding.tvTitleCurrency.text = getString(R.string.txt_choose_region)

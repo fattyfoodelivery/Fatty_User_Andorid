@@ -73,4 +73,6 @@
     <color name="tab_selected">#FF6704</color>
     <color name="tab_unselected">#F7F7F7</color>
     <color name="bg_pending">#1AFF6704</color>
+    <color name="icon_tint">#454545</color>
+    <color name="bg_default_address">#FFBB7C</color>
 </resources>

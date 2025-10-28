@@ -144,6 +144,7 @@ class OrderDetailActivity : AppCompatActivity() {
                 .error(R.drawable.restaurant_default_img)
                 .into(binding.imvRestaurant)
             binding.tvRestaurantName.text = data.restaurant_name
+
             //binding.tvOrderPrice.text = "${dat} ${if (data.currency_id == 1) "MMK" else "¥"}"
             //binding.tvItemQty.text = "${foodOrderItemQty} ${if (data.item_qty?.equals(1) == true) "Item" else "Items"}"
         }
@@ -172,6 +173,14 @@ class OrderDetailActivity : AppCompatActivity() {
     }
 
     private fun bindBillsInfo(data: ActiveOrderVO) {
+        if (!data.order_description.isNullOrEmpty()){
+            binding.llNote.show()
+            binding.viewSeven.show()
+            binding.tvNote.text = data.order_description
+        }else{
+            binding.llNote.gone()
+            binding.viewSeven.gone()
+        }
         if (data.currency_id == 1){
             binding.tvBillTotalPrice.text = "${data.bill_total_price?.toThousandSeparator()} MMK"
             binding.tvItemTotal.text = "${data.item_total_price?.toThousandSeparator()} MMK"

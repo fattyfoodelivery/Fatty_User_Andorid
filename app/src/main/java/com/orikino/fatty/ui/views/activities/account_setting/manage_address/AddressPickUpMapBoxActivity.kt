@@ -21,7 +21,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.orikino.fatty.HomeViewModel
+import com.orikino.fatty.domain.view_model.HomeViewModel
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityAddressPickUpMapBoxBinding

@@ -17,8 +17,8 @@
 
     <string name="home">မူလ</string>
     <string name="txt_home">အိမ်</string>
-    <string name="order">အော်ဒါ</string>
-    <string name="notification">အသိပေးချက်</string>
+    <string name="order">အော်ဒါများ</string>
+    <string name="notification">အသိပေးချက်များ</string>
     <string name="account">မိမိ</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -42,7 +42,7 @@
     <string name="_123456789">123456789</string>
     <string name="terms_amp_conditions">စည်းကမ်းသတ်မှတ်ချက်များ</string>
     <string name="str_no_notifications">အသိပေးချက်များမရှိပါ။</string>
-    <string name="clear_cart_data">ရှေဆက်ခြင်းသည် ခြင်းတောင်းထဲရှိအစားအစာကိုပယ်ဖျက်နိုင်သည်</string>
+    <string name="clear_cart_data">ခြင်းတောင်းထဲရှိ လက်ရှိအစားအစာများကို ပယ်ဖျက်နိူင်ပါသည်။</string>
     <string name="hyperlink_term_condition"><a href="https://www.fattyfoodmyanmar.com.mm">Terms &amp; Conditions</a></string>
     <string name="hyperlink_privacy_policy"><a href="https://www.fattyfoodmyanmar.com.mm">Privacy Policy</a></string>
     <string name="privacy_policy">အချက်အလက်မူဝါဒ</string>
@@ -341,7 +341,7 @@
     <string name="txt_top_rated_restaurants">ထိပ်တန်း စားသောက်ဆိုင်များ</string>
     <string name="force_update">ပြင်ဆင်ရန်</string>
     <string name="by_doing_so_you_won_t_be_able_to_bring_it_back">ထိုသို့ပြုလုပ်ခြင်းဖြင့် ပြန်ယူနိုင်မည်မဟုတ်ပါ။</string>
-    <string name="are_you_sure_you_want_to_cancel_this_order">အော်ဒါပယ်ဖြတ်ရန်အတည်ပြုပါ</string>
+    <string name="are_you_sure_you_want_to_cancel_this_order">အော်ဒါပယ်ဖျက်ရန်အတည်ပြုပါ</string>
     <string name="added_to_favourite_item">အကြိုက်ဆုံးအရာ ထည့်ပြီးပါပြီ။</string>
     <string name="txt_delivery_details">ပို့ဆောင်မှု အချက်အလက်</string>
     <string name="txt_count"> ( %1$d )</string>
@@ -379,7 +379,9 @@
     <string name="txt_reset_my_current_location">လက်ရှိတည်နေရာကို ပြန်ရွေးပါ</string>
     <string name="txt_delete_address">လိပ်စာဖျက်မည်လား?</string>
     <string name="txt_are_you_sure_to_delete_this_address">လိပ်စာကို ဖျက်လိုသည်မှာ သေချာပါလား?</string>
-    <string name="txt_are_you_sure_to_set_up_default_address">မူရင်လိပ်စာကို သတ်မှတ်ရန် သေချာပါသလား?</string>
+    <string name="txt_are_you_sure_to_set_up_default_address">မူရင်းလိပ်စာကို သတ်မှတ်ရန် သေချာပါသလား?</string>
     <string name="txt_reset">ပြန်သတ်မှတ်ရန်</string>
-    <string name="txt_preperation_time_min">ပြင်ဆင်ရန်ကြာချိန် : %1$d Min</string>
+    <string name="txt_preperation_time_min">အစားအသောက်ပြင်ဆင်ချိန် : %s mins</string>
+    <string name="txt_default">မူရင်း</string>
+    <string name="txt_edit_note">အချက်အလက်ပြင်ဆင်ရန်</string>
 </resources>

@@ -160,60 +160,6 @@ class BookingOrderActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun checkParcelInfo() {
-        //MODE = "current"
-        //navigateToTrackOrderView()
-        /*when {
-            viewModel.parcel_type == "" -> showSnackBar("Choose Parcel Type"*//*resources.getString(R.string.choose_parcel_type)*//*)
-            else -> {
-
-                //viewModel.item_qty = edtItemQty.text?.trim().toString()
-                //viewModel.note = edtFullName.text?.trim().toString()
-                var file = mutableListOf<File>()
-                PreferenceUtils.writeParcelInfo(
-                    ParcelInfoVO(
-                        viewModel.parcel_id,
-                        viewModel.parcel_type,
-                        viewModel.weight,
-                        viewModel.item_qty.toInt(),
-                        viewModel.paymentMethodID,
-                        viewModel.extraCover,
-                        file,
-                        viewModel.note
-                    )
-                )
-
-                if (viewModel.isActivate) {
-                    if (viewModel.extraCover.extra_cover_id == 0) {
-                        showSnackBar("Extra Cover Cost"*//*resources.getString(R.string.extra_cover_cost)*//*)
-                    } else {
-                        file.forEach {
-                            it.let {
-                               // viewModel.part.add(getImageMultipleFile("parcel_image_list[]", it))
-                            }
-
-                        }
-                       // viewModel.booingParcel(viewModel.part)
-                    }
-                    //else viewModel.booingParcel(viewModel.part)
-
-                } else {
-                    viewModel.file.forEach {
-                        it.let {
-                            viewModel.part.add(getImageMultipleFile("parcel_image_list[]", it))
-                        }
-
-                    }
-                    viewModel.booingParcel(viewModel.part)
-                }
-
-
-                //println("seneddseseesseseses ${viewModel.isActivate} and ${viewModel.extraCover.extra_cover_id} and ${viewModel.part}")
-
-            }
-        }*/
-    }
-
     private fun navigateToTrackOrderView(orderId : Int) {
         binding.btnViewMyOrderGotBooking.setOnClickListener {
             /*startActivity<TrackOrderParcelActivity>(
@@ -236,7 +182,7 @@ class BookingOrderActivity : AppCompatActivity() {
         alertDialog.create().apply {
             window?.setBackgroundDrawableResource(android.R.color.transparent)
             setCancelable(true)
-
+            dialogBinding?.ivClose?.show()
             dialogBinding?.rbtnMuseCheck?.isClickable = true
             dialogBinding?.rbtnMuseCheck?.isFocusable = true
             dialogBinding?.rbtnLashioCheck?.isClickable = true
@@ -251,6 +197,9 @@ class BookingOrderActivity : AppCompatActivity() {
                 dialogBinding?.rbtnLashioCheck?.isChecked = false
             }
             PreferenceUtils.writeParcelZoneId(PreferenceUtils.readZoneId() ?: 1)
+            dialogBinding?.ivClose?.setOnClickListener {
+                dismiss()
+            }
             dialogBinding?.rbtnLashioCheck?.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     if (lastSelected != 1) {

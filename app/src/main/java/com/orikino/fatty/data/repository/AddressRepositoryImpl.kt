@@ -48,7 +48,14 @@ class AddressRepositoryImpl @Inject constructor(
         address_type: String,
         is_default : Boolean,
         secondary_phone : String?
-    ): Response<CustomerAddressResponse> = addressService.updateCurrentAddress(customer_address_id, customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, is_default, secondary_phone)
+    ): Response<CustomerAddressResponse> {
+        val isDefault = if (is_default){
+            1
+        }else{
+            0
+        }
+        return addressService.updateCurrentAddress(customer_address_id, customer_id, address_latitude, address_longitude, current_address, customer_phone, building_system, address_type, isDefault, secondary_phone)
+    }
 
     override suspend fun deleteCustomerAddressById(customer_address_id: Int): Response<DeleteAddressResponse> = addressService.deleteAddressById(customer_address_id)
 }

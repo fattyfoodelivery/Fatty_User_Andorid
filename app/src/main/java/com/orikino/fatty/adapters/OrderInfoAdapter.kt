@@ -35,7 +35,8 @@ class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,
                 binding.tvFoodAddon.setTextColor("#EF0E00".toColorInt())
                 binding.tvAmount.setTextColor("#EF0E00".toColorInt())
                 binding.tvFoodNote.setTextColor("#EF0E00".toColorInt())
-                binding.tvFoodNameQty.setTextColor("#EF0E00".toColorInt())
+                binding.tvFoodName.setTextColor("#EF0E00".toColorInt())
+                binding.tvFoodQty.setTextColor("#EF0E00".toColorInt())
                 //binding.tvFoodCancel.show()
                 binding.tvAmount.text = if (currency == "MMK"){
                     "- ${data.food_price?.toDouble()?.toThousandSeparator()} ${currency}"
@@ -49,11 +50,14 @@ class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,
                     "${data.food_price_currency?.toDouble()?.toThousandSeparator()} ${currency}"
                 }
             }
+            if (data.food_note.isEmpty()){
+                binding.tvFoodNote.visibility = View.GONE
+            }else{
+                binding.tvFoodNote.visibility = View.VISIBLE
+            }
             binding.tvFoodNote.text = data.food_note
-            binding.tvFoodNameQty.text = "x ${data.food_qty}   ${data.toDefaultFoodName()}"
-
-
-
+            binding.tvFoodName.text = data.toDefaultFoodName()
+            binding.tvFoodQty.text = "x ${data.food_qty}"
         }
 
         override fun onClick(v: View?)  = Unit

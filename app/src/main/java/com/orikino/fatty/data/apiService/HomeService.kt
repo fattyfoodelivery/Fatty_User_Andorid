@@ -32,7 +32,9 @@ interface HomeService {
     suspend fun fetchTopRelatedCategory(
         @Field("customer_id")customer_id: Int,
         @Field("latitude")latitude: Double,
-        @Field("longitude")longitude: Double
+        @Field("longitude")longitude: Double,
+        @Field("page") page : Int = 1,
+        @Field("pageSize") pageSize : Int = 10
     ) : Response<TopRelatedCategoryResponse>
 
     @GET(ApiRouteConstant.routeCurrencyList)

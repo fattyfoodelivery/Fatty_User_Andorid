@@ -104,21 +104,31 @@ class ParcelDetailActivity : AppCompatActivity() {
         data.order_status?.let { localizeOrderStatus(it) }
         binding.tvOrderId.text = "${getString(R.string.order_id)} ${data.customer_order_id}"
         binding.tvParcelTypeName.text = data.parcel_type?.parcel_type_name
-        binding.tvParcelPrice.text= data.item_total_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        binding.tvParcelPrice.text= data.item_total_price?.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         binding.tvParcelQtyCount.text = data.item_qty.toString()
         binding.tvOrderStatus.text = data.order_status?.order_status_name
         binding.tvParcelEstimatedDate.text = data.order_date.plus(" | ").plus(data.order_time)
            // (data.estimated_start_time)?.let { dateFormat(it).plus(" | ").plus(data.order_time) }
         binding.tvDeliverDurationDistance.text = ( data.distance_time?.toHourMinuteString()).plus("/").plus(data.distance.toString().plus(" km"))
         binding.tvOrderFrom.text = getString(R.string.sender)
-        binding.tvSenderName.text = data.rider?.rider_user_name
+        binding.tvSenderName.text = data.from_sender_name
         binding.tvSenderAddress.text = data.from_parcel_city_name
-        binding.tvSenderPhone.text = data.rider?.rider_user_phone
+        binding.tvSenderPhone.text = data.from_sender_phone
+        binding.tvSenderNote.text = data.from_pickup_note?.ifEmpty { "-" }
 
-        binding.tvReceiverName.text = data.from_sender_name
-        binding.tvReceiverAddress.text = data.to_parcel_city_name
-        binding.tvReceiverPhone.text  = data.from_sender_phone
+        binding.tvReceiverName.text = data.to_recipent_name.ifEmpty { "-" }
+        binding.tvReceiverAddress.text = data.to_parcel_city_name?.ifEmpty { "-" }
+        binding.tvReceiverPhone.text  = data.to_recipent_phone?.ifEmpty { "-" }
+        binding.tvReceiverNote.text = data.to_drop_note?.ifEmpty { "-" }
 
+        if (!data.parcel_order_note.isNullOrEmpty()){
+            binding.llNote.show()
+            binding.viewSeven.show()
+            binding.tvNote.text = data.parcel_order_note
+        }else{
+            binding.llNote.gone()
+            binding.viewSeven.gone()
+        }
 
         /*if (data.parcel_extra != null) {
             tv_extra_cover.visibility = View.VISIBLE
@@ -147,16 +157,16 @@ class ParcelDetailActivity : AppCompatActivity() {
             binding.tvDeliveryFeeTitle.text = getString(R.string.delivery_fees)
         }
 
-        binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        binding.tvDeliveryFeePrice.text = data.delivery_fee.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         //binding.tvExtraFeePrice.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
-        binding.tvBillTotalPrice.text = data.bill_total_price.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+        binding.tvBillTotalPrice.text = data.bill_total_price.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
 
         if (data.additional_fee != 0.0 || data.additional_fee_yuan != 0.0){
             binding.rlAdditional.show()
             if (data.currency_id == 1){
-                binding.tvAdditionalFee.text = data.additional_fee.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+                binding.tvAdditionalFee.text = data.additional_fee.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
             }else{
-                binding.tvAdditionalFee.text = data.additional_fee_yuan.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+                binding.tvAdditionalFee.text = data.additional_fee_yuan.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
             }
         }else{
             binding.rlAdditional.gone()
@@ -164,7 +174,7 @@ class ParcelDetailActivity : AppCompatActivity() {
 
         if (data.parcel_extra?.parcel_extra_cover_price != 0.0){
             binding.rlExtra.show()
-            binding.tvExtraFell.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
+            binding.tvExtraFell.text = data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator().plus(" ").plus(PreferenceUtils.readCurrCurrency()?.currency_symbol)
         }
 
 
@@ -231,7 +241,7 @@ class ParcelDetailActivity : AppCompatActivity() {
             }
             12 -> {
                 binding.tvOrderStatus.text = type.order_status_name
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
             }
             14 -> {
                 binding.tvOrderStatus.text = type.order_status_name

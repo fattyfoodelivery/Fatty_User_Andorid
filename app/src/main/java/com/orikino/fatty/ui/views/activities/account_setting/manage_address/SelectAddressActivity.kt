@@ -1,10 +1,13 @@
 package com.orikino.fatty.ui.views.activities.account_setting.manage_address
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,45 +15,51 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.orikino.fatty.R
-import com.orikino.fatty.adapters.AddressAdapter
+import com.orikino.fatty.adapters.AddressSelectableAdapter
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityManageAddressBinding
 import com.orikino.fatty.databinding.LayoutConfirmCancelDialogBinding
+import com.orikino.fatty.domain.model.CustomerAddressVO
 import com.orikino.fatty.domain.view_model.AddressViewModel
+import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.ui.views.base.BaseSelectableViewHolder
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
-import com.orikino.fatty.domain.model.*
-import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
-import com.orikino.fatty.domain.viewstates.AddressViewState
-import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
 @AndroidEntryPoint
-class ManageAddressActivity : AppCompatActivity(){
+class SelectAddressActivity: AppCompatActivity(){
 
     private lateinit var manageAddressBinding: ActivityManageAddressBinding
 
-    private var addressAdapter : AddressAdapter? = null
+    private var addressAdapter : AddressSelectableAdapter? = null
 
     var customerId: Int? = 0
     private var fromCart = false
     private var isBack = false
     private val viewModel: AddressViewModel by viewModels()
     private var addressSize : Int = 0
+    private var selectedPosition : Int = 0
+    private var selectedId : Int = 0
+
     companion object {
         const val FROM_CART = "from_cart"
-        fun getIntent(fromCart: Boolean): Intent {
-            val intent = Intent(FattyApp.getInstance(), ManageAddressActivity::class.java)
+        const val SELECTED_POSITION = "selected_position"
+        fun getIntent(fromCart: Boolean, selectedPosition : Int): Intent {
+            val intent = Intent(FattyApp.getInstance(), SelectAddressActivity::class.java)
             intent.putExtra(FROM_CART, fromCart)
+            intent.putExtra(SELECTED_POSITION, selectedPosition)
             return intent
         }
     }
@@ -60,6 +69,7 @@ class ManageAddressActivity : AppCompatActivity(){
 
         manageAddressBinding = ActivityManageAddressBinding.inflate(layoutInflater)
         setContentView(manageAddressBinding.root)
+        selectedPosition = intent.getIntExtra(SELECTED_POSITION, 0)
         manageAddressBinding.emptyView.emptyImage.setImageResource(R.drawable.ic_no_address)
         manageAddressBinding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
         manageAddressBinding.emptyView.emptyMessageDes.text = ""
@@ -76,7 +86,26 @@ class ManageAddressActivity : AppCompatActivity(){
     }
 
     private fun onBackPress() {
-        manageAddressBinding.ivBack.setOnClickListener { finish() }
+        manageAddressBinding.ivBack.setOnClickListener {
+            val item = addressAdapter?.getItemAt(selectedPosition)
+            val returnIntent = Intent()
+            returnIntent.putExtra("SELECTED_ADDRESS_ID", item?.customer_address_id)
+            returnIntent.putExtra("SELECTED_ADDRESS_POSITION", selectedPosition)
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
+            this
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val item = addressAdapter?.getItemAt(selectedPosition)
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("SELECTED_ADDRESS_ID", item?.customer_address_id)
+                    returnIntent.putExtra("SELECTED_ADDRESS_POSITION", selectedPosition)
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+                }
+            })
     }
 
     override fun onStart() {
@@ -89,11 +118,19 @@ class ManageAddressActivity : AppCompatActivity(){
         viewModel.viewState.observe(this){ render(it) }
         viewModel.manageAddressLiveDataList.observe(this) {
             addressSize = it.size
-            addressAdapter?.setNewData(it)
-            if (it.isNotEmpty())
+            addressAdapter?.appendNewData(it)
+
+            if (it.isNotEmpty()) {
+                if (selectedId == 0){
+                    selectedId = it[selectedPosition].customer_address_id
+                }
+                val realPosition = it.indexOfFirst { it1 -> it1.customer_address_id == selectedId }
+                selectedPosition = realPosition
+                addressAdapter?.toggleSelectedItem(selectedPosition)
                 manageAddressBinding.emptyView.root.visibility = android.view.View.GONE
-            else
+            } else {
                 manageAddressBinding.emptyView.root.visibility = android.view.View.VISIBLE
+            }
         }
     }
 
@@ -132,10 +169,11 @@ class ManageAddressActivity : AppCompatActivity(){
     }
     private fun renderOnSuccessDeleteAddress(state: AddressViewState.OnSuccessDeleteAddress) {
         if (state.data.data.isEmpty())
-            manageAddressBinding.emptyView.root.visibility = android.view.View.VISIBLE
+            manageAddressBinding.emptyView.root.visibility = View.VISIBLE
         else
-            manageAddressBinding.emptyView.root.visibility = android.view.View.GONE
-        addressAdapter?.setNewData(state.data.data)
+            manageAddressBinding.emptyView.root.visibility = View.GONE
+        addressAdapter?.appendNewData(state.data.data)
+        addressAdapter?.toggleSelectedItem(selectedPosition)
     }
 
     private fun renderOnFailDeleteAddress(state: AddressViewState.OnFailDeleteAddress) {
@@ -143,14 +181,15 @@ class ManageAddressActivity : AppCompatActivity(){
     }
 
     private fun renderOnLoadingSetDefaultAddress() {
-        LoadingProgressDialog.showLoadingProgress(this@ManageAddressActivity)
+        LoadingProgressDialog.showLoadingProgress(this)
     }
     private fun renderOnSuccessSetDefaultAddress(state: AddressViewState.OnSuccessSetDefaultAddress) {
         LoadingProgressDialog.hideLoadingProgress()
         if (state.data.success) {
             LoadingProgressDialog.hideLoadingProgress()
             //addressAdapter?.setNewData(state.data.data)
-            addressAdapter?.setNewData(state.data.data)
+            addressAdapter?.appendNewData(state.data.data)
+            addressAdapter?.toggleSelectedItem(selectedPosition)
         }
     }
 
@@ -160,7 +199,7 @@ class ManageAddressActivity : AppCompatActivity(){
     }
 
     private fun renderOnLoadingCustomerAddressList() {
-        LoadingProgressDialog.showLoadingProgress(this@ManageAddressActivity)
+        LoadingProgressDialog.showLoadingProgress(this)
     }
 
     private fun renderOnSuccessCustomerAddressList(state: AddressViewState.OnSuccessCustomerAddressList) {
@@ -289,18 +328,11 @@ class ManageAddressActivity : AppCompatActivity(){
         )
         manageAddressBinding.rvCustomerAddress.setHasFixedSize(true)
         manageAddressBinding.rvCustomerAddress.isNestedScrollingEnabled = true
-        addressAdapter = AddressAdapter(FattyApp.getInstance()) { data, str, pos ->
+        addressAdapter = AddressSelectableAdapter(FattyApp.getInstance(), { data, str, pos ->
             when (str) {
-                "root" -> {
-                    PreferenceUtils.writeToEditAddress(data)
-                    startActivity(AddressPickUpMapBoxActivity.getIntent(true))
-                }
+                "root" -> onTapItemChange(pos)
                 "default" -> {
-                    if (data.is_default){
-                        showSnackBar("Can't remove default address")
-                    }else{
-                        setDefault(data)
-                    }
+                    setDefault(data)
                 }
                 "delete" -> {
                     deleteAddress(data)
@@ -312,7 +344,18 @@ class ManageAddressActivity : AppCompatActivity(){
                     //viewModel.updateCurrentAddress(data.customer_address_id,data.customer_id,data.address_latitude,data.address_longitude,data.current_address,data.customer_phone?: "",data.building_system?:"",data.address_type, data.is_default, data.secondary_phone)
                 }
             }
-        }
+        }, object : BaseSelectableViewHolder.RecyclerItemSelectedListener {
+            override fun onSelected(selectedPosition: Int, view: View?) {
+                addressAdapter?.toggleSelectedItem(selectedPosition)
+                val item = addressAdapter?.getItemAt(selectedPosition)
+                val returnIntent = Intent()
+                returnIntent.putExtra("SELECTED_ADDRESS_ID", item?.customer_address_id)
+                returnIntent.putExtra("SELECTED_ADDRESS_POSITION", selectedPosition)
+                setResult(RESULT_OK, returnIntent)
+                finish()
+            }
+
+        })
         manageAddressBinding.rvCustomerAddress.adapter = addressAdapter
     }
 

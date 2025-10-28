@@ -65,7 +65,6 @@ import com.orikino.fatty.domain.model.TopRelatedCategoryVO
 import com.orikino.fatty.domain.responses.TempRestDetailResponse
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
-import com.orikino.fatty.utils.SmartScrollListener
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -297,9 +296,9 @@ fun Context.phoneCall(phone: String) {
     this.startActivity(intent)
 }
 
-fun RecyclerView.applySmartScrollListener(listener: SmartScrollListener.OnSmartScrollListener) {
-    this.addOnScrollListener(SmartScrollListener(listener))
-}
+//fun RecyclerView.applySmartScrollListener(listener: SmartScrollListener.OnSmartScrollListener) {
+//    this.addOnScrollListener(SmartScrollListener(listener))
+//}
 
 fun AppCompatImageView.load(source: Any) {
     //val requestOptions: RequestOptions by KoinJavaComponent.inject(RequestOptions::class.java)

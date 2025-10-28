@@ -3,6 +3,8 @@ package com.orikino.fatty.viewholder
 import com.orikino.fatty.ui.views.base.BaseSelectableViewHolder
 import com.orikino.fatty.databinding.ItemCheckboxFoodOptionBinding
 import com.orikino.fatty.domain.model.OptionVO
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.toDefaultOptionName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 
@@ -14,6 +16,11 @@ class CheckBoxFoodOptionViewHolder(
         binding.root.isChecked = isSelected
         binding.rbOption.isChecked = isSelected
         binding.tvOption.text = mData.toDefaultOptionName()
-        binding.tvPrice.text = "${mData.food_sub_item_price.toDouble().toThousandSeparator()} "//${PreferenceUtils.readCurrencyId()?.currency_symbol}"
+        if (mData.food_sub_item_price.toDouble() != 0.0){
+            binding.tvPrice.show()
+            binding.tvPrice.text = "${mData.food_sub_item_price.toDouble().toThousandSeparator()} "//${PreferenceUtils.readCurrencyId()?.currency_symbol}"
+        }else{
+            binding.tvPrice.gone()
+        }
     }
 }

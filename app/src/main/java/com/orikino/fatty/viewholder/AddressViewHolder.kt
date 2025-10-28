@@ -14,33 +14,41 @@ class AddressViewHolder(var binding : ItemManageAddressBinding,var callbacks: (C
     override fun setData(data: CustomerAddressVO, position: Int) {
         when(data.address_type) {
             "Home" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_home)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
             }
             "အိမ်" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_home)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
             }
             "家" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_home)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.txt_home)
             }
             "Work" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_work)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
             }
             "အလုပ်" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_work)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
             }
             "工作单位" -> {
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_work)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.work)
             }
             else ->{
-                binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.other)
+                binding.imvLocation.setImageResource(R.drawable.ic_type_other)
+                //binding.tvAddressType.text = ContextCompat.getString(binding.root.context, R.string.other)
             }
         }
-        val address = if (data.building_system.isNullOrEmpty()){
-            data.current_address
+        if (data.building_system.isNullOrEmpty()){
+            binding.tvBuildingSystem.gone()
         }else{
-            data.current_address.plus("\n").plus(data.building_system)
+            binding.tvBuildingSystem.show()
         }
-        binding.tvAddress.text = address
+        binding.tvAddress.text = data.current_address
+        binding.tvBuildingSystem.text = data.building_system
         if (data.secondary_phone == null){
             binding.tvPhone.text = data.customer_phone
         }else{
@@ -51,12 +59,15 @@ class AddressViewHolder(var binding : ItemManageAddressBinding,var callbacks: (C
 
 
         if (data.is_default) {
+            binding.imvLocation.imageTintList = ContextCompat.getColorStateList(binding.root.context, R.color.fattyPrimary)
             binding.llManageAddress.strokeColor = ContextCompat.getColor(binding.root.context, R.color.fattyPrimary)
-            binding.imvRadioStatus.setImageResource(R.drawable.radio_check)
+            //binding.imvRadioStatus.setImageResource(R.drawable.radio_check)
+            binding.tvDefault.show()
         } else {
+            binding.imvLocation.imageTintList = ContextCompat.getColorStateList(binding.root.context, R.color.icon_tint)
             binding.llManageAddress.strokeColor = ContextCompat.getColor(binding.root.context, R.color.natural300)
-            binding.imvRadioStatus.setImageResource(R.drawable.uncheck_circle_18dp)
-
+            //binding.imvRadioStatus.setImageResource(R.drawable.uncheck_circle_18dp)
+            binding.tvDefault.gone()
         }
 
         if (data.onTapPositon) {
@@ -66,16 +77,16 @@ class AddressViewHolder(var binding : ItemManageAddressBinding,var callbacks: (C
         binding.root.setOnClickListener {
 
             callbacks.invoke(data, "root", position)
-            
+
         }
 
-        binding.llSetDefault.setOnClickListener {
-            callbacks.invoke(data,"default",position)
-        }
+//        binding.llSetDefault.setOnClickListener {
+//            callbacks.invoke(data,"default",position)
+//        }
 
-        binding.imvDeleteAddress.setOnClickListener {
-            callbacks.invoke(data,"delete",position)
-        }
+//        binding.imvDeleteAddress.setOnClickListener {
+//            callbacks.invoke(data,"delete",position)
+//        }
 
         binding.btnUpdate.setOnClickListener {
             callbacks.invoke(data,"update",position)

@@ -83,5 +83,7 @@ data class RecommendRestaurantVO(
     @SerializedName("city_id")
     var city_id : Int = 0,
     @SerializedName("additional_delivery_fee")
-    var additional_delivery_fee : Double = 0.0
+    var additional_delivery_fee : Double = 0.0,
+    //for loading view
+    var isLoadingView : Boolean = false
 )

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -80,6 +81,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private var foodVO = FoodVO()
     private var viewType = ""
     private var menuList: MutableList<MenuVO> = mutableListOf()
+    private var wishListedID : Int = 0
+    private var isWished : Boolean = false
 
 
     companion object {
@@ -210,7 +213,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 favourite()
                 binding.tvTitleRestName.text = it.toDefaultRestaurantName()
                 binding.tvTitleDistance.text =
-                    getString(R.string.txt_preperation_time_min, it.average_time)
+                    getString(R.string.txt_preperation_time_min, it.average_time.toString())
                 binding.tvRestaurantName.text = it.toDefaultRestaurantName()
                 binding.tvRestaurantAddress.text = it.restaurant_address
                 binding.tvDurationDistance.text = "${it.distance_time.toHourMinuteString()}・${it.distance} km"
@@ -434,7 +437,12 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 )
             )
             if (state.data.data.is_wish){
+                wishListedID = state.data.data.restaurant_id
+                isWished = true
                 CustomToast(this, getString(R.string.added_to_favourite_item), true).createCustomToast()
+            }else{
+                wishListedID = state.data.data.restaurant_id
+                isWished = false
             }
             //viewModel.fetchFoodRestMenuByRestId(restaurant_id)
 //            PreferenceUtils.readUserVO().customer_id?.let {
@@ -804,7 +812,25 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     }
 
     private fun onBackPress() {
-        binding.ivBack.setOnClickListener { onBackPressed() }
+        binding.ivBack.setOnClickListener {
+            val returnIntent = Intent()
+            returnIntent.putExtra("WISHED_LISTED_ID", wishListedID)
+            returnIntent.putExtra("IS_WISHED", isWished)
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
+
+        this
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("WISHED_LISTED_ID", wishListedID)
+                    returnIntent.putExtra("IS_WISHED", isWished)
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+                }
+            })
     }
 
     override fun onAddToCart() {

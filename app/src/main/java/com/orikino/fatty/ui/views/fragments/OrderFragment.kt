@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -316,8 +317,9 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
         orderBinding?.emptyVew?.root?.setEmptyData(
             getString(R.string.no_order_yet),
             "",
-            resources.getDrawable(R.drawable.ic_food_empty_144dp)
+            ContextCompat.getDrawable(requireContext(),R.drawable.ic_food_empty_144dp)!!
         )
+        orderBinding?.emptyVew?.emptyMessageDes?.visibility = View.INVISIBLE
     }
 
     private fun hideEmptyView() {

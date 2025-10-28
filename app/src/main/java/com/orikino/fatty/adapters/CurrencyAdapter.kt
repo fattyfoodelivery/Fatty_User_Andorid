@@ -43,8 +43,8 @@ class CurrencyAdapter(private val context: Context, val callback : (CurrencyVO, 
 
             }
 
-            binding.tvName.text = data.currency_name
-            binding.tvCurrencyUnit.text = data.currency_symbol
+            binding.tvName.text = data.currency_symbol
+            //binding.tvCurrencyUnit.text = data.currency_symbol
 
             lastPos = position
 

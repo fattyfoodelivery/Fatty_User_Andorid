@@ -222,6 +222,10 @@
         <activity android:name=".ui.views.activities.parcel.BookingPendingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.account_setting.manage_address.SelectAddressActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
 
         <!--

@@ -23,6 +23,8 @@ interface HomeRepository {
         customer_id: Int,
         latitude: Double,
         longitude: Double,
+        page : Int,
+        pageSize : Int
     ) : Response<TopRelatedCategoryResponse>
 
     suspend fun fetchCurrency() : Response<CurrencyResponse>
