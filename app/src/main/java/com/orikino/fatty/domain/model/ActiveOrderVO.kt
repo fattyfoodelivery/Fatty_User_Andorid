@@ -92,7 +92,7 @@ data class ActiveOrderVO(
     @SerializedName("to_drop_note")
     var to_drop_note : String ?=null,
     @SerializedName("to_recipent_name")
-    var to_recipent_name : String = "",
+    var to_recipent_name : String? = "",
     @SerializedName("to_recipent_phone")
     var to_recipent_phone : String ?= null,
     @SerializedName("to_drop_address")

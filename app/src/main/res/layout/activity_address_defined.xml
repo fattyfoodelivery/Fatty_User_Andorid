@@ -247,12 +247,13 @@
                         android:gravity="center_vertical"
                         tools:ignore="UselessParent">
                         <ImageView
-                            android:id="@+id/imb_home"
+                            android:id="@+id/imv_home"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/radio_check"
+                            android:src="@drawable/ic_type_home"
                             android:contentDescription="@string/content_desc"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true"
+                            app:tint="@color/fattyPrimary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -262,7 +263,7 @@
                             android:layout_centerVertical="true"
                             android:fontFamily="@font/outfit_regular"
                             android:textColor="@color/textPrimary02"
-                            android:layout_toEndOf="@id/imb_home"
+                            android:layout_toEndOf="@id/imv_home"
                             tools:ignore="RtlSymmetry" />
                     </RelativeLayout>
 
@@ -285,7 +286,7 @@
                             android:id="@+id/imv_work"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/radio_uncheck"
+                            android:src="@drawable/ic_type_work"
                             android:contentDescription="@string/content_desc"
                             android:layout_centerVertical="true"/>
                         <TextView
@@ -320,7 +321,7 @@
                             android:id="@+id/imv_other"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/radio_uncheck"
+                            android:src="@drawable/ic_type_other"
                             android:contentDescription="@string/content_desc"
                             android:layout_centerVertical="true"/>
                         <TextView

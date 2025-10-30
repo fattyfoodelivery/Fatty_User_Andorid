@@ -9,6 +9,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemAddFoodBinding
 import com.orikino.fatty.domain.model.FoodVO
 import com.orikino.fatty.domain.model.MenuVO
+import com.orikino.fatty.utils.ClickGuard
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toDefaultMenuName
@@ -70,6 +71,7 @@ class RestaurantDetailActiveFoodAdapter(
             binding.root.setOnClickListener {
                 callback.invoke(data,"add",position)
             }
+            ClickGuard.guard(binding.root)
 
             /*binding.imvAddFood.setOnClickListener {
                 if (PreferenceUtils.readUserVO()?.customer_id == 0) {

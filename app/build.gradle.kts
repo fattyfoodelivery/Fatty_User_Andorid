@@ -16,7 +16,7 @@ android {
         applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 34
-        versionCode = 29
+        versionCode = 1
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -226,4 +226,8 @@ dependencies {
     //implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0")
 
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
+
+    implementation("com.nex3z:flow-layout:1.3.3")
+
+    implementation("com.jsibbold:zoomage:1.3.1")
 }

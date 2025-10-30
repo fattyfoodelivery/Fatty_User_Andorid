@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ActivityParcelDetailBinding
@@ -15,6 +16,7 @@ import com.orikino.fatty.domain.view_model.TrackOrderViewModel
 import com.orikino.fatty.domain.viewstates.OrderDetailWithRatingViewState
 import com.orikino.fatty.domain.viewstates.TrackParcelViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.rest_detail.PhotoViewActivity
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
@@ -25,6 +27,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -116,7 +119,9 @@ class ParcelDetailActivity : AppCompatActivity() {
         binding.tvSenderPhone.text = data.from_sender_phone
         binding.tvSenderNote.text = data.from_pickup_note?.ifEmpty { "-" }
 
-        binding.tvReceiverName.text = data.to_recipent_name.ifEmpty { "-" }
+        if (data.to_recipent_name != null){
+            binding.tvReceiverName.text = data.to_recipent_name!!.ifEmpty { "-" }
+        }
         binding.tvReceiverAddress.text = data.to_parcel_city_name?.ifEmpty { "-" }
         binding.tvReceiverPhone.text  = data.to_recipent_phone?.ifEmpty { "-" }
         binding.tvReceiverNote.text = data.to_drop_note?.ifEmpty { "-" }
@@ -128,6 +133,83 @@ class ParcelDetailActivity : AppCompatActivity() {
         }else{
             binding.llNote.gone()
             binding.viewSeven.gone()
+        }
+
+        //Ye Yint Note : refractor this, this is only for temporary purpose
+        if (data.parcel_images.isEmpty()){
+            binding.iv1.show()
+        }else{
+            try {
+                Log.d("Image",PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
+                binding.iv1.show()
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
+                    .error(R.drawable.parcel_default_img)
+                    .placeholder(R.drawable.parcel_default_img)
+                    .into(binding.iv1)
+                binding.iv1.setOnClickListener {
+                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image), getString(R.string.txt_image_detail))
+                    startActivity(photoViewActivity)
+                }
+            }catch (e : IndexOutOfBoundsException){
+                binding.iv1.gone()
+            }
+            try {
+                binding.iv2.show()
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image))
+                    .error(R.drawable.parcel_default_img)
+                    .placeholder(R.drawable.parcel_default_img)
+                    .into(binding.iv2)
+                binding.iv2.setOnClickListener {
+                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image),getString(R.string.txt_image_detail))
+                    startActivity(photoViewActivity)
+                }
+            }catch (e : IndexOutOfBoundsException){
+                binding.iv2.gone()
+            }
+            try {
+                binding.iv3.show()
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image))
+                    .error(R.drawable.parcel_default_img)
+                    .placeholder(R.drawable.parcel_default_img)
+                    .into(binding.iv3)
+                binding.iv3.setOnClickListener {
+                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image),getString(R.string.txt_image_detail))
+                    startActivity(photoViewActivity)
+                }
+            }catch (e : IndexOutOfBoundsException){
+                binding.iv3.gone()
+            }
+            try {
+                binding.iv4.show()
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image))
+                    .error(R.drawable.parcel_default_img)
+                    .placeholder(R.drawable.parcel_default_img)
+                    .into(binding.iv4)
+                binding.iv4.setOnClickListener {
+                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image),getString(R.string.txt_image_detail))
+                    startActivity(photoViewActivity)
+                }
+            }catch (e : IndexOutOfBoundsException){
+                binding.iv4.gone()
+            }
+            try {
+                binding.iv5.show()
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image))
+                    .error(R.drawable.parcel_default_img)
+                    .placeholder(R.drawable.parcel_default_img)
+                    .into(binding.iv5)
+                binding.iv5.setOnClickListener {
+                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image),getString(R.string.txt_image_detail))
+                    startActivity(photoViewActivity)
+                }
+            }catch (e : IndexOutOfBoundsException){
+                binding.iv5.gone()
+            }
         }
 
         /*if (data.parcel_extra != null) {

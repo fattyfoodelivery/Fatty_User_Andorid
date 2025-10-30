@@ -308,7 +308,8 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
 
         val dialog = builder.create()
         dialog.setOnDismissListener {
-            viewModel.onBoardingAd()
+            if(!isForceUpdate)
+                viewModel.onBoardingAd()
         }
         dialog.show()
     }

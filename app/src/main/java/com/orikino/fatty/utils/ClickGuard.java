@@ -75,7 +75,6 @@ import java.lang.reflect.Field;
  * </code></pre>
  */
 public abstract class ClickGuard {
-
     /**
      * Default watch period in millis.
      */

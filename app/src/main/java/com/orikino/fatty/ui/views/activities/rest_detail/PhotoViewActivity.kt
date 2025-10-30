@@ -15,10 +15,11 @@ import com.orikino.fatty.utils.PreferenceUtils
 class PhotoViewActivity : AppCompatActivity() {
     private lateinit var binding : FragmentPhotoViewBinding
     companion object Companion {
-        private const val ARG_IMAGE_URL = "arg_image_url"
         var image : String = ""
-        fun newInstance(imageUrl: String): Intent {
+        var mTitle : String = ""
+        fun newInstance(imageUrl: String, title : String = ""): Intent {
             this.image = imageUrl
+            this.mTitle = title
             return Intent(FattyApp.Companion.getInstance(), PhotoViewActivity::class.java)
         }
     }
@@ -29,6 +30,8 @@ class PhotoViewActivity : AppCompatActivity() {
 
         binding = FragmentPhotoViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (mTitle.isNotEmpty())
+            binding.tvTitleLb.text = mTitle
         initView()
     }
 

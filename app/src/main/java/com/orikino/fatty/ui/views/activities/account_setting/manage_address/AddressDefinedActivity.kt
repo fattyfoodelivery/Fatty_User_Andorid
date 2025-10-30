@@ -752,42 +752,42 @@ class AddressDefinedActivity : AppCompatActivity() {
 
     private fun homeSelected() {
         _binding.rlHome.setBackgroundResource(R.drawable.bg_selected)
-        _binding.imbHome.load(R.drawable.radio_check)
+        _binding.imvHome.imageTintList = getColorStateList(R.color.fattyPrimary)
 
         _binding.rlWork.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvWork.load(R.drawable.radio_uncheck)
+        _binding.imvWork.imageTintList = getColorStateList(R.color.icon_tint)
 
         _binding.rlOther.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvOther.load(R.drawable.radio_uncheck)
+        _binding.imvOther.imageTintList = getColorStateList(R.color.icon_tint)
 
     }
 
     private fun workSelected() {
         _binding.rlHome.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imbHome.load(R.drawable.radio_uncheck)
+        _binding.imvHome.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlWork.setBackgroundResource(R.drawable.bg_selected)
-        _binding.imvWork.load(R.drawable.radio_check)
+        _binding.imvWork.imageTintList = getColorStateList(R.color.fattyPrimary)
         _binding.rlOther.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvOther.load(R.drawable.radio_uncheck)
+        _binding.imvOther.imageTintList = getColorStateList(R.color.icon_tint)
 
     }
 
     private fun otherSelected() {
         _binding.rlHome.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imbHome.load(R.drawable.radio_uncheck)
+        _binding.imvHome.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlWork.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvWork.load(R.drawable.radio_uncheck)
+        _binding.imvWork.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlOther.setBackgroundResource(R.drawable.bg_selected)
-        _binding.imvOther.load(R.drawable.radio_check)
+        _binding.imvOther.imageTintList = getColorStateList(R.color.fattyPrimary)
     }
 
     private fun clearSelected() {
         _binding.rlHome.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imbHome.load(R.drawable.radio_uncheck)
+        _binding.imvHome.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlWork.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvWork.load(R.drawable.radio_uncheck)
+        _binding.imvWork.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlOther.setBackgroundResource(R.drawable.bg_unselectd)
-        _binding.imvOther.load(R.drawable.radio_uncheck)
+        _binding.imvOther.imageTintList = getColorStateList(R.color.icon_tint)
     }
 
 

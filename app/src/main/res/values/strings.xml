@@ -404,4 +404,5 @@
     <string name="txt_preperation_time_min">Preperation Time : %s mins</string>
     <string name="txt_default">Default</string>
     <string name="txt_edit_note">Edit Note</string>
+    <string name="txt_image_detail">Images</string>
 </resources>

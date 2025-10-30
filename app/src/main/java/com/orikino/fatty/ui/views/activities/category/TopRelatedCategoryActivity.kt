@@ -185,6 +185,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
             is HomeViewState.OnLoadingTopRelated -> renderOnLoadingTopRelated()
             is HomeViewState.OnSuccessTopRelated -> renderOnSuccessTopRelated(state)
             is HomeViewState.OnFailTopRelated -> renderOnFailTopRelated(state)
+            is HomeViewState.OnListEndReachTopRelated -> onListEndReachTopRelated()
 
             is HomeViewState.OnLoadingRestaurantByCategory -> renderOnLoadingRestaurantByCategory()
             is HomeViewState.OnSuccessRestaurantByCategory -> renderOnSuccessRestaurantByCategory(state)
@@ -429,6 +430,14 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
             }
 
         }
+    }
+
+    private fun onListEndReachTopRelated(){
+        val currentList = topRelatedCategoryAdapter?.currentList?.toMutableList() ?: mutableListOf()
+        if (currentList.isNotEmpty() && currentList[currentList.size-1].isLoadingView){
+            currentList.removeAt(currentList.size-1)
+        }
+        topRelatedCategoryAdapter?.submitList(currentList)
     }
 
     private fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {

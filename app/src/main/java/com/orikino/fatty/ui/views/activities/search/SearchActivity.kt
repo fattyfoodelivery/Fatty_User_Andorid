@@ -564,8 +564,13 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                         searchBinding.filterView.btnApply.alpha = 0.5f
                     }
                 }
-                searchBinding.filterView.tvTitleLb.text =
-                    "${resources.getString(R.string.filter)} (${viewModel.subList.size})"
+                if (viewModel.subList.isNotEmpty()){
+                    searchBinding.filterView.tvTitleLb.text =
+                        "${resources.getString(R.string.filter)} (${viewModel.subList.size})"
+                }else{
+                    searchBinding.filterView.tvTitleLb.text = resources.getString(R.string.filter)
+                }
+
             }
             chipGroup.addView(chips)
         }

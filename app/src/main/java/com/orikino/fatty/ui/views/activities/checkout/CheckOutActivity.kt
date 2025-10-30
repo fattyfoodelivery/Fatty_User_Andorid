@@ -336,17 +336,22 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         viewModel.manageAddressLiveDataList.observe(this) {
             println("address list size ${it}")
             try {
-                aa = if (selectedAddressID != 0){
-                   val temp = it.find {address -> address.customer_address_id == selectedAddressID }
-                    if (temp != null)
-                        mutableListOf(temp)
-                    else
-                        mutableListOf()
-                }else{
-                    it.filter { it1 ->
-                        it1.is_default
-                    }.toMutableList()
+                try {
+                    aa = if (selectedAddressID != 0){
+                        val temp = it.find {address -> address.customer_address_id == selectedAddressID }
+                        if (temp != null)
+                            mutableListOf(temp)
+                        else
+                            mutableListOf()
+                    }else{
+                        it.filter { it1 ->
+                            it1.is_default
+                        }.toMutableList()
+                    }
+                }catch (e : Exception){
+                    aa = mutableListOf()
                 }
+
 
 
                 when (aa.size) {

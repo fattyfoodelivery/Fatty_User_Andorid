@@ -385,4 +385,5 @@
     <string name="txt_preperation_time_min">修改时间 : %s mins</string>
     <string name="txt_default">默认</string>
     <string name="txt_edit_note">修改备注</string>
+    <string name="txt_image_detail">图片</string>
 </resources>

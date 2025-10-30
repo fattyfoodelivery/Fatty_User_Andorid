@@ -15,6 +15,8 @@ sealed class HomeViewState{
     data class OnSuccessTopRelated(val data : TopRelatedCategoryResponse) : HomeViewState()
     data class OnFailTopRelated(val message: String) : HomeViewState()
 
+    object OnListEndReachTopRelated : HomeViewState()
+
     object OnLoadingRestaurantByCategory : HomeViewState()
     data class OnSuccessRestaurantByCategory(val data : CategoryByCategoryIdResponse) : HomeViewState()
     data class OnFailRestaurantByCategory(val message: String) : HomeViewState()

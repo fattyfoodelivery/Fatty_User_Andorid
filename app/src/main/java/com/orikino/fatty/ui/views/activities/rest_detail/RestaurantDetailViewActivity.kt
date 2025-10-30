@@ -201,8 +201,15 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
             this
         ) {
             try {
-                if (it.is_wish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
-                else binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
+                if (it.is_wish) {
+                    binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
+                    isWished = true
+                }
+                else{
+                    binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
+                    isWished = false
+                }
+                wishListedID = restaurant_id
                 if (it.rating != 0.0) {
                     binding.imageView4.show()
                     binding.tvRatingCount.text = it.rating.toString()

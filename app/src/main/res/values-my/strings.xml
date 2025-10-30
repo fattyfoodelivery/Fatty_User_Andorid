@@ -384,4 +384,5 @@
     <string name="txt_preperation_time_min">အစားအသောက်ပြင်ဆင်ချိန် : %s mins</string>
     <string name="txt_default">မူရင်း</string>
     <string name="txt_edit_note">အချက်အလက်ပြင်ဆင်ရန်</string>
+    <string name="txt_image_detail">ပုံများ</string>
 </resources>

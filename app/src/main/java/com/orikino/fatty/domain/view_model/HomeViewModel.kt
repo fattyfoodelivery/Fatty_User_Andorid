@@ -235,6 +235,7 @@ class HomeViewModel @Inject constructor(
                     viewState.postValue(HomeViewState.OnFailTopRelated(Constants.CONNECTION_ISSUE))
                 }
             } else {
+                viewState.postValue(HomeViewState.OnListEndReachTopRelated)
             }
         }
     }

@@ -419,7 +419,7 @@ class AccountFragment : Fragment() {
     private fun clearCache() {
         PreferenceUtils.writeUserVO(CustomerVO())
         PreferenceUtils.writeFirstTime(true)
-        PreferenceUtils.writeLanguage("en")
+        //PreferenceUtils.writeLanguage("en")
         PreferenceUtils.writeFoodOrderList(mutableListOf())
         PreferenceUtils.writeAddToCart(false)
         PreferenceUtils.writeRestaurant(FoodMenuByRestaurantVO())
