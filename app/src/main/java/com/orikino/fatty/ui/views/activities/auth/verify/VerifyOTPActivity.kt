@@ -100,7 +100,7 @@ class VerifyOTPActivity : AppCompatActivity() {
             //startActivity<MainActivity>()
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
-            finish()
+            finishAffinity()
         }
     }
     override fun onResume() {
@@ -245,7 +245,7 @@ class VerifyOTPActivity : AppCompatActivity() {
                 //startActivity<MainActivity>()
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
-                finish()
+                finishAffinity()
 
             } else {
                 //startActivity<ProfileActivity>()

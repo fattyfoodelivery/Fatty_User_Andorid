@@ -604,7 +604,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         if (state.data.success) {
             cleanCartCache()
             if (state.data.data?.response?.code == "0") {
-               // bindOrderInfo(state.data.data?.response!!)
+                bindOrderInfo(state.data.data?.response!!)
                 finish()
 
                 startActivity(state.data.data?.order?.customer_order_id.toString().let {

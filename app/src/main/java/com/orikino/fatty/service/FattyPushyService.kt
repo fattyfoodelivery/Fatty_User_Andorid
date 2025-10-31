@@ -143,7 +143,9 @@ class FattyPushyService : Service() {
                         MainActivity.isOrderHistory = true
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-                        MainActivity.getIntent(this)
+                        val intent = Intent(this,OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
                     }
 
                     "restaurant_each_order_cancel" -> {
@@ -151,7 +153,9 @@ class FattyPushyService : Service() {
                         MainActivity.isOrderHistory = true
                         PreferenceUtils.needToShow = false
                         PreferenceUtils.isBackground = false
-                        MainActivity.getIntent(this)
+                        val intent = Intent(this,OrderDetailActivity::class.java)
+                        intent.putExtra(OrderDetailActivity.ORDER_ID,orderId)
+                        intent.putExtra(OrderDetailActivity.INTENT_FROM,true)
                     }
 
                     "rider_order_finished" -> {

@@ -346,7 +346,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
                 "track_food_finish" -> data.order_id?.let { trackFoodFinishDetail(it) }//data.let { itemRootClick(it) }
                 "view_rating" -> data.order_id?.let { fetchRatingReview(it) }
                 "track_parcel_finish" -> data.order_id?.let { trackFinishedDetail(it) }
-                else -> {
+                "view" -> {
                     data.order_id?.let { trackFoodFinishDetail(it) }
                 }
             }

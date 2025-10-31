@@ -314,6 +314,7 @@
                             android:id="@+id/rbt_check_cash"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:visibility="gone"
                             android:contentDescription="@string/content_desc"
                             android:src="@drawable/radio_check"
                             android:layout_centerVertical="true"/>
@@ -352,6 +353,7 @@
                             android:id="@+id/rbt_check_kpay"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+                            android:visibility="gone"
                             android:contentDescription="@string/content_desc"
                             android:src="@drawable/radio_uncheck"
                             android:layout_centerVertical="true"/>
