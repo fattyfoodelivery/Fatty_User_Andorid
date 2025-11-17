@@ -76,6 +76,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlin.text.isNotEmpty
 import androidx.core.graphics.toColorInt
+import com.orikino.fatty.ui.views.activities.base.MainActivity
+import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.LocaleHelper
 import kotlin.collections.map
 import kotlin.collections.toList
@@ -734,7 +736,26 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
             when(str) {
                 "fav" -> {
-                    viewModel.operateWishList(data.restaurant_id)
+                    if (PreferenceUtils.readUserVO().customer_id == 0) {
+                        ConfirmDialog.Builder(
+                            this,
+                            resources.getString(R.string.hello),
+                            resources.getString(R.string.login_message),
+                            resources.getString(R.string.login),
+                            callback = {
+                                PreferenceUtils.clearCache()
+                                finishAffinity()
+                                //startActivity<SplashActivity>()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                            })
+                            .show(
+                                supportFragmentManager,
+                                SearchActivity::class.simpleName
+                            )
+                    } else {
+                        viewModel.operateWishList(data.restaurant_id)
+                    }
                 }
                 "root" -> {
                     /*startActivity<RestaurantDetailViewActivity>(
@@ -780,16 +801,22 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private fun addFoodToCart(data : SearchFoodsVO) {
         if (PreferenceUtils.readUserVO().customer_id == 0) {
-            SuccessDialog.Builder(
+            ConfirmDialog.Builder(
                 this,
+                resources.getString(R.string.hello),
                 resources.getString(R.string.login_message),
+                resources.getString(R.string.login),
                 callback = {
-                    //startActivity<LoginActivity>()
+                    PreferenceUtils.clearCache()
+                    finishAffinity()
+                    //startActivity<SplashActivity>()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-                    finish()
                 })
-                .show(supportFragmentManager, SearchActivity::class.simpleName)
+                .show(
+                    supportFragmentManager,
+                    SearchActivity::class.simpleName
+                )
         } else {
             if (data.restaurant.distance > data.restaurant.limit_distance) {
                 showSnackBar(resources.getString(R.string.out_of_service))

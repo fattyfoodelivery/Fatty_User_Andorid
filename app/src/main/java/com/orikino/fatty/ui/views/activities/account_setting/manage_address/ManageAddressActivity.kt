@@ -28,6 +28,7 @@ import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.domain.model.*
 import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.domain.viewstates.AddressViewState
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -206,9 +207,11 @@ class ManageAddressActivity : AppCompatActivity(){
     private fun navigateToAddCurrentAddressView() {
         manageAddressBinding.btnAddNewAddr.setOnClickListener {
             if (PreferenceUtils.readUserVO().customer_id == 0) {
-                SuccessDialog.Builder(
+                ConfirmDialog.Builder(
                     this,
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
                         //startActivity<LoginActivity>()
                         val intent = Intent(this, LoginActivity::class.java)

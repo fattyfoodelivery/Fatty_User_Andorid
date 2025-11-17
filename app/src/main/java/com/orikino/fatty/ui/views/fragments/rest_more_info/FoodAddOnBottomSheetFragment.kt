@@ -287,7 +287,10 @@ class FoodAddOnBottomSheetFragment(
                 val ab = CreateFoodOption(
                     it.food_sub_item_data_id,
                     it.food_sub_item_price.toDouble(),
-                    it.toDefaultOptionName()!!
+                    it.item_name_en ?: "",
+                    it.item_name_mm ?: "",
+                    it.item_name_ch ?: ""
+
                 )
                 aa.option.add(ab)
             }

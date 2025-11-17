@@ -1,5 +1,6 @@
 package com.orikino.fatty.domain.view_model
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.orikino.fatty.data.repository.HomeRepository
 import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
+import com.orikino.fatty.domain.responses.HomeResponse
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.ui.views.activities.category.TopRelatedPagingState
 import com.orikino.fatty.utils.Constants

@@ -305,7 +305,9 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
                 val optionEntry = CreateFoodOption(
                     defaultOptionVO.food_sub_item_data_id,
                     defaultOptionVO.food_sub_item_price.toDouble(),
-                    defaultOptionVO.toDefaultOptionName() ?: ""
+                    defaultOptionVO.item_name_en ?: "",
+                    defaultOptionVO.item_name_mm ?: "",
+                    defaultOptionVO.item_name_ch ?: ""
                 )
                 subItemEntry.option.add(optionEntry)
                 if (foodSubItemList.none { it.food_sub_item_id == subItemEntry.food_sub_item_id }) {
@@ -320,7 +322,9 @@ class AddOnBottomSheetFragment : BaseBottomSheet<OrderViewModel>(), AddOnItemLis
         val convertedOption = CreateFoodOption(
             optionVO.food_sub_item_data_id,
             optionVO.food_sub_item_price.toDouble(),
-            optionVO.toDefaultOptionName() ?: ""
+            optionVO.item_name_en ?: "",
+            optionVO.item_name_mm ?: "",
+            optionVO.item_name_ch ?: ""
         )
 
         val existingSubItem = foodSubItemList.find { it.food_sub_item_id == foodSubVO.food_sub_item_id }

@@ -55,7 +55,8 @@ data class CreateFoodVO(
     var food_qty: Int = 0,
     var food_note: String? = null,
     var food_price: Double = 0.0,
-    var sub_item: MutableList<CreateFoodSubItem> = mutableListOf()
+    var sub_item: MutableList<CreateFoodSubItem> = mutableListOf(),
+    var isShow : Boolean = false
 )
 
 data class CreateFoodOrderVO(
@@ -75,7 +76,9 @@ data class CreateFoodSubItem(
 data class CreateFoodOption(
     var food_sub_item_data_id : Int = 0,
     var food_sub_item_price : Double = 0.0,
-    var item_name : String = ""
+    var item_name_en : String = "",
+    var item_name_mm : String = "",
+    var item_name_ch : String = "",
 )
 
 data class FoodDeliveryFeeVO(

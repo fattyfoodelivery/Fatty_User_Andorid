@@ -29,6 +29,7 @@ import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.ui.views.fragments.NotiFragment
 import com.orikino.fatty.ui.views.fragments.OrderFragment
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
@@ -152,14 +153,16 @@ class MainActivity : AppCompatActivity() {
                     needToShowLoading = true
                     if (PreferenceUtils.readUserVO().customer_id == 0) {
                         baseBinding.bottomNavigationView.menu.findItem(R.id.action_order).isCheckable = false
-                        SuccessDialog.Builder(
+                        ConfirmDialog.Builder(
                             this,
+                            resources.getString(R.string.hello),
                             resources.getString(R.string.login_message),
+                            resources.getString(R.string.login),
                             callback = {
                                 PreferenceUtils.clearCache()
                                 finishAffinity()
                                 //startActivity<SplashActivity>()
-                                val intent = Intent(this, SplashActivity::class.java)
+                                val intent = Intent(this, LoginActivity::class.java)
                                 startActivity(intent)
                             })
                             .show(
@@ -197,15 +200,17 @@ class MainActivity : AppCompatActivity() {
                     needToShowLoading = false
                     if (PreferenceUtils.readUserVO().customer_id == 0) {
                         baseBinding.bottomNavigationView.menu.findItem(R.id.action_account).isCheckable = false
-                        SuccessDialog.Builder(
+                        ConfirmDialog.Builder(
                             this,
+                            resources.getString(R.string.hello),
                             resources.getString(R.string.login_message),
+                            resources.getString(R.string.login),
                             callback = {
-                                //startActivity<LoginActivity>(LoginActivity.FROM to "base")
-                                val intent = Intent(this, LoginActivity::class.java)
-                                intent.putExtra("from", "base")
-                                startActivity(intent)
+                                PreferenceUtils.clearCache()
                                 finishAffinity()
+                                //startActivity<SplashActivity>()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
                             })
                             .show(
                                 supportFragmentManager,
@@ -348,14 +353,16 @@ class MainActivity : AppCompatActivity() {
             PreferenceUtils.isBackground = false
             when {
                 PreferenceUtils.readUserVO().customer_id == 0 -> {
-                    SuccessDialog.Builder(
+                    ConfirmDialog.Builder(
                         this,
+                        resources.getString(R.string.hello),
                         resources.getString(R.string.login_message),
+                        resources.getString(R.string.login),
                         callback = {
                             PreferenceUtils.clearCache()
                             finishAffinity()
                             //startActivity<SplashActivity>()
-                            val intent = Intent(this, SplashActivity::class.java)
+                            val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         })
                         .show(

@@ -239,7 +239,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="32dp"
-                    android:alpha="1"
+                    android:alpha="0.5"
+                    android:enabled="false"
                     android:fontFamily="@font/outfit_regular"
                     android:textSize="18sp"/>
 

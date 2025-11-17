@@ -36,7 +36,7 @@
     <string name="intro_get_any_where">Get delivery anywhere</string>
     <string name="intro_dec_three">အစားအသောက်နဲ့ ပါဆယ်များကို အချိန်မှန်မှန်နဲ့ မြန်မြန်ဆန်ဆန် အိမ်အရောက်ပို့ဆောင်ပေးပါမည်။</string>
     <string name="phone_number">ဖုန်းနံပါတ်</string>
-    <string name="phone_no_error">Please enter correct phone number</string>
+    <string name="phone_no_error">မှန်ကန်သော ဖုန်းနံပါတ်ကို ထည့်ပါ</string>
     <string name="welcome_to_fatty">Fatty မှကြိုဆိုပါတယ်။</string>
     <string name="_09">09</string>
     <string name="_123456789">123456789</string>
@@ -244,7 +244,7 @@
     <string name="select_from_gallery">Select From Gallery</string>
     <string name="user_status">Status - Restricted</string>
     <string name="user_status_desc">- Cannot use Cash On Delivery Service\n- Cannot use Parcel Service\nPlease Contact Call Center for Unlocking Restriction</string>
-    <string name="total_bills">စုစုပေါင်း:</string>
+    <string name="total_bills">စုစုပေါင်းဘေလ်:</string>
     <string name="payment_method">ငွေပေးချေစနစ်</string>
     <string name="kpay_pending">KBZPay Pending</string>
     <string name="kpay_refund">Kpay Refund</string>

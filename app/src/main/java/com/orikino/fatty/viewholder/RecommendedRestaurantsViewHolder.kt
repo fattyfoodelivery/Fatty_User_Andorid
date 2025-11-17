@@ -42,9 +42,9 @@ class RecommendedRestaurantsViewHolder(
             .into(binding.imvRestaurantPicture)
 
         if (data.restaurant_emergency_status == 1) {
-            binding.tvUnavailable.show()
+            binding.recommendedResUnavailable.show()
         } else {
-            binding.tvUnavailable.gone()
+            binding.recommendedResUnavailable.gone()
         }
 
         binding.rootContentView.setOnClickListener {

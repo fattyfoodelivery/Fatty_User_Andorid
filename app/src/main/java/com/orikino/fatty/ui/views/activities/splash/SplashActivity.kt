@@ -364,7 +364,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
                         if (htmlContent.isNotEmpty()) {
                             val filePath = saveHtmlToFile(this, htmlContent, TEMP_HTML_FILENAME)
                             if (filePath != null) {
-                                val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath)
+                                val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath, adData.display_type_name ?: "")
                                 startActivity(intent)
                             } else {
                                 // Fallback or error handling if file couldn't be saved

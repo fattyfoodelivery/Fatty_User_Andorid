@@ -136,16 +136,14 @@ class ParcelDetailActivity : AppCompatActivity() {
         }
 
         //Ye Yint Note : refractor this, this is only for temporary purpose
-        if (data.parcel_images.isEmpty()){
-            binding.iv1.show()
-        }else{
+        if (data.parcel_images.isNotEmpty()){
             try {
                 Log.d("Image",PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
                 binding.iv1.show()
                 Picasso.get()
                     .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
-                    .error(R.drawable.parcel_default_img)
-                    .placeholder(R.drawable.parcel_default_img)
+                    .error(R.drawable.img_parcel_placeholder)
+                    .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv1)
                 binding.iv1.setOnClickListener {
                     val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image), getString(R.string.txt_image_detail))
@@ -158,8 +156,8 @@ class ParcelDetailActivity : AppCompatActivity() {
                 binding.iv2.show()
                 Picasso.get()
                     .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image))
-                    .error(R.drawable.parcel_default_img)
-                    .placeholder(R.drawable.parcel_default_img)
+                    .error(R.drawable.img_parcel_placeholder)
+                    .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv2)
                 binding.iv2.setOnClickListener {
                     val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image),getString(R.string.txt_image_detail))
@@ -172,8 +170,8 @@ class ParcelDetailActivity : AppCompatActivity() {
                 binding.iv3.show()
                 Picasso.get()
                     .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image))
-                    .error(R.drawable.parcel_default_img)
-                    .placeholder(R.drawable.parcel_default_img)
+                    .error(R.drawable.img_parcel_placeholder)
+                    .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv3)
                 binding.iv3.setOnClickListener {
                     val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image),getString(R.string.txt_image_detail))
@@ -186,8 +184,8 @@ class ParcelDetailActivity : AppCompatActivity() {
                 binding.iv4.show()
                 Picasso.get()
                     .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image))
-                    .error(R.drawable.parcel_default_img)
-                    .placeholder(R.drawable.parcel_default_img)
+                    .error(R.drawable.img_parcel_placeholder)
+                    .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv4)
                 binding.iv4.setOnClickListener {
                     val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image),getString(R.string.txt_image_detail))
@@ -200,8 +198,8 @@ class ParcelDetailActivity : AppCompatActivity() {
                 binding.iv5.show()
                 Picasso.get()
                     .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image))
-                    .error(R.drawable.parcel_default_img)
-                    .placeholder(R.drawable.parcel_default_img)
+                    .error(R.drawable.img_parcel_placeholder)
+                    .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv5)
                 binding.iv5.setOnClickListener {
                     val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image),getString(R.string.txt_image_detail))

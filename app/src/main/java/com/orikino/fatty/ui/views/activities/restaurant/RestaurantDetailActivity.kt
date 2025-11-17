@@ -461,15 +461,22 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
 
     private fun addFoodToCart(data: FoodVO) {
         if (PreferenceUtils.readUserVO()?.customer_id == 0) {
-            SuccessDialog.Builder(
+            ConfirmDialog.Builder(
                 this,
+                resources.getString(R.string.hello),
                 resources.getString(R.string.login_message),
+                resources.getString(R.string.login),
                 callback = {
-                    startActivity(LoginActivity.getIntent("rest_detail"))
-                    finish()
-                }
-            )
-                .show(supportFragmentManager, RestaurantDetailActivity::class.simpleName)
+                    PreferenceUtils.clearCache()
+                    finishAffinity()
+                    //startActivity<SplashActivity>()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                })
+                .show(
+                    supportFragmentManager,
+                    RestaurantDetailActivity::class.simpleName
+                )
         } else {
             when {
                 restaurantInfO?.distance!! > restaurantInfO?.limit_distance!! -> {

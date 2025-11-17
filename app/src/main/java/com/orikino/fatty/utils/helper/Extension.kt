@@ -50,6 +50,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.orikino.fatty.R
 import com.orikino.fatty.domain.model.CategoryVO
 import com.orikino.fatty.domain.model.CityVO
+import com.orikino.fatty.domain.model.CreateFoodOption
 import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.domain.model.FoodMenuByRestaurantVO
 import com.orikino.fatty.domain.model.FoodSubItemVO
@@ -805,6 +806,22 @@ fun OptionVO.toDefaultOptionName(): String? {
         }
     }
 }
+
+fun CreateFoodOption.toDefaultOptionName(): String? {
+    return when (PreferenceUtils.readLanguage()) {
+        "en" -> {
+            this.item_name_en ?: this.item_name_mm
+        }
+        "zh" -> {
+            this.item_name_ch ?: this.item_name_mm
+        }
+        else -> {
+            this.item_name_mm
+        }
+    }
+}
+
+
 
 fun SearchFoodsVO.toDefaultFoodName(): String? {
     return when (PreferenceUtils.readLanguage()) {

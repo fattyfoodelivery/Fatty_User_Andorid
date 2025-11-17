@@ -58,11 +58,22 @@
             android:fontFamily="@font/outfit_regular"/>
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/sub_item_flow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/outfit_regular"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:textColor="@color/text_secondary_01"
+        app:layout_constraintTop_toBottomOf="@id/imv_food_item"
+        app:layout_constraintStart_toStartOf="@+id/ll_item_spec"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <LinearLayout
         android:id="@+id/ll_note"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imv_food_item"
+        app:layout_constraintTop_toBottomOf="@id/sub_item_flow"
         app:layout_constraintStart_toStartOf="@+id/ll_item_spec"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_below="@id/imv_food_item"

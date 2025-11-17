@@ -2,13 +2,16 @@ package com.orikino.fatty.viewholder
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import coil.load
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemFoodOrderCheckoutBinding
 import com.orikino.fatty.domain.model.CreateFoodVO
+import com.orikino.fatty.ui.views.customview.CustomSubItemView
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
+import com.orikino.fatty.utils.helper.toDefaultOptionName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 
 class FoodOrderViewHolder(
@@ -65,6 +68,21 @@ class FoodOrderViewHolder(
             callback.invoke(data,"plus",position)
         }
 
+        if (data.sub_item.isNotEmpty()){
+            _bind.subItemFlow.show()
+            var subItemList = ""
+            data.sub_item.forEach {
+                it.option.forEach { subItem ->
+                    subItemList = subItemList.plus(subItem.toDefaultOptionName())
+                    if (subItem != data.sub_item.last().option.last()) {
+                        subItemList = subItemList.plus(", ")
+                    }
+                }
+            }
+            _bind.subItemFlow.text = subItemList
+        }else{
+            _bind.subItemFlow.gone()
+        }
     }
 
     override fun onClick(v: View?) {

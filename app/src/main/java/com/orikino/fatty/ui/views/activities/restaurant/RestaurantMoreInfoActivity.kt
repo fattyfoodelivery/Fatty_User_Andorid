@@ -28,8 +28,10 @@ import com.orikino.fatty.domain.responses.RestDetailReviewListResponse
 import com.orikino.fatty.domain.view_model.RestaurantDetailViewModel
 import com.orikino.fatty.domain.viewstates.RestaurantDetailViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.FattyMap
 import com.orikino.fatty.utils.GpsTracker
@@ -321,16 +323,22 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
     private fun favourite() {
         _binding.imvFav.setOnClickListener {
             if (PreferenceUtils.readUserVO()?.customer_id == 0) {
-                SuccessDialog.Builder(
-                    applicationContext,
+                ConfirmDialog.Builder(
+                    this,
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
-                        //startActivity<LoginActivity>()
+                        PreferenceUtils.clearCache()
+                        finishAffinity()
+                        //startActivity<SplashActivity>()
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                        finish()
                     })
-                    .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
+                    .show(
+                        supportFragmentManager,
+                        RestaurantMoreInfoActivity::class.simpleName
+                    )
             } else {
                 if (!restaurant.is_wish) _binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
                 else _binding.imvFav.setImageResource(R.drawable.ic_favorite_white)

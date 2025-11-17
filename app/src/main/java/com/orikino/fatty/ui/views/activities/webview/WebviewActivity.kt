@@ -21,7 +21,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.net.URISyntaxException
 import androidx.core.net.toUri
+import com.orikino.fatty.R
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
+import com.squareup.picasso.Picasso
 
 class WebviewActivity : AppCompatActivity() {
     private lateinit var binding : ActivityWebviewBinding
@@ -29,10 +34,14 @@ class WebviewActivity : AppCompatActivity() {
     private var bodyContent : String = ""
     private var bodyFilePath: String? = null
 
+    private var displayImage : String? = null
+
     companion object{
         const val TITLE = "title"
         const val BODY = "body" // For direct HTML content (legacy or small content)
         const val BODY_FILE_PATH = "body_file_path" // For HTML content from a file
+
+        const val DISPLAY_IMAGE = "display_image"
 
         // Existing getIntent for backward compatibility or small direct content
         fun getIntent(context: Context, title : String, body : String) = Intent(context, WebviewActivity::class.java).apply {
@@ -41,9 +50,10 @@ class WebviewActivity : AppCompatActivity() {
         }
 
         // New getIntent for large content via file path
-        fun getIntentWithFilePath(context: Context, title : String, filePath : String) = Intent(context, WebviewActivity::class.java).apply {
+        fun getIntentWithFilePath(context: Context, title : String, filePath : String, displayImage : String) = Intent(context, WebviewActivity::class.java).apply {
             putExtra(TITLE,title)
             putExtra(BODY_FILE_PATH, filePath)
+            putExtra(DISPLAY_IMAGE, displayImage)
         }
     }
 
@@ -54,6 +64,7 @@ class WebviewActivity : AppCompatActivity() {
 
         title = intent.getStringExtra(TITLE) ?: ""
         bodyFilePath = intent.getStringExtra(BODY_FILE_PATH)
+        displayImage = intent.getStringExtra(DISPLAY_IMAGE)
 
         bodyContent = if (bodyFilePath != null) {
             try {
@@ -70,6 +81,17 @@ class WebviewActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             finish()
         }
+        if (displayImage != null){
+            binding.ivCover.show()
+            Picasso.get()
+                .load(displayImage)
+                .error(R.drawable.parcel_default_img)
+                .placeholder(R.drawable.parcel_default_img)
+                .into(binding.ivCover)
+        }else{
+            binding.ivCover.gone()
+        }
+
         binding.tvWebview.text = title
         setUpWebView()
         binding.webView.loadDataWithBaseURL(

@@ -28,7 +28,7 @@
 
     <application
         android:name=".app.FattyApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -39,8 +39,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fatty"
-        tools:replace="android:allowBackup"
-        tools:targetApi="tiramisu">
+        tools:targetApi="tiramisu"
+        tools:ignore="DataExtractionRules">
         <activity
             android:name=".ui.views.activities.temp.TempActivity"
             android:exported="false" />

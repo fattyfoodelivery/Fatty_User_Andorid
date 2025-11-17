@@ -23,8 +23,10 @@ import com.orikino.fatty.domain.model.CustomerAddressVO
 import com.orikino.fatty.domain.view_model.AddressViewModel
 import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.base.BaseSelectableViewHolder
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
@@ -245,17 +247,22 @@ class SelectAddressActivity: AppCompatActivity(){
     private fun navigateToAddCurrentAddressView() {
         manageAddressBinding.btnAddNewAddr.setOnClickListener {
             if (PreferenceUtils.readUserVO().customer_id == 0) {
-                SuccessDialog.Builder(
+                ConfirmDialog.Builder(
                     this,
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
-                        //startActivity<LoginActivity>()
+                        PreferenceUtils.clearCache()
+                        finishAffinity()
+                        //startActivity<SplashActivity>()
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                        finish()
-                    }
-                )
-                    .show(supportFragmentManager, ManageAddressActivity::class.simpleName)
+                    })
+                    .show(
+                        supportFragmentManager,
+                        SelectAddressActivity::class.simpleName
+                    )
             } else {
                 /*startActivity<AddressPickUpMapBoxActivity>(
                     AddressPickUpMapBoxActivity.INTENT_FROM to 1

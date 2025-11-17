@@ -15,6 +15,8 @@ import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.orikino.fatty.viewholder.BaseViewHolder
 import androidx.core.graphics.toColorInt
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.toDefaultOptionName
 
 class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,pos : Int) -> Unit) : BaseAdapter<OrderInfoAdapter.OrderInfoViewHolder,FoodVO>(context) {
 
@@ -54,6 +56,21 @@ class OrderInfoAdapter(var context: Context,var callback : (FoodVO,str : String,
                 binding.tvFoodNote.visibility = View.GONE
             }else{
                 binding.tvFoodNote.visibility = View.VISIBLE
+            }
+            if (data.sub_item.isNotEmpty()){
+                binding.tvFoodAddon.show()
+                var subItemList = ""
+                data.sub_item.forEach {
+                    it.option.forEach { subItem ->
+                        subItemList = subItemList.plus(subItem.toDefaultOptionName())
+                        if (subItem != data.sub_item.last().option.last()) {
+                            subItemList = subItemList.plus(", ")
+                        }
+                    }
+                }
+                binding.tvFoodAddon.text = subItemList
+            }else{
+                binding.tvFoodAddon.gone()
             }
             binding.tvFoodNote.text = data.food_note
             binding.tvFoodName.text = data.toDefaultFoodName()

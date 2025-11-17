@@ -53,6 +53,7 @@ import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSh
 import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSheetMapboxFragment
 import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.MapsFragment
 import com.orikino.fatty.utils.AccountRestrictedDialog
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
@@ -168,12 +169,16 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.rlTopParcel?.setOnClickListener {
             PreferenceUtils.isBackground = false
             if (PreferenceUtils.readUserVO().customer_id == 0) {
-                SuccessDialog.Builder(
+                ConfirmDialog.Builder(
                     requireContext(),
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
-                        //requireContext().startActivity<LoginActivity>()
-                        val intent = Intent(requireContext(),LoginActivity::class.java)
+                        PreferenceUtils.clearCache()
+                        requireActivity().finishAffinity()
+                        //startActivity<SplashActivity>()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
                         context?.startActivity(intent)
                     })
                     .show(
@@ -398,15 +403,22 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             PreferenceUtils.needToShow = false
             PreferenceUtils.isBackground = false
             if (PreferenceUtils.readUserVO().customer_id == 0) {
-                SuccessDialog.Builder(requireActivity(),
+                ConfirmDialog.Builder(
+                    requireContext(),
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
-                        //requireActivity().startActivity<LoginActivity>()
-                        val intent = Intent(requireContext(),LoginActivity::class.java)
+                        PreferenceUtils.clearCache()
+                        requireActivity().finishAffinity()
+                        //startActivity<SplashActivity>()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
                         context?.startActivity(intent)
-                    }).show(
-                    requireActivity().supportFragmentManager, HomeFragment::class.simpleName
-                )
+                    })
+                    .show(
+                        childFragmentManager,
+                        HomeFragment::class.simpleName
+                    )
             } else {
                 //context?.startActivity<WishListActivity>()
                 val intent = Intent(requireContext(),WishListActivity::class.java)
@@ -452,7 +464,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.shimmerView?.gone()
         binding?.rlTopView?.show()
        // binding?.tvYouMightLike?.show()
-        binding?.tvNearYou?.show()
+        //binding?.tvNearYou?.show()
         if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
     }
 
@@ -604,6 +616,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         val newCategories = state.data.categories.subList(0,8)
         topCategoryAdapter?.setData(newCategories)
 
+        Log.e("TAG", "renderOnSuccessHome: ${state.data.near_restaurant.size}")
         // Handle near restaurants with pagination
         if (state.data.near_restaurant.isNotEmpty()) {
             binding?.tvNearYou?.show()
@@ -815,7 +828,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     if (htmlContent.isNotEmpty()) {
                         val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
                         if (filePath != null) {
-                            val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath)
+                            val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath, tempData[position].display_type_image)
                             startActivity(intent)
                         }
                     }
@@ -937,7 +950,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                             if (htmlContent.isNotEmpty()) {
                                 val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
                                 if (filePath != null) {
-                                    val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath)
+                                    val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath, data.display_type_image)
                                     startActivity(intent)
                                 }
                             }
@@ -972,16 +985,22 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 }
                 "fav" -> {
                     if (PreferenceUtils.readUserVO()?.customer_id == 0) {
-                        SuccessDialog.Builder(
+                        ConfirmDialog.Builder(
                             requireContext(),
-                            requireContext().resources.getString(R.string.login_message),
+                            resources.getString(R.string.hello),
+                            resources.getString(R.string.login_message),
+                            resources.getString(R.string.login),
                             callback = {
-                                PreferenceUtils.needToShow = false
-                                PreferenceUtils.isBackground = false
-                                val intent = Intent(requireContext(),LoginActivity::class.java)
+                                PreferenceUtils.clearCache()
+                                requireActivity().finishAffinity()
+                                //startActivity<SplashActivity>()
+                                val intent = Intent(requireContext(), LoginActivity::class.java)
                                 context?.startActivity(intent)
                             })
-                            .show(childFragmentManager, HomeFragment::class.simpleName)
+                            .show(
+                                childFragmentManager,
+                                HomeFragment::class.simpleName
+                            )
                     } else {
                         PreferenceUtils.readUserVO().customer_id?.let {
                             viewModel.operateWishList(it, data.restaurant_id)

@@ -23,9 +23,11 @@ import com.orikino.fatty.databinding.ActivityTopRelatedCategoryBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
 import com.orikino.fatty.ui.views.fragments.HomeFragment
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
@@ -477,7 +479,26 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
                         startForResult.launch(intent)
                     }
                     "fav" -> {
-                        PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,data.restaurant_id) }
+                        if (PreferenceUtils.readUserVO().customer_id == 0) {
+                            ConfirmDialog.Builder(
+                                this,
+                                resources.getString(R.string.hello),
+                                resources.getString(R.string.login_message),
+                                resources.getString(R.string.login),
+                                callback = {
+                                    PreferenceUtils.clearCache()
+                                    finishAffinity()
+                                    //startActivity<SplashActivity>()
+                                    val intent = Intent(this, LoginActivity::class.java)
+                                    startActivity(intent)
+                                })
+                                .show(
+                                    supportFragmentManager,
+                                    TopRelatedCategoryActivity::class.simpleName
+                                )
+                        } else {
+                            PreferenceUtils.readUserVO().customer_id?.let { viewModel.operateWishList(it,data.restaurant_id) }
+                        }
                     }
                 }
             }
@@ -509,7 +530,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
                                 if (htmlContent.isNotEmpty()) {
                                     val filePath = saveHtmlToFile(this, htmlContent, TEMP_HTML_FILENAME)
                                     if (filePath != null) {
-                                        val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath)
+                                        val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath, data.display_type_image)
                                         startActivity(intent)
                                     }
                                 }
@@ -546,16 +567,22 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
                     }
                     "fav" -> {
                         if (PreferenceUtils.readUserVO()?.customer_id == 0) {
-                            SuccessDialog.Builder(
+                            ConfirmDialog.Builder(
                                 this,
+                                resources.getString(R.string.hello),
                                 resources.getString(R.string.login_message),
+                                resources.getString(R.string.login),
                                 callback = {
-                                    PreferenceUtils.needToShow = false
-                                    PreferenceUtils.isBackground = false
-                                    val intent = Intent(this,LoginActivity::class.java)
+                                    PreferenceUtils.clearCache()
+                                    finishAffinity()
+                                    //startActivity<SplashActivity>()
+                                    val intent = Intent(this, LoginActivity::class.java)
                                     startActivity(intent)
                                 })
-                                .show(supportFragmentManager, HomeFragment::class.simpleName)
+                                .show(
+                                    supportFragmentManager,
+                                    TopRelatedCategoryActivity::class.simpleName
+                                )
                         } else {
                             PreferenceUtils.readUserVO().customer_id?.let {
                                 viewModel.operateWishList(it, data.restaurant_id)

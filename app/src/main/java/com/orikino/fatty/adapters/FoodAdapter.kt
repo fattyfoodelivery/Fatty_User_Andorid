@@ -13,6 +13,7 @@ import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
+import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.orikino.fatty.viewholder.BaseViewHolder
 
@@ -31,7 +32,7 @@ class FoodAdapter(private val context: Context,val callback : (SearchFoodsVO,Str
             binding.tvPrice.text = "${
                 data.food_price.toDouble().toThousandSeparator()
             } ${PreferenceUtils.readCurrCurrency()?.currency_symbol}"
-            binding.tvFoodName.text = data.food_name_en
+            binding.tvFoodName.text = data.toDefaultFoodName()
             binding.tvFoodCategory.text = data.restaurant.category.toDefaultCategoryName()
 
             if (data.restaurant.restaurant_emergency_status == 0) {

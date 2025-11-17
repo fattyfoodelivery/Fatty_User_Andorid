@@ -35,12 +35,14 @@ import com.orikino.fatty.domain.responses.TempRestDetailResponse
 import com.orikino.fatty.domain.view_model.RestaurantDetailViewModel
 import com.orikino.fatty.domain.viewstates.RestaurantDetailViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.checkout.CheckOutActivity
 import com.orikino.fatty.ui.views.activities.restaurant.RestaurantMoreInfoActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.delegate.AddOnDelegate
 import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
 import com.orikino.fatty.ui.views.activities.rest_detail.PhotoViewActivity
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
@@ -167,16 +169,22 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private fun favourite() {
         binding.imvFav.setOnClickListener {
             if (PreferenceUtils.readUserVO().customer_id == 0) {
-                SuccessDialog.Builder(
-                    applicationContext,
+                ConfirmDialog.Builder(
+                    this,
+                    resources.getString(R.string.hello),
                     resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
                     callback = {
-                        //startActivity<LoginActivity>()
+                        PreferenceUtils.clearCache()
+                        finishAffinity()
+                        //startActivity<SplashActivity>()
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
-                        finish()
                     })
-                    .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
+                    .show(
+                        supportFragmentManager,
+                        RestaurantDetailViewActivity::class.simpleName
+                    )
             } else {
 //                if (!isWish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
 //                else binding.imvFav.setImageResource(R.drawable.ic_favorite_white)
@@ -444,10 +452,16 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 )
             )
             if (state.data.data.is_wish){
+                viewModel.foodMenuByRestaurantLiveDataList.postValue(
+                    viewModel.foodMenuByRestaurantLiveDataList.value?.copy(is_wish = true)
+                )
                 wishListedID = state.data.data.restaurant_id
                 isWished = true
                 CustomToast(this, getString(R.string.added_to_favourite_item), true).createCustomToast()
             }else{
+                viewModel.foodMenuByRestaurantLiveDataList.postValue(
+                    viewModel.foodMenuByRestaurantLiveDataList.value?.copy(is_wish = false)
+                )
                 wishListedID = state.data.data.restaurant_id
                 isWished = false
             }
@@ -533,16 +547,22 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private fun addFoodToCart(data: FoodVO) {
 
         if (PreferenceUtils.readUserVO().customer_id == 0) {
-            SuccessDialog.Builder(
+            ConfirmDialog.Builder(
                 this,
+                resources.getString(R.string.hello),
                 resources.getString(R.string.login_message),
+                resources.getString(R.string.login),
                 callback = {
-                    //startActivity<LoginActivity>()
+                    PreferenceUtils.clearCache()
+                    finishAffinity()
+                    //startActivity<SplashActivity>()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
-                    finish()
                 })
-                .show(supportFragmentManager, RestaurantDetailViewActivity::class.simpleName)
+                .show(
+                    supportFragmentManager,
+                    RestaurantDetailViewActivity::class.simpleName
+                )
         } else {
             when {
                 viewModel.foodMenuByRestaurantLiveDataList.value?.distance!! > viewModel.foodMenuByRestaurantLiveDataList.value?.limit_distance!! -> {

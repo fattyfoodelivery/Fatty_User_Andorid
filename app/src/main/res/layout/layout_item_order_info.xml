@@ -67,7 +67,7 @@
             android:textSize="16sp"
             />
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_food_note"
+            android:id="@+id/tv_food_addon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -76,27 +76,28 @@
             app:layout_constraintStart_toStartOf="@+id/tv_food_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:text=""
+            android:textAlignment="textStart"
+            android:textColor="@color/text_secondary_01"
+            android:textSize="12sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_food_note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin_4xSmall"
+            android:fontFamily="@font/outfit_regular"
+            app:layout_constraintStart_toStartOf="@+id/tv_food_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_addon"
+            app:layout_constraintEnd_toEndOf="parent"
             android:singleLine="false"
             android:textAlignment="textStart"
             android:textColor="@color/text_secondary_01"
             android:textSize="12sp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_food_addon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/outfit_regular"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:visibility="gone"
-        android:singleLine="false"
-        android:text=""
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+
 
 
 
