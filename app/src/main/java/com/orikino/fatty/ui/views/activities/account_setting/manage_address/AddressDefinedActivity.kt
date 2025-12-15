@@ -751,7 +751,7 @@ class AddressDefinedActivity : AppCompatActivity() {
 
 
     private fun homeSelected() {
-        _binding.rlHome.setBackgroundResource(R.drawable.bg_selected)
+        _binding.rlHome.setBackgroundResource(R.drawable.bg_selected_no_stroke)
         _binding.imvHome.imageTintList = getColorStateList(R.color.fattyPrimary)
 
         _binding.rlWork.setBackgroundResource(R.drawable.bg_unselectd)
@@ -765,7 +765,7 @@ class AddressDefinedActivity : AppCompatActivity() {
     private fun workSelected() {
         _binding.rlHome.setBackgroundResource(R.drawable.bg_unselectd)
         _binding.imvHome.imageTintList = getColorStateList(R.color.icon_tint)
-        _binding.rlWork.setBackgroundResource(R.drawable.bg_selected)
+        _binding.rlWork.setBackgroundResource(R.drawable.bg_selected_no_stroke)
         _binding.imvWork.imageTintList = getColorStateList(R.color.fattyPrimary)
         _binding.rlOther.setBackgroundResource(R.drawable.bg_unselectd)
         _binding.imvOther.imageTintList = getColorStateList(R.color.icon_tint)
@@ -777,7 +777,7 @@ class AddressDefinedActivity : AppCompatActivity() {
         _binding.imvHome.imageTintList = getColorStateList(R.color.icon_tint)
         _binding.rlWork.setBackgroundResource(R.drawable.bg_unselectd)
         _binding.imvWork.imageTintList = getColorStateList(R.color.icon_tint)
-        _binding.rlOther.setBackgroundResource(R.drawable.bg_selected)
+        _binding.rlOther.setBackgroundResource(R.drawable.bg_selected_no_stroke)
         _binding.imvOther.imageTintList = getColorStateList(R.color.fattyPrimary)
     }
 

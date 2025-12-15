@@ -460,7 +460,7 @@
                     android:paddingVertical="@dimen/margin_2xSmall"
                     android:visibility="visible"
                     android:layout_below="@id/tbn_note"
-                    android:background="@drawable/bg_address_checked">
+                    android:background="@drawable/bg_edt">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edt_note"

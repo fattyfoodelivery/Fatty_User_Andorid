@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:visibility="visible"
-        android:src="@drawable/placeholder"
+        android:src="@drawable/on_board_ads"
         android:contentDescription="@string/content_desc"/>
 
         <RelativeLayout
