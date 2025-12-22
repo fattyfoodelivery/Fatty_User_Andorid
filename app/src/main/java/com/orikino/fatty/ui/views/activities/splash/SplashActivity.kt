@@ -14,7 +14,9 @@ import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +59,12 @@ import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
 import me.pushy.sdk.Pushy
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.loadPhoto
 import java.io.File
 import java.io.FileOutputStream
@@ -91,8 +98,9 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         super.onCreate(savedInstanceState)
 
         splashBinding = ActivitySplashBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(splashBinding.root)
-
+        splashBinding.root.fixCutoutOfEdgeToEdge()
         provider = LocationGooglePlayServicesProvider()
         provider?.setCheckLocationSettings(true)
 

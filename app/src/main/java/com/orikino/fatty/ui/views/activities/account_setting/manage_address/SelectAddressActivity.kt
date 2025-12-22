@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,7 @@ import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -70,7 +72,10 @@ class SelectAddressActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         manageAddressBinding = ActivityManageAddressBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(manageAddressBinding.root)
+        manageAddressBinding.root.fixCutoutOfEdgeToEdge(manageAddressBinding.root)
+
         selectedPosition = intent.getIntExtra(SELECTED_POSITION, 0)
         manageAddressBinding.emptyView.emptyImage.setImageResource(R.drawable.ic_no_address)
         manageAddressBinding.emptyView.emptyMessage.text = getString(R.string.no_data_available)

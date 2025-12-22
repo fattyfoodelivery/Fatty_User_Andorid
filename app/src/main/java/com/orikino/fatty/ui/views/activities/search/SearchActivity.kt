@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -79,6 +80,7 @@ import androidx.core.graphics.toColorInt
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import kotlin.collections.map
 import kotlin.collections.toList
 
@@ -117,8 +119,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         super.onCreate(savedInstanceState)
 
         searchBinding = ActivitySearchBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(searchBinding.root)
-
+        searchBinding.root.fixCutoutOfEdgeToEdge(searchBinding.root)
 
         setUpSearchEdt()
         setUpRestaurantList()

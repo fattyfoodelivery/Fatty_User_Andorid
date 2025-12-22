@@ -3,6 +3,7 @@ package com.orikino.fatty.ui.views.activities.order
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,6 +23,7 @@ import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -51,7 +53,9 @@ class OrderDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityOrderDetailBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
 
         orderID = intent.getIntExtra(ORDER_ID,0).toString()
         fromHistory = intent.getBooleanExtra(INTENT_FROM, false)

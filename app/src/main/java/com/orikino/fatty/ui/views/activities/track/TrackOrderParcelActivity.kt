@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import coil.load
 import com.kbzbank.payment.KBZPay
@@ -24,6 +25,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.phoneCall
 import com.orikino.fatty.utils.helper.show
@@ -83,7 +85,9 @@ class TrackOrderParcelActivity : AppCompatActivity() {
 
 
         _binding = ActivityTrackOrderParcelBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         _binding.ivBack.setOnClickListener {
             finish()

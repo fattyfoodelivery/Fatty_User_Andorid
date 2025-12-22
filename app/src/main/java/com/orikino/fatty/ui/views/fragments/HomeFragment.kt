@@ -58,7 +58,6 @@ import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
-import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.delegate.CallBackMapLatLngListener
 import com.orikino.fatty.utils.helper.correctLocale
@@ -377,10 +376,10 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         var result = false
         result = try {
             val packageInfo = context.packageManager.getPackageInfo(GOOGLE_PLAY_STORE_PACKAGE, 0)
-            packageInfo.applicationInfo.enabled
+            packageInfo.applicationInfo?.enabled
         } catch (exc: PackageManager.NameNotFoundException) {
             false
-        }
+        } == true
         return result
     }
 

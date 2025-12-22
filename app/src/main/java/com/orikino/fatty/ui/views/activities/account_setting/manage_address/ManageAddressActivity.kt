@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.domain.viewstates.AddressViewState
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -60,7 +62,9 @@ class ManageAddressActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         manageAddressBinding = ActivityManageAddressBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(manageAddressBinding.root)
+        manageAddressBinding.root.fixCutoutOfEdgeToEdge(manageAddressBinding.root)
         manageAddressBinding.emptyView.emptyImage.setImageResource(R.drawable.ic_no_address)
         manageAddressBinding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
         manageAddressBinding.emptyView.emptyMessageDes.text = ""

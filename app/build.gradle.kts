@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "com.orikino.fatty"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.orikino.fatty"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 31
         versionName = "3.0.0"
 
@@ -220,7 +220,8 @@ dependencies {
     //implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0")
 
     //map box
-    implementation("com.mapbox.maps:android:11.11.0")
+    //implementation("com.mapbox.maps:android-ndk27:11.7.1")
+    //implementation("com.mapbox.maps:android:11.17.1")
     //implementation ("com.mapbox.maps:android:11.10.3")
     //implementation ("com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1")
     //implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0")

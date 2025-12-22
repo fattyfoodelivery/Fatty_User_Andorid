@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -17,6 +18,7 @@ import com.orikino.fatty.service.FattyPushyService
 import com.orikino.fatty.domain.view_model.TrackOrderViewModel
 import com.orikino.fatty.domain.viewstates.TrackOrderViewState
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 
 class TrackOrderActivity : AppCompatActivity() {
@@ -46,7 +48,9 @@ class TrackOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityTrackOrderBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
 
         if (intent.hasExtra(ORDER_ID)) orderId = intent.getIntExtra(ORDER_ID, 0)
         isUpdateRider = intent.getBooleanExtra(IS_UPDATE_RIDER, false)

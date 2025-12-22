@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.phoneCall
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +36,9 @@ class HelpCenterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityHelpCenterBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         helpObserver()
         setUpHelpCenterRecycler()

@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +48,9 @@ class CurrencyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityCurrencyBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
 
         setUpObserver()

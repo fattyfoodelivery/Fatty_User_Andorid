@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,7 @@ import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -97,7 +99,9 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         super.onCreate(savedInstanceState)
 
         binding = ActivityRestaurantDetailViewBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.toolbar, true)
 
 
         restaurant_id = intent.getIntExtra(RESTAURANT_ID, 0)
@@ -115,10 +119,10 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         var result = false
         result = try {
             val packageInfo = context.packageManager.getPackageInfo(GOOGLE_PLAY_STORE_PACKAGE, 0)
-            packageInfo.applicationInfo.enabled
+            packageInfo.applicationInfo?.enabled
         } catch (exc: PackageManager.NameNotFoundException) {
             false
-        }
+        } == true
         return result
     }
 

@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.orikino.fatty.domain.view_model.SearchViewModel
 import com.orikino.fatty.domain.viewstates.SearchViewState
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.createChip
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("ResourceAsColor")
@@ -43,8 +45,9 @@ class SearchFilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivitySearchFilterBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
-
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         filterRefresh()
         setUpObserver()

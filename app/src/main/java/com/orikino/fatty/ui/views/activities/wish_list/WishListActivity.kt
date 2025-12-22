@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orikino.fatty.R
@@ -22,6 +23,7 @@ import com.orikino.fatty.utils.GpsTracker
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +47,9 @@ class WishListActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
 
         binding = ActivityWishListBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
 
         binding.emptyView.emptyMessage.text = getString(R.string.no_data_available)
         binding.emptyView.emptyMessageDes.text = ""

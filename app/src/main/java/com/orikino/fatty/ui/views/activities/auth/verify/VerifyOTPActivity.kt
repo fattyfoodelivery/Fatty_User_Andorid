@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.ScrollView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -23,6 +24,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.setColorSpannable
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,8 +51,9 @@ class VerifyOTPActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         verifyBinding = ActivityVerifyOtpBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(verifyBinding.root)
-
+        verifyBinding.root.fixCutoutOfEdgeToEdge(verifyBinding.toolbar)
         window.statusBarColor = ContextCompat.getColor(this, R.color.fattyPrimary)
 
         resultPhone = intent.getStringExtra(PHONE).toString()

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +23,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +52,9 @@ class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
         super.onCreate(savedInstanceState)
 
         foodCategoryBinding = ActivityFoodCategoryBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(foodCategoryBinding.root)
-
+        foodCategoryBinding.root.fixCutoutOfEdgeToEdge(foodCategoryBinding.root)
         cat_name = intent.getStringExtra(CATG).toString()
         foodCategoryBinding.tvTitle.text = cat_name
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.utils.CustomTimer
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +40,9 @@ class VersionUpdateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityVersionUpdateBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         viewModel.getVersionUpdate()
         setUpObserver()

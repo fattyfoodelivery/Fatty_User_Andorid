@@ -130,7 +130,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.143"
+            app:layout_constraintVertical_bias="0.1"
             app:srcCompat="@drawable/fatty_tran_logo" />
 
         <TextView
@@ -141,10 +141,9 @@
             android:text="Fatty Food Delivery"
             android:textColor="@color/white"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/imageView3"
             app:layout_constraintVertical_bias="0.528" />
 
 
@@ -155,7 +154,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="270dp"
         android:background="@drawable/bg_onboard_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

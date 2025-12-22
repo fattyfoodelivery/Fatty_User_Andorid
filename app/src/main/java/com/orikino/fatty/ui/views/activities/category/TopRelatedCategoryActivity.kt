@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -37,6 +38,7 @@ import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SmartScrollListener
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -95,7 +97,9 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
         super.onCreate(savedInstanceState)
 
         _binding = ActivityTopRelatedCategoryBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         cat_name = intent.getStringExtra(CATG)
         cat_id = intent.getIntExtra(CATG_ID, 0)

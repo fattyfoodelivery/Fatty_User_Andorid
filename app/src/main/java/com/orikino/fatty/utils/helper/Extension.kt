@@ -40,6 +40,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.os.LocaleListCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.marginTop
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -182,6 +187,32 @@ fun AppCompatImageView.loadPhoto(photo : Any) {
         crossfade(true)
         placeholder(R.drawable.restaurant_default_img)
         //transformations(CircleCropTransformation())
+    }
+}
+
+fun View.fixCutoutOfEdgeToEdge(root : View? = null, setMargin : Boolean? = false) {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
+        val systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            leftMargin = systemInsets.left
+            bottomMargin = systemInsets.bottom
+            rightMargin = systemInsets.right
+        }
+        v.updatePadding(
+            top = 0,
+            right = 0,
+            left = 0,
+            bottom = 0
+        )
+        if (setMargin == true){
+            root?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = systemInsets.top
+            }
+        }else{
+            root?.setPadding(0,  systemInsets.top, 0, 0)
+        }
+
+        WindowInsetsCompat.CONSUMED
     }
 }
 

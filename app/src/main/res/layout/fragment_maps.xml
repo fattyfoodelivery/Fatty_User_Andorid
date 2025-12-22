@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/fattyPrimary"
     tools:context=".ui.views.fragments.address_bottom_sheet.MapsFragment">

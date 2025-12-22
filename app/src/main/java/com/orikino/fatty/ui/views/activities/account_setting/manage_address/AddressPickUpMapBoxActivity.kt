@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.ConnectionResult
@@ -34,6 +35,7 @@ import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.activatedBtn
 import com.orikino.fatty.utils.helper.deactivatedBtn
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
@@ -78,7 +80,9 @@ class AddressPickUpMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAddressPickUpMapBoxBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
         isEdit = intent.getBooleanExtra(IS_EDIT,false)
 
         setUpMapBox()

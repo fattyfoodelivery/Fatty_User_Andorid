@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.orikino.fatty.R
@@ -17,6 +18,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -42,8 +44,9 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         profileBinding = ActivityProfileBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(profileBinding.root)
-
+        profileBinding.root.fixCutoutOfEdgeToEdge(profileBinding.ivBack)
         subscribeUI()
         navigateToBaseActivity()
         disableButton()

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
@@ -13,6 +14,7 @@ import com.orikino.fatty.domain.view_model.TrackOrderViewModel
 import com.orikino.fatty.domain.viewstates.TrackOrderViewState
 import com.orikino.fatty.service.FattyPushyService
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.load
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +60,9 @@ class TrackOrderFoodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityTrackOrderFoodBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
 
         if (intent.hasExtra(ORDER_ID)) orderId = intent.getIntExtra(ORDER_ID, 0)
         isUpdateRider = intent.getBooleanExtra(IS_UPDATE_RIDER, false)

@@ -5,6 +5,7 @@
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
     android:background="@color/fattyPrimary"
     tools:context=".ui.views.activities.account_setting.manage_address.AddressPickUpMapBoxActivity">
     <com.google.android.material.appbar.AppBarLayout

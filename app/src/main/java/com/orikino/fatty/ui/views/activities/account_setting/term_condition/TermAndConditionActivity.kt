@@ -14,12 +14,14 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityTermAndConditionBinding
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
 
@@ -39,8 +41,9 @@ class  TermAndConditionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityTermAndConditionBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
-
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         viewModel.fetchTermAndCondition()
         updateWebView()

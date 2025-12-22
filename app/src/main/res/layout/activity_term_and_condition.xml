@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fattyPrimary"
+    android:clipToPadding="false"
     tools:context=".ui.views.activities.account_setting.term_condition.TermAndConditionActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"

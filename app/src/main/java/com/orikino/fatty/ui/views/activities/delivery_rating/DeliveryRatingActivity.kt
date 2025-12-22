@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TableRow
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import com.orikino.fatty.R
@@ -29,6 +30,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +67,9 @@ class DeliveryRatingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityDeliveryRatingBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
         orderId = intent.getIntExtra(ORDER_ID, 0)
 
         if (Constants.getPreferenceInt(this, DOUBLE_SCREEN_CHECK) == orderId){

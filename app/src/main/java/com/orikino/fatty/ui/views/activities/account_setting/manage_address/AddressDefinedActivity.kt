@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.orikino.fatty.utils.ClickGuard
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
@@ -60,13 +62,7 @@ import java.util.Locale
 class AddressDefinedActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityAddressDefinedBinding
-
-    private var dialogView: View? = null
-    private var alertDialog: AlertDialog? = null
     private var updateStatus: String = ""
-    private var customerAddress = CustomerAddressVO()
-    private lateinit var sheetBehavior: BottomSheetBehavior<*>
-    private lateinit var bottom_sheet: ConstraintLayout
     private val viewModel: AddressViewModel by viewModels()
     private var other: String = ""
     private var building: String = ""
@@ -104,7 +100,9 @@ class AddressDefinedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityAddressDefinedBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.ivBack, true)
         locations.latitude = intent.getDoubleExtra(LAT, 0.0)
         locations.longitude = intent.getDoubleExtra(LNG, 0.0)
 

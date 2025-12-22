@@ -2,12 +2,14 @@ package com.orikino.fatty.ui.views.activities.account_setting.language
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivitySettingLanguageBinding
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.forceUpdateLocale
 
 class SettingLanguageActivity : AppCompatActivity(){
@@ -31,7 +33,9 @@ class SettingLanguageActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         _binding = ActivitySettingLanguageBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         setUpLan()
         onBackFinish()

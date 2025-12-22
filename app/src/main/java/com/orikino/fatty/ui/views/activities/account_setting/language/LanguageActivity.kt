@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
@@ -15,6 +16,7 @@ import com.orikino.fatty.ui.views.activities.intro.IntroActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.forceUpdateLocale
 
 class LanguageActivity : AppCompatActivity() {
@@ -38,8 +40,9 @@ class LanguageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         languageBinding = ActivityLanguageBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(languageBinding.root)
-
+        languageBinding.root.fixCutoutOfEdgeToEdge(languageBinding.topTools)
         window.statusBarColor = ContextCompat.getColor(this, R.color.fattyPrimary)
 
         change = intent.getBooleanExtra(CHANGE, false)

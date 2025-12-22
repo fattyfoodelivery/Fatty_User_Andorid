@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.orikino.fatty.adapters.PlayerGuideAdapter
@@ -17,6 +18,7 @@ import com.orikino.fatty.utils.delegate.ItemStringDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +38,9 @@ class AppGuideActivity : AppCompatActivity() , ItemStringDelegate {
         super.onCreate(savedInstanceState)
 
         appGuideBinding = ActivityAppGuideBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(appGuideBinding.root)
+        appGuideBinding.root.fixCutoutOfEdgeToEdge(appGuideBinding.root)
 
 
         appGuideBinding.ivBack.setOnClickListener { finish() }

@@ -19,6 +19,7 @@ import com.orikino.fatty.databinding.FragmentMapsBinding
 import com.orikino.fatty.utils.FattyMap
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.delegate.CallBackMapLatLngListener
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import io.nlopez.smartlocation.SmartLocation
 import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider
@@ -58,6 +59,7 @@ class MapsFragment(val callBackMapLatLngListener: CallBackMapLatLngListener) : D
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapsBinding.inflate(inflater,container,false)
+        binding?.root?.fixCutoutOfEdgeToEdge(binding?.root)
         return binding?.root
     }
 

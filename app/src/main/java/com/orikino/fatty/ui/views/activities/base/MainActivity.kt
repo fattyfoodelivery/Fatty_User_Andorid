@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,7 @@ import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.helper.correctLocale
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -84,7 +86,9 @@ class MainActivity : AppCompatActivity() {
          }*/
         Pushy.listen(this)
         baseBinding = ActivityMainBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(baseBinding.root)
+        baseBinding.root.fixCutoutOfEdgeToEdge(baseBinding.rootLayout)
         isOrderHistory = false
         isNotification = false
         baseBinding.bottomNavigationView.background = null

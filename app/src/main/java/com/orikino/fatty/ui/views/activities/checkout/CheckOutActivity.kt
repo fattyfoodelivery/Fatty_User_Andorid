@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -57,6 +58,7 @@ import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SHA
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
@@ -162,8 +164,9 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCheckOutBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
-
+        binding.root.fixCutoutOfEdgeToEdge(binding.root)
         // from main activity
         lat = intent.getDoubleExtra(LAT, 0.0)
         lng = intent.getDoubleExtra(LNG, 0.0)

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
@@ -24,6 +25,7 @@ import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.isConnected
 import com.orikino.fatty.utils.helper.show
@@ -51,7 +53,9 @@ class AccountDeleteActivity : AppCompatActivity() , ConnectionErrorViewPodDelega
         super.onCreate(savedInstanceState)
 
         _binding = ActivityAccountDeleteBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(_binding.root)
+        _binding.root.fixCutoutOfEdgeToEdge(_binding.root)
 
         _binding.btnDelete.setOnClickListener {
             reload()

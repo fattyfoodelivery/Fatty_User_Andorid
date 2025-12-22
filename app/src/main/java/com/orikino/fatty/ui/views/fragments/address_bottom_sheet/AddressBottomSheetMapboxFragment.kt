@@ -10,17 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.FragmentAddressBottomSheetMapboxBinding
 import com.orikino.fatty.ui.views.fragments.rest_more_info.FoodAddOnBottomSheetFragment
+import com.orikino.fatty.utils.FattyMap
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.showSnackBar
-import com.mapbox.geojson.Point
-import com.mapbox.maps.CameraOptions
-import com.mapbox.maps.MapView
 import java.util.Locale
 
 
@@ -30,7 +29,8 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
 
     var location: Location = Location("")
     //private lateinit var mapBox: MapboxMap
-    private lateinit var mapView: MapView
+    private lateinit var fattyMap: FattyMap
+    var locations: Location = Location("")
     private var isEnable = false
     private var addresses: List<Address> = listOf()
     private var isReady = MutableLiveData(false)
@@ -55,17 +55,43 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
             "pk.eyJ1IjoiZmF0dHlmb29kIiwiYSI6ImNsc3ZwcjRiajFuNXQya3FrZnRlanM5dDEifQ.Z2qH4uwufB38l75-YaMCng"
         )*/
         binding = FragmentAddressBottomSheetMapboxBinding.inflate(inflater,container,false)
-        mapView = MapView(requireContext())
-        mapView.mapboxMap.setCamera(
-            CameraOptions.Builder()
-                .center(Point.fromLngLat(-98.0, 39.5))
-                .pitch(0.0)
-                .zoom(2.0)
-                .bearing(0.0)
-                .build()
-        )
-        binding?.mapBoxMap?.addView(mapView)
+        locations.latitude = -98.0
+        locations.longitude = 39.5
+        setUpMap()
+//        mapView = MapView(requireContext())
+//        mapView.mapboxMap.setCamera(
+//            CameraOptions.Builder()
+//                .center(Point.fromLngLat(-98.0, 39.5))
+//                .pitch(0.0)
+//                .zoom(2.0)
+//                .bearing(0.0)
+//                .build()
+//        )
+//        binding?.mapBoxMap?.addView(mapView)
         return binding?.root
+    }
+
+    private fun setUpMap() {
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map_view) as SupportMapFragment
+        mapFragment.getMapAsync {
+            fattyMap = FattyMap(requireContext(), it)
+
+            fattyMap.setCameraIdleListener(onLocationReady = {
+                locations.latitude = it.latitude
+                locations.longitude = it.longitude
+                try {
+                    convertLatLangToAddress(locations)
+                } catch (e: Exception) {
+                    println(e.message)
+                }
+
+            }, onCameraStartMove = {
+            }
+            )
+            fattyMap.animateCamera(LatLng(locations.latitude, locations.longitude))
+        }
+
     }
 
 
@@ -163,17 +189,45 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
         addresss = address
     }
 
-    private fun convertLatLangToAddress(lat: Double, lng: Double): String {
-        var address = ""
+    private fun convertLatLangToAddress(location : Location) {
+        var addresses: List<Address> = listOf()
+        var ss = ""
         try {
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-            addresses = geocoder.getFromLocation(lat, lng, 1)!!
-            address = addresses[0].getAddressLine(0)
+            val geocoder = Geocoder(requireContext(), Locale.US)
+            addresses = geocoder.getFromLocation(locations.latitude, locations.longitude, 1)!!
+            ss = addresses[0].getAddressLine(0)
+            addresss = ss
+            PreferenceUtils.readUserVO().copy(
+                latitude
+                = location.latitude, longitude = location.longitude
+            )
+                .let {
+                    PreferenceUtils.writeUserVO(
+                        it
+                    )
+                }
+            try {
+                showAddress(ss)
+                isReady.postValue(true)
+
+            } catch (e: Exception) {
+            }
         } catch (e: Exception) {
         }
-        return address
 
     }
+
+//    private fun convertLatLangToAddress(lat: Double, lng: Double): String {
+//        var address = ""
+//        try {
+//            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+//            addresses = geocoder.getFromLocation(lat, lng, 1)!!
+//            address = addresses[0].getAddressLine(0)
+//        } catch (e: Exception) {
+//        }
+//        return address
+//
+//    }
 
     override fun onResume() {
         super.onResume()

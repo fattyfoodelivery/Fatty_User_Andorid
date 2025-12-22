@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +43,7 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.hideSoftKeyboard
 import com.orikino.fatty.utils.helper.show
@@ -49,6 +51,7 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import me.pushy.sdk.Pushy
 import me.pushy.sdk.util.exceptions.PushyException
+import kotlin.math.log
 
 
 @AndroidEntryPoint
@@ -73,8 +76,9 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
         super.onCreate(savedInstanceState)
 
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(loginBinding.root)
-
+        loginBinding.root.fixCutoutOfEdgeToEdge(loginBinding.toolbar)
         window.statusBarColor = ContextCompat.getColor(this, R.color.fattyPrimary)
 
         fromVT = intent.getStringExtra(FROM)
@@ -192,10 +196,6 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
         val adapter = LanguageAdapter(this, languages)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter*/
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     private fun navigateToPolicy() {

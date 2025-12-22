@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.orikino.fatty.R
@@ -13,6 +14,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityIntroBinding
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.utils.LocaleHelper
+import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 
@@ -34,8 +36,9 @@ class IntroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         introBinding = ActivityIntroBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(introBinding.root)
-
+        introBinding.root.fixCutoutOfEdgeToEdge(introBinding.rootLayout)
         prepareUi()
         navigateToLoginView()
         onBackPress()
