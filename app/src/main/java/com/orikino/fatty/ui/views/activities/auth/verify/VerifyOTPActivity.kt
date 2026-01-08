@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.orikino.fatty.BuildConfig
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ActivityVerifyOtpBinding
 import com.orikino.fatty.service.RegisterForPushNotificationsAsync
@@ -162,7 +163,8 @@ class VerifyOTPActivity : AppCompatActivity() {
                 .show()
             return
         } else {
-            viewModel.verifyOtp(resultPhone,PreferenceUtils.readDeviceToken().toString(),0,smsCode.toInt())
+            viewModel.verifyOtp(resultPhone,PreferenceUtils.readDeviceToken().toString(),0,smsCode.toInt(), BuildConfig.APPLICATION_ID,
+                "v${BuildConfig.VERSION_NAME}")
         }
     }
 

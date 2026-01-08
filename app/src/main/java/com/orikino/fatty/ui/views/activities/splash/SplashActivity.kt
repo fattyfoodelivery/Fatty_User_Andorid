@@ -108,6 +108,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
         println("Customer VO ${PreferenceUtils.readUserVO()}")
 
         setUpPushy()
+        //Toast.makeText(this, "Application ID: ${BuildConfig.APPLICATION_ID}", Toast.LENGTH_LONG).show()
         MainActivity.isFirstTime = true
         correctLocale()
         subScribeUI()

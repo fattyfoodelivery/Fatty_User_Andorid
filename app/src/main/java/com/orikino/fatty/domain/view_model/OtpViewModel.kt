@@ -18,11 +18,11 @@ class OtpViewModel @Inject constructor(
     var viewState : MutableLiveData<VerifyOtpState> = MutableLiveData()
     var phoneNo =""
 
-    fun verifyOtp(customerPhone : String, fcmToken : String,osType : Int,otp : Int) {
+    fun verifyOtp(customerPhone : String, fcmToken : String,osType : Int,otp : Int, packageName : String, versionName : String) {
         viewModelScope.launch(Dispatchers.IO) {
             viewState.postValue(VerifyOtpState.OnLoadingVerify)
             try {
-                val response = respository.verifyOtp(customerPhone, fcmToken, osType,otp)
+                val response = respository.verifyOtp(customerPhone, fcmToken, osType,otp, packageName, versionName)
                 if (response.isSuccessful) {
                     response.body()?.let { viewState.postValue(VerifyOtpState.OnSuccessVerifyOtp(it)) }
                 } else {

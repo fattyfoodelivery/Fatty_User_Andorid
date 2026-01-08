@@ -273,7 +273,7 @@ class OrderDetailActivity : AppCompatActivity() {
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }
             19 -> {
-                binding.tvOrderStatusMsg.text = resources.getString(R.string.kpay_success)
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
                 //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
             }
@@ -281,7 +281,7 @@ class OrderDetailActivity : AppCompatActivity() {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
             20 -> {
-                binding.tvOrderStatusMsg.text = resources.getString(R.string.kpay_fail)
+                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
                 //binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.textError))
                 binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
             }

@@ -17,8 +17,9 @@ class AuthRepositoryImpl @Inject constructor(
         customerPhone: String,
         fcmToken: String,
         osType: Int,
-        otp : Int
-    ): Response<LoginResponse>  = service.verifyOtp(customerPhone,fcmToken,osType,otp)
-
+        otp : Int,
+        packageName : String,
+        versionName : String
+    ): Response<LoginResponse>  = service.verifyOtp(customerPhone,fcmToken,osType,otp, packageName, versionName)
 
 }

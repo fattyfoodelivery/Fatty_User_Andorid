@@ -39,6 +39,8 @@ interface AuthService {
         @Field("fcm_token") fcm_token: String,
         @Field("os_type") os_type: Int? = 0,
         @Field("otp") otp: Int,
+        @Field("package_name") packageName : String,
+        @Field("app_version") versionName : String
     ): Response<LoginResponse>
 
 

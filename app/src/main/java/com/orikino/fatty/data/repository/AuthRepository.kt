@@ -10,7 +10,7 @@ interface AuthRepository {
 
     suspend fun resentRequestOTP(phone: String) : Response<RequestPhoneOtpResponse>
 
-    suspend fun verifyOtp(customerPhone : String, fcmToken : String, osType : Int,otp : Int) : Response<LoginResponse>
+    suspend fun verifyOtp(customerPhone : String, fcmToken : String, osType : Int,otp : Int, packageName : String, versionName : String) : Response<LoginResponse>
 
 
 }

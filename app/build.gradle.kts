@@ -27,6 +27,20 @@ android {
         resourceConfigurations.addAll(listOf("my", "en","zh"))
     }
 
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("playstore") {
+            dimension = "environment"
+            applicationId = "com.joy.food.delivery"
+            resValue("string", "app_name", "Fatty Playstore")
+        }
+        create("apkpure") {
+            dimension = "environment"
+            resValue("string", "app_name", "Fatty Food")
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
