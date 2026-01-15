@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView android:id="@+id/cv_first_service"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    app:cardBackgroundColor="@color/surfacePrimary03"
+    app:cardCornerRadius="16dp"
+    android:layout_marginTop="@dimen/margin_large"
+    app:cardElevation="0dp"
+    app:layout_constraintEnd_toStartOf="@+id/cv_second_service"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_service_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_2xSmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_first_service_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_4xSmall"
+                android:ellipsize="end"
+                android:fontFamily="@font/outfit_medium"
+                android:maxLines="1"
+                android:text="Supermarket"
+                android:textColor="@color/text_primary_01"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_first_service"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_first_service_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4xSmall"
+                android:layout_marginEnd="@dimen/margin_4xSmall"
+                android:ellipsize="end"
+                android:fontFamily="@font/outfit_regular"
+                android:maxLines="1"
+                android:text="@string/restaurants"
+                android:textColor="@color/text_secondary_04"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_first_service"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_first_service_title" />
+
+            <ImageView
+                android:id="@+id/iv_first_service"
+                android:layout_width="42dp"
+                android:layout_height="39dp"
+                android:src="@drawable/img_service_temp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

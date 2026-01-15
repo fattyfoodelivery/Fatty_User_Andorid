@@ -1,4 +1,4 @@
-package com.orikino.fatty
+package com.orikino.fatty.domain.viewstates
 
 import com.orikino.fatty.domain.responses.*
 
@@ -37,5 +37,9 @@ sealed class HomeViewState{
     object OnAdsEngagement : HomeViewState()
     data class OnSuccessAdsEngagement(val data : AdsEngagementResponse) : HomeViewState()
     data class OnFailAdsEngagement(val message : String) : HomeViewState()
+
+    object OnLoadingServiceItem : HomeViewState()
+    data class OnSuccessServiceItem(val data : ServiceItemResponse) : HomeViewState()
+    data class OnFailServiceItem(val message : String) : HomeViewState()
 
 }

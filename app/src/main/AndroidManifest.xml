@@ -225,7 +225,15 @@
         <activity android:name=".ui.views.activities.account_setting.manage_address.SelectAddressActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".ui.views.activities.services.AllServicesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.services.ServiceDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.views.activities.services.ServiceShopWebView"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
 
         <!--

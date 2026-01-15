@@ -10,6 +10,13 @@ object ApiRouteConstant {
     const val routeLogoutApp = NEWPNS + "api/v1/fatty/202221/lashio/main/admin/customers/logout"
     const val routeHome = NEWPNS + "api/v2/fatty/customer/home_page"
 
+    const val routeServiceItem = NEWPNS + "api/v2/fatty/202221/lashio/main/admin/store_services/service_items"
+
+    const val routeServiceCategory = NEWPNS + "api/v2/fatty/202221/lashio/main/admin/store_services/service_items/{service_item_id}/service_categories"
+
+    const val serviceShopByCategory = NEWPNS + "/api/v2/fatty/202221/lashio/main/admin/store_services/service_items/{service_item_id}/stores"
+
+    const val routeGetShopWebLink = NEWPNS + "/api/v1/fatty/202221/lashio/main/admin/customers/stores/generate_web_link"
     const val routeCustomerAddress = NEWPNS + "api/v1/fatty/202221/lashio/main/admin/customers/address/create"
     const val routeUpdateCurrentAddress = NEWPNS + "api/v1/fatty/202221/lashio/main/admin/customers/address/update"
 

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.views.fragments.HomeFragment"
-    android:background="@color/fattyPrimary">
+    android:background="@color/fattyPrimary"
+    tools:context=".ui.views.fragments.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_toolbar"
         android:layout_width="match_parent"
         android:layout_height="145dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -51,20 +51,20 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="1"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp">
+                        android:layout_marginEnd="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_user_address"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.9"
-                            android:fontFamily="@font/outfit_regular"
-                            android:paddingTop="4dp"
-                            android:lines="1"
                             android:ellipsize="end"
+                            android:fontFamily="@font/outfit_regular"
+                            android:lines="1"
+                            android:paddingTop="4dp"
                             android:paddingBottom="4dp"
                             android:text=""
                             android:textColor="@color/white"
@@ -75,47 +75,47 @@
                             android:id="@+id/tvEdit"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
                             android:layout_weight="0.1"
+                            android:clickable="true"
+                            android:contentDescription="@string/content_desc"
+                            android:elevation="8dp"
+                            android:focusable="true"
                             android:paddingTop="4dp"
                             android:paddingBottom="4dp"
-                            android:src="@drawable/ic_location_edit"
-                            android:contentDescription="@string/content_desc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:elevation="8dp"
-                            android:layout_gravity="bottom|end"/>
+                            android:src="@drawable/ic_location_edit" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="10dp"
-                        android:weightSum="10"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/edtSearch"
                             android:layout_width="0dp"
-                            android:layout_weight="9"
                             android:layout_height="48dp"
                             android:layout_marginStart="0dp"
                             android:layout_marginEnd="16dp"
+                            android:layout_weight="9"
                             android:background="@drawable/edt_search_white"
                             android:backgroundTint="@color/white"
                             android:drawableStart="@drawable/ic_search"
                             android:drawablePadding="16dp"
-                            android:gravity="center_vertical"
-                            android:singleLine="true"
-                            android:paddingStart="6dp"
-                            android:paddingEnd="6dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:textSize="14sp"
                             android:fontFamily="@font/outfit_regular"
-                            android:textColor="@color/text_secondary_02"
+                            android:gravity="center_vertical"
+                            android:paddingStart="6dp"
+                            android:paddingTop="4dp"
+                            android:paddingEnd="6dp"
+                            android:paddingBottom="4dp"
+                            android:singleLine="true"
                             android:text="@string/search_by_foods_or_restaurants"
+                            android:textColor="@color/text_secondary_02"
+                            android:textSize="14sp"
                             tools:ignore="RtlSymmetry" />
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -130,8 +130,6 @@
                 </LinearLayout>
 
 
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -141,11 +139,11 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/constraint_toolbar"
+        android:background="@drawable/bg_onboard_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_onboard_rounded">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraint_toolbar">
 
 
         <androidx.core.widget.NestedScrollView
@@ -175,155 +173,425 @@
                     app:shimmer_repeat_mode="restart"
                     app:shimmer_shape="radial">
 
-                    <include
-                        layout="@layout/top_relate_shimmer_view"/>
+                    <include layout="@layout/top_relate_shimmer_view" />
                 </com.facebook.shimmer.ShimmerFrameLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rl_top_view"
+                <HorizontalScrollView
+                    android:id="@+id/service_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:visibility="invisible"
+                    android:paddingHorizontal="@dimen/margin_large"
+                    android:paddingTop="@dimen/margin_2xlarge"
+                    android:scrollbars="none"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <LinearLayout
-                        android:id="@+id/ll_top_related_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="2"
-                        android:visibility="visible"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:paddingTop="15dp">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cv_top_related"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
+                            android:id="@+id/cv_first_service"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_2xSmall"
                             android:layout_weight="1"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="0dp"
-                            app:cardBackgroundColor="@color/surfacePrimary03">
-
-                            <RelativeLayout
-                                android:id="@+id/rl_top_restaurant"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:paddingStart="8dp"
-                                    android:layout_toStartOf="@+id/iv_top_related"
-                                    android:layout_marginTop="18dp"
-                                    android:layout_marginBottom="16dp"
-                                    tools:ignore="RtlSymmetry">
-                                    <TextView
-                                        android:id="@+id/tv_top_related"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/top_rated"
-                                        android:fontFamily="@font/outfit_medium"
-                                        android:textSize="16sp"
-                                        android:maxLines="1"
-                                        android:ellipsize="end"
-                                        android:textColor="@color/text_primary_01"/>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/restaurants"
-                                        android:fontFamily="@font/outfit_regular"
-                                        android:textSize="14sp"
-                                        android:maxLines="2"
-                                        android:ellipsize="end"
-                                        android:layout_below="@+id/tv_top_related"
-                                        android:textColor="@color/textPrimary02"/>
-                                </RelativeLayout>
-                                <ImageView
-                                    android:id="@+id/iv_top_related"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="46dp"
-                                    android:src="@drawable/ic_top_related"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginEnd="8dp"/>
-                            </RelativeLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cv_parcel"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            app:cardCornerRadius="16dp"
-                            app:cardElevation="0dp"
                             app:cardBackgroundColor="@color/surfacePrimary03"
-                            android:layout_marginStart="12dp">
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toStartOf="@+id/cv_second_service"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <RelativeLayout
-                                android:id="@+id/rl_top_parcel"
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <RelativeLayout
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_service_background"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:layout_marginStart="8dp"
-                                    android:layout_marginTop="18dp"
-                                    android:layout_toStartOf="@+id/iv_parcel"
-                                    android:layout_marginBottom="18dp">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/margin_large"
+                                    android:layout_marginStart="@dimen/margin_small"
+                                    android:layout_marginEnd="@dimen/margin_2xSmall"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
                                     <TextView
-                                        android:id="@+id/tv_parcel"
-                                        android:layout_width="wrap_content"
+                                        android:id="@+id/tv_first_service_title"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/parcel"
-                                        android:fontFamily="@font/outfit_medium"
-                                        android:textSize="16sp"
-                                        android:maxLines="1"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
                                         android:ellipsize="end"
-                                        android:textColor="@color/text_primary_01"/>
+                                        android:fontFamily="@font/outfit_medium"
+                                        android:maxLines="1"
+                                        android:text="Supermarket"
+                                        android:textColor="@color/text_primary_01"
+                                        android:textSize="16sp"
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_first_service"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:id="@+id/tv_first_service_desc"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/one_click_delivery"
-                                        android:maxLines="2"
+                                        android:layout_marginTop="@dimen/margin_4xSmall"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
                                         android:ellipsize="end"
                                         android:fontFamily="@font/outfit_regular"
+                                        android:maxLines="1"
+                                        android:text="@string/restaurants"
+                                        android:textColor="@color/text_secondary_04"
                                         android:textSize="14sp"
-                                        android:layout_below="@id/tv_parcel"
-                                        android:textColor="@color/textPrimary02"/>
-                                </RelativeLayout>
-                                <ImageView
-                                    android:id="@+id/iv_parcel"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="46dp"
-                                    android:src="@drawable/ic_parcel"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginEnd="8dp"/>
-                            </RelativeLayout>
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_first_service"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/tv_first_service_title" />
 
+                                    <ImageView
+                                        android:id="@+id/iv_first_service"
+                                        android:layout_width="42dp"
+                                        android:layout_height="39dp"
+                                        android:src="@drawable/img_service_temp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
                         </com.google.android.material.card.MaterialCardView>
 
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_second_service"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_2xSmall"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/surfacePrimary03"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toStartOf="@+id/cv_more_service"
+                            app:layout_constraintStart_toEndOf="@id/cv_first_service"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_service_background"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/margin_large"
+                                    android:layout_marginStart="@dimen/margin_small"
+                                    android:layout_marginEnd="@dimen/margin_2xSmall"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/tv_second_service_title"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/outfit_medium"
+                                        android:maxLines="1"
+                                        android:text="Supermarket"
+                                        android:textColor="@color/text_primary_01"
+                                        android:textSize="16sp"
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_second_service"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/tv_second_service_desc"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_4xSmall"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/outfit_regular"
+                                        android:maxLines="1"
+                                        android:text="@string/restaurants"
+                                        android:textColor="@color/text_secondary_04"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_second_service"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/tv_second_service_title" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_second_service"
+                                        android:layout_width="42dp"
+                                        android:layout_height="39dp"
+                                        android:src="@drawable/img_service_temp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_more_service"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_2xSmall"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="@color/surfacePrimary03"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintStart_toEndOf="@id/cv_second_service"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_service_background"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/margin_large"
+                                    android:layout_marginStart="@dimen/margin_small"
+                                    android:layout_marginEnd="@dimen/margin_2xSmall"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/tv_more_service_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/outfit_medium"
+                                        android:maxLines="1"
+                                        android:text="@string/txt_services"
+                                        android:textColor="@color/text_primary_01"
+                                        android:textSize="16sp"
+                                        app:layout_constraintEnd_toStartOf="@+id/tv_service_count"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                    <TextView
+                                        android:id="@+id/tv_service_count"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:fontFamily="@font/outfit_medium"
+                                        android:maxLines="1"
+                                        android:background="@drawable/bg_fatty_round"
+                                        android:text="99"
+                                        android:textColor="@color/white"
+                                        android:textSize="16sp"
+                                        android:layout_marginStart="@dimen/margin_4xSmall"
+                                        app:layout_constraintStart_toEndOf="@+id/tv_more_service_title"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <TextView
+                                        android:id="@+id/tv_more_service_desc"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_4xSmall"
+                                        android:layout_marginEnd="@dimen/margin_4xSmall"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/outfit_regular"
+                                        android:maxLines="1"
+                                        android:text="@string/txt_view_more"
+                                        android:textColor="@color/text_secondary_04"
+                                        android:textSize="14sp"
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_more_service"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/tv_more_service_title" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_more_service"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_arrow_forword"
+                                        android:tint="@color/fattyPrimary"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
-                </RelativeLayout>
+                </HorizontalScrollView>
+
+
+                <!--                <RelativeLayout
+                                    android:id="@+id/rl_top_view"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintTop_toTopOf="parent">
+                                    <LinearLayout
+                                        android:id="@+id/ll_top_related_content"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:weightSum="2"
+                                        android:visibility="visible"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="16dp"
+                                        android:paddingTop="15dp">
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/cv_top_related"
+                                            android:layout_width="0dp"
+                                            android:layout_height="100dp"
+                                            android:layout_weight="1"
+                                            app:cardCornerRadius="16dp"
+                                            app:cardElevation="0dp"
+                                            app:cardBackgroundColor="@color/surfacePrimary03">
+
+                                            <RelativeLayout
+                                                android:id="@+id/rl_top_restaurant"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+                                                <RelativeLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:orientation="vertical"
+                                                    android:paddingStart="8dp"
+                                                    android:layout_toStartOf="@+id/iv_top_related"
+                                                    android:layout_marginTop="18dp"
+                                                    android:layout_marginBottom="16dp"
+                                                    tools:ignore="RtlSymmetry">
+                                                    <TextView
+                                                        android:id="@+id/tv_top_related"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="@string/top_rated"
+                                                        android:fontFamily="@font/outfit_medium"
+                                                        android:textSize="16sp"
+                                                        android:maxLines="1"
+                                                        android:ellipsize="end"
+                                                        android:textColor="@color/text_primary_01"/>
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="@string/restaurants"
+                                                        android:fontFamily="@font/outfit_regular"
+                                                        android:textSize="14sp"
+                                                        android:maxLines="2"
+                                                        android:ellipsize="end"
+                                                        android:layout_below="@+id/tv_top_related"
+                                                        android:textColor="@color/textPrimary02"/>
+                                                </RelativeLayout>
+                                                <ImageView
+                                                    android:id="@+id/iv_top_related"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="46dp"
+                                                    android:src="@drawable/ic_top_related"
+                                                    android:layout_alignParentEnd="true"
+                                                    android:layout_centerVertical="true"
+                                                    android:layout_marginEnd="8dp"/>
+                                            </RelativeLayout>
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                        <com.google.android.material.card.MaterialCardView
+                                            android:id="@+id/cv_parcel"
+                                            android:layout_width="0dp"
+                                            android:layout_height="100dp"
+                                            android:layout_weight="1"
+                                            app:cardCornerRadius="16dp"
+                                            app:cardElevation="0dp"
+                                            app:cardBackgroundColor="@color/surfacePrimary03"
+                                            android:layout_marginStart="12dp">
+
+                                            <RelativeLayout
+                                                android:id="@+id/rl_top_parcel"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+                                                <RelativeLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:orientation="vertical"
+                                                    android:layout_marginStart="8dp"
+                                                    android:layout_marginTop="18dp"
+                                                    android:layout_toStartOf="@+id/iv_parcel"
+                                                    android:layout_marginBottom="18dp">
+                                                    <TextView
+                                                        android:id="@+id/tv_parcel"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="@string/parcel"
+                                                        android:fontFamily="@font/outfit_medium"
+                                                        android:textSize="16sp"
+                                                        android:maxLines="1"
+                                                        android:ellipsize="end"
+                                                        android:textColor="@color/text_primary_01"/>
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="@string/one_click_delivery"
+                                                        android:maxLines="2"
+                                                        android:ellipsize="end"
+                                                        android:fontFamily="@font/outfit_regular"
+                                                        android:textSize="14sp"
+                                                        android:layout_below="@id/tv_parcel"
+                                                        android:textColor="@color/textPrimary02"/>
+                                                </RelativeLayout>
+                                                <ImageView
+                                                    android:id="@+id/iv_parcel"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="46dp"
+                                                    android:src="@drawable/ic_parcel"
+                                                    android:layout_alignParentEnd="true"
+                                                    android:layout_centerVertical="true"
+                                                    android:layout_marginEnd="8dp"/>
+                                            </RelativeLayout>
+
+                                        </com.google.android.material.card.MaterialCardView>
+
+                                    </LinearLayout>
+                                </RelativeLayout>-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_food_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/rl_top_view"
-                    android:layout_marginTop="12dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/service_layout" />
+
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/cover_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginHorizontal="@dimen/margin_large"
                     android:layout_marginTop="@dimen/margin_small"
                     app:layout_constraintDimensionRatio="3:1"
-                    android:layout_marginHorizontal="@dimen/margin_large"
-                    app:layout_constraintTop_toBottomOf="@id/rv_food_category"/>
+                    app:layout_constraintTop_toBottomOf="@id/rv_food_category" />
                 <!--<View
                     android:id="@+id/ads_view_content"
                     android:layout_width="match_parent"
@@ -341,59 +609,61 @@
                     android:id="@+id/tv_you_might_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cover_view_pager"
-                    android:text="@string/you_might_like"
-                    android:fontFamily="@font/outfit_medium"
-                    android:textSize="18sp"
-                    android:layout_marginTop="18dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="@string/you_might_like"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="18sp"
                     android:visibility="gone"
-                    android:textColor="@color/text_primary_01"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cover_view_pager" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_recommend_restaurant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_you_might_like"
                     android:layout_marginTop="12dp"
                     android:clipToPadding="false"
                     android:paddingStart="0dp"
-                    android:paddingEnd="16dp"/>
+                    android:paddingEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_you_might_like" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_near_you"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/near_for_you"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_recommend_restaurant"
-                    android:fontFamily="@font/outfit_medium"
-                    android:textSize="18sp"
-                    android:visibility="gone"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="18dp"
-                    android:textColor="@color/text_primary_01"/>
+                    android:fontFamily="@font/outfit_medium"
+                    android:text="@string/near_for_you"
+                    android:textColor="@color/text_primary_01"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_recommend_restaurant" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_near_restaurant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_near_you"
-                    android:minHeight="200dp"
-                    android:layout_marginTop="12dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:minHeight="200dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_near_you" />
+
                 <ProgressBar
                     android:id="@+id/nearby_load_more"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_large"
                     android:layout_marginBottom="@dimen/margin_large"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_near_restaurant"
                     android:visibility="gone"
-                    android:layout_gravity="center"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_near_restaurant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -401,11 +671,12 @@
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <include android:id="@+id/layout_network_error"
+    <include
+        android:id="@+id/layout_network_error"
         layout="@layout/home_connection_error_view"
-        android:layout_below="@id/constraint_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:layout_below="@id/constraint_toolbar"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

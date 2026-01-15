@@ -405,4 +405,20 @@
     <string name="txt_default">Default</string>
     <string name="txt_edit_note">Edit Note</string>
     <string name="txt_image_detail">Images</string>
+    <string name="txt_services">Services</string>
+    <string name="txt_view_more">View More</string>
+    <string name="txt_all_services">All Services</string>
+    <string name="txt_search_by_shop_name">Search by Shop Name</string>
+    <string name="txt_sort_by">Sort By:</string>
+    <string name="txt_recommended">Recommended</string>
+    <string name="txt_nearby">Nearby</string>
+    <string name="txt_closed_now">Closed now</string>
+    <string name="txt_no_shop">No Shop</string>
+    <string name="txt_there_is_no_shop_in_s">There is no shop in %s.</string>
+    <string name="txt_no_results_found">No Results Found</string>
+    <string name="txt_please_check_your_spelling_and_try_again">Please check your spelling and try again.</string>
+    <string name="txt_are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="txt_exit_description">If you exit, your unsaved changes will be lost.</string>
+    <string name="txt_exit">Exit</string>
+    <string name="txt_open_24_hours">Open 24 hours</string>
 </resources>

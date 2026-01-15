@@ -245,4 +245,9 @@ dependencies {
     implementation("com.nex3z:flow-layout:1.3.3")
 
     implementation("com.jsibbold:zoomage:1.3.1")
+
+    implementation("io.coil-kt:coil:2.6.0")
+    implementation("io.coil-kt:coil-svg:2.6.0")
+
+    implementation("androidx.browser:browser:1.8.0")
 }

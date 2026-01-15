@@ -28,6 +28,10 @@ abstract class RepositoryModule {
     abstract fun bindHomeRepository(repo : HomeRepositoryImpl) : HomeRepository
 
     @Binds
+    abstract fun bindServiceRepository(repo : ServiceRepositoryImpl) : ServiceRepository
+
+
+    @Binds
     abstract fun bindCategoryRepository(repo : CategoryRepositoryImpl) : CategoryRepository
 
     @Binds

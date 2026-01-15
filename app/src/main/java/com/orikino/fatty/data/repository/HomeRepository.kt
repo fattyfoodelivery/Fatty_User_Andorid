@@ -13,6 +13,9 @@ interface HomeRepository {
         longitude: Double
     ): Response<HomeResponse>
 
+    suspend fun fetchServiceItem(
+    ) : Response<ServiceItemResponse>
+
     suspend fun updateUserInfo(
         customer_id: Int,
         latitude: Double,

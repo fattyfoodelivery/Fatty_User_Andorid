@@ -22,6 +22,7 @@ import android.provider.Settings
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,6 +94,14 @@ const val VALUE_MAP_ZOOM = 15f
 const val HOME_VALUE_MAP_ZOOM = 18f
 const val VALUE_MAP_TILE_COUNT = 20f
 
+fun dpToPx(dp: Float, context: Context): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        context.resources.displayMetrics
+    )
+        .toInt()
+}
 fun isNetworkAvailable(context: Context): Boolean {
     var result = false
     val connectivityManager =
@@ -190,31 +199,34 @@ fun AppCompatImageView.loadPhoto(photo : Any) {
     }
 }
 
-fun View.fixCutoutOfEdgeToEdge(root : View? = null, setMargin : Boolean? = false) {
+fun View.fixCutoutOfEdgeToEdge(
+    root: View? = null,
+    setMargin: Boolean = false,
+    onTopInsetApplied: ((Int) -> Unit)? = null
+) {
     ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
         val systemInsets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
         v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
             leftMargin = systemInsets.left
-            bottomMargin = systemInsets.bottom
             rightMargin = systemInsets.right
+            bottomMargin = systemInsets.bottom
         }
-        v.updatePadding(
-            top = 0,
-            right = 0,
-            left = 0,
-            bottom = 0
-        )
-        if (setMargin == true){
+
+        if (setMargin) {
             root?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = systemInsets.top
             }
-        }else{
-            root?.setPadding(0,  systemInsets.top, 0, 0)
+        } else {
+            root?.setPadding(0, systemInsets.top, 0, 0)
         }
+
+        onTopInsetApplied?.invoke(systemInsets.top)
 
         WindowInsetsCompat.CONSUMED
     }
 }
+
 
 fun Context.correctLocale() {
     PreferenceUtils.readLanguage()?.let { forceUpdateLocale(it) }

@@ -149,7 +149,12 @@ class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
             /*startActivity<TopRelatedCategoryActivity>(
                 TopRelatedCategoryActivity.CATG to ""
             )*/
-            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+            if (it.restaurant_category_id == 0){
+                PreferenceUtils.isBackground = false
+                startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
+            }else{
+                startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+            }
         }
         foodCategoryBinding.rvFoodCategory.adapter = topFoodCategoryAdapter
     }

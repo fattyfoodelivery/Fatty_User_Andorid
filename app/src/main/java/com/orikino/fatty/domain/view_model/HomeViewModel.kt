@@ -1,17 +1,15 @@
 package com.orikino.fatty.domain.view_model
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orikino.fatty.HomeViewState
+import com.orikino.fatty.domain.viewstates.HomeViewState
 import com.orikino.fatty.data.repository.CategoryRepository
 import com.orikino.fatty.data.repository.HomeRepository
 import com.orikino.fatty.domain.model.CurrencyVO
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
-import com.orikino.fatty.domain.responses.HomeResponse
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.ui.views.activities.category.TopRelatedPagingState
 import com.orikino.fatty.utils.Constants
@@ -46,6 +44,37 @@ class HomeViewModel @Inject constructor(
 
     fun setAddress(manageAddress: String) {
         _address.value = manageAddress
+    }
+
+    fun fetchServiceItem(){
+        viewState.postValue(HomeViewState.OnLoadingServiceItem)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = homeRepository.fetchServiceItem()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        viewState.postValue(HomeViewState.OnSuccessServiceItem(it))
+                    }
+                }else{
+                    when (response.code()) {
+                        500 -> {
+                            viewState.postValue(HomeViewState.OnFailServiceItem("Server Issue"))
+                        }
+
+                        403 -> {
+                            viewState.postValue(HomeViewState.OnFailServiceItem("Denied"))
+                        }
+
+                        406 -> {
+                            viewState.postValue(HomeViewState.OnFailServiceItem("Another Login"))
+                        }
+                    }
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+                viewState.postValue(HomeViewState.OnFailServiceItem(e.localizedMessage))
+            }
+        }
     }
 
     fun fetchHome(

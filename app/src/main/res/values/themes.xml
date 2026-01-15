@@ -154,5 +154,10 @@
     <style name="ShapeAppearanceOverlay.App.Corner8dp" parent="">
         <item name="cornerSize">8dp</item>
     </style>
-
+    <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/outfit_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/textPrimary02</item>
+    </style>
 </resources>

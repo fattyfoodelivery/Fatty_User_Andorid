@@ -15,7 +15,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.orikino.fatty.domain.view_model.HomeViewModel
-import com.orikino.fatty.HomeViewState
+import com.orikino.fatty.domain.viewstates.HomeViewState
 import com.orikino.fatty.R
 import com.orikino.fatty.adapters.NearByIdRestAdapter
 import com.orikino.fatty.adapters.TopRelatedCategoryAdapter
@@ -24,10 +24,8 @@ import com.orikino.fatty.databinding.ActivityTopRelatedCategoryBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.viewstates.WishListViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
-import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
-import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.CustomToast
@@ -36,7 +34,6 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SmartScrollListener
-import com.orikino.fatty.utils.SuccessDialog
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone

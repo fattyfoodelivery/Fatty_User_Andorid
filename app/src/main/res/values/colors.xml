@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="black_transparent">#90000000</color>
 
     <color name="icon">#E7717070</color>
     <color name="onboard">#FFCF00</color>
@@ -28,6 +29,7 @@
     <color name="text_secondary_01">#84878A</color>
     <color name="text_secondary_02">#B1B1B1</color>
     <color name="text_secondary_03">#B8B8B8</color>
+    <color name="text_secondary_04">#7A7A7A</color>
     <color name="text_primary_01">#2E2E2E</color>
     <color name="textPrimary02">#545454</color>
     <color name="textPrimary">#222222</color>

@@ -18,6 +18,10 @@ interface HomeService {
         @Field("longitude")longitude: Double
     ) : Response<HomeResponse>
 
+    @POST(ApiRouteConstant.routeServiceItem)
+    suspend fun fetchServiceItem(
+    ) : Response<ServiceItemResponse>
+
     @POST(ApiRouteConstant.routeUpdateUserLocation)
     @FormUrlEncoded
     suspend fun updateUserLocation(

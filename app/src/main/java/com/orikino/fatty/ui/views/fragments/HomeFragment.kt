@@ -27,7 +27,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.maps.model.LatLng
 import com.orikino.fatty.domain.view_model.HomeViewModel
-import com.orikino.fatty.HomeViewState
+import com.orikino.fatty.domain.viewstates.HomeViewState
 import com.orikino.fatty.R
 import com.orikino.fatty.adapters.HomeSlideAdapter
 //import com.solinx_tech.fattyfood.adapters.AdsSlideAdapter
@@ -38,6 +38,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.FragmentHomeBinding
 import com.orikino.fatty.databinding.LayoutCurrencyZoneBinding
 import com.orikino.fatty.domain.model.UpAndDownVO
+import com.orikino.fatty.domain.responses.ServiceItem
 import com.orikino.fatty.ui.views.activities.account_setting.help_center.HelpCenterActivity
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.base.MainActivity
@@ -46,11 +47,11 @@ import com.orikino.fatty.ui.views.activities.category.TopRelatedCategoryActivity
 import com.orikino.fatty.ui.views.activities.parcel.BookingOrderActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.search.SearchActivity
+import com.orikino.fatty.ui.views.activities.services.AllServicesActivity
+import com.orikino.fatty.ui.views.activities.services.ServiceDetailActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
 import com.orikino.fatty.ui.views.activities.wish_list.WishListActivity
-import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSheetFragment
-import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.AddressBottomSheetMapboxFragment
 import com.orikino.fatty.ui.views.fragments.address_bottom_sheet.MapsFragment
 import com.orikino.fatty.utils.AccountRestrictedDialog
 import com.orikino.fatty.utils.ConfirmDialog
@@ -100,6 +101,9 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private var adsDataSize = 0
     private val TEMP_HTML_FILENAME = "temp_ad_content.html"
 
+    private val H_SCROLL_PADDING_DP = 16 * 2 // start + end
+    private val ITEM_MARGIN_END_DP = 8
+
 
     companion object {
         private const val GOOGLE_PLAY_STORE_PACKAGE = "com.android.vending"
@@ -130,13 +134,43 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         subscribeUI()
         requireContext().correctLocale()
         navigator()
-        navigateToTopRated()
-        navigateToParcel()
+        //navigateToTopRated()
+        //navigateToParcel()
         onRefreshHome()
-
-
     }
 
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
+    }
+
+    private fun View.setWidthPx(widthPx: Int) {
+        layoutParams = layoutParams.apply {
+            width = widthPx
+        }
+    }
+
+    private fun removeEndMargin(view: View) {
+        val lp = view.layoutParams as ViewGroup.MarginLayoutParams
+        lp.marginEnd = 0
+        view.layoutParams = lp
+    }
+
+
+    private fun enableScroll(enable: Boolean) {
+        binding?.serviceLayout?.apply {
+            isHorizontalScrollBarEnabled = false
+            overScrollMode = View.OVER_SCROLL_NEVER
+            isFillViewport = !enable
+        }
+    }
+
+
+    private fun showAndResize(view: View, widthPx: Int) {
+        view.visibility = View.VISIBLE
+        view.layoutParams = view.layoutParams.apply {
+            width = widthPx
+        }
+    }
     private fun adjustCoverViewPagerHeight() {
         binding?.coverViewPager?.post {
             val viewPager = binding?.coverViewPager ?: return@post
@@ -165,57 +199,57 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     }
 
     private fun navigateToParcel() {
-        binding?.rlTopParcel?.setOnClickListener {
-            PreferenceUtils.isBackground = false
-            if (PreferenceUtils.readUserVO().customer_id == 0) {
-                ConfirmDialog.Builder(
-                    requireContext(),
-                    resources.getString(R.string.hello),
-                    resources.getString(R.string.login_message),
-                    resources.getString(R.string.login),
-                    callback = {
-                        PreferenceUtils.clearCache()
-                        requireActivity().finishAffinity()
-                        //startActivity<SplashActivity>()
-                        val intent = Intent(requireContext(), LoginActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else if (PreferenceUtils.readUserVO().is_restricted == 1){
-                AccountRestrictedDialog.Builder(
-                    requireContext(),
-                    callback = {
-                        //requireActivity().startActivity<HelpCenterActivity>()
-                        val intent = Intent(requireContext(),HelpCenterActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else {
-                /*requireActivity().startActivity<BookingOrderActivity>(
-                    BookingOrderActivity.IS_EDIT to false
-                )*/
-                val intent = Intent(requireContext(),BookingOrderActivity::class.java)
-                intent.putExtra(BookingOrderActivity.IS_EDIT,false)
-                context?.startActivity(intent)
-            }
-
-        }
+//        binding?.rlTopParcel?.setOnClickListener {
+//            PreferenceUtils.isBackground = false
+//            if (PreferenceUtils.readUserVO().customer_id == 0) {
+//                ConfirmDialog.Builder(
+//                    requireContext(),
+//                    resources.getString(R.string.hello),
+//                    resources.getString(R.string.login_message),
+//                    resources.getString(R.string.login),
+//                    callback = {
+//                        PreferenceUtils.clearCache()
+//                        requireActivity().finishAffinity()
+//                        //startActivity<SplashActivity>()
+//                        val intent = Intent(requireContext(), LoginActivity::class.java)
+//                        context?.startActivity(intent)
+//                    })
+//                    .show(
+//                        childFragmentManager,
+//                        HomeFragment::class.simpleName
+//                    )
+//            } else if (PreferenceUtils.readUserVO().is_restricted == 1){
+//                AccountRestrictedDialog.Builder(
+//                    requireContext(),
+//                    callback = {
+//                        //requireActivity().startActivity<HelpCenterActivity>()
+//                        val intent = Intent(requireContext(),HelpCenterActivity::class.java)
+//                        context?.startActivity(intent)
+//                    })
+//                    .show(
+//                        childFragmentManager,
+//                        HomeFragment::class.simpleName
+//                    )
+//            } else {
+//                /*requireActivity().startActivity<BookingOrderActivity>(
+//                    BookingOrderActivity.IS_EDIT to false
+//                )*/
+//                val intent = Intent(requireContext(),BookingOrderActivity::class.java)
+//                intent.putExtra(BookingOrderActivity.IS_EDIT,false)
+//                context?.startActivity(intent)
+//            }
+//
+//        }
     }
 
     private fun navigateToTopRated() {
-        binding?.rlTopRestaurant?.setOnClickListener {
-            PreferenceUtils.isBackground = false
-            /*requireActivity().startActivity<TopRelatedCategoryActivity>(
-                TopRelatedCategoryActivity.CATG to "Top-Rated"
-            )*/
-            context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
-        }
+//        binding?.rlTopRestaurant?.setOnClickListener {
+//            PreferenceUtils.isBackground = false
+//            /*requireActivity().startActivity<TopRelatedCategoryActivity>(
+//                TopRelatedCategoryActivity.CATG to "Top-Rated"
+//            )*/
+//            context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
+//        }
     }
 
     private fun checkService() {
@@ -235,41 +269,41 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         }
     }
 
-    private fun setUpGoogleMapBottomSheet() {
-        if (fragmentManager?.findFragmentByTag("sheet") == null) {
-            val bottomSheetFragment = AddressBottomSheetFragment.newInstance(onConfirmAddress = {
-                binding?.tvUserAddress?.text = convertLatLangToAddress(
-                    PreferenceUtils.readUserVO().latitude ?: 0.0,
-                    PreferenceUtils.readUserVO().longitude ?: 0.0
-                )
-                if (PreferenceUtils.readUserVO().customer_id != 0) PreferenceUtils.readUserVO().customer_id?.let { it1 ->
-                    viewModel.updateUserInfo(
-                        it1,
-                        PreferenceUtils.readUserVO().latitude ?: 0.0,
-                        PreferenceUtils.readUserVO().longitude ?: 0.0
-                    )
-                }
-                //update
-                else PreferenceUtils.readUserVO()?.customer_id?.let { it1 ->
-                    viewModel.fetchHome(
-                        it1,
-                        viewModel.stateName,
-                        PreferenceUtils.readUserVO().latitude ?: 0.0,
-                        PreferenceUtils.readUserVO().longitude ?: 0.0
-                    )
-                }
+//    private fun setUpGoogleMapBottomSheet() {
+//        if (fragmentManager?.findFragmentByTag("sheet") == null) {
+//            val bottomSheetFragment = AddressBottomSheetFragment.newInstance(onConfirmAddress = {
+//                binding?.tvUserAddress?.text = convertLatLangToAddress(
+//                    PreferenceUtils.readUserVO().latitude ?: 0.0,
+//                    PreferenceUtils.readUserVO().longitude ?: 0.0
+//                )
+//                if (PreferenceUtils.readUserVO().customer_id != 0) PreferenceUtils.readUserVO().customer_id?.let { it1 ->
+//                    viewModel.updateUserInfo(
+//                        it1,
+//                        PreferenceUtils.readUserVO().latitude ?: 0.0,
+//                        PreferenceUtils.readUserVO().longitude ?: 0.0
+//                    )
+//                }
+//                //update
+//                else PreferenceUtils.readUserVO()?.customer_id?.let { it1 ->
+//                    viewModel.fetchHome(
+//                        it1,
+//                        viewModel.stateName,
+//                        PreferenceUtils.readUserVO().latitude ?: 0.0,
+//                        PreferenceUtils.readUserVO().longitude ?: 0.0
+//                    )
+//                }
+//
+//            })
+//            requireActivity().supportFragmentManager.let {
+//                bottomSheetFragment.show(
+//                    it, "sheet"
+//                )
+//            }
+//        } else {
+//        }
+//    }
 
-            })
-            requireActivity().supportFragmentManager.let {
-                bottomSheetFragment.show(
-                    it, "sheet"
-                )
-            }
-        } else {
-        }
-    }
-
-    private fun setUpMapBoxBottomSheet() {
+    /*private fun setUpMapBoxBottomSheet() {
         if (fragmentManager?.findFragmentByTag("sheet") == null) {
             val bottomSheetFragment =
                 AddressBottomSheetMapboxFragment.newInstance(onConfirmAddress = {
@@ -302,7 +336,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
 
         }
-    }
+    }*/
 
     private fun setUpMapBox() {
         if (fragmentManager?.findFragmentByTag("signature") == null) {
@@ -450,7 +484,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun startShimmerEffect() {
         binding?.shimmerView?.show()
         binding?.shimmerView?.startShimmer()
-        binding?.rlTopView?.gone()
+        binding?.serviceLayout?.gone()
         //binding?.tvYouMightLike?.gone()
         binding?.tvNearYou?.gone()
 
@@ -461,7 +495,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun stopShimmerEffect() {
         binding?.shimmerView?.stopShimmer()
         binding?.shimmerView?.gone()
-        binding?.rlTopView?.show()
+        binding?.serviceLayout?.show()
        // binding?.tvYouMightLike?.show()
         //binding?.tvNearYou?.show()
         if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
@@ -525,6 +559,11 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             is HomeViewState.OnLoadingHome -> { renderOnLoadingHome() }
             is HomeViewState.OnSuccessHome ->  renderOnSuccessHome(state)
             is HomeViewState.OnFailHome -> renderOnFailHome(state)
+
+            is HomeViewState.OnLoadingServiceItem -> {}
+            is HomeViewState.OnSuccessServiceItem -> {renderOnSuccessServiceItem(state)}
+            is HomeViewState.OnFailServiceItem -> {renderOnFailServiceItem(state)}
+
 
             is HomeViewState.OnLoadingCurrency -> {}//renderOnLoadingCurrency()
             is HomeViewState.OnSuccessCurrency -> renderOnSuccessCurrency(state)
@@ -608,10 +647,191 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         }
     }
 
-    private fun renderOnSuccessHome(state: HomeViewState.OnSuccessHome) {
-        binding?.layoutNetworkError?.root?.gone()
+    private fun renderOnSuccessServiceItem(state: HomeViewState.OnSuccessServiceItem){
         stopShimmerEffect()
         LoadingProgressDialog.hideLoadingProgress()
+        setUpServicesLayout(state.data.data)
+    }
+
+    private fun setUpServicesLayout(items : List<ServiceItem>) {
+
+        val screenWidth = resources.displayMetrics.widthPixels
+        val horizontalPaddingPx = dpToPx(H_SCROLL_PADDING_DP)
+        val itemMarginPx = dpToPx(ITEM_MARGIN_END_DP)
+
+        val availableWidth = screenWidth - horizontalPaddingPx
+
+        // Reset
+        listOf(
+            binding?.cvFirstService,
+            binding?.cvSecondService,
+            binding?.cvMoreService
+        ).forEach {
+            it?.visibility = View.GONE
+        }
+
+        // Enable scroll by default
+        binding?.serviceLayout?.isHorizontalScrollBarEnabled = false
+        binding?.serviceLayout?.isFillViewport = false
+
+        when (items.count()) {
+
+            2 -> {
+                val itemWidth = ((availableWidth * 0.5f) - itemMarginPx).toInt()
+
+                showAndResize(binding!!.cvFirstService, itemWidth)
+                showAndResize(binding!!.cvSecondService, itemWidth)
+
+                removeEndMargin(binding!!.cvSecondService)
+                enableScroll(false)
+                binding?.tvFirstServiceTitle?.text = items[0].name
+                binding?.tvFirstServiceDesc?.text = items[0].sub_title
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .error(R.drawable.ic_service_loading)
+                    .placeholder(R.drawable.ic_service_loading)
+                    .into(binding?.ivFirstService)
+                binding?.tvSecondServiceTitle?.text = items[1].name
+                binding?.tvSecondServiceDesc?.text = items[1].sub_title
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[1].image))
+                    .error(R.drawable.ic_service_loading)
+                    .placeholder(R.drawable.ic_service_loading)
+                    .into(binding?.ivSecondService)
+            }
+
+            1 -> {
+                showAndResize(binding!!.cvFirstService, availableWidth)
+
+                // Remove end margin to avoid tiny scroll
+                removeEndMargin(binding!!.cvFirstService)
+
+                binding?.tvFirstServiceTitle?.text = items[0].name
+                binding?.tvFirstServiceDesc?.text = items[0].sub_title
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .error(R.drawable.ic_service_loading)
+                    .placeholder(R.drawable.ic_service_loading)
+                    .into(binding?.ivFirstService)
+
+                enableScroll(false)
+            }
+            else -> {
+                val itemWidth = ((availableWidth * 0.45f) - itemMarginPx).toInt()
+
+                showAndResize(binding!!.cvFirstService, itemWidth)
+                showAndResize(binding!!.cvSecondService, itemWidth)
+                showAndResize(binding!!.cvMoreService, itemWidth)
+
+                enableScroll(true)
+
+                binding?.tvFirstServiceTitle?.text = items[0].name
+                binding?.tvFirstServiceDesc?.text = items[0].sub_title
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .error(R.drawable.ic_service_loading)
+                    .placeholder(R.drawable.ic_service_loading)
+                    .into(binding?.ivFirstService)
+                binding?.tvSecondServiceTitle?.text = items[1].name
+                binding?.tvSecondServiceDesc?.text = items[1].sub_title
+                Picasso.get()
+                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[1].image))
+                    .error(R.drawable.ic_service_loading)
+                    .placeholder(R.drawable.ic_service_loading)
+                    .into(binding?.ivSecondService)
+
+                binding?.tvServiceCount?.text = (items.size-2).toString()
+            }
+        }
+        binding?.cvFirstService?.setOnClickListener {
+            PreferenceUtils.isBackground = false
+            if (PreferenceUtils.readUserVO().customer_id == 0) {
+                ConfirmDialog.Builder(
+                    requireContext(),
+                    resources.getString(R.string.hello),
+                    resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
+                    callback = {
+                        PreferenceUtils.clearCache()
+                        requireActivity().finishAffinity()
+                        //startActivity<SplashActivity>()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        context?.startActivity(intent)
+                    })
+                    .show(
+                        childFragmentManager,
+                        HomeFragment::class.simpleName
+                    )
+            } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
+                AccountRestrictedDialog.Builder(
+                    requireContext(),
+                    callback = {
+                        val intent = Intent(requireContext(), HelpCenterActivity::class.java)
+                        context?.startActivity(intent)
+                    })
+                    .show(
+                        childFragmentManager,
+                        HomeFragment::class.simpleName
+                    )
+            } else {
+                if (items[0].name == "ပါဆယ်" || items[0].name == "Parcel"){
+                    val intent = Intent(requireContext(), BookingOrderActivity::class.java)
+                    intent.putExtra(BookingOrderActivity.IS_EDIT, false)
+                    context?.startActivity(intent)
+                }else{
+                    requireContext().startActivity(ServiceDetailActivity.getIntent(requireContext(), items[0].service_item_id, items[0].name, items[0].sub_title, items[0].cover_image ?: ""))
+                }
+            }
+
+        }
+        binding?.cvSecondService?.setOnClickListener {
+            PreferenceUtils.isBackground = false
+            if (PreferenceUtils.readUserVO().customer_id == 0) {
+                ConfirmDialog.Builder(
+                    requireContext(),
+                    resources.getString(R.string.hello),
+                    resources.getString(R.string.login_message),
+                    resources.getString(R.string.login),
+                    callback = {
+                        PreferenceUtils.clearCache()
+                        requireActivity().finishAffinity()
+                        //startActivity<SplashActivity>()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        context?.startActivity(intent)
+                    })
+                    .show(
+                        childFragmentManager,
+                        HomeFragment::class.simpleName
+                    )
+            } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
+                AccountRestrictedDialog.Builder(
+                    requireContext(),
+                    callback = {
+                        val intent = Intent(requireContext(), HelpCenterActivity::class.java)
+                        context?.startActivity(intent)
+                    })
+                    .show(
+                        childFragmentManager,
+                        HomeFragment::class.simpleName
+                    )
+            } else {
+                if (items[1].name == "ပါဆယ်" || items[1].name == "Parcel"){
+                    val intent = Intent(requireContext(), BookingOrderActivity::class.java)
+                    intent.putExtra(BookingOrderActivity.IS_EDIT, false)
+                    context?.startActivity(intent)
+                }else{
+                    requireContext().startActivity(ServiceDetailActivity.getIntent(requireContext(), items[1].service_item_id, items[1].name, items[1].sub_title, items[1].cover_image ?: ""))
+                }
+            }
+        }
+        binding?.cvMoreService?.setOnClickListener {
+            requireContext().startActivity(Intent(requireContext(), AllServicesActivity::class.java))
+        }
+    }
+
+    private fun renderOnSuccessHome(state: HomeViewState.OnSuccessHome) {
+        binding?.layoutNetworkError?.root?.gone()
+        viewModel.fetchServiceItem()
         val newCategories = state.data.categories.subList(0,8)
         topCategoryAdapter?.setData(newCategories)
 
@@ -664,14 +884,52 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             viewModel.fetchCurrency()
         }*/
         if (PreferenceUtils.readZoneId() != state.data.zone_id) {
-            stopShimmerEffect()
+            //stopShimmerEffect()
             PreferenceUtils.writeZoneId(viewModel.zoneId)
             //Clear Cache
             PreferenceUtils.clearCartData()
             //Fetch Currency
             viewModel.fetchCurrency()
         } else {
-            stopShimmerEffect()
+            //stopShimmerEffect()
+        }
+    }
+
+    private fun renderOnFailServiceItem(state: HomeViewState.OnFailServiceItem) {
+        when (state.message) {
+            "Server Error" -> {
+                stopShimmerEffect()
+                binding?.layoutNetworkError?.root?.show()
+            }
+            "Another Login" -> {
+                stopShimmerEffect()
+                WarningDialog.Builder(requireContext(),
+                    resources.getString(R.string.already_login_title),
+                    resources.getString(R.string.already_login_msg),
+                    resources.getString(R.string.force_login),
+                    callback = {
+                        PreferenceUtils.clearCache()
+                        requireActivity().finish()
+                        val intent = Intent(requireContext(),SplashActivity::class.java)
+                        context?.startActivity(intent)
+                        //requireContext().startActivity<SplashActivity>()
+                    }).show(requireFragmentManager(), HomeFragment::class.simpleName)
+            }
+
+            "DENIED" -> WarningDialog.Builder(requireContext(),
+                resources.getString(R.string.maintain_title),
+                resources.getString(R.string.maintain_msg),
+                "OK",
+                callback = {
+                    requireActivity().finishAffinity()
+
+                }).show(requireFragmentManager(), HomeFragment::class.simpleName)
+
+            else ->
+            {
+                stopShimmerEffect()
+                showSnackBar(state.message)
+            }
         }
     }
     private fun renderOnFailHome(state: HomeViewState.OnFailHome) {
@@ -1198,7 +1456,12 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.rvFoodCategory?.setHasFixedSize(true)
         binding?.rvFoodCategory?.isNestedScrollingEnabled = true
         topCategoryAdapter = TopCategoryAdapter(mutableListOf(), onClickItem = {
-            startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+            if (it.restaurant_category_id == 0){
+                PreferenceUtils.isBackground = false
+                context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
+            }else{
+                startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+            }
         }, onClickMore = {
             startActivity(FoodCategoryActivity.getIntent(getString(R.string.txt_categories)))
         })

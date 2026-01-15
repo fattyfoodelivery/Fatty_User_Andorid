@@ -17,32 +17,10 @@ class HomeRepositoryImpl @Inject constructor(
         latitude: Double,
         longitude: Double
     ): Response<HomeResponse> = homeService.fetchHome(customer_id,stateName,latitude,longitude)
-            /*Flow<HomeResponse> {
-        var response = HomeResponse()
-        return flow {
-            withContext(Dispatchers.IO) {
-                try {
-                    response = homeService.fetchHome(
-                        customer_id, stateName, latitude, longitude
-                    )
-                } catch (e: Throwable) {
-                    when (e) {
-                        is NetworkException -> throw NetworkException("Connection Issue")
-                        is HttpException -> throw when {
-                            e.response()
-                                ?.code() == 500 -> AppException("Server Error")
-                            e.response()
-                                ?.code() == 403 -> AppException("DENIED")
-                            e.response()?.code() == 406 -> AppException("Another Login")
-                            else -> AppException("Something Wrong")
-                        }
-                        else -> throw AppException("Failed")
-                    }
-                }
-            }
-            emit(response)
-        }
-    }*/
+
+    override suspend fun fetchServiceItem(): Response<ServiceItemResponse> {
+        return homeService.fetchServiceItem()
+    }
 
     override suspend fun updateUserInfo(
         customer_id : Int,latitude : Double,longitude : Double

@@ -45,6 +45,10 @@ object ServiceModule {
     }
 
     @Provides
+    fun provideServiceItemService(@Named("MVVMClient") retrofit: Retrofit) : ServiceItemService{
+        return retrofit.create(ServiceItemService::class.java)
+    }
+    @Provides
     fun provideCategoryService(@Named("MVVMClient") retrofit: Retrofit) : CategoryService{
         return retrofit.create(CategoryService::class.java)
     }
