@@ -9,6 +9,10 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.LayoutItemAvailableTimeBinding
 import com.orikino.fatty.domain.model.AvailableTimeVO
 import com.orikino.fatty.viewholder.BaseViewHolder
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RestAviableTimeAdapterder(
     val context: Context,
@@ -26,8 +30,8 @@ class RestAviableTimeAdapterder(
         override fun setData(data: AvailableTimeVO, position: Int) {
             println("availabletime $data")
             binding.tvDay.text = data.day
-            binding.tvTimeOpenClose.text =  ContextCompat.getString(context,R.string.opening_time).plus(" : ").plus(data.opening_time)
-                .plus("  -  ").plus(ContextCompat.getString(context,R.string.closing_time).plus(data.closing_time))
+            binding.tvTimeOpenClose.text =  ContextCompat.getString(context,R.string.opening_time).plus(" : ").plus(getStoreOpenStatus(binding.root.context,data.opening_time ?: ""))
+                .plus("  -  ").plus(ContextCompat.getString(context,R.string.closing_time).plus(" : ").plus(getStoreOpenStatus(binding.root.context,data.closing_time ?: "")))
         }
 
         override fun onClick(v: View?) = Unit
@@ -35,5 +39,21 @@ class RestAviableTimeAdapterder(
     }
 
 
+    fun getStoreOpenStatus(
+        context: Context,
+        time : String
+    ): String {
+
+        val parser = SimpleDateFormat("HH:mm:ss", Locale.US)
+        val displayFormatter = SimpleDateFormat("HH:mm", Locale.US)
+        try {
+            val openDate = parser.parse(time)
+
+            return displayFormatter.format(openDate)
+        } catch (e: ParseException) {
+            // Log the exception for debugging
+            return time
+        }
+    }
 
 }

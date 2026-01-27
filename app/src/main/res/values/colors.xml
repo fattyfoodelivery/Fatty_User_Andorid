@@ -77,4 +77,5 @@
     <color name="bg_pending">#1AFF6704</color>
     <color name="icon_tint">#454545</color>
     <color name="bg_default_address">#FFBB7C</color>
+    <color name="color_webview_title">#111111</color>
 </resources>

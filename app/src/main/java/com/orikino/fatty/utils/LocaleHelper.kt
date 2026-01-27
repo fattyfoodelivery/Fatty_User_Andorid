@@ -29,14 +29,16 @@ class LocaleHelper {
     }
 
     private fun updateResources(context: Context?, language: String): Context? {
-        val locale: Locale = Locale(language)
-        Locale.setDefault(locale)
+        val mLocale = Locale(language)
+        Locale.setDefault(mLocale)
 
-        val configuration: Configuration = context?.resources?.configuration!!
-        configuration.setLocale(locale)
-        configuration.setLayoutDirection(locale)
+        val resources = context?.resources
+        val config = resources?.configuration
+        config?.setLocale(mLocale)
 
-        return context.createConfigurationContext(configuration)
+        // Update the configuration for older versions
+        resources?.updateConfiguration(config, resources.displayMetrics)
+        return context?.createConfigurationContext(config!!)
     }
 
     @Suppress("deprecation")

@@ -12,7 +12,7 @@ data class OnBoardingResponse(
         @SerializedName("display_type_id")
         val display_type_id: Int,
         @SerializedName("image")
-        val image: String,
+        var image: String,
         @SerializedName("merchant_ads_id")
         val merchant_ads_id: Int?,
         @SerializedName("restaurant_id")

@@ -160,4 +160,11 @@
         <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/textPrimary02</item>
     </style>
+
+    <style name="MyTabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabPaddingStart">0dp</item>
+        <item name="tabPaddingEnd">0dp</item>
+        <item name="tabPaddingTop">0dp</item>
+        <item name="tabPaddingBottom">0dp</item>
+    </style>
 </resources>

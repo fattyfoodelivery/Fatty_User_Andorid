@@ -96,7 +96,7 @@ class WebviewActivity : AppCompatActivity() {
             binding.ivCover.gone()
         }
 
-        binding.tvWebview.text = title
+        binding.tvTitle.text = title
         setUpWebView()
         binding.webView.loadDataWithBaseURL(
             null, bodyContent, "text/html", "UTF-8", null

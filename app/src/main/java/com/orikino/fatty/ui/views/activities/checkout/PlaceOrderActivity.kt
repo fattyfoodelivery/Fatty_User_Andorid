@@ -65,8 +65,6 @@ class PlaceOrderActivity : AppCompatActivity() {
         PreferenceUtils.needToShow = false
         checkOrder()
         navigateToTrackOrderView()
-
-
     }
 
     private fun checkOrder() {

@@ -65,7 +65,6 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
-import com.orikino.fatty.utils.helper.loadPhoto
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -123,7 +122,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
     }
 
     private fun startNewCountdown(durationMillis: Long) {
-        splashBinding.tvSkip.visibility = View.VISIBLE
+        splashBinding.skipRoot.visibility = View.VISIBLE
         countDownTimerInstance?.cancel() // Cancel any existing timer
 
         timeRemainingWhenPaused = durationMillis
@@ -208,7 +207,7 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
     }
 
     private fun skipToAds() {
-        splashBinding.tvSkip.setOnClickListener {
+        splashBinding.skipRoot.setOnClickListener {
             cancelTimerAndNavigate()
         }
     }
@@ -358,7 +357,6 @@ class SplashActivity : AppCompatActivity() , OnLocationUpdatedListener {
             }
             splashBinding.imvAds.load(state.data.data?.image) {
                 error(R.drawable.on_board_ads) // Ensure you have this drawable
-                placeholder(R.drawable.on_board_ads) // Ensure you have this drawable
             }
             splashBinding.imvAds.setOnClickListener {
                 val adData = state.data.data

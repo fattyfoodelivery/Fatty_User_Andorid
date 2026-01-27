@@ -61,8 +61,10 @@ import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.delegate.CallBackMapLatLngListener
+import com.orikino.fatty.utils.helper.TEMP_HTML_FILENAME
 import com.orikino.fatty.utils.helper.correctLocale
 import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.saveHtmlToFile
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
@@ -75,7 +77,7 @@ import java.util.Locale
 import kotlin.collections.map
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() , CallBackMapLatLngListener {
+class HomeFragment : Fragment(), CallBackMapLatLngListener {
 
 
     private var binding: FragmentHomeBinding? = null
@@ -84,13 +86,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private var topCategoryAdapter: TopCategoryAdapter? = null
     private var recommendedRestaurantAdapter: RecommendedRestaurantAdapter? = null
     private var nearByIdRestAdapter: NearByIdRestAdapter? = null
-    private var homeSlideAdapter : HomeSlideAdapter? = null
+    private var homeSlideAdapter: HomeSlideAdapter? = null
     private var addresses: List<Address> = listOf()
-    private  var nearByRestaurantList : MutableList<NearByRestaurantVO>? = mutableListOf() // Full list from network
+    private var nearByRestaurantList: MutableList<NearByRestaurantVO>? =
+        mutableListOf() // Full list from network
     var lastSelected = 0
 
     // Variables for pagination
-    private var currentDisplayCount = 0 // Tracks how many items are currently shown from nearByRestaurantList
+    private var currentDisplayCount =
+        0 // Tracks how many items are currently shown from nearByRestaurantList
     private val loadMoreThreshold = 15 // How many items to load at a time
     private var isLoadingMore = false
 
@@ -99,7 +103,6 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private lateinit var sliderRunnable: Runnable
     private val SLIDER_DELAY_MS = 3000L // 3 seconds
     private var adsDataSize = 0
-    private val TEMP_HTML_FILENAME = "temp_ad_content.html"
 
     private val H_SCROLL_PADDING_DP = 16 * 2 // start + end
     private val ITEM_MARGIN_END_DP = 8
@@ -171,6 +174,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             width = widthPx
         }
     }
+
     private fun adjustCoverViewPagerHeight() {
         binding?.coverViewPager?.post {
             val viewPager = binding?.coverViewPager ?: return@post
@@ -184,19 +188,6 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         }
     }
 
-    private fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {
-        return try {
-            val file = File(context.cacheDir, filename)
-            FileOutputStream(file).use {
-                it.write(htmlContent.toByteArray(Charsets.UTF_8))
-            }
-            file.absolutePath
-        } catch (e: IOException) {
-            Log.e("SplashActivity", "Error saving HTML to file: $filename", e)
-            Toast.makeText(context, "Error preparing content for display.", Toast.LENGTH_SHORT).show()
-            null
-        }
-    }
 
     private fun navigateToParcel() {
 //        binding?.rlTopParcel?.setOnClickListener {
@@ -341,27 +332,27 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun setUpMapBox() {
         if (fragmentManager?.findFragmentByTag("signature") == null) {
             val fullDialogMap = MapsFragment.newInstance(this)
-                /*MapsFragment(cal = {
-                    binding?.tvUserAddress?.text = convertLatLangToAddress(
+            /*MapsFragment(cal = {
+                binding?.tvUserAddress?.text = convertLatLangToAddress(
+                    PreferenceUtils.readUserVO().latitude ?: 0.0,
+                    PreferenceUtils.readUserVO().longitude ?: 0.0
+                )
+                if (PreferenceUtils.readUserVO().customer_id != 0) PreferenceUtils.readUserVO()?.customer_id?.let { it1 ->
+                    viewModel.updateUserInfo(
+                        it1,
                         PreferenceUtils.readUserVO().latitude ?: 0.0,
                         PreferenceUtils.readUserVO().longitude ?: 0.0
                     )
-                    if (PreferenceUtils.readUserVO().customer_id != 0) PreferenceUtils.readUserVO()?.customer_id?.let { it1 ->
-                        viewModel.updateUserInfo(
-                            it1,
-                            PreferenceUtils.readUserVO().latitude ?: 0.0,
-                            PreferenceUtils.readUserVO().longitude ?: 0.0
-                        )
-                    }
-                    else PreferenceUtils.readUserVO().customer_id.let { it1 ->
-                        viewModel.fetchHome(
-                            it1,
-                            viewModel.stateName,
-                            PreferenceUtils.readUserVO().latitude ?: 0.0,
-                            PreferenceUtils.readUserVO().longitude ?: 0.0
-                        )
-                    }
-                })*/
+                }
+                else PreferenceUtils.readUserVO().customer_id.let { it1 ->
+                    viewModel.fetchHome(
+                        it1,
+                        viewModel.stateName,
+                        PreferenceUtils.readUserVO().latitude ?: 0.0,
+                        PreferenceUtils.readUserVO().longitude ?: 0.0
+                    )
+                }
+            })*/
             requireActivity().supportFragmentManager.let {
                 fullDialogMap.show(
                     it, "signature"
@@ -385,17 +376,17 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                             .copy(latitude = gpsTracker.latitude, longitude = gpsTracker.longitude)
                     )
                     binding?.tvUserAddress?.text = convertLatLangToAddress(
-                        PreferenceUtils.readUserVO().latitude?:0.0,
-                        PreferenceUtils.readUserVO().longitude?:0.0
+                        PreferenceUtils.readUserVO().latitude ?: 0.0,
+                        PreferenceUtils.readUserVO().longitude ?: 0.0
                     )
                     shouldUpdateOrFetchHome()
-                }else{
+                } else {
                     PreferenceUtils.readUserVO().customer_id?.let {
                         viewModel.fetchHome(
                             it,
                             viewModel.stateName,
-                            PreferenceUtils.readUserVO().latitude?:0.0,
-                            PreferenceUtils.readUserVO().longitude?:0.0
+                            PreferenceUtils.readUserVO().latitude ?: 0.0,
+                            PreferenceUtils.readUserVO().longitude ?: 0.0
                         )
                     }
                 }
@@ -428,7 +419,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.edtSearch?.setOnClickListener {
             PreferenceUtils.needToShow = false
             PreferenceUtils.isBackground = false
-            val intent = Intent(requireContext(),SearchActivity::class.java)
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             context?.startActivity(intent)
             //context?.startActivity<SearchActivity>()
         }
@@ -454,7 +445,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                     )
             } else {
                 //context?.startActivity<WishListActivity>()
-                val intent = Intent(requireContext(),WishListActivity::class.java)
+                val intent = Intent(requireContext(), WishListActivity::class.java)
                 context?.startActivity(intent)
             }
         }
@@ -476,7 +467,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             val geocoder = Geocoder(requireContext(), Locale.US)
             addresses = geocoder.getFromLocation(lat, lng, 1)!!
             address = addresses[0].getAddressLine(0)
-        } catch (e: Exception) { }
+        } catch (e: Exception) {
+        }
         return address
     }
 
@@ -496,19 +488,18 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.shimmerView?.stopShimmer()
         binding?.shimmerView?.gone()
         binding?.serviceLayout?.show()
-       // binding?.tvYouMightLike?.show()
+        // binding?.tvYouMightLike?.show()
         //binding?.tvNearYou?.show()
         if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
     }
-
 
 
     private fun shouldUpdateOrFetchHome() {
         if (PreferenceUtils.readUserVO().customer_id != 0) PreferenceUtils.readUserVO().customer_id?.let {
             viewModel.updateUserInfo(
                 it,
-                PreferenceUtils.readUserVO().latitude?:0.0,
-                PreferenceUtils.readUserVO().longitude?:0.0
+                PreferenceUtils.readUserVO().latitude ?: 0.0,
+                PreferenceUtils.readUserVO().longitude ?: 0.0
             )
         }
         //update
@@ -516,13 +507,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             viewModel.fetchHome(
                 it,
                 viewModel.stateName,
-                PreferenceUtils.readUserVO().latitude?:0.0,
-                PreferenceUtils.readUserVO().longitude?:0.0
+                PreferenceUtils.readUserVO().latitude ?: 0.0,
+                PreferenceUtils.readUserVO().longitude ?: 0.0
             )
         }
     }
 
-    private fun subscribeUI() { observers() }
+    private fun subscribeUI() {
+        observers()
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun observers() {
@@ -552,17 +545,25 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
     private fun render(state: HomeViewState) {
         when (state) {
-            is HomeViewState.OnLoadingUpdateUserInfo -> {  } //renderOnLoadingUpdateInfo()
+            is HomeViewState.OnLoadingUpdateUserInfo -> {} //renderOnLoadingUpdateInfo()
             is HomeViewState.OnSuccessUpdateUserInfo -> renderOnSuccessUpdateInfo(state)
             is HomeViewState.OnFailUpdateUserInfo -> renderOnFailUpdateInfo(state)
 
-            is HomeViewState.OnLoadingHome -> { renderOnLoadingHome() }
-            is HomeViewState.OnSuccessHome ->  renderOnSuccessHome(state)
+            is HomeViewState.OnLoadingHome -> {
+                renderOnLoadingHome()
+            }
+
+            is HomeViewState.OnSuccessHome -> renderOnSuccessHome(state)
             is HomeViewState.OnFailHome -> renderOnFailHome(state)
 
             is HomeViewState.OnLoadingServiceItem -> {}
-            is HomeViewState.OnSuccessServiceItem -> {renderOnSuccessServiceItem(state)}
-            is HomeViewState.OnFailServiceItem -> {renderOnFailServiceItem(state)}
+            is HomeViewState.OnSuccessServiceItem -> {
+                renderOnSuccessServiceItem(state)
+            }
+
+            is HomeViewState.OnFailServiceItem -> {
+                renderOnFailServiceItem(state)
+            }
 
 
             is HomeViewState.OnLoadingCurrency -> {}//renderOnLoadingCurrency()
@@ -584,7 +585,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         if (MainActivity.isFirstTime) {
             LoadingProgressDialog.showLoadingProgress(requireContext())
             MainActivity.isFirstTime = false
-        }    }
+        }
+    }
 
     private fun renderOnLoadingUpdateInfo() {
         LoadingProgressDialog.showLoadingProgress(requireContext())
@@ -600,8 +602,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 viewModel.fetchHome(
                     it,
                     viewModel.stateName,
-                    PreferenceUtils.readUserVO().latitude?:0.0 ,
-                    PreferenceUtils.readUserVO().longitude?:0.0
+                    PreferenceUtils.readUserVO().latitude ?: 0.0,
+                    PreferenceUtils.readUserVO().longitude ?: 0.0
                 )
             }
         }
@@ -614,26 +616,31 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 stopShimmerEffect()
                 binding?.layoutNetworkError?.root?.show()
             }
+
             "Server Issue" -> {
                 stopShimmerEffect()
                 binding?.layoutNetworkError?.root?.show()
             }
+
             "Another Login" -> {
 
                 stopShimmerEffect()
-                WarningDialog.Builder(requireContext(),
+                WarningDialog.Builder(
+                    requireContext(),
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
                     callback = {
                         PreferenceUtils.clearCache()
                         requireActivity().finish()
-                        val intent = Intent(requireContext(),SplashActivity::class.java)
+                        val intent = Intent(requireContext(), SplashActivity::class.java)
                         context?.startActivity(intent)
                         //requireContext().startActivity<SplashActivity>()
                     }).show(requireFragmentManager(), HomeFragment::class.simpleName)
             }
-            "Denied" -> WarningDialog.Builder(requireContext(),
+
+            "Denied" -> WarningDialog.Builder(
+                requireContext(),
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
@@ -647,13 +654,13 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         }
     }
 
-    private fun renderOnSuccessServiceItem(state: HomeViewState.OnSuccessServiceItem){
+    private fun renderOnSuccessServiceItem(state: HomeViewState.OnSuccessServiceItem) {
         stopShimmerEffect()
         LoadingProgressDialog.hideLoadingProgress()
         setUpServicesLayout(state.data.data)
     }
 
-    private fun setUpServicesLayout(items : List<ServiceItem>) {
+    private fun setUpServicesLayout(items: List<ServiceItem>) {
 
         val screenWidth = resources.displayMetrics.widthPixels
         val horizontalPaddingPx = dpToPx(H_SCROLL_PADDING_DP)
@@ -687,14 +694,20 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 binding?.tvFirstServiceTitle?.text = items[0].name
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .load(
+                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
+                            .plus(items[0].image)
+                    )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
                     .into(binding?.ivFirstService)
                 binding?.tvSecondServiceTitle?.text = items[1].name
                 binding?.tvSecondServiceDesc?.text = items[1].sub_title
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[1].image))
+                    .load(
+                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
+                            .plus(items[1].image)
+                    )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
                     .into(binding?.ivSecondService)
@@ -709,13 +722,17 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 binding?.tvFirstServiceTitle?.text = items[0].name
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .load(
+                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
+                            .plus(items[0].image)
+                    )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
                     .into(binding?.ivFirstService)
 
                 enableScroll(false)
             }
+
             else -> {
                 val itemWidth = ((availableWidth * 0.45f) - itemMarginPx).toInt()
 
@@ -728,111 +745,140 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 binding?.tvFirstServiceTitle?.text = items[0].name
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[0].image))
+                    .load(
+                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
+                            .plus(items[0].image)
+                    )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
                     .into(binding?.ivFirstService)
                 binding?.tvSecondServiceTitle?.text = items[1].name
                 binding?.tvSecondServiceDesc?.text = items[1].sub_title
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(items[1].image))
+                    .load(
+                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
+                            .plus(items[1].image)
+                    )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
                     .into(binding?.ivSecondService)
 
-                binding?.tvServiceCount?.text = (items.size-2).toString()
+                binding?.tvServiceCount?.text = "+${items.size - 2}"
             }
         }
         binding?.cvFirstService?.setOnClickListener {
-            PreferenceUtils.isBackground = false
-            if (PreferenceUtils.readUserVO().customer_id == 0) {
-                ConfirmDialog.Builder(
-                    requireContext(),
-                    resources.getString(R.string.hello),
-                    resources.getString(R.string.login_message),
-                    resources.getString(R.string.login),
-                    callback = {
-                        PreferenceUtils.clearCache()
-                        requireActivity().finishAffinity()
-                        //startActivity<SplashActivity>()
-                        val intent = Intent(requireContext(), LoginActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
-                AccountRestrictedDialog.Builder(
-                    requireContext(),
-                    callback = {
-                        val intent = Intent(requireContext(), HelpCenterActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else {
-                if (items[0].name == "ပါဆယ်" || items[0].name == "Parcel"){
+            if (items[0].name == "ပါဆယ်" || items[0].name == "Parcel" || items[0].name == "跑腿") {
+                PreferenceUtils.isBackground = false
+                if (PreferenceUtils.readUserVO().customer_id == 0) {
+                    ConfirmDialog.Builder(
+                        requireContext(),
+                        resources.getString(R.string.hello),
+                        resources.getString(R.string.login_message),
+                        resources.getString(R.string.login),
+                        callback = {
+                            PreferenceUtils.clearCache()
+                            requireActivity().finishAffinity()
+                            //startActivity<SplashActivity>()
+                            val intent = Intent(requireContext(), LoginActivity::class.java)
+                            context?.startActivity(intent)
+                        })
+                        .show(
+                            childFragmentManager,
+                            HomeFragment::class.simpleName
+                        )
+                } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
+                    AccountRestrictedDialog.Builder(
+                        requireContext(),
+                        callback = {
+                            //requireActivity().startActivity<HelpCenterActivity>()
+                            val intent = Intent(requireContext(), HelpCenterActivity::class.java)
+                            context?.startActivity(intent)
+                        })
+                        .show(
+                            childFragmentManager,
+                            HomeFragment::class.simpleName
+                        )
+                } else {
                     val intent = Intent(requireContext(), BookingOrderActivity::class.java)
                     intent.putExtra(BookingOrderActivity.IS_EDIT, false)
                     context?.startActivity(intent)
-                }else{
-                    requireContext().startActivity(ServiceDetailActivity.getIntent(requireContext(), items[0].service_item_id, items[0].name, items[0].sub_title, items[0].cover_image ?: ""))
                 }
+            } else {
+                requireContext().startActivity(
+                    ServiceDetailActivity.getIntent(
+                        requireContext(),
+                        items[0].service_item_id,
+                        items[0].name,
+                        items[0].sub_title,
+                        items[0].cover_image ?: ""
+                    )
+                )
             }
 
         }
         binding?.cvSecondService?.setOnClickListener {
-            PreferenceUtils.isBackground = false
-            if (PreferenceUtils.readUserVO().customer_id == 0) {
-                ConfirmDialog.Builder(
-                    requireContext(),
-                    resources.getString(R.string.hello),
-                    resources.getString(R.string.login_message),
-                    resources.getString(R.string.login),
-                    callback = {
-                        PreferenceUtils.clearCache()
-                        requireActivity().finishAffinity()
-                        //startActivity<SplashActivity>()
-                        val intent = Intent(requireContext(), LoginActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
-                AccountRestrictedDialog.Builder(
-                    requireContext(),
-                    callback = {
-                        val intent = Intent(requireContext(), HelpCenterActivity::class.java)
-                        context?.startActivity(intent)
-                    })
-                    .show(
-                        childFragmentManager,
-                        HomeFragment::class.simpleName
-                    )
-            } else {
-                if (items[1].name == "ပါဆယ်" || items[1].name == "Parcel"){
+            if (items[1].name == "ပါဆယ်" || items[1].name == "Parcel" || items[1].name == "跑腿") {
+                PreferenceUtils.isBackground = false
+                if (PreferenceUtils.readUserVO().customer_id == 0) {
+                    ConfirmDialog.Builder(
+                        requireContext(),
+                        resources.getString(R.string.hello),
+                        resources.getString(R.string.login_message),
+                        resources.getString(R.string.login),
+                        callback = {
+                            PreferenceUtils.clearCache()
+                            requireActivity().finishAffinity()
+                            //startActivity<SplashActivity>()
+                            val intent = Intent(requireContext(), LoginActivity::class.java)
+                            context?.startActivity(intent)
+                        })
+                        .show(
+                            childFragmentManager,
+                            HomeFragment::class.simpleName
+                        )
+                } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
+                    AccountRestrictedDialog.Builder(
+                        requireContext(),
+                        callback = {
+                            //requireActivity().startActivity<HelpCenterActivity>()
+                            val intent = Intent(requireContext(), HelpCenterActivity::class.java)
+                            context?.startActivity(intent)
+                        })
+                        .show(
+                            childFragmentManager,
+                            HomeFragment::class.simpleName
+                        )
+                } else {
                     val intent = Intent(requireContext(), BookingOrderActivity::class.java)
                     intent.putExtra(BookingOrderActivity.IS_EDIT, false)
                     context?.startActivity(intent)
-                }else{
-                    requireContext().startActivity(ServiceDetailActivity.getIntent(requireContext(), items[1].service_item_id, items[1].name, items[1].sub_title, items[1].cover_image ?: ""))
                 }
+            } else {
+                requireContext().startActivity(
+                    ServiceDetailActivity.getIntent(
+                        requireContext(),
+                        items[1].service_item_id,
+                        items[1].name,
+                        items[1].sub_title,
+                        items[1].cover_image ?: ""
+                    )
+                )
             }
         }
         binding?.cvMoreService?.setOnClickListener {
-            requireContext().startActivity(Intent(requireContext(), AllServicesActivity::class.java))
+            requireContext().startActivity(
+                Intent(
+                    requireContext(),
+                    AllServicesActivity::class.java
+                )
+            )
         }
     }
 
     private fun renderOnSuccessHome(state: HomeViewState.OnSuccessHome) {
         binding?.layoutNetworkError?.root?.gone()
         viewModel.fetchServiceItem()
-        val newCategories = state.data.categories.subList(0,8)
+        val newCategories = state.data.categories.subList(0, 8)
         topCategoryAdapter?.setData(newCategories)
 
         Log.e("TAG", "renderOnSuccessHome: ${state.data.near_restaurant.size}")
@@ -842,8 +888,10 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             nearByRestaurantList = state.data.near_restaurant.toMutableList() // Store the full list
 
             // Display only an initial subset to avoid ANR and for pagination
-            currentDisplayCount = minOf(15, state.data.near_restaurant.size) // Or your preferred initial count
-            val initialDataToDisplay = nearByRestaurantList?.subList(0, currentDisplayCount) ?: emptyList()
+            currentDisplayCount =
+                minOf(15, state.data.near_restaurant.size) // Or your preferred initial count
+            val initialDataToDisplay =
+                nearByRestaurantList?.subList(0, currentDisplayCount) ?: emptyList()
             nearByIdRestAdapter?.submitList(initialDataToDisplay.toList()) // Use toList() for a new list copy
 
         } else {
@@ -901,22 +949,25 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 stopShimmerEffect()
                 binding?.layoutNetworkError?.root?.show()
             }
+
             "Another Login" -> {
                 stopShimmerEffect()
-                WarningDialog.Builder(requireContext(),
+                WarningDialog.Builder(
+                    requireContext(),
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
                     callback = {
                         PreferenceUtils.clearCache()
                         requireActivity().finish()
-                        val intent = Intent(requireContext(),SplashActivity::class.java)
+                        val intent = Intent(requireContext(), SplashActivity::class.java)
                         context?.startActivity(intent)
                         //requireContext().startActivity<SplashActivity>()
                     }).show(requireFragmentManager(), HomeFragment::class.simpleName)
             }
 
-            "DENIED" -> WarningDialog.Builder(requireContext(),
+            "DENIED" -> WarningDialog.Builder(
+                requireContext(),
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
@@ -925,35 +976,38 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
                 }).show(requireFragmentManager(), HomeFragment::class.simpleName)
 
-            else ->
-            {
+            else -> {
                 stopShimmerEffect()
                 showSnackBar(state.message)
             }
         }
     }
+
     private fun renderOnFailHome(state: HomeViewState.OnFailHome) {
         when (state.message) {
             "Server Error" -> {
                 stopShimmerEffect()
                 binding?.layoutNetworkError?.root?.show()
             }
+
             "Another Login" -> {
                 stopShimmerEffect()
-                WarningDialog.Builder(requireContext(),
+                WarningDialog.Builder(
+                    requireContext(),
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
                     callback = {
                         PreferenceUtils.clearCache()
                         requireActivity().finish()
-                        val intent = Intent(requireContext(),SplashActivity::class.java)
+                        val intent = Intent(requireContext(), SplashActivity::class.java)
                         context?.startActivity(intent)
                         //requireContext().startActivity<SplashActivity>()
                     }).show(requireFragmentManager(), HomeFragment::class.simpleName)
             }
 
-            "DENIED" -> WarningDialog.Builder(requireContext(),
+            "DENIED" -> WarningDialog.Builder(
+                requireContext(),
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
@@ -962,8 +1016,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
                 }).show(requireFragmentManager(), HomeFragment::class.simpleName)
 
-            else ->
-            {
+            else -> {
                 stopShimmerEffect()
                 state.message?.let { showSnackBar(it) }
             }
@@ -1007,7 +1060,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             // Resubmit the currently visible portion or the whole updated list if pagination is not aggressive
             val currentAdapterList = nearByIdRestAdapter?.currentList ?: emptyList()
             val newAdapterList = currentAdapterList.map { restaurant ->
-                 if (state.data.data.restaurant_id == restaurant.restaurant_id) {
+                if (state.data.data.restaurant_id == restaurant.restaurant_id) {
                     restaurant.copy(is_wish = state.data.message == "successfull customer wishlist create")
                 } else {
                     restaurant
@@ -1023,26 +1076,30 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
                 LoadingProgressDialog.hideLoadingProgress()
             }
+
             "Server Issue" -> {
                 if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
                 LoadingProgressDialog.hideLoadingProgress()
             }
+
             "Another Login" -> {
                 if (viewModel.isRefresh) binding?.swipeRefresh?.isRefreshing = false
                 LoadingProgressDialog.hideLoadingProgress()
-                WarningDialog.Builder(requireContext(),
+                WarningDialog.Builder(
+                    requireContext(),
                     resources.getString(R.string.already_login_title),
                     resources.getString(R.string.already_login_msg),
                     resources.getString(R.string.force_login),
                     callback = {
                         PreferenceUtils.clearCache()
                         requireActivity().finish()
-                        val intent = Intent(requireContext(),SplashActivity::class.java)
+                        val intent = Intent(requireContext(), SplashActivity::class.java)
                         requireContext().startActivity(intent)
                     }).show(requireFragmentManager(), HomeFragment::class.simpleName)
             }
 
-            "DENIED" -> WarningDialog.Builder(requireContext(),
+            "DENIED" -> WarningDialog.Builder(
+                requireContext(),
                 resources.getString(R.string.maintain_title),
                 resources.getString(R.string.maintain_msg),
                 "OK",
@@ -1054,6 +1111,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             "Failed" -> {
                 showSnackBar("App Error")
             }
+
             else -> {
                 showSnackBar(state.message)
             }
@@ -1063,33 +1121,44 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     private fun setUpAdsOneSlider(data: MutableList<UpAndDownVO>) {
         stopAutoSlider() // Stop any previous slider
         val tempData = data
-        this.adsDataSize = if(data.size == 1){
+        this.adsDataSize = if (data.size == 1) {
             tempData.add(data[0])
             2
-        }else{
+        } else {
             data.size
         }
         this.homeSlideAdapter = HomeSlideAdapter(this, adsDataSize, tempData) { position ->
             //swipePagerWithCoverPopupView()
-            when(tempData[position].display_type_id){
+            when (tempData[position].display_type_id) {
                 1 -> {
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
-                    val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
-                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,tempData[position].restaurant_id)
+                    val intent = Intent(requireContext(), RestaurantDetailViewActivity::class.java)
+                    intent.putExtra(
+                        RestaurantDetailViewActivity.RESTAURANT_ID,
+                        tempData[position].restaurant_id
+                    )
                     context?.startActivity(intent)
                 }
+
                 2 -> {
                     val htmlContent = tempData[position].display_type_description
                     val title = tempData[position].restaurant_name
                     if (htmlContent.isNotEmpty()) {
-                        val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
+                        val filePath =
+                            saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
                         if (filePath != null) {
-                            val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath, tempData[position].display_type_image)
+                            val intent = WebviewActivity.getIntentWithFilePath(
+                                requireContext(),
+                                title,
+                                filePath,
+                                tempData[position].display_type_image
+                            )
                             startActivity(intent)
                         }
                     }
                 }
+
                 3 -> {
                     val url = tempData[position].display_type_description
                     if (url.isNotEmpty()) {
@@ -1097,15 +1166,28 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                             context?.startActivity(intent)
                         } catch (e: ActivityNotFoundException) {
-                            Toast.makeText(requireContext(), "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Cannot open link: No browser found.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } catch (e: Exception) { // Catch other potential exceptions like UriParseException
-                            Toast.makeText(requireContext(), "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Cannot open link: Invalid URL.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     } else {
                         // Optionally handle the case where the URL is null or empty
-                        Toast.makeText(requireContext(), "No URL provided for this item.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "No URL provided for this item.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
+
                 else -> {
                     //do nothing
                 }
@@ -1158,21 +1240,26 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         )
         binding?.rvRecommendRestaurant?.setHasFixedSize(true)
         binding?.rvRecommendRestaurant?.isNestedScrollingEnabled = true
-        recommendedRestaurantAdapter = RecommendedRestaurantAdapter(requireContext()){ data,str,pos ->
-            when(str) {
-                "root_content" -> {
-                    PreferenceUtils.needToShow = false
-                    PreferenceUtils.isBackground = false
-                    /*requireActivity().startActivity<RestaurantDetailViewActivity>(
-                        RestaurantDetailViewActivity.RESTAURANT_ID to data.restaurant_id
-                    )*/
-                    val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
-                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
-                    context?.startActivity(intent)
-                }
+        recommendedRestaurantAdapter =
+            RecommendedRestaurantAdapter(requireContext()) { data, str, pos ->
+                when (str) {
+                    "root_content" -> {
+                        PreferenceUtils.needToShow = false
+                        PreferenceUtils.isBackground = false
+                        /*requireActivity().startActivity<RestaurantDetailViewActivity>(
+                            RestaurantDetailViewActivity.RESTAURANT_ID to data.restaurant_id
+                        )*/
+                        val intent =
+                            Intent(requireContext(), RestaurantDetailViewActivity::class.java)
+                        intent.putExtra(
+                            RestaurantDetailViewActivity.RESTAURANT_ID,
+                            data.restaurant_id
+                        )
+                        context?.startActivity(intent)
+                    }
 
+                }
             }
-        }
         binding?.rvRecommendRestaurant?.adapter = recommendedRestaurantAdapter
     }
 
@@ -1186,32 +1273,48 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 EqualSpacingItemDecoration.VERTICAL
             )
         )
-        binding?.rvNearRestaurant?.isNestedScrollingEnabled = true // Still good to keep for some behaviors
+        binding?.rvNearRestaurant?.isNestedScrollingEnabled =
+            true // Still good to keep for some behaviors
         nearByIdRestAdapter = NearByIdRestAdapter(
             requireContext()
             // Removed mutableListOf() argument
         ) { data, str, pos ->
-            when(str) {
+            when (str) {
                 "ads" -> {
-                    when(data.display_type_id){
+                    when (data.display_type_id) {
                         1 -> {
                             PreferenceUtils.needToShow = false
                             PreferenceUtils.isBackground = false
-                            val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
-                            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
+                            val intent =
+                                Intent(requireContext(), RestaurantDetailViewActivity::class.java)
+                            intent.putExtra(
+                                RestaurantDetailViewActivity.RESTAURANT_ID,
+                                data.restaurant_id
+                            )
                             context?.startActivity(intent)
                         }
+
                         2 -> {
                             val htmlContent = data.display_type_description
                             val title = data.restaurant_name
                             if (htmlContent.isNotEmpty()) {
-                                val filePath = saveHtmlToFile(requireContext(), htmlContent, TEMP_HTML_FILENAME)
+                                val filePath = saveHtmlToFile(
+                                    requireContext(),
+                                    htmlContent,
+                                    TEMP_HTML_FILENAME
+                                )
                                 if (filePath != null) {
-                                    val intent = WebviewActivity.getIntentWithFilePath(requireContext(), title, filePath, data.display_type_image)
+                                    val intent = WebviewActivity.getIntentWithFilePath(
+                                        requireContext(),
+                                        title,
+                                        filePath,
+                                        data.display_type_image
+                                    )
                                     startActivity(intent)
                                 }
                             }
                         }
+
                         3 -> {
                             val url = data.display_type_description
                             if (url.isNotEmpty()) {
@@ -1219,27 +1322,42 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                                     context?.startActivity(intent)
                                 } catch (e: ActivityNotFoundException) {
-                                    Toast.makeText(requireContext(), "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Cannot open link: No browser found.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 } catch (e: Exception) { // Catch other potential exceptions like UriParseException
-                                    Toast.makeText(requireContext(), "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Cannot open link: Invalid URL.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             } else {
                                 // Optionally handle the case where the URL is null or empty
-                                Toast.makeText(requireContext(), "No URL provided for this item.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "No URL provided for this item.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }
+
                         else -> {
                             //do nothing
                         }
                     }
                 }
+
                 "cv_rest" -> {
                     PreferenceUtils.needToShow = false
                     PreferenceUtils.isBackground = false
-                    val intent = Intent(requireContext(),RestaurantDetailViewActivity::class.java)
-                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
+                    val intent = Intent(requireContext(), RestaurantDetailViewActivity::class.java)
+                    intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID, data.restaurant_id)
                     context?.startActivity(intent)
                 }
+
                 "fav" -> {
                     if (PreferenceUtils.readUserVO()?.customer_id == 0) {
                         ConfirmDialog.Builder(
@@ -1272,7 +1390,8 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         // Load more functionality using NestedScrollView's scroll change listener
         binding?.nestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
-                if (!isLoadingMore && (nearByRestaurantList?.let { currentDisplayCount < it.size } ?: false)) {
+                if (!isLoadingMore && (nearByRestaurantList?.let { currentDisplayCount < it.size }
+                        ?: false)) {
                     loadMoreData()
                 }
             }
@@ -1304,7 +1423,6 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         checkGPS()
@@ -1317,10 +1435,10 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
             "Connection Issue" -> {
                 binding?.layoutNetworkError?.root?.show()
             }
+
             "Server Issue" -> binding?.layoutNetworkError?.root?.show()
         }
     }
-
 
 
     //Show Currency Dialog
@@ -1362,7 +1480,7 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
                 dialogBinding.tvTitleCurrency.text = getString(R.string.txt_choose_region)
             }
 
-            if(PreferenceUtils.readZoneId() == 1) {
+            if (PreferenceUtils.readZoneId() == 1) {
                 dialogBinding.rbtnLashioCheck.isChecked = true
                 dialogBinding.rbtnMuseCheck.isChecked = false
                 lastSelected = 0
@@ -1456,11 +1574,15 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
         binding?.rvFoodCategory?.setHasFixedSize(true)
         binding?.rvFoodCategory?.isNestedScrollingEnabled = true
         topCategoryAdapter = TopCategoryAdapter(mutableListOf(), onClickItem = {
-            if (it.restaurant_category_id == 0){
+            if (it.restaurant_category_id == 0) {
                 PreferenceUtils.isBackground = false
                 context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))
-            }else{
-                startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString(), it.restaurant_category_id))
+            } else {
+                startActivity(
+                    TopRelatedCategoryActivity.getIntent(
+                        it.toDefaultCategoryName().toString(), it.restaurant_category_id
+                    )
+                )
             }
         }, onClickMore = {
             startActivity(FoodCategoryActivity.getIntent(getString(R.string.txt_categories)))
@@ -1470,12 +1592,25 @@ class HomeFragment : Fragment() , CallBackMapLatLngListener {
 
     override fun onReceiveMapLatLng(latLng: LatLng) {
         binding?.tvUserAddress?.text = convertLatLangToAddress(
-            latLng.latitude,latLng.longitude
+            latLng.latitude, latLng.longitude
         )
         if (PreferenceUtils.readUserVO().customer_id != 0) {
-            PreferenceUtils.readUserVO().customer_id?.let { viewModel.updateUserInfo(it,latLng.latitude,latLng.longitude) }
+            PreferenceUtils.readUserVO().customer_id?.let {
+                viewModel.updateUserInfo(
+                    it,
+                    latLng.latitude,
+                    latLng.longitude
+                )
+            }
         } else {
-            PreferenceUtils.readUserVO().customer_id?.let { viewModel.fetchHome(it,"",latLng.latitude,latLng.longitude) }
+            PreferenceUtils.readUserVO().customer_id?.let {
+                viewModel.fetchHome(
+                    it,
+                    "",
+                    latLng.latitude,
+                    latLng.longitude
+                )
+            }
         }
 
     }

@@ -22,6 +22,7 @@ import android.provider.Settings
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -77,6 +79,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZonedDateTime
@@ -93,6 +97,22 @@ const val cameraImagePermissionRequest = 1
 const val VALUE_MAP_ZOOM = 15f
 const val HOME_VALUE_MAP_ZOOM = 18f
 const val VALUE_MAP_TILE_COUNT = 20f
+
+const val TEMP_HTML_FILENAME = "temp_ad_content.html"
+
+fun saveHtmlToFile(context: Context, htmlContent: String, filename: String): String? {
+    return try {
+        val file = File(context.cacheDir, filename)
+        FileOutputStream(file).use {
+            it.write(htmlContent.toByteArray(Charsets.UTF_8))
+        }
+        file.absolutePath
+    } catch (e: IOException) {
+        Log.e("SplashActivity", "Error saving HTML to file: $filename", e)
+        Toast.makeText(context, "Error preparing content for display.", Toast.LENGTH_SHORT).show()
+        null
+    }
+}
 
 fun dpToPx(dp: Float, context: Context): Int {
     return TypedValue.applyDimension(
@@ -839,13 +859,13 @@ fun FoodSubItemVO.toDefaultSectionName(): String? {
 fun OptionVO.toDefaultOptionName(): String? {
     return when (PreferenceUtils.readLanguage()) {
         "en" -> {
-            this.item_name_en ?: this.item_name_mm
+            this.item_name_en ?: "-"
         }
         "zh" -> {
-            this.item_name_ch ?: this.item_name_mm
+            this.item_name_ch ?: "-"
         }
         else -> {
-            this.item_name_mm
+            this.item_name_mm ?: "-"
         }
     }
 }
@@ -853,13 +873,13 @@ fun OptionVO.toDefaultOptionName(): String? {
 fun CreateFoodOption.toDefaultOptionName(): String? {
     return when (PreferenceUtils.readLanguage()) {
         "en" -> {
-            this.item_name_en ?: this.item_name_mm
+            this.item_name_en ?: "-"
         }
         "zh" -> {
-            this.item_name_ch ?: this.item_name_mm
+            this.item_name_ch ?: "-"
         }
         else -> {
-            this.item_name_mm
+            this.item_name_mm ?: "-"
         }
     }
 }

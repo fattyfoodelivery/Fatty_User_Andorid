@@ -26,10 +26,11 @@ class ServiceRepositoryImpl @Inject constructor(
         longitude: Double,
         serviceCategoryID: Int?,
         searchKey: String?,
+        customer_id: Int,
         page: Int,
         pageSize: Int
     ): Response<ShopByCategoryResponse> {
-        return serviceItemService.fetchShopsByCategory(serviceItemID, sortBy, latitude, longitude, serviceCategoryID, searchKey, page, pageSize)
+        return serviceItemService.fetchShopsByCategory(serviceItemID, sortBy, latitude, longitude, serviceCategoryID, searchKey,customer_id, page, pageSize)
     }
 
     override suspend fun fetchShopWebLink(

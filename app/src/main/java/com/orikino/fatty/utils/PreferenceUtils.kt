@@ -44,6 +44,8 @@ object PreferenceUtils {
     private const val SEARCH_RECENT = "search_recent"
     private const val CURR_ID = "currency-id"
 
+    private const val SPLASH_ADS = "splash_ads"
+
     private const val SHOWED_ONBOARDING = "showed_onboarding"
 
     private const val TEMP_NOTI_BODY = "temp_noti_body"
@@ -190,6 +192,12 @@ object PreferenceUtils {
 
     fun readZoneId(): Int? = Paper.book().read(ZONE_ID, 0)
 
+    fun writeSplashAds(value: String) {
+        Paper.book().write(SPLASH_ADS, value)
+    }
+
+    fun readSplashAds(): String? = Paper.book().read(SPLASH_ADS)
+
     fun writeSearchRecent(value : MutableList<String>) {
         Paper.book().write(SEARCH_RECENT,value)
     }
@@ -235,7 +243,6 @@ object PreferenceUtils {
     fun clearCache() {
         writeUserVO(CustomerVO())
         writeFirstTime(true)
-        writeLanguage("en")
         writeFoodOrderList(mutableListOf())
         writeAddToCart(false)
         writeRestaurant(FoodMenuByRestaurantVO())

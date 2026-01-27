@@ -55,7 +55,8 @@ class ServicesViewModel @Inject constructor(
         latitude: Double,
         longitude: Double,
         serviceCategoryID: Int?,
-        searchKey: String?
+        searchKey: String?,
+        customer_id: Int
     ) {
         viewState.postValue(ServiceViewState.OnLoadingShopByCategory)
         listPagingState.resetListPage()
@@ -63,7 +64,7 @@ class ServicesViewModel @Inject constructor(
             try {
                 val response = serviceRepository.fetchShopByCategory(
                     serviceItemID, sortBy,
-                    latitude, longitude, serviceCategoryID, searchKey, 1, 10
+                    latitude, longitude, serviceCategoryID, searchKey, customer_id,1, 10
                 )
                 if (response.isSuccessful) {
                     listPagingState.listMaxPage = response.body()?.meta?.total_pages ?: 0
@@ -100,7 +101,8 @@ class ServicesViewModel @Inject constructor(
         latitude: Double,
         longitude: Double,
         serviceCategoryID: Int?,
-        searchKey: String?
+        searchKey: String?,
+        customer_id: Int
     ) {
         viewModelScope.launch {
             viewState.postValue(ServiceViewState.OnLoadingShopByCategory)
@@ -113,6 +115,7 @@ class ServicesViewModel @Inject constructor(
                         longitude,
                         serviceCategoryID,
                         searchKey,
+                        customer_id,
                         listPagingState.listCurrentPage,
                         10
                     )

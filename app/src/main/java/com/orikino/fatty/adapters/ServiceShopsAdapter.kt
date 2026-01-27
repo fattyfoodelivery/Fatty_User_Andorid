@@ -17,7 +17,7 @@ import com.orikino.fatty.viewholder.ServiceShopViewHolder
 
 class ServiceShopsAdapter(
     val context: Context,
-    var callback: (ShopData, String) -> Unit
+    var callback: (ShopData, String, String) -> Unit
 ) : BaseListAdapter<ShopData, NewBaseViewHolder<ShopData>>(
     context,
     object : DiffUtil.ItemCallback<ShopData>() {

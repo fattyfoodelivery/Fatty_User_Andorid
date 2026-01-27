@@ -51,7 +51,7 @@
             android:fontFamily="@font/outfit_regular"/>
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ll_double_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,11 +65,14 @@
                 android:id="@+id/btnCancel"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="0.5"
                 android:text="@string/txt_cancel"
                 android:fontFamily="@font/outfit_regular"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnContact"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:background="@drawable/negative_btn"
@@ -79,17 +82,18 @@
                 android:id="@+id/btnContact"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_weight="0.5"
                 android:text="Call Center"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnCancel"
                 android:fontFamily="@font/outfit_regular"
                 android:textAlignment="center"
                 android:background="@drawable/positive_button"
                 android:textAllCaps="false"/>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

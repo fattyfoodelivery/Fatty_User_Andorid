@@ -417,8 +417,9 @@
     <string name="txt_there_is_no_shop_in_s">There is no shop in %s.</string>
     <string name="txt_no_results_found">No Results Found</string>
     <string name="txt_please_check_your_spelling_and_try_again">Please check your spelling and try again.</string>
-    <string name="txt_are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
-    <string name="txt_exit_description">If you exit, your unsaved changes will be lost.</string>
+    <string name="txt_are_you_sure_you_want_to_exit">Exit Shopping</string>
+    <string name="txt_exit_description">Are you sure you want to exit from shopping? You’ll lose your current progress if you exit now.</string>
     <string name="txt_exit">Exit</string>
     <string name="txt_open_24_hours">Open 24 hours</string>
+    <string name="txt_no_shop_available">No Shop available yet.</string>
 </resources>

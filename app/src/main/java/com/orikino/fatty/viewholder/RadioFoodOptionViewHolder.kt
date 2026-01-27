@@ -17,7 +17,7 @@ class RadioFoodOptionViewHolder (
     override fun setData(mData: OptionVO, isSelected: Boolean, isEnable: Boolean) {
         binding.root.isChecked = isSelected
         binding.rbOption.isChecked = isSelected
-        binding.tvOption.text = mData.toDefaultOptionName()
+        binding.tvOption.text = mData.toDefaultOptionName() ?: "-"
         if (mData.food_sub_item_price.toDouble() != 0.0){
             binding.tvPrice.show()
             binding.tvPrice.text = "${mData.food_sub_item_price.toDouble().toThousandSeparator()} "  //${PreferenceUtils.readCurrencyId()?.currency_symbol}

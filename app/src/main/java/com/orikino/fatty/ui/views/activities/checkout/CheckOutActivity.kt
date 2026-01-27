@@ -95,19 +95,19 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private var isRemove = false
 
     // Dev
-    // private var signKey = "Fattyfood123456"
+     private var signKey = "Fattyfood123456"
     // Pro
-    private var signKey = "85bb9b77fa45f1d85cc3e70ee0e3e97c"
+    //private var signKey = "85bb9b77fa45f1d85cc3e70ee0e3e97c"
 
     // Dev
-    // private var merchantCode = "200199"
+     private var merchantCode = "200199"
     // Production
-    private var merchantCode = "200135"
+    //private var merchantCode = "200135"
 
     // Dev
-    // private var appId = "kpa5230efdfc0b4fc7a69b5ed348b597"
+     private var appId = "kpa5230efdfc0b4fc7a69b5ed348b597"
     // Pro
-    private var appId = "kpbdd5ce1083eb4eb0b1d3b1effb0137"
+    //private var appId = "kpbdd5ce1083eb4eb0b1d3b1effb0137"
     private var nonceStr = ""
     private var signType = "SHA256"
     private var orderInfo = ""

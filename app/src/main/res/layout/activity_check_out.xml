@@ -375,7 +375,7 @@
                             android:layout_marginStart="6dp"
                             android:layout_gravity="center"
                             android:fontFamily="@font/outfit_regular"
-                            android:text="KBZ Pay"
+                            android:text="KBZPay"
                             android:textColor="@color/black"
                             android:textSize="13sp"
                             android:layout_centerVertical="true"

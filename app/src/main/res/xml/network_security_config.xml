@@ -7,5 +7,6 @@
         <domain includeSubdomains="true">128.199.241.129</domain>
         <domain includeSubdomains="true">127.0.0.1</domain>
         <domain includeSubdomains="true">dev.fattyfooddeli.com</domain>
+        <domain includeSubdomains="true">kbzpay.com</domain>
     </domain-config>
 </network-security-config>

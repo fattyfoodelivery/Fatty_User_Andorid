@@ -7,6 +7,8 @@ import com.orikino.fatty.databinding.ItemServiceShopBinding
 import com.orikino.fatty.domain.responses.ShopData
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
 import com.orikino.fatty.utils.PreferenceUtils
+import com.orikino.fatty.utils.helper.gone
+import com.orikino.fatty.utils.helper.show
 import com.squareup.picasso.Picasso
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -15,7 +17,7 @@ import java.util.Locale
 
 class ServiceShopViewHolder(
     val binding: ItemServiceShopBinding,
-    var callback: (ShopData, String) -> Unit
+    var callback: (ShopData, String, String) -> Unit
 ) : NewBaseViewHolder<ShopData>(binding.root) {
     override fun setData(
         mData: ShopData,
@@ -30,11 +32,20 @@ class ServiceShopViewHolder(
         binding.tvShopName.text = mData.name
         val status = getStoreOpenStatus(binding.root.context, mData.open_time, mData.close_time)
         binding.tvShopStatus.text = status
+        if (status.equals(binding.root.context.getString(R.string.txt_closed_now))){
+            binding.layoutShopRoot.alpha = 0.5f
+            binding.ivShopClose.show()
+            binding.root.isEnabled = false
+        }else{
+            binding.layoutShopRoot.alpha = 1f
+            binding.ivShopClose.gone()
+            binding.root.isEnabled = true
+        }
 
         binding.tvDistance.text = String.format(Locale.US, "%.2fkm", mData.distance)
         binding.tvAddress.text = mData.address
         binding.root.setOnClickListener {
-            callback.invoke(mData, "cv_shop")
+            callback.invoke(mData, "cv_shop", status)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.orikino.fatty.utils
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,9 +11,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.orikino.fatty.databinding.LayoutConfirmCancelDialogBinding
 
-class ConfirmDialog private constructor(ctx: Context, private val title : String="", private val message: String = "", private val btn : String ="",private val callback: () -> Unit = {}) : DialogFragment() {
+class ConfirmDialog private constructor(
+    ctx: Context,
+    private val title: String = "",
+    private val message: String = "",
+    private val btn: String = "",
+    private val callback: () -> Unit = {},
+    private val dismissCallback: () -> Unit? = {}
+) : DialogFragment() {
 
     private lateinit var dialogBind: LayoutConfirmCancelDialogBinding
+    private var isHideCancelBtn = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +29,7 @@ class ConfirmDialog private constructor(ctx: Context, private val title : String
         savedInstanceState: Bundle?
     ): View? {
 
-        dialogBind = LayoutConfirmCancelDialogBinding.inflate(inflater,container,false)
+        dialogBind = LayoutConfirmCancelDialogBinding.inflate(inflater, container, false)
 
         dialog?.let { dialog ->
             dialog.window?.let {
@@ -52,6 +61,10 @@ class ConfirmDialog private constructor(ctx: Context, private val title : String
             callback.invoke()
         }*/
 
+        if (isHideCancelBtn) {
+            dialogBind.btnCancel.visibility = View.GONE
+        }
+
         dialogBind.ivClose.setOnClickListener {
             dismiss()
         }
@@ -65,11 +78,26 @@ class ConfirmDialog private constructor(ctx: Context, private val title : String
             dismiss()
             callback.invoke()
         }
-
-
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissCallback.invoke()
+    }
+
+    fun hideCancelBtn() {
+        isHideCancelBtn = true
+    }
+
+
     companion object {
-        fun Builder(ctx: Context, title:String, message: String, btn : String, callback: () -> Unit) = ConfirmDialog(ctx, title,message,btn, callback)
+        fun Builder(
+            ctx: Context,
+            title: String,
+            message: String,
+            btn: String,
+            callback: () -> Unit,
+            dismissCallback: () -> Unit? = {}
+        ) = ConfirmDialog(ctx, title, message, btn, callback, dismissCallback)
     }
 }

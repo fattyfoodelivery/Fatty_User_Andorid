@@ -30,6 +30,7 @@ interface ServiceItemService {
         @Field("longitude") longitude : Double,
         @Field("service_category_id") service_category_id : Int?,
         @Field("search_key") search_key : String?,
+        @Field("customer_id") customer_id : Int,
         @Field("page") page : Int,
         @Field("page_size") page_size : Int
     ) : Response<ShopByCategoryResponse>

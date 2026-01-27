@@ -250,4 +250,10 @@ dependencies {
     implementation("io.coil-kt:coil-svg:2.6.0")
 
     implementation("androidx.browser:browser:1.8.0")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
+    // If you want to use the GPU Filters
+    //implementation(libs.gpuimage)
+    ksp("com.github.bumptech.glide:compiler:4.16.0")
 }

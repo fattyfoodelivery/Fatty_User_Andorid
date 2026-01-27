@@ -34,7 +34,6 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/content_desc"
         android:scaleType="centerCrop"
-        android:src="@drawable/on_board_ads"
         android:visibility="visible" />
 
     <RelativeLayout
@@ -44,7 +43,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="46dp"
         android:layout_marginEnd="28dp"
+        android:visibility="gone"
         android:orientation="horizontal"
+        android:paddingVertical="@dimen/margin_4xSmall"
+        android:paddingHorizontal="@dimen/margin_small"
+        android:background="@drawable/bg_skip"
         tools:ignore="RelativeOverlap">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -54,9 +57,8 @@
             android:layout_centerVertical="true"
             android:fontFamily="@font/outfit_regular"
             android:text="@string/txt_skip"
-            android:textColor="@color/fattyDark"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

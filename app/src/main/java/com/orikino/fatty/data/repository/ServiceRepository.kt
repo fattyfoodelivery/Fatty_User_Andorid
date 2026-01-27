@@ -21,6 +21,7 @@ interface ServiceRepository {
         longitude : Double,
         serviceCategoryID : Int?,
         searchKey : String?,
+        customer_id: Int,
         page : Int,
         pageSize : Int
     ) : Response<ShopByCategoryResponse>

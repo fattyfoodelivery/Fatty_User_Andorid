@@ -1,8 +1,11 @@
 package com.orikino.fatty.ui.views.activities.services
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -31,18 +34,27 @@ import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.responses.ServiceCategoryItem
 import com.orikino.fatty.domain.responses.ShopData
 import com.orikino.fatty.domain.viewstates.ServiceViewState
+import com.orikino.fatty.ui.views.activities.account_setting.help_center.HelpCenterActivity
+import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
+import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
+import com.orikino.fatty.ui.views.activities.webview.WebviewActivity
 import com.orikino.fatty.ui.views.delegate.FilterDelegate
 import com.orikino.fatty.ui.views.dialog.FilterBottomSheetFragment
 import com.orikino.fatty.ui.views.fragments.HomeFragment
+import com.orikino.fatty.utils.AccountRestrictedDialog
+import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.LoadingProgressDialog
+import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SmartScrollListener
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.helper.TEMP_HTML_FILENAME
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.onSearch
+import com.orikino.fatty.utils.helper.saveHtmlToFile
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.squareup.picasso.Picasso
@@ -108,6 +120,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
         serviceDesc = intent.getStringExtra(SERVICE_DESC) ?: ""
         serviceCover = intent.getStringExtra(SERVICE_COVER) ?: ""
         binding.tvTitleRestName.text = serviceName
+        binding.tvToolbarTitleRestName.text = serviceName
         binding.tvRestaurantDesc.text = serviceDesc
         Picasso.get()
             .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(serviceCover))
@@ -121,18 +134,99 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
         setUpEmptyView()
     }
 
+    private fun setUpEmptyView(name : String){
+        binding.tvErrorMessage.text = getString(R.string.txt_there_is_no_shop_in_s, name)
+    }
     private fun setUpEmptyView(){
-        binding.tvErrorMessage.text = getString(R.string.txt_there_is_no_shop_in_s, serviceName)
+        binding.tvErrorMessage.text = getString(R.string.txt_no_shop_available)
     }
 
     private fun setUpRecyclerView(){
-        shopAdapter = ServiceShopsAdapter(this, { data, type ->
+        shopAdapter = ServiceShopsAdapter(this, { data, type, closeStatus ->
             when(type){
                 "cv_shop" -> {
-                    startActivity(ServiceShopWebView.getIntent(this, data.store_id, data.name))
+                    if (PreferenceUtils.readUserVO().customer_id == 0) {
+                        ConfirmDialog.Builder(
+                            this,
+                            resources.getString(R.string.hello),
+                            resources.getString(R.string.login_message),
+                            resources.getString(R.string.login),
+                            callback = {
+                                PreferenceUtils.clearCache()
+                                finishAffinity()
+                                //startActivity<SplashActivity>()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                            })
+                            .show(
+                                supportFragmentManager,
+                                HomeFragment::class.simpleName
+                            )
+                    } else if (PreferenceUtils.readUserVO().is_restricted == 1) {
+                        AccountRestrictedDialog.Builder(
+                            this,
+                            callback = {
+                                val intent = Intent(this, HelpCenterActivity::class.java)
+                                startActivity(intent)
+                            })
+                            .show(
+                                supportFragmentManager,
+                                HomeFragment::class.simpleName
+                            )
+                    } else {
+                        if (closeStatus == getString(R.string.txt_closed_now))
+                            Toast.makeText(this, closeStatus, Toast.LENGTH_SHORT).show()
+                        else {
+                            startActivity(
+                                ServiceShopWebView.getIntent(
+                                    this,
+                                    data.store_id,
+                                    data.name
+                                )
+                            )
+                        }
+                    }
                 }
                 else -> {
-
+                    when(data.display_type_id){
+                        1 -> {
+                            PreferenceUtils.needToShow = false
+                            PreferenceUtils.isBackground = false
+                            val intent = Intent(this,RestaurantDetailViewActivity::class.java)
+                            intent.putExtra(RestaurantDetailViewActivity.RESTAURANT_ID,data.restaurant_id)
+                            startActivity(intent)
+                        }
+                        2 -> {
+                            val htmlContent = data.display_type_description
+                            val title = data.restaurant_name
+                            if (htmlContent.isNotEmpty()) {
+                                val filePath = saveHtmlToFile(this, htmlContent, TEMP_HTML_FILENAME)
+                                if (filePath != null) {
+                                    val intent = WebviewActivity.getIntentWithFilePath(this, title, filePath, data.display_type_image)
+                                    startActivity(intent)
+                                }
+                            }
+                        }
+                        3 -> {
+                            val url = data.display_type_description
+                            if (url.isNotEmpty()) {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                    startActivity(intent)
+                                } catch (e: ActivityNotFoundException) {
+                                    Toast.makeText(this, "Cannot open link: No browser found.", Toast.LENGTH_SHORT).show()
+                                } catch (e: Exception) { // Catch other potential exceptions like UriParseException
+                                    Toast.makeText(this, "Cannot open link: Invalid URL.", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                // Optionally handle the case where the URL is null or empty
+                                Toast.makeText(this, "No URL provided for this item.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else -> {
+                            //do nothing
+                        }
+                    }
                 }
             }
         })
@@ -189,6 +283,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
     }
 
     private fun onSuccessShopByCategory(state : ServiceViewState.OnSuccessShopByCategory){
+        binding.layoutNetworkError.root.gone()
         LoadingProgressDialog.hideLoadingProgress()
         val currentList = shopAdapter?.currentList?.toMutableList() ?: mutableListOf()
         if (currentList.isNotEmpty() && currentList[currentList.size-1].isLoadingView){
@@ -239,7 +334,9 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
                     finishAffinity()
 
                 }).show(supportFragmentManager, ServiceDetailActivity::class.simpleName)
-
+            "No Internet connection" -> {
+                binding.layoutNetworkError.root.show()
+            }
             else ->
             {
                 showSnackBar(state.message)
@@ -253,13 +350,14 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
 
     private fun onSuccessServiceCategory(state : ServiceViewState.OnSuccessServiceCategory){
         //LoadingProgressDialog.hideLoadingProgress()
+        binding.layoutNetworkError.root.gone()
         setupTabs(state.data.data?.service_categories)
         fetchShopByCategory()
     }
 
     private fun fetchShopByCategory(){
         PreferenceUtils.readUserVO().let {
-            viewModel.fetchShopByCategory(serviceId, currentFilter, it.latitude ?: 0.00, it.latitude ?: 0.00, currentSelectedCategory, searchQuery)
+            viewModel.fetchShopByCategory(serviceId, currentFilter, it.latitude ?: 0.00, it.longitude ?: 0.00, currentSelectedCategory, searchQuery, it.customer_id ?: 0)
         }
     }
 
@@ -292,7 +390,9 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
                     finishAffinity()
 
                 }).show(supportFragmentManager, ServiceDetailActivity::class.simpleName)
-
+            "No Internet connection" -> {
+                binding.layoutNetworkError.root.show()
+            }
             else ->
             {
                 showSnackBar(state.message)
@@ -301,6 +401,9 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
     }
 
     private fun initUI(){
+        binding.layoutNetworkError.btnTryAgain.setOnClickListener {
+            viewModel.fetchServiceCategory(serviceId)
+        }
         binding.layoutFilter.setOnClickListener {
             val bottomSheet = FilterBottomSheetFragment.newInstance(object : FilterDelegate{
                 override fun onClickFilterApply(type: String) {
@@ -377,8 +480,8 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
 
             val newTab = binding.menuTab.newTab()
             newTab.tag = tab.service_category_id
+            newTab.text = tab.name
             newTab.customView = tabBinding.root
-
             binding.menuTab.addTab(newTab)
         }
 
@@ -392,6 +495,9 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
                 currentSelectedCategory = tab?.tag as? Int
                 if (currentSelectedCategory == 0){
                     currentSelectedCategory = null
+                    setUpEmptyView()
+                }else{
+                    setUpEmptyView(tab?.text.toString())
                 }
                 fetchShopByCategory()
                 // use tabId for navigation / logic
@@ -455,8 +561,16 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
         shopAdapter?.submitList(currentList)
         PreferenceUtils.readUserVO().let {
             viewModel.onListEndReachShopByCategory(
-                serviceId, currentFilter, it.latitude ?: 0.00, it.latitude ?: 0.00, currentSelectedCategory, searchQuery
+                serviceId, currentFilter, it.latitude ?: 0.00, it.longitude ?: 0.00, currentSelectedCategory, searchQuery, it.customer_id ?: 0
             )
+        }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.TIRAMISU) {
+            super.attachBaseContext(LocaleHelper().onAttach(newBase))
+        }else{
+            super.attachBaseContext(newBase)
         }
     }
 }

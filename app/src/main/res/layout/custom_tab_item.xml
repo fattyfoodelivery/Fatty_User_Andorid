@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingHorizontal="@dimen/margin_4xSmall"
     android:gravity="center"
-    android:paddingHorizontal="@dimen/margin_small"
     android:paddingBottom="@dimen/margin_small">
 
     <ImageView
@@ -16,9 +16,12 @@
 
     <TextView
         android:id="@+id/tabText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:fontFamily="@font/outfit_medium"
         android:textColor="@color/textPrimary02"
         android:layout_marginTop="4dp" />

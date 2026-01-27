@@ -1,16 +1,26 @@
 package com.orikino.fatty.domain.view_model
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.data.repository.SplashRepositoryImpl
 import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.domain.viewstates.SplashViewState
 import com.orikino.fatty.utils.Constants
+import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +37,15 @@ class SplashViewModel @Inject constructor(
                 val response = repository.onBoardAds()
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        viewState.postValue(SplashViewState.OnBoardAdSuccess(it))
+                        val splashPhotoDownloaded = downloadAppPhotoSuspend(getImageName(it.data?.image ?: ""), it.data?.image ?: "")
+                        if (splashPhotoDownloaded)
+                            viewState.postValue(SplashViewState.OnBoardAdSuccess(it.apply {
+                                data = data.apply {
+                                    this?.image = PreferenceUtils.readSplashAds() ?: ""
+                                }
+                            }))
+                        else
+                            viewState.postValue(SplashViewState.OnBoardAdFail(Constants.FAILED))
                     }
                 } else {
                     when(response.code()) {
@@ -40,6 +58,47 @@ class SplashViewModel @Inject constructor(
                 Log.d("SPLASHSHSHSHH", "onBoardingAd: ${e.message} adnddd ${e.localizedMessage}")
                 viewState.postValue(SplashViewState.OnBoardAdFail(Constants.CONNECTION_ISSUE))
             }
+        }
+    }
+
+    fun getImageName(url: String): String {
+        return url.substringAfterLast("/")
+            .substringBeforeLast(".")
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private suspend fun downloadAppPhotoSuspend(id: String, imageUrl: String): Boolean {
+        return suspendCancellableCoroutine { continuation ->
+            downloadAppPhoto(id, imageUrl, FattyApp.getInstance()) { photoPath ->
+                PreferenceUtils.writeSplashAds(photoPath)
+                continuation.resume(true) {
+                    continuation.cancel()
+                }
+            }
+        }
+    }
+
+    fun downloadAppPhoto(id: String, url: String, context: Context, callback: (String) -> Unit) {
+        val storageDir = File(context.filesDir, "app_photo")
+        val photoFile = File(storageDir, "${id}.png")
+        if (!storageDir.exists()) {
+            storageDir.mkdirs()
+        }
+        if (photoFile.exists()) {
+            callback(photoFile.path)
+        } else {
+            Glide.with(context)
+                .downloadOnly()
+                .load(url)
+                .into(object : CustomTarget<File>() {
+                    override fun onResourceReady(resource: File, transition: Transition<in File>?) {
+                        // Save the downloaded file to permanent storage
+                        resource.copyTo(photoFile, overwrite = true)
+                        callback(photoFile.path)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
         }
     }
 

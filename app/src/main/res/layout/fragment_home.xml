@@ -384,36 +384,52 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent">
 
-                                    <TextView
-                                        android:id="@+id/tv_more_service_title"
-                                        android:layout_width="wrap_content"
+                                    <RelativeLayout
+                                        android:id="@+id/rl_more_tile"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginEnd="@dimen/margin_4xSmall"
-                                        android:ellipsize="end"
-                                        android:fontFamily="@font/outfit_medium"
-                                        android:maxLines="1"
-                                        android:text="@string/txt_services"
-                                        android:textColor="@color/text_primary_01"
-                                        android:textSize="16sp"
-                                        app:layout_constraintEnd_toStartOf="@+id/tv_service_count"
+                                        android:orientation="horizontal"
+                                        app:layout_constraintEnd_toStartOf="@+id/iv_more_service"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
-                                    <TextView
-                                        android:id="@+id/tv_service_count"
-                                        android:layout_width="24dp"
-                                        android:layout_height="24dp"
-                                        android:layout_marginEnd="@dimen/margin_4xSmall"
-                                        android:ellipsize="end"
-                                        android:gravity="center"
-                                        android:fontFamily="@font/outfit_medium"
-                                        android:maxLines="1"
-                                        android:background="@drawable/bg_fatty_round"
-                                        android:text="99"
-                                        android:textColor="@color/white"
-                                        android:textSize="16sp"
-                                        android:layout_marginStart="@dimen/margin_4xSmall"
-                                        app:layout_constraintStart_toEndOf="@+id/tv_more_service_title"
-                                        app:layout_constraintTop_toTopOf="parent" />
+                                        app:layout_constraintTop_toTopOf="parent">
+                                        <TextView
+                                            android:id="@+id/tv_more_service_title"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/margin_4xSmall"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/outfit_medium"
+                                            android:maxLines="1"
+                                            android:text="@string/txt_services"
+                                            android:breakStrategy="simple"
+                                            android:hyphenationFrequency="none"
+                                            android:textAlignment="textStart"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_toStartOf="@id/rl_more_count"
+                                            android:textColor="@color/text_primary_01"
+                                            android:textSize="16sp"
+                                             />
+                                        <RelativeLayout
+                                            android:id="@+id/rl_more_count"
+                                            android:layout_width="24dp"
+                                            android:layout_height="24dp"
+                                            android:layout_marginEnd="@dimen/margin_4xSmall"
+                                            android:layout_alignParentEnd="true"
+                                            android:background="@drawable/bg_fatty_round">
+                                            <TextView
+                                                android:id="@+id/tv_service_count"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:ellipsize="end"
+                                                android:layout_centerInParent="true"
+                                                android:fontFamily="@font/outfit_medium"
+                                                android:maxLines="1"
+                                                android:text="+99"
+                                                android:textColor="@color/white"
+                                                android:textSize="12sp"/>
+                                        </RelativeLayout>
+
+                                    </RelativeLayout>
 
                                     <TextView
                                         android:id="@+id/tv_more_service_desc"
@@ -429,7 +445,7 @@
                                         android:textSize="14sp"
                                         app:layout_constraintEnd_toStartOf="@+id/iv_more_service"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toBottomOf="@+id/tv_more_service_title" />
+                                        app:layout_constraintTop_toBottomOf="@+id/rl_more_tile" />
 
                                     <ImageView
                                         android:id="@+id/iv_more_service"
