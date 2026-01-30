@@ -25,7 +25,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textColor="@color/text_primary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_desc"
@@ -37,16 +37,16 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textColor="#84878A"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:text="@string/login"
             android:textAllCaps="false"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textSize="18sp"
             android:background="@drawable/positive_button"/>
     </LinearLayout>

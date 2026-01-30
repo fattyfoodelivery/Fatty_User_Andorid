@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/your_location"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:layout_toEndOf="@+id/iv_location"
                         android:text="@string/txt_reset_my_current_location"
                         android:layout_centerVertical="true"
@@ -159,7 +159,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_primary_01"
                     android:layout_above="@id/btn_confirm_location"/>
 
@@ -173,7 +173,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/positive_button"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:text="@string/confirm_location"
                     android:textAllCaps="false"
                     android:textColor="@color/fattyWhite"

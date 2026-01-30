@@ -77,6 +77,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_gray)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "cancel"
                 }
                 2 -> {
@@ -86,12 +92,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.order_status_error
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -102,6 +108,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -112,6 +124,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -122,6 +140,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -132,6 +156,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_success_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -142,6 +172,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -152,12 +188,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.order_status_error
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -168,12 +204,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.order_status_error
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -183,8 +219,13 @@ class OrderHistoryViewHolder(
                         ContextCompat.getString(binding.root.context, R.string.txt_order_cancel)
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_gray)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-                    binding.tvOrderStatusMsg.setTextColor(Color.parseColor("#FF00B11E"))
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "cancel"
                 }
 
@@ -195,13 +236,13 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.order_processing_color
-//                        )
-//                    )
                 }
 
                 else -> {
@@ -211,6 +252,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "view"
                 }
 
@@ -252,6 +299,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -262,12 +315,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.success200
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -278,6 +331,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -288,12 +347,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.order_processing_color
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -304,12 +363,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_success_order)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-//                    binding.tvOrderStatusMsg.setTextColor(
-//                        ContextCompat.getColor(
-//                            binding.root.context,
-//                            R.color.success200
-//                        )
-//                    )
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -319,6 +378,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
 
@@ -328,6 +393,12 @@ class OrderHistoryViewHolder(
                         binding.root.context.getString(R.string.str_track)
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
                 20 -> {
@@ -337,6 +408,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.bg_cancel_order)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
                 21 -> {
@@ -346,6 +423,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.tvOrderStatusMsg.text = data.order_status
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
                 else -> {
@@ -355,6 +438,12 @@ class OrderHistoryViewHolder(
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.text = data.order_status
+                    binding.tvOrderStatusMsg.setTextColor(
+                        ContextCompat.getColor(
+                            binding.root.context,
+                            R.color.textPrimary02
+                        )
+                    )
                     actions = "track"
                 }
             }

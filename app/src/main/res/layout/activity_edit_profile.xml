@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/txt_edit_profile"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -96,7 +96,7 @@
             android:layout_marginHorizontal="@dimen/margin_large"
             android:textSize="16sp"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_profile"
             android:layout_marginTop="@dimen/margin_large"/>
@@ -118,7 +118,7 @@
                 android:background="@null"
                 android:layout_toStartOf="@id/iv_clear"
                 android:textColor="@color/textPrimary02"
-                android:fontFamily="@font/outfit_medium"/>
+                android:fontFamily="@font/fatty_medium"/>
 
             <ImageView
                 android:id="@+id/iv_clear"
@@ -143,7 +143,7 @@
             android:layout_marginHorizontal="@dimen/margin_large"
             android:layout_marginBottom="@dimen/margin_large"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textColor="@color/textSecondary"
             android:background="@drawable/positive_button"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

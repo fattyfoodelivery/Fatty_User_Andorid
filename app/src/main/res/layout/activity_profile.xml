@@ -117,7 +117,7 @@
                 android:textColor="@color/fattyDark"
                 android:textSize="20sp"
                 android:text="@string/welcome_to_fatty"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textFontWeight="400"
                 android:layout_gravity="center_horizontal"/>
             <TextView
@@ -127,7 +127,7 @@
                 android:textColor="@color/fattyDark"
                 android:textSize="18sp"
                 android:text="@string/your_name"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:layout_marginTop="40dp"/>
 
             <RelativeLayout
@@ -148,7 +148,7 @@
                     android:background="@color/transparent"
                     android:layout_toStartOf="@id/iv_clear"
                     android:textColor="@color/textPrimary02"
-                    android:fontFamily="@font/outfit_medium"/>
+                    android:fontFamily="@font/fatty_medium"/>
 
                 <ImageView
                     android:id="@+id/iv_clear"
@@ -173,7 +173,7 @@
                 android:textColor="@color/fattyWhite"
                 android:layout_marginTop="32dp"
                 android:alpha="1"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="18sp"/>
 
 

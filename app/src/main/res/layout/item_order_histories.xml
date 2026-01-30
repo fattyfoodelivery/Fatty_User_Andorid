@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:text="Order ID : 10"
                         android:textColor="@color/text_primary_01"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"/>
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/text_secondary_01"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textSize="14sp"
                     android:paddingTop="8dp"
                     android:paddingEnd="16dp"
@@ -130,7 +130,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/outfit_medium"
+                                android:fontFamily="@font/fatty_medium"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textAlignment="center"
@@ -171,7 +171,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:gravity="start|top"
                                 android:text="@string/restaurants"
                                 android:maxLines="1"
@@ -187,7 +187,7 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:visibility="gone"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:gravity="start|top"
                                 android:text="@string/restaurants"
                                 android:maxLines="1"
@@ -219,7 +219,7 @@
                                 android:id="@+id/tv_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text="@string/_5_0000_00_mmk"
                                 android:maxLines="1"
                                 android:textColor="@color/text_primary_01"
@@ -232,7 +232,7 @@
                                 android:id="@+id/tv_to_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text="@string/_5_0000_00_mmk"
                                 android:visibility="gone"
                                 android:maxLines="1"
@@ -252,7 +252,7 @@
                             android:id="@+id/tv_item_qty"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="3 items"
                             android:layout_centerVertical="true"
                             android:textColor="@color/text_secondary_01"
@@ -274,7 +274,7 @@
                             android:textSize="16sp"
                             android:background="@drawable/negative_corner_gray"
                             android:layout_alignParentEnd="true"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/text_primary_01"/>
                     </RelativeLayout>
 
@@ -309,7 +309,7 @@
                     android:textSize="16sp"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/textPrimary02"
-                    android:fontFamily="@font/outfit_regular"/>
+                    android:fontFamily="@font/fatty_regular"/>
 
             </LinearLayout>
 
@@ -343,7 +343,7 @@
                             android:layout_height="wrap_content"
                             android:text="To Rider: "
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textSize="12sp"
                             />
                         <ImageView
@@ -358,7 +358,7 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:layout_marginStart="4dp"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:textColor="@color/text_primary_01"
                             android:textSize="12sp"/>
                     </LinearLayout>
@@ -384,7 +384,7 @@
                             android:layout_height="wrap_content"
                             android:text="To Restaurants: "
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textSize="12sp"
                             />
                         <ImageView
@@ -399,7 +399,7 @@
                             android:layout_height="wrap_content"
                             android:text=""
                             android:layout_marginStart="4dp"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:textColor="@color/text_primary_01"
                             android:textSize="12sp"/>
                     </LinearLayout>
@@ -414,7 +414,7 @@
                             android:id="@+id/tv_view_rating"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:gravity="center"
                             android:linksClickable="true"
                             android:text="View Rating"

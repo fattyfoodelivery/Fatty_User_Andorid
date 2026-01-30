@@ -392,7 +392,7 @@
     <string name="txt_sort_by">စီမည် </string>
     <string name="txt_recommended">အကြံပြုထားသော ဆိုင်များ</string>
     <string name="txt_nearby">အနီးရှိဆိုင်များ</string>
-    <string name="txt_closed_now">ဆိုင်ပိတ်ထားပါသည်</string>
+    <string name="txt_closed_now">ဆိုင်ပိတ်သည်</string>
     <string name="txt_no_shop">ဆိုင်မရှိပါ</string>
     <string name="txt_there_is_no_shop_in_s">%s တွင် ဆိုင်မရှိပါ</string>
     <string name="txt_no_results_found">ရလဒ် မတွေ့ပါ</string>
@@ -402,4 +402,5 @@
     <string name="txt_exit">ထွက်မည်</string>
     <string name="txt_open_24_hours">၂၄ နာရီ ဖွင့်ထားသည်</string>
     <string name="txt_no_shop_available">ဆိုင်များ မရှိသေးပါ။</string>
+    <string name="txt_webview_cancel">မထွက်တော့ပါ</string>
 </resources>

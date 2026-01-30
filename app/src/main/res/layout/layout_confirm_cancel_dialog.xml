@@ -29,7 +29,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_toStartOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
-                android:fontFamily="@font/outfit_regular"/>
+                android:fontFamily="@font/fatty_regular"/>
             <ImageView
                 android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
@@ -43,12 +43,12 @@
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/margin_2xSmall"
             android:text="desc"
             android:textSize="16sp"
             android:layout_gravity="start"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
             android:orientation="horizontal"
             android:weightSum="1"
             android:visibility="visible"
-            android:layout_marginTop="18dp">
+            android:layout_marginTop="@dimen/margin_small">
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -66,10 +66,10 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:text="@string/txt_cancel"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btnContact"
@@ -89,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btnCancel"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textAlignment="center"
                 android:background="@drawable/positive_button"
                 android:textAllCaps="false"/>

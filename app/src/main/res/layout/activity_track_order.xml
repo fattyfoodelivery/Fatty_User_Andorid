@@ -41,7 +41,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/order_details"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -84,7 +84,7 @@
                         android:id="@+id/tv_order_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:paddingTop="8dp"
                         android:text=""
                         android:textColor="@color/text_secondary_01"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:paddingTop="8dp"
                         android:text=""
                         android:textColor="@color/text_secondary_01"
@@ -148,7 +148,7 @@
                                 android:layout_height="22dp"
                                 android:layout_marginEnd="4dp"
                                 android:ellipsize="end"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:gravity="center"
                                 android:text="Order Item Name"
                                 android:textAlignment="viewStart"
@@ -161,7 +161,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="24dp"
                                 android:ellipsize="end"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text="500000 MMK"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/text_primary_01"
@@ -174,7 +174,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:gravity="center|top"
                             android:text=""
                             android:textAlignment="viewStart"
@@ -187,7 +187,7 @@
                             android:id="@+id/tv_item_qty"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:gravity="center"
                             android:text="3 items"
                             android:textAlignment="viewStart"
@@ -219,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:text=""
                         android:textColor="@color/success200"
                         android:textSize="14sp" />
@@ -256,7 +256,7 @@
                             android:id="@+id/tv_deliver"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/outfit_semibold"
+                            android:fontFamily="@font/fatty_semibold"
                             android:paddingTop="8dp"
                             android:text="Delivery Details"
                             android:textColor="@color/text_primary_01"
@@ -268,7 +268,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:paddingTop="8dp"
                             android:text="30 Min / 5 Km"
                             android:textColor="@color/text_gray_two"
@@ -316,7 +316,7 @@
                                 android:id="@+id/tv_rest_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:textColor="@color/text_secondary_01"
                                 android:textSize="14sp" />
@@ -325,7 +325,7 @@
                                 android:id="@+id/tv_order_from"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text="@string/order_from"
                                 android:visibility="visible"
                                 android:textColor="@color/text_secondary_03"
@@ -335,7 +335,7 @@
                                 android:id="@+id/tv_sender_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_semibold"
+                                android:fontFamily="@font/fatty_semibold"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="16sp"
@@ -344,7 +344,7 @@
                                 android:id="@+id/tv_sender_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="14sp"
@@ -353,14 +353,14 @@
                                 android:id="@+id/tv_sender_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="16sp" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="14sp"
@@ -408,7 +408,7 @@
                                 android:id="@+id/tv_address_to"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:textColor="@color/text_primary_01"
                                 android:textSize="14sp" />
@@ -417,7 +417,7 @@
                                 android:id="@+id/tv_receiver"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:visibility="gone"
                                 android:textColor="@color/text_secondary_03"
@@ -426,7 +426,7 @@
                                 android:id="@+id/tv_order_to"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text="@string/order_to"
                                 android:textColor="@color/text_secondary_01"
                                 android:textSize="14sp" />
@@ -434,7 +434,7 @@
                                 android:id="@+id/tv_receiver_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_semibold"
+                                android:fontFamily="@font/fatty_semibold"
                                 android:text=""
                                 android:visibility="gone"
                                 android:textColor="@color/text_primary_01"
@@ -443,7 +443,7 @@
                                 android:id="@+id/tv_receiver_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:visibility="gone"
                                 android:textColor="@color/text_primary_01"
@@ -452,7 +452,7 @@
                                 android:id="@+id/tv_receiver_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/outfit_regular"
+                                android:fontFamily="@font/fatty_regular"
                                 android:text=""
                                 android:visibility="gone"
                                 android:textColor="@color/text_primary_01"
@@ -519,7 +519,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"/>
+                            android:fontFamily="@font/fatty_regular"/>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_item_total"
                             android:layout_width="wrap_content"
@@ -528,7 +528,7 @@
                             android:padding="2dp"
                             android:textSize="16sp"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:layout_alignParentEnd="true"
                             tools:ignore="RelativeOverlap" />
                     </RelativeLayout>
@@ -544,7 +544,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"/>
+                            android:fontFamily="@font/fatty_regular"/>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_delivery_fee"
                             android:layout_width="wrap_content"
@@ -554,7 +554,7 @@
                             android:text=""
                             android:contentDescription="@string/text_desc"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:layout_alignParentEnd="true"
                             tools:ignore="RelativeOverlap" />
                     </RelativeLayout>
@@ -571,7 +571,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/text_primary_01"
-                            android:fontFamily="@font/outfit_regular"/>
+                            android:fontFamily="@font/fatty_regular"/>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_bill_total_price"
                             android:layout_width="wrap_content"
@@ -580,7 +580,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:layout_alignParentEnd="true"
                             tools:ignore="RelativeOverlap" />
                     </RelativeLayout>
@@ -597,7 +597,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"/>
+                            android:fontFamily="@font/fatty_regular"/>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_extra_fell"
                             android:layout_width="wrap_content"
@@ -606,7 +606,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                     <RelativeLayout
@@ -621,7 +621,7 @@
                             android:text="@string/abnormal_fees"
                             android:textSize="16sp"
                             android:textColor="@color/text_secondary_01"
-                            android:fontFamily="@font/outfit_regular"/>
+                            android:fontFamily="@font/fatty_regular"/>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tv_abnormal_fee"
                             android:layout_width="wrap_content"
@@ -629,7 +629,7 @@
                             android:text=""
                             android:textSize="16sp"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:layout_alignParentEnd="true"/>
                     </RelativeLayout>
                 </LinearLayout>
@@ -660,7 +660,7 @@
                         android:padding="2dp"
                         android:contentDescription="@string/text_desc"
                         android:textColor="@color/text_primary_01"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         tools:ignore="RelativeOverlap" />
 
                     <LinearLayout
@@ -683,7 +683,7 @@
                             android:textSize="16sp"
                             android:padding="2dp"
                             android:textColor="@color/text_primary_01"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             />
                     </LinearLayout>
                 </RelativeLayout>

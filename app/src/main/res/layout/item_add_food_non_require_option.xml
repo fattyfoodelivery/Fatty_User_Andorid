@@ -9,7 +9,7 @@
         android:checked="true"
         android:text="Egg"
         android:paddingStart="8dp"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:textSize="18sp"
         android:textColor="@color/text_secondary_01"
         tools:ignore="RtlSymmetry" />

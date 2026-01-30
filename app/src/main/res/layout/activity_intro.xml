@@ -68,7 +68,7 @@
                 android:layout_marginHorizontal="@dimen/margin_large"
                 android:text=""
                 android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/fattyPrimary"
                 android:textAlignment="center"
                 android:textSize="26sp"/>
@@ -76,7 +76,7 @@
                 android:id="@+id/tv_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
                 android:textColor="@color/text_gray_two"
                 android:textAlignment="center"
@@ -181,6 +181,6 @@
         android:textSize="18sp"
         android:textAllCaps="false"
         android:textColor="@color/fattyWhite"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:background="@drawable/positive_button"/>
 </RelativeLayout>

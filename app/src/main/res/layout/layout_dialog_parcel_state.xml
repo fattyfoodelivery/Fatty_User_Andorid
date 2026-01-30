@@ -25,7 +25,7 @@
             android:layout_marginEnd="16dp"
             android:singleLine="true"
             android:padding="2dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:text="@string/choose_your_service_region_label"
             android:textColor="@color/black"
             android:textSize="16sp"

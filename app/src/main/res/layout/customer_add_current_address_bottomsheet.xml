@@ -20,7 +20,7 @@
             android:text="@string/set_delivery_location"
             android:textSize="20sp"
             android:textColor="@color/text_primary_01"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -33,7 +33,7 @@
             android:textSize="14sp"
             android:layout_marginTop="16dp"
             android:textColor="@color/textPrimary02"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
@@ -55,7 +55,7 @@
             android:paddingBottom="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_address"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_b"
@@ -65,7 +65,7 @@
             android:textSize="14sp"
             android:layout_marginTop="16dp"
             android:textColor="@color/textPrimary02"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_location_address"/>
 
@@ -85,7 +85,7 @@
             android:paddingEnd="10dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_b"/>
 
@@ -127,7 +127,7 @@
                     android:textSize="14sp"
                     android:paddingStart="8dp"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/textPrimary02"
                     android:layout_toEndOf="@id/imb_home"
                     tools:ignore="RtlSymmetry" />
@@ -163,7 +163,7 @@
                     android:textSize="14sp"
                     android:paddingStart="8dp"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/textPrimary02"
                     android:layout_toEndOf="@id/imv_work"
                     tools:ignore="RtlSymmetry" />
@@ -199,7 +199,7 @@
                     android:textSize="14sp"
                     android:paddingStart="8dp"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/textPrimary02"
                     android:layout_toEndOf="@id/imv_other"
                     tools:ignore="RtlSymmetry" />
@@ -214,7 +214,7 @@
             android:text="@string/set_as_default_address"
             android:textSize="16sp"
             android:textColor="@color/textPrimary02"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:paddingStart="8dp"
             tools:ignore="RtlSymmetry"
             app:layout_constraintStart_toStartOf="parent"
@@ -228,7 +228,7 @@
             android:layout_alignParentBottom="true"
             android:text="@string/confirm_location"
             android:textSize="18sp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textAllCaps="false"
             android:background="@drawable/positive_button"
             android:textColor="@color/white"

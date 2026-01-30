@@ -125,7 +125,7 @@
                     android:textColor="@color/fattyDark"
                     android:textSize="20sp"
                     android:text="@string/welcome_to_fatty"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_bold"
                     android:layout_marginTop="24dp"
                     android:textFontWeight="400"
                     android:layout_gravity="center_horizontal"/>
@@ -136,7 +136,7 @@
                     android:textColor="@color/fattyDark"
                     android:textSize="18sp"
                     android:text="@string/phone_number"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_marginTop="40dp"
                     android:layout_marginStart="16dp"
                     android:textFontWeight="400"/>
@@ -157,12 +157,10 @@
                         android:background="@drawable/bg_edt"
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
-                        android:paddingTop="10dp"
                         android:focusable="false"
                         android:cursorVisible="false"
                         android:editable="false"
-                        android:paddingBottom="10dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="16sp"/>
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -174,15 +172,12 @@
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
                         android:maxLength="20"
-                        android:paddingTop="12dp"
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:textSize="16sp"
                         android:cursorVisible="true"
-                        android:paddingBottom="12dp"
                         android:layout_marginStart="18dp"
-                        android:fontFamily="@font/outfit_regular"
-                        />
+                        android:fontFamily="@font/fatty_regular" />
 
                 </LinearLayout>
 
@@ -201,7 +196,7 @@
                     android:layout_marginTop="32dp"
                     android:alpha="0.5"
                     android:enabled="false"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textSize="18sp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -214,7 +209,7 @@
                     android:text="@string/by_continuing_you_automatically_accept_to_fatty_s"
                     android:layout_marginTop="16dp"
                     android:textSize="14sp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>

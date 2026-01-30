@@ -27,6 +27,7 @@ import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
 import com.orikino.fatty.utils.helper.dpToPx
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
+import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +50,9 @@ class AllServicesActivity : AppCompatActivity() {
         setUpRecyclerView()
         viewModel.fetchServiceItem()
         observers()
+        binding.layoutNetworkError.btnTryAgain.setOnClickListener {
+            viewModel.fetchServiceItem()
+        }
     }
 
     private fun observers() {
@@ -75,6 +79,7 @@ class AllServicesActivity : AppCompatActivity() {
 
     private fun renderOnSuccessServiceItem(state: HomeViewState.OnSuccessServiceItem) {
         LoadingProgressDialog.hideLoadingProgress()
+        binding.layoutNetworkError.root.gone()
         serviceAdapter?.submitList(state.data.data)
     }
 
@@ -109,7 +114,9 @@ class AllServicesActivity : AppCompatActivity() {
                     finishAffinity()
 
                 }).show(supportFragmentManager, HomeFragment::class.simpleName)
-
+            "No Internet connection" -> {
+                binding.layoutNetworkError.root.show()
+            }
             else -> {
                 showSnackBar(state.message)
             }

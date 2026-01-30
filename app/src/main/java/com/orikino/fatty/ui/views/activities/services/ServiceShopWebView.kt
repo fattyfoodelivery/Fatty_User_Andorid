@@ -57,6 +57,7 @@ import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
+import com.orikino.fatty.utils.WebviewExitDialog
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -89,7 +90,8 @@ class ServiceShopWebView : AppCompatActivity() {
     private var downloadMimetype: String? = null
 
     private val PAYMENT_SUCCESS_KEYWORDS = listOf(
-        "wavemoney",
+        "wavemoney", "payment", "callback",
+        "return",
         "kbzpay", "wavepay", "ayapay", "mpu", "jcb", "master", "visa", "unionpay", "uabpay", "mmqr"
     )
 
@@ -167,12 +169,16 @@ class ServiceShopWebView : AppCompatActivity() {
                 viewModel.fetchShopWebLink(storeId, it)
             }
         }
-
+        binding.layoutNetworkError.btnTryAgain.setOnClickListener {
+            PreferenceUtils.readUserVO().customer_id?.let {
+                viewModel.fetchShopWebLink(storeId, it)
+            }
+        }
         listenToViewModel()
     }
 
     private fun exitConfirmDialog() {
-        ConfirmDialog.Builder(
+        WebviewExitDialog.Builder(
             this,
             getString(R.string.txt_are_you_sure_you_want_to_exit),
             getString(R.string.txt_exit_description),
@@ -279,6 +285,7 @@ class ServiceShopWebView : AppCompatActivity() {
 
     private fun onSuccessShopWebLink(state: ServiceViewState.OnSuccessShopWebLink) {
         Log.d("WebViewFragment", "status: ${state.data.success}")
+        binding.layoutNetworkError.root.gone()
         if (state.data.success) {
             loadWebUrl(state.data.data?.web_view_link ?: "")
         } else {
@@ -337,7 +344,9 @@ class ServiceShopWebView : AppCompatActivity() {
                     finishAffinity()
 
                 }).show(supportFragmentManager, ServiceDetailActivity::class.simpleName)
-
+            "No Internet connection" -> {
+                binding.layoutNetworkError.root.show()
+            }
             else -> {
                 showSnackBar(state.message)
             }
@@ -420,13 +429,19 @@ class ServiceShopWebView : AppCompatActivity() {
                         return true
                     }
 
-//                    if (url.contains("/logout") || url.contains("/login")){
-//                        PreferenceUtils.clearCache()
-//                        finishAffinity()
-//                        //startActivity<SplashActivity>()
-//                        val intent = Intent(this@ServiceShopWebView, LoginActivity::class.java)
-//                        startActivity(intent)
-//                    }
+                    if (url.contains("/inapp-exit")){
+                        WarningDialog.Builder(this@ServiceShopWebView,
+                            resources.getString(R.string.already_login_title),
+                            resources.getString(R.string.already_login_msg),
+                            resources.getString(R.string.force_login),
+                            callback = {
+                                PreferenceUtils.clearCache()
+                                finishAffinity()
+                                val intent = Intent(this@ServiceShopWebView,SplashActivity::class.java)
+                                startActivity(intent)
+                                //requireContext().startActivity<SplashActivity>()
+                            }).show(supportFragmentManager, HomeFragment::class.simpleName)
+                    }
 
                     if (url.startsWith("intent://")) {
                         try {
@@ -491,10 +506,6 @@ class ServiceShopWebView : AppCompatActivity() {
                     // Inject blob download handler
                     injectBlobDownloadScript()
 
-                    if (url?.contains("/login") == true) {
-                        Log.e("WebViewFragment", "Ended on login page - token may be invalid")
-                    }
-
 
                     if (isPaymentSuccessUrl(url)) {
                         // Clear payment pages from back stack
@@ -548,12 +559,6 @@ class ServiceShopWebView : AppCompatActivity() {
             webChromeClient = object : WebChromeClient() {
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
                     super.onProgressChanged(view, newProgress)
-//                    binding.progressBar.progress = newProgress
-//                    if (newProgress == 100) {
-//                        binding.progressBar.hide()
-//                    } else {
-//                        binding.progressBar.show()
-//                    }
                 }
 
 //                override fun onCreateWindow(

@@ -33,7 +33,7 @@
                     android:text="@string/txt_all_services"
                     android:textSize="22sp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:textColor="@color/fattyWhite"/>
             </RelativeLayout>
 
@@ -55,13 +55,14 @@
             android:paddingHorizontal="@dimen/margin_large"
             android:paddingVertical="@dimen/margin_3xSmall"
             android:clipToPadding="false"/>
+        <include
+            android:id="@+id/layout_network_error"
+            layout="@layout/home_connection_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/constraint_toolbar"
+            android:visibility="gone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <include
-        android:id="@+id/layout_network_error"
-        layout="@layout/home_connection_error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/constraint_toolbar"
-        android:visibility="gone" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

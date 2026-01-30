@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="@color/text_primary_01"
@@ -87,7 +87,7 @@
                         android:id="@+id/tv_restaurant_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
@@ -113,7 +113,7 @@
                             android:text=""
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
                     <LinearLayout
@@ -135,7 +135,7 @@
                             android:text=""
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -186,7 +186,7 @@
                         android:text="Title"
                         android:visibility="gone"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textSize="18sp"
                         android:layout_toEndOf="@id/iv_back"
                         android:layout_marginStart="18dp"/>
@@ -197,7 +197,7 @@
                         android:text="Distance"
                         android:visibility="gone"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_toEndOf="@id/iv_back"
                         android:layout_below="@+id/tv_title_rest_name"
@@ -279,7 +279,7 @@
                 android:checked="true"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:gravity="center"
                 android:text="About"/>
 
@@ -293,7 +293,7 @@
                 android:background="@drawable/bg_tab_unselected"
                 android:button="@android:color/transparent"
                 android:checked="true"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:gravity="center"
                 android:text="Review"
                 android:textSize="16sp"
@@ -324,7 +324,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="8dp"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:text="@string/location"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp" />
@@ -335,7 +335,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="8dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:text="@string/no_111_lily_lorem_ipsum_dolor_sat_morem_ipsum_street_block_2_lashio"
                         android:textColor="@color/textPrimary02"
                         android:textSize="16sp" />
@@ -346,7 +346,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginTop="20dp"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:text="@string/open_hours"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp" />
@@ -404,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:text="Not Reviews Yet"
                         android:textSize="18sp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textColor="@color/text_secondary_02"
                         android:layout_marginTop="16dp"
                         android:layout_gravity="center_horizontal"/>
@@ -429,7 +429,7 @@
                             android:layout_height="wrap_content"
                             android:text="Ratings &amp; Reviews"
                             android:textColor="@color/textPrimary02"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textSize="14sp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -444,7 +444,7 @@
                                 android:text="4.0"
                                 android:layout_gravity="center_vertical"
                                 android:textColor="@color/text_primary_01"
-                                android:fontFamily="@font/outfit_semibold"
+                                android:fontFamily="@font/fatty_semibold"
                                 android:textSize="20sp"/>
                             <RatingBar
                                 android:id="@+id/rating_bar"

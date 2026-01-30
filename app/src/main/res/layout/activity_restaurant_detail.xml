@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:text=""
                             android:textAlignment="center"
                             android:textColor="@color/text_primary_01"
@@ -86,7 +86,7 @@
                         android:id="@+id/tv_restaurant_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
@@ -112,7 +112,7 @@
                             android:text=""
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
                     <LinearLayout
@@ -134,7 +134,7 @@
                             android:text=""
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:text="Title"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textSize="18sp"
                         android:visibility="gone"
                         android:layout_toEndOf="@id/iv_back"
@@ -182,7 +182,7 @@
                         android:text="Distance"
                         android:visibility="gone"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_toEndOf="@id/iv_back"
                         android:layout_below="@+id/tv_title_rest_name"
@@ -284,7 +284,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 item"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textSize="14sp"
                     android:textColor="@color/textPrimaryWhite"/>
                 <View
@@ -298,7 +298,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0MMK"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textSize="14sp"
                     android:textColor="@color/textPrimaryWhite"/>
             </LinearLayout>
@@ -319,7 +319,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pay_now"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:textSize="16sp"
                     android:layout_marginStart="8dp"
                     android:layout_gravity="center_vertical"

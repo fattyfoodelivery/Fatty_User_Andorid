@@ -40,7 +40,7 @@
                     android:textAlignment="center"
                     android:layout_marginEnd="32dp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="System Notification"
                     android:maxLines="1"
                     android:ellipsize="end"

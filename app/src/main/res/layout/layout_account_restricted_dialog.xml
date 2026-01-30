@@ -25,7 +25,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textColor="@color/black"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_desc"
@@ -38,13 +38,13 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textColor="@color/black"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:weightSum="1">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -54,7 +54,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginEnd="8dp"
                 android:text="Cancel"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:gravity="center"
@@ -73,7 +73,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:gravity="center"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textAlignment="center"
                 android:background="@drawable/btn_selected_color"
                 android:textAllCaps="false"

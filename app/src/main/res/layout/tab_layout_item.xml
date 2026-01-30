@@ -6,7 +6,7 @@
     android:background="@drawable/tablayout_item_normal"
     android:gravity="center"
     android:text="@string/cash_on_delivery"
-    android:fontFamily="@font/outfit_regular"
+    android:fontFamily="@font/fatty_regular"
     android:textColor="@color/textPrimary02"
     android:textSize="18sp"
     android:textAllCaps="false">

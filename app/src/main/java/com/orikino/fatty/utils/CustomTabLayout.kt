@@ -44,7 +44,7 @@ class CustomTabLayout : TabLayout {
                     val tab_layout_text =
                         tab.customView!!.findViewById<TextView>(R.id.tab_layout_text)
                     tab_layout_text.setTextColor(ContextCompat.getColor(context,R.color.white))
-                    tab_layout_text.typeface = ResourcesCompat.getFont(context, R.font.outfit_medium)
+                    tab_layout_text.typeface = ResourcesCompat.getFont(context, R.font.fatty_medium)
                     tab.customView?.setBackgroundResource(R.drawable.tablayout_item_pressed) //= ContextCompat.getDrawable(context,R.drawable.tablayout_item_pressed)
                 }
             }
@@ -56,7 +56,7 @@ class CustomTabLayout : TabLayout {
                 if (tab != null && tab.customView != null) {
                     val tab_layout_text = tab.customView!!.findViewById<TextView>(R.id.tab_layout_text)
                     tab_layout_text.setTextColor(ContextCompat.getColor(context,R.color.white))
-                    tab_layout_text.typeface = ResourcesCompat.getFont(context, R.font.outfit_medium)
+                    tab_layout_text.typeface = ResourcesCompat.getFont(context, R.font.fatty_medium)
                     tab.customView?.setBackgroundResource(R.drawable.bg_tab_unselected)
                     //tab.customView?.background = ContextCompat.getDrawable(context,R.drawable.tablayout_item_pressed)
                 }
@@ -78,7 +78,7 @@ class CustomTabLayout : TabLayout {
                 val text = tab.customView!!.findViewById<TextView>(R.id.tab_layout_text)
                 text.text = title
                 text.setTextColor(ContextCompat.getColor(context,R.color.text_primary_01))
-                text.typeface = ResourcesCompat.getFont(context, R.font.outfit_medium)
+                text.typeface = ResourcesCompat.getFont(context, R.font.fatty_medium)
                 tab.customView?.background = ContextCompat.getDrawable(context,R.drawable.tablayout_item_pressed)
             }
             this.addTab(tab)

@@ -32,7 +32,7 @@
                 android:paddingBottom="2dp"
                 android:layout_toStartOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
-                android:fontFamily="@font/outfit_regular"/>
+                android:fontFamily="@font/fatty_regular"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_close"
@@ -52,7 +52,7 @@
             android:text="@string/fatty_is_delivering_your_order_to"
             android:textSize="16sp"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:textSize="16sp"
                 android:layout_toEndOf="@id/iv_cur_mark"
                 android:layout_marginStart="12dp"
-                android:fontFamily="@font/outfit_medium"
+                android:fontFamily="@font/fatty_medium"
                 android:textColor="@color/text_primary_01"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:layout_toEndOf="@id/iv_cur_mark"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="6dp"
-                android:fontFamily="@font/outfit_medium"
+                android:fontFamily="@font/fatty_medium"
                 android:textColor="@color/textPrimary02"/>
         </RelativeLayout>
 
@@ -123,7 +123,7 @@
                 android:text="@string/other_addr"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="18sp"
                 android:textColor="@color/textPrimary02"
                 android:background="@drawable/negative_btn"/>
@@ -135,7 +135,7 @@
                 android:text="@string/confirm"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/textSecondary"
                 android:layout_marginStart="18dp"
                 android:background="@drawable/positive_button"/>

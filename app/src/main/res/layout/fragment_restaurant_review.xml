@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ratings &amp; Reviews  (24)"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:textSize="14sp"
         android:textColor="@color/textPrimary02"/>
 
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.0"
-            android:fontFamily="@font/outfit_semibold"
+            android:fontFamily="@font/fatty_semibold"
             android:textSize="20sp"
             android:textColor="@color/text_primary_01"/>
 

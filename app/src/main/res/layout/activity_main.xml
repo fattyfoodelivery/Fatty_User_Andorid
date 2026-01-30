@@ -70,7 +70,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_cart_count"
             android:elevation="6dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:gravity="center"
             android:text=""
             android:visibility="gone"

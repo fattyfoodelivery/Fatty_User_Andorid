@@ -149,7 +149,7 @@
                 android:textColor="@color/fattyDark"
                 android:textSize="20sp"
                 android:text="@string/enter_6_digit_code"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textFontWeight="400"
                 android:layout_gravity="center_horizontal"/>
 
@@ -167,7 +167,7 @@
                     android:textColor="@color/text_secondary_01"
                     android:textSize="16sp"
                     android:text="@string/we_have_sent_a_6_digit_to"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     />
             </LinearLayout>
 
@@ -230,7 +230,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="20dp"
                 android:alpha="1"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="18sp"/>
 
             <LinearLayout
@@ -248,7 +248,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:textColor="@color/textPrimary02"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_gravity="center_horizontal"/>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_resend_code"
@@ -258,7 +258,7 @@
                     android:textSize="14sp"
                     android:visibility="visible"
                     android:textColor="@color/fattyPrimary"
-                    android:fontFamily="@font/outfit_semibold"
+                    android:fontFamily="@font/fatty_semibold"
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
 

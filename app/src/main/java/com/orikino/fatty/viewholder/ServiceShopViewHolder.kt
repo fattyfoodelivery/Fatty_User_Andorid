@@ -32,14 +32,14 @@ class ServiceShopViewHolder(
         binding.tvShopName.text = mData.name
         val status = getStoreOpenStatus(binding.root.context, mData.open_time, mData.close_time)
         binding.tvShopStatus.text = status
-        if (status.equals(binding.root.context.getString(R.string.txt_closed_now))){
+        if (status == binding.root.context.getString(R.string.txt_closed_now)){
             binding.layoutShopRoot.alpha = 0.5f
             binding.ivShopClose.show()
-            binding.root.isEnabled = false
+            binding.tvCloseNow.show()
         }else{
             binding.layoutShopRoot.alpha = 1f
             binding.ivShopClose.gone()
-            binding.root.isEnabled = true
+            binding.tvCloseNow.gone()
         }
 
         binding.tvDistance.text = String.format(Locale.US, "%.2fkm", mData.distance)

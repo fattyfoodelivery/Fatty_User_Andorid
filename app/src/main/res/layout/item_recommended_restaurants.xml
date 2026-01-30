@@ -29,7 +29,7 @@
             android:padding="2dp"
             android:text="@string/testaurant_unavailable_now"
             android:textStyle="bold"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -89,7 +89,7 @@
         android:ellipsize="end"
         android:textColor="@color/text_primary_01"
         android:padding="2dp"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:textAlignment="viewStart"
         android:textSize="14sp"
         tools:ignore="RtlCompat" />
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="Addr"
                 android:layout_toEndOf="@id/imv_bicycle"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="12sp"
                 android:layout_marginStart="6dp"
                 tools:ignore="RtlCompat"/>

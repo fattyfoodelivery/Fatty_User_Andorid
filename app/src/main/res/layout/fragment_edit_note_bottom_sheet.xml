@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/margin_3xlarge"
             android:textSize="18sp"
             android:textColor="@color/text_primary_01"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:contentDescription="@string/text_desc"/>
 
         <com.google.android.material.card.MaterialCardView
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/positive_button"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:layout_marginTop="@dimen/margin_xlarge"
             android:text="@string/txt_update"
             android:enabled="false"

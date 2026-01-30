@@ -30,7 +30,7 @@
         android:text="@string/english"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/cv_language"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="10dp"
         android:textFontWeight="400"/>

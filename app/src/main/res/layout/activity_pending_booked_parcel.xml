@@ -49,7 +49,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textColor="@color/fattyWhite"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,7 +90,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/text_primary_01"
                 android:textAlignment="center"
-                android:fontFamily="@font/outfit_medium"
+                android:fontFamily="@font/fatty_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_parcel"
                 android:layout_marginTop="@dimen/margin_3xlarge"/>
@@ -103,7 +103,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/gray_black"
                 android:textAlignment="center"
-                android:fontFamily="@font/outfit_medium"
+                android:fontFamily="@font/fatty_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_parcel_title"
                 android:layout_marginTop="@dimen/margin_3xlarge"/>
@@ -116,7 +116,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/fattyPrimary"
                 android:textAlignment="center"
-                android:fontFamily="@font/outfit_medium"
+                android:fontFamily="@font/fatty_medium"
                 app:layout_constraintStart_toEndOf="@+id/tv_booking_id"
                 app:layout_constraintTop_toBottomOf="@id/tv_parcel_title"
                 android:layout_marginTop="@dimen/margin_3xlarge"/>
@@ -129,7 +129,7 @@
                 android:layout_marginEnd="@dimen/margin_large"
                 android:textColor="@color/text_secondary_01"
                 android:textAlignment="center"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_parcel_title"
                 android:layout_marginTop="@dimen/margin_3xlarge"/>
@@ -164,7 +164,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/text_primary_01"
                     android:textAlignment="center"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:layout_toEndOf="@id/iv_pending"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
@@ -192,7 +192,7 @@
                     android:textColor="@color/fattyPrimary"
                     app:layout_goneMarginStart="@dimen/margin_2xSmall"
                     android:textAlignment="center"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_toEndOf="@id/iv_location"/>
             </RelativeLayout>
 
@@ -205,7 +205,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/text_secondary_01"
                 android:textAlignment="center"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rl_location"
                 android:layout_marginTop="@dimen/margin_small"/>

@@ -27,7 +27,7 @@
                 android:layout_marginEnd="16dp"
                 android:singleLine="true"
                 android:padding="2dp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:text="@string/choose_your_service_region_label"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"/>
@@ -74,7 +74,7 @@
                     android:text="@string/lashio"
                     android:layout_marginStart="12dp"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     tools:ignore="RelativeOverlap" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -85,7 +85,7 @@
                     android:textSize="16sp"
                     android:text=""
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     tools:ignore="RelativeOverlap" />
 
                 <RadioButton
@@ -134,7 +134,7 @@
                     android:text="@string/muse"
                     android:layout_marginStart="12dp"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     tools:ignore="RelativeOverlap" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -145,7 +145,7 @@
                     android:textSize="16sp"
                     android:text=""
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     tools:ignore="RelativeOverlap" />
                 <RadioButton
                     android:id="@+id/rbtn_muse_check"
@@ -216,7 +216,7 @@
             android:textSize="16sp"
             android:text="@string/confirm"
             android:textAllCaps="false"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:background="@drawable/positive_button"/>
 
     </LinearLayout>

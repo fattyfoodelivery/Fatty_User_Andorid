@@ -31,7 +31,7 @@
                 android:paddingBottom="2dp"
                 android:layout_toLeftOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
-                android:fontFamily="@font/outfit_regular"/>
+                android:fontFamily="@font/fatty_regular"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_close"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lashio"
-                android:fontFamily="@font/outfit_semibold"
+                android:fontFamily="@font/fatty_semibold"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"/>
             <androidx.appcompat.widget.AppCompatImageView
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/muse"
-                android:fontFamily="@font/outfit_semibold"
+                android:fontFamily="@font/fatty_semibold"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"/>
             <androidx.appcompat.widget.AppCompatImageView
@@ -100,7 +100,7 @@
             android:textAllCaps="false"
             android:textSize="18sp"
             android:layout_marginTop="18dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textColor="@color/textSecondary"
             android:background="@drawable/positive_button"/>
 

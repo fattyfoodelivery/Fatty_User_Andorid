@@ -422,4 +422,5 @@
     <string name="txt_exit">Exit</string>
     <string name="txt_open_24_hours">Open 24 hours</string>
     <string name="txt_no_shop_available">No Shop available yet.</string>
+    <string name="txt_webview_cancel">Cancel</string>
 </resources>

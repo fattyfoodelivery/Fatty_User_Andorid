@@ -39,7 +39,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/order_details"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -85,7 +85,7 @@
                 android:textSize="20sp"
                 android:visibility="visible"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/text_primary_01"/>
 
             <LinearLayout
@@ -106,7 +106,7 @@
                         android:text="@string/order_id"
                         android:layout_gravity="center_horizontal"
                         android:textSize="14sp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textColor="@color/gray_black"/>
                     <TextView
                         android:id="@+id/tv_cus_order_id"
@@ -115,7 +115,7 @@
                         android:layout_gravity="center_vertical"
                         android:text=""
                         android:textSize="12sp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textColor="@color/fattyPrimary"/>
                 </LinearLayout>
 
@@ -127,7 +127,7 @@
                     android:text="Jan 16, 2024 | 02:27 PM"
                     android:textSize="14sp"
                     android:textAlignment="textEnd"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_secondary_01"
                     android:layout_marginEnd="18dp"/>
 
@@ -157,7 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/outfit_semibold"
+                        android:fontFamily="@font/fatty_semibold"
                         android:paddingTop="8dp"
                         android:text="@string/txt_delivery_details"
                         android:textColor="@color/text_primary_01"
@@ -171,7 +171,7 @@
                         android:textAlignment="textEnd"
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:paddingTop="8dp"
                         android:text="30 Min / 5 Km"
                         android:textColor="@color/text_gray_two"
@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="@string/sender"
                             android:textColor="#B8B8B8"
                             android:textSize="14sp" />
@@ -234,7 +234,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_semibold"
+                            android:fontFamily="@font/fatty_semibold"
                             android:text="Cindy"
                             android:textColor="@color/text_primary_01"
                             android:textSize="16sp"
@@ -245,7 +245,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="Bl-7 (လုံလောက်စျေး)"
                             android:textColor="@color/text_primary_01"
                             android:textSize="14sp"
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="09 123 428 397"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/text_primary_01"
@@ -276,7 +276,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="@string/receiver"
                             android:textColor="#B8B8B8"
                             android:textSize="14sp" />
@@ -285,7 +285,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_semibold"
+                            android:fontFamily="@font/fatty_semibold"
                             android:text="Rachel"
                             android:textColor="@color/text_primary_01"
                             android:textSize="16sp"
@@ -295,7 +295,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="၄၅ ကုန်း"
                             android:textColor="@color/text_primary_01"
                             android:textSize="14sp"
@@ -305,7 +305,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="09 123 428 397"
                             android:layout_marginTop="8dp"
                             android:textColor="@color/text_primary_01"
@@ -355,7 +355,7 @@
                         android:id="@+id/tv_rider_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:text=""
                         android:textColor="#2F2E36"
                         android:textSize="14sp"
@@ -380,7 +380,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:textSize="14sp"
                             android:textColor="#B8B8B8"
                             android:layout_marginStart="6dp"/>
@@ -427,7 +427,7 @@
                     android:id="@+id/tv_parcel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/outfit_semibold"
+                    android:fontFamily="@font/fatty_semibold"
                     android:paddingTop="8dp"
                     android:text="@string/txt_parcel_details"
                     android:textColor="@color/text_primary_01"
@@ -442,7 +442,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="@string/txt_parcel_type"
-                       android:fontFamily="@font/outfit_medium"
+                       android:fontFamily="@font/fatty_medium"
                        android:textSize="14sp"
                        android:textColor="@color/text_grey_one"/>
                    <TextView
@@ -450,7 +450,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text=""
-                       android:fontFamily="@font/outfit_medium"
+                       android:fontFamily="@font/fatty_medium"
                        android:textSize="16sp"
                        android:layout_alignParentEnd="true"
                        android:textColor="@color/fattyPrimary"/>
@@ -463,7 +463,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_item_quantity"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textSize="14sp"
                         android:textColor="@color/text_grey_one"/>
                     <TextView
@@ -471,7 +471,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textSize="16sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/fattyPrimary"/>
@@ -508,7 +508,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/delivery_fees"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary02"/>
                     <TextView
@@ -516,7 +516,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textPrimary02"/>
@@ -531,7 +531,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/extra_fees"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary02"/>
                     <TextView
@@ -539,7 +539,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textPrimary02"/>
@@ -554,7 +554,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txt_additonal_fee"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:textColor="@color/textPrimary02"/>
                     <androidx.appcompat.widget.AppCompatTextView
@@ -562,7 +562,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/textPrimary02"/>
@@ -581,7 +581,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/total_bills"
-                        android:fontFamily="@font/outfit_semibold"
+                        android:fontFamily="@font/fatty_semibold"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_01"/>
                     <TextView
@@ -589,7 +589,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:fontFamily="@font/outfit_semibold"
+                        android:fontFamily="@font/fatty_semibold"
                         android:textSize="16sp"
                         android:layout_alignParentEnd="true"
                         android:textColor="@color/text_primary_01"/>
@@ -614,7 +614,7 @@
                     android:id="@+id/tv_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/outfit_semibold"
+                    android:fontFamily="@font/fatty_semibold"
                     android:paddingTop="8dp"
                     android:text="@string/payment_method"
                     android:textColor="@color/text_primary_01"
@@ -637,7 +637,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/cash_on_delivery"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textSize="14sp"
                         android:layout_alignParentEnd="true"
                         android:layout_gravity="center_vertical"

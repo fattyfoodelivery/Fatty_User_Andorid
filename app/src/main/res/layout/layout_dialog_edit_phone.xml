@@ -31,7 +31,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toStartOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
-                android:fontFamily="@font/outfit_regular"/>
+                android:fontFamily="@font/fatty_regular"/>
             <ImageView
                 android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
             android:textSize="16sp"
             android:layout_gravity="start"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:textSize="16sp"
             android:layout_marginTop="16dp"
             android:textColor="@color/textPrimary02"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_phone"
@@ -76,7 +76,7 @@
             android:paddingEnd="10dp"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             />
 
         <LinearLayout
@@ -95,7 +95,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="0.5"
                 android:text="@string/str_cancel"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/text_primary_01"
                 android:textSize="18sp"
                 android:gravity="center"
@@ -113,7 +113,7 @@
                 android:textSize="18sp"
                 android:gravity="center"
                 android:layout_marginStart="18dp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textAlignment="center"
                 android:background="@drawable/positive_button"
                 android:textAllCaps="false"/>

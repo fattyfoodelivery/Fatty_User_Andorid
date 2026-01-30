@@ -63,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
                             android:layout_weight="1"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:text="4.8"
                             android:textAlignment="center"
                             android:textColor="@color/text_primary_01"
@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/rl_class_image"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:gravity="center"
                         android:text="The Royals"
                         android:textColor="@color/white"
@@ -100,7 +100,7 @@
                             android:text="Insein, Yangon"
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
                     <LinearLayout
@@ -122,7 +122,7 @@
                             android:text="30 mins"
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                         <View
                             android:layout_width="2dp"
@@ -137,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:text="60 km"
                             android:textSize="14sp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 

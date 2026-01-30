@@ -403,4 +403,5 @@
     <string name="txt_exit">退出</string>
     <string name="txt_open_24_hours">24 小时营业</string>
     <string name="txt_no_shop_available">暂无可用店铺。</string>
+    <string name="txt_webview_cancel">取消</string>
 </resources>

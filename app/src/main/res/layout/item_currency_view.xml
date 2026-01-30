@@ -35,7 +35,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/img_flag"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 tools:ignore="RelativeOverlap" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -47,7 +47,7 @@
                 android:text=""
                 android:visibility="gone"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:layout_toStartOf="@id/img_check"
                 tools:ignore="RelativeOverlap" />
 

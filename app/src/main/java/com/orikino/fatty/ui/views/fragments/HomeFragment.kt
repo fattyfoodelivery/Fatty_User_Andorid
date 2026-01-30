@@ -158,6 +158,12 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
         view.layoutParams = lp
     }
 
+    private fun addEndMargin(view: View){
+        val lp = view.layoutParams as ViewGroup.MarginLayoutParams
+        lp.marginEnd = dpToPx(ITEM_MARGIN_END_DP)
+        view.layoutParams = lp
+    }
+
 
     private fun enableScroll(enable: Boolean) {
         binding?.serviceLayout?.apply {
@@ -689,6 +695,7 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 showAndResize(binding!!.cvFirstService, itemWidth)
                 showAndResize(binding!!.cvSecondService, itemWidth)
 
+                addEndMargin(binding!!.cvFirstService)
                 removeEndMargin(binding!!.cvSecondService)
                 enableScroll(false)
                 binding?.tvFirstServiceTitle?.text = items[0].name
@@ -734,11 +741,14 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
             }
 
             else -> {
-                val itemWidth = ((availableWidth * 0.45f) - itemMarginPx).toInt()
+                val itemWidth = ((availableWidth * 0.48f) - itemMarginPx).toInt()
 
                 showAndResize(binding!!.cvFirstService, itemWidth)
                 showAndResize(binding!!.cvSecondService, itemWidth)
                 showAndResize(binding!!.cvMoreService, itemWidth)
+                addEndMargin(binding!!.cvFirstService)
+                addEndMargin(binding!!.cvSecondService)
+                removeEndMargin(binding!!.cvMoreService)
 
                 enableScroll(true)
 

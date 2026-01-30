@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/language"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -64,7 +64,7 @@
                 android:textColor="@color/fattyDark"
                 android:textSize="20sp"
                 android:text="@string/select_your_language"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:layout_margin="8dp"/>
 
 
@@ -93,7 +93,7 @@
                     android:text="@string/english"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/img_eng"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_marginStart="16dp"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -136,7 +136,7 @@
                     android:text="@string/myanmar"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/img_mm"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_marginStart="16dp"/>
 
                 <TextView
@@ -148,7 +148,7 @@
                     android:text="@string/mmk"
                     android:visibility="invisible"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_toStartOf="@id/img_mm_status"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -191,7 +191,7 @@
                     android:text="@string/str_ch_youan"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/img_china"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_marginStart="16dp"/>
 
                 <TextView
@@ -203,7 +203,7 @@
                     android:text="@string/yuan"
                     android:visibility="invisible"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:layout_toStartOf="@id/img_china_status"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -234,7 +234,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
             android:background="@drawable/positive_button"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:text="@string/change"
             android:textAllCaps="false"
             android:textSize="18sp" />

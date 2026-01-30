@@ -32,7 +32,7 @@
                 android:paddingBottom="2dp"
                 android:layout_toLeftOf="@id/iv_close"
                 android:textColor="@color/text_primary_01"
-                android:fontFamily="@font/outfit_regular"/>
+                android:fontFamily="@font/fatty_regular"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_close"
@@ -55,7 +55,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                 android:text="Cancel"
                 android:textAllCaps="false"
                 android:gravity="center"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="18sp"
                 android:textColor="@color/text_primary_01"
                 android:background="@drawable/negative_btn"/>
@@ -83,7 +83,7 @@
                 android:text="@string/confirm"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textColor="@color/textSecondary"
                 android:layout_marginStart="18dp"
                 android:background="@drawable/positive_button"/>

@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/text_secondary_02"
         android:layout_below="@id/iv_search"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="45dp"/>
 

@@ -49,7 +49,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textColor="@color/fattyWhite"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,7 +97,7 @@
                     android:textAlignment="center"
                     android:textSize="24sp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/fattyPrimary"/>
 
                 <TextView
@@ -109,7 +109,7 @@
                     android:layout_marginHorizontal="@dimen/margin_2xlarge"
                     android:layout_marginTop="18dp"
                     android:textAlignment="center"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_gray_two"/>
 
 
@@ -137,7 +137,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="24sp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_primary_01"/>
 
                 <TextView
@@ -148,7 +148,7 @@
                     android:textSize="16sp"
                     android:layout_margin="18dp"
                     android:textAlignment="center"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_gray_two"/>
 
 
@@ -177,7 +177,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="24sp"
                     android:layout_marginTop="24dp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/text_primary_01"/>
 
                 <TextView
@@ -188,7 +188,7 @@
                     android:textSize="16sp"
                     android:layout_marginTop="8dp"
                     android:textAlignment="center"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/textPrimary02"/>
 
                 <TextView
@@ -198,7 +198,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="16sp"
                     android:layout_marginTop="18dp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/fattyPrimary"/>
 
 
@@ -218,7 +218,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/positive_button"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:text="@string/book_delivery_now"
         android:textAllCaps="false"
         android:textColor="@color/textSecondary"
@@ -237,7 +237,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/positive_button"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:text="@string/view_my_order"
         android:textAllCaps="false"
         android:textColor="@color/textSecondary"
@@ -256,7 +256,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="18dp"
         android:background="@drawable/positive_button"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:text="@string/view_my_order"
         android:textAllCaps="false"
         android:textColor="@color/textSecondary"

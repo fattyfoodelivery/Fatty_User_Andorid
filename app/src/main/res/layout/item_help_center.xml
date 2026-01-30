@@ -26,14 +26,14 @@
                     android:textSize="18sp"
                     android:contentDescription="@string/text_desc"
                     android:textColor="@color/text_secondary_01"
-                    android:fontFamily="@font/outfit_regular"/>
+                    android:fontFamily="@font/fatty_regular"/>
                 <TextView
                     android:id="@+id/tv_ph"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textSize="18sp"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:textColor="@color/textPrimary02"/>
             </LinearLayout>
             <RelativeLayout
@@ -49,7 +49,7 @@
                     android:layout_alignParentEnd="true"
                     android:text="Call"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:background="@drawable/positive_button"
                     android:drawableLeft="@drawable/ic_customer_call"
                     android:textSize="16sp"/>

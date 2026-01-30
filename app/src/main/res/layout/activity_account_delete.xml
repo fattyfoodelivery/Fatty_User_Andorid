@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/delete_account"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/please_read_the_consequences_of_deleting_your_account_permanently_before_you_delete"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="18sp"
                 android:textColor="@color/textPrimary02"
                 android:padding="18dp"/>
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_account_warning_desc"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:textSize="16sp"
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
@@ -96,7 +96,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
             android:background="@drawable/positive_button"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:text="@string/yes_i_will_delete"
             android:textAllCaps="false"
             android:textSize="18sp" />

@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:text="@string/currency"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -71,7 +71,7 @@
                 android:textColor="@color/fattyDark"
                 android:textSize="20sp"
                 android:text="@string/select_your_currency"
-                android:fontFamily="@font/outfit_regular"
+                android:fontFamily="@font/fatty_regular"
                 android:layout_margin="8dp"
                 android:textFontWeight="400"/>
             <androidx.recyclerview.widget.RecyclerView
@@ -92,7 +92,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
             android:background="@drawable/positive_button"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:text="@string/change"
             android:textAllCaps="false"
             android:textSize="18sp" />

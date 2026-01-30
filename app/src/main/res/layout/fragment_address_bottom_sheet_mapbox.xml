@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_regular"
+                    android:fontFamily="@font/fatty_regular"
                     android:text="Your Location"
                     android:textColor="@color/fattyWhite"
                     android:textSize="22sp" />
@@ -146,7 +146,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textColor="@color/text_primary_01"
             android:layout_above="@id/btnConfirmAddress" />
         <com.google.android.material.button.MaterialButton
@@ -156,7 +156,7 @@
             android:background="@drawable/positive_button"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="14dp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:text="@string/confirm_location"
             android:layout_marginBottom="16dp"
             android:textAllCaps="false"
@@ -178,7 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:paddingTop="4dp"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:text="@string/location"
         android:textSize="18sp"
         android:textColor="@color/black"

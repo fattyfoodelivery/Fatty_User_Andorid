@@ -82,7 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:text="No Reviews"
                             android:textColor="@color/text_primary_01"
                             android:textAlignment="center"
@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="2dp"
-                            android:fontFamily="@font/outfit_medium"
+                            android:fontFamily="@font/fatty_medium"
                             android:text=""
                             android:textColor="@color/text_primary_01"
                             android:textAlignment="center"
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_noodle_roundded_primary"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:text="Noodle"
                         android:textColor="@color/fattyWhite"
                         android:textSize="12sp" />
@@ -152,7 +152,7 @@
                         android:id="@+id/tv_restaurant_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:text="The Royals Restaurant"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp"
@@ -185,7 +185,7 @@
                             android:textSize="14sp"
                             android:ellipsize="end"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/textPrimary02"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -223,7 +223,7 @@
                             android:ellipsize="end"
                             android:textSize="14sp"
                             android:layout_marginStart="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/textPrimary02"/>
                     </LinearLayout>
 
@@ -250,7 +250,7 @@
                             android:text=""
                             android:textSize="13sp"
                             android:layout_gravity="bottom"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/fattyPrimary"
                             android:layout_marginStart="5dp"/>
                     </LinearLayout>
@@ -306,7 +306,7 @@
             android:gravity="center"
             android:textSize="22sp"
             android:visibility="gone"
-            android:fontFamily="@font/outfit_medium"
+            android:fontFamily="@font/fatty_medium"
             android:background="@drawable/background_gradient"
             />
     </com.google.android.material.card.MaterialCardView>

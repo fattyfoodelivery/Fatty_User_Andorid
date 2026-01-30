@@ -42,7 +42,7 @@
             android:textAlignment="viewStart"
             android:ellipsize="end"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             tools:targetApi="p"
             tools:ignore="RtlCompat" />
 
@@ -55,14 +55,14 @@
             tools:targetApi="p"
             android:layout_marginTop="4dp"
             android:textColor="@color/text_primary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
 
     </LinearLayout>
     <TextView
         android:id="@+id/sub_item_flow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/outfit_regular"
+        android:fontFamily="@font/fatty_regular"
         android:textSize="12sp"
         android:visibility="gone"
         android:textColor="@color/text_secondary_01"
@@ -88,7 +88,7 @@
             android:layout_gravity="center_vertical"
             tools:targetApi="p"
             android:textColor="@color/text_secondary_01"
-            android:fontFamily="@font/outfit_regular"/>
+            android:fontFamily="@font/fatty_regular"/>
         <TextView
             android:id="@+id/tv_edit"
             android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/edit"
             android:textSize="16sp"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:textColor="@color/fattyPrimary"
             android:paddingHorizontal="@dimen/margin_small"/>
     </LinearLayout>
@@ -133,7 +133,7 @@
             android:text="13"
             android:textSize="18sp"
             android:textColor="@color/text_primary_01"
-            android:fontFamily="@font/outfit_regular"
+            android:fontFamily="@font/fatty_regular"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"/>
         <androidx.cardview.widget.CardView

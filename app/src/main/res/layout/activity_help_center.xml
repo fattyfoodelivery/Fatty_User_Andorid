@@ -36,7 +36,7 @@
                     android:text="@string/help_center"
                     android:textSize="22sp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/outfit_medium"
+                    android:fontFamily="@font/fatty_medium"
                     android:textColor="@color/fattyWhite"/>
             </RelativeLayout>
 

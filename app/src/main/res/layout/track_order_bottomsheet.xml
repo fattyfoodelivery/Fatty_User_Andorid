@@ -176,7 +176,7 @@
                             android:layout_height="wrap_content"
                             android:padding="2dp"
                             android:text="Estimated Tiime"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textSize="14sp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -185,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:text="02:45PM - 03:15PM"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -194,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="Your food is preparing!"
                             android:textSize="14sp"
                             android:padding="2dp"/>
@@ -387,7 +387,7 @@
                             android:layout_marginStart="16dp"
                             android:singleLine="false"
                             android:text=""
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -402,7 +402,7 @@
                             android:singleLine="true"
                             android:text="Motorcycle"
                             android:textSize="12sp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             app:layout_constraintStart_toEndOf="@id/imv_rider_photo"
                             app:layout_constraintTop_toBottomOf="@id/tv_rider_name" />
 
@@ -473,7 +473,7 @@
                         android:singleLine="true"
                         android:padding="2dp"
                         android:text="Deliver To"
-                        android:fontFamily="@font/outfit_semibold"
+                        android:fontFamily="@font/fatty_semibold"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -515,7 +515,7 @@
                                     android:id="@+id/tv_address_status"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/outfit_regular"
+                                    android:fontFamily="@font/fatty_regular"
                                     android:text="@string/address"
                                     android:textColor="@color/black"
                                     android:textSize="16sp"
@@ -528,7 +528,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:fontFamily="@font/outfit_regular"
+                                    android:fontFamily="@font/fatty_regular"
                                     android:text="Myaing Hay Wun Ward"
                                     android:textColor="@color/grey"
                                     android:textSize="12sp" />
@@ -597,7 +597,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:fontFamily="@font/outfit_regular"
+                                    android:fontFamily="@font/fatty_regular"
                                     android:paddingTop="2dp"
                                     android:paddingBottom="2dp"
                                     android:text="@string/phone_number"
@@ -611,7 +611,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
-                                    android:fontFamily="@font/outfit_regular"
+                                    android:fontFamily="@font/fatty_regular"
                                     android:text="09999999"
                                     android:textColor="@color/grey"
                                     android:textSize="12sp" />
@@ -643,7 +643,7 @@
                         android:singleLine="true"
                         android:text="Bill Details : "
                         android:padding="2dp"
-                        android:fontFamily="@font/outfit_semibold"
+                        android:fontFamily="@font/fatty_semibold"
                         android:textColor="@color/text_primary_01"
                         android:textSize="16sp"/>
 
@@ -666,7 +666,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_weight="0.5"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:padding="2dp"
                             android:visibility="gone"
                             android:text="Total Amount : "
@@ -679,7 +679,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:layout_weight="0.5"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="Ks.1000"
                             android:visibility="gone"
                             android:textAlignment="textEnd"
@@ -703,7 +703,7 @@
                             android:layout_weight="0.5"
                             android:singleLine="true"
                             android:padding="2dp"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:text="Delivery Fees : "
                             android:textSize="14sp"
                             android:textStyle="bold"/>
@@ -717,7 +717,7 @@
                             android:layout_weight="0.5"
                             android:singleLine="true"
                             android:text="Ks.1,000"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textAlignment="textEnd"
                             android:textSize="14sp"
                             android:textStyle="bold"/>
@@ -749,7 +749,7 @@
                             android:singleLine="true"
                             android:padding="2dp"
                             android:text="Bill Totals : "
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -763,7 +763,7 @@
                             android:layout_weight="0.5"
                             android:singleLine="true"
                             android:text="Ks.9,500"
-                            android:fontFamily="@font/outfit_regular"
+                            android:fontFamily="@font/fatty_regular"
                             android:textAlignment="textEnd"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -797,7 +797,7 @@
                     android:text="Payment Details : "
                     android:textColor="@color/text_primary_01"
                     android:textSize="16sp"
-                    android:fontFamily="@font/outfit_semibold"/>
+                    android:fontFamily="@font/fatty_semibold"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -817,7 +817,7 @@
                         android:layout_marginStart="16dp"
                         android:singleLine="true"
                         android:text="Cash On Delivery"
-                        android:fontFamily="@font/outfit_regular"
+                        android:fontFamily="@font/fatty_regular"
                         android:textSize="14sp"
                         android:layout_gravity="center_vertical"/>
 

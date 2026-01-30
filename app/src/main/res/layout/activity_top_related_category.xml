@@ -51,7 +51,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:fontFamily="@font/outfit_medium"
+                        android:fontFamily="@font/fatty_medium"
                         android:textColor="@color/fattyWhite"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
