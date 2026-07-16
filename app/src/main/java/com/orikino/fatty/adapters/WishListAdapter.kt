@@ -10,10 +10,12 @@ import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.model.WishListVO
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.viewholder.WishViewHolder
 
 class WishListAdapter(
     context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     val callback: (RecommendRestaurantVO, String, Int) -> Unit
 ) : BaseListAdapter<WishListVO, NewBaseViewHolder<WishListVO>>(context, object : DiffUtil.ItemCallback<WishListVO>(){
     override fun areItemsTheSame(oldItem: WishListVO, newItem: WishListVO): Boolean {
@@ -34,6 +36,7 @@ class WishListAdapter(
                 parent,
                 false
             ),
+            imageUrlProvider,
             callback
         )
     }

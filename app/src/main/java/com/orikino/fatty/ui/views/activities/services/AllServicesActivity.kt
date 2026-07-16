@@ -21,6 +21,7 @@ import com.orikino.fatty.ui.views.components.GridSpacingItemDecoration
 import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.AccountRestrictedDialog
 import com.orikino.fatty.utils.ConfirmDialog
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -31,10 +32,13 @@ import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AllServicesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAllServicesBinding
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private val viewModel: HomeViewModel by viewModels()
     private var serviceAdapter: ServicesAdapter? = null
 
@@ -128,8 +132,8 @@ class AllServicesActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        serviceAdapter = ServicesAdapter(this, { data ->
-            if (data.name == "ပါဆယ်" || data.name == "Parcel" || data.name == "跑腿") {
+        serviceAdapter = ServicesAdapter(this, imageUrlProvider = imageUrlProvider,{ data ->
+            if (data.alias?.equals("parcel", true) == true) {
                 if (PreferenceUtils.readUserVO().customer_id == 0) {
                     ConfirmDialog.Builder(
                         this,
@@ -181,7 +185,7 @@ class AllServicesActivity : AppCompatActivity() {
         binding.rvServices.layoutManager = linearLayoutManager
         binding.rvServices.addItemDecoration(
             GridSpacingItemDecoration(
-                5,
+                2,
                 dpToPx(8f, this),
                 false
             )

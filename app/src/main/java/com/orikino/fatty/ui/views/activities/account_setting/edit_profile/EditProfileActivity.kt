@@ -23,6 +23,7 @@ import com.orikino.fatty.databinding.ActivityEditProfileBinding
 import com.orikino.fatty.domain.model.CustomerVO
 import com.orikino.fatty.domain.view_model.AboutViewModel
 import com.orikino.fatty.domain.viewstates.AboutViewState
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
@@ -31,12 +32,16 @@ import com.orikino.fatty.utils.helper.show
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import javax.inject.Inject
 import kotlin.getValue
 
 @AndroidEntryPoint
 class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityEditProfileBinding
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     private val viewModel : AboutViewModel by viewModels()
 
@@ -126,7 +131,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun initView(){
         userVo?.let { user ->
             if (!user.image.isNullOrEmpty()){
-                binding.ivProfile.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(user.image)) {
+                binding.ivProfile.load(imageUrlProvider.get(("/customer/").plus(user.image))) {
                     error(R.drawable.ic_profile_placeholder)
                     placeholder(R.drawable.ic_profile_placeholder)
                 }

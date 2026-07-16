@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.orikino.fatty.databinding.ItemFoodOrderCheckoutBinding
 import com.orikino.fatty.domain.model.CreateFoodVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.viewholder.BaseViewHolder
 import com.orikino.fatty.viewholder.FoodOrderViewHolder
 
 class FoodOrderAdapter(
     private val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (CreateFoodVO,str : String,pos : Int) -> Unit
 ) : BaseAdapter<FoodOrderViewHolder, CreateFoodVO>(context){
     private lateinit var itemFoodOrderCheckoutBinding : ItemFoodOrderCheckoutBinding
@@ -17,6 +19,6 @@ class FoodOrderAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<CreateFoodVO> {
 
         itemFoodOrderCheckoutBinding = ItemFoodOrderCheckoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FoodOrderViewHolder(itemFoodOrderCheckoutBinding,callback)
+        return FoodOrderViewHolder(itemFoodOrderCheckoutBinding,imageUrlProvider,callback)
     }
 }

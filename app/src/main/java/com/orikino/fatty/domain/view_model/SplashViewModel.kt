@@ -13,6 +13,7 @@ import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.data.repository.SplashRepositoryImpl
 import com.orikino.fatty.domain.viewstates.BaseViewState
 import com.orikino.fatty.domain.viewstates.SplashViewState
+import com.orikino.fatty.utils.ConfigManager
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.PreferenceUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val repository: SplashRepositoryImpl
+    private val repository: SplashRepositoryImpl,
+    private val configManager: ConfigManager
 ) : ViewModel() {
 
     var viewState: MutableLiveData<SplashViewState> = MutableLiveData()
@@ -108,6 +110,7 @@ class SplashViewModel @Inject constructor(
                 val response = repository.versionUpdate()
                 if (response.isSuccessful){
                     response.body()?.let {
+                        configManager.save(it.data?.base_file_url ?: "")
                         versionViewState.postValue(BaseViewState.OnSuccessVersionUpdate(it))
                     }
                 }else{

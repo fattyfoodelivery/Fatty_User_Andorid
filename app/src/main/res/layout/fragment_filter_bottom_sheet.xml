@@ -41,11 +41,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:id="@+id/rdo_recommended"
+                android:id="@+id/rdo_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:checked="true"
+                android:text="@string/txt_default"
+                android:paddingStart="8dp"
+                android:fontFamily="@font/fatty_regular"
+                android:textSize="18sp"
+                android:textColor="@color/text_primary_01"
+                tools:ignore="RtlSymmetry"
+                android:layout_centerVertical="true"/>
+            <RadioButton
+                android:id="@+id/rdo_recommended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:checked="false"
                 android:text="@string/txt_recommended"
                 android:paddingStart="8dp"
                 android:fontFamily="@font/fatty_regular"

@@ -11,6 +11,7 @@ import com.orikino.fatty.databinding.ItemRestaurantViewBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -19,7 +20,7 @@ import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.orikino.fatty.utils.helper.toHourMinuteString
 
-class RestaurantAdapter(private val context: Context,val callback: (RecommendRestaurantVO,String,Int) -> Unit) : BaseListAdapter<RecommendRestaurantVO, NewBaseViewHolder<RecommendRestaurantVO>>(context, object : DiffUtil.ItemCallback<RecommendRestaurantVO>(){
+class RestaurantAdapter(private val context: Context,private val imageUrlProvider: ImageUrlProvider,val callback: (RecommendRestaurantVO,String,Int) -> Unit) : BaseListAdapter<RecommendRestaurantVO, NewBaseViewHolder<RecommendRestaurantVO>>(context, object : DiffUtil.ItemCallback<RecommendRestaurantVO>(){
     override fun areItemsTheSame(
         oldItem: RecommendRestaurantVO,
         newItem: RecommendRestaurantVO
@@ -37,10 +38,10 @@ class RestaurantAdapter(private val context: Context,val callback: (RecommendRes
 }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewBaseViewHolder<RecommendRestaurantVO> {
-        return RestaurantViewHolder(ItemRestaurantViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return RestaurantViewHolder(ItemRestaurantViewBinding.inflate(LayoutInflater.from(parent.context),parent,false), imageUrlProvider = imageUrlProvider)
     }
 
-    inner class RestaurantViewHolder(val binding : ItemRestaurantViewBinding) : NewBaseViewHolder<RecommendRestaurantVO>(binding.root) {
+    inner class RestaurantViewHolder(val binding : ItemRestaurantViewBinding, imageUrlProvider: ImageUrlProvider) : NewBaseViewHolder<RecommendRestaurantVO>(binding.root) {
         override fun setData(mData: RecommendRestaurantVO, currentPage: Int) {
 
             if (mData.is_wish) binding.imvFav.setImageResource(R.drawable.ic_fav_filled_32dp)
@@ -65,7 +66,7 @@ class RestaurantAdapter(private val context: Context,val callback: (RecommendRes
 //            }
             binding.tvFoodType.text = mData.category.toDefaultCategoryName()
             binding.imvRestaurant.load(
-                PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(mData.restaurant_image)
+                imageUrlProvider.get(("/restaurant/").plus(mData.restaurant_image))
             ) {
                 error(R.drawable.restaurant_default_img)
                 placeholder(R.drawable.restaurant_default_img)

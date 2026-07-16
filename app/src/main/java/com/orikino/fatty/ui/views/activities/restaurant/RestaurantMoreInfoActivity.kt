@@ -36,6 +36,7 @@ import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.FattyMap
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -52,6 +53,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.nlopez.smartlocation.SmartLocation
 import java.lang.Exception
 import java.util.Locale
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -59,7 +61,8 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
 
     private val viewModel : RestaurantDetailViewModel by viewModels()
     private lateinit var _binding : ActivityRestaurantMoreInfoBinding
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var restAvailableTimeAdapter : RestAviableTimeAdapterder? = null
 
     private var restDetailReviewListAdapter: RestDetailReviewListAdapter? = null
@@ -306,7 +309,7 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
             _binding.tvDurationDistance.text = "${restaurant.distance_time.toHourMinuteString()}・${restaurant.distance} km"
 //                restaurant.average_time.toString()
 //                .plus("mins ・ ").plus(restaurant.distance).plus("km")
-            _binding.imvRestaurant.load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(restaurant.restaurant_image))
+            _binding.imvRestaurant.load(imageUrlProvider.get(("/restaurant/").plus(restaurant.restaurant_image)))
 
             //restAvailableTimeAdapter?.setNewData(restaurant.available_time)
 

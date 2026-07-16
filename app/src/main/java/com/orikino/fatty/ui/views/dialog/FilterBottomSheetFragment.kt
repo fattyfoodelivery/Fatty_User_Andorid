@@ -28,7 +28,7 @@ class FilterBottomSheetFragment : BaseBottomSheet<ServicesViewModel>() {
     companion object {
         const val TAG = "FilterBottomSheet"
         var delegate : FilterDelegate? = null
-        private var currentFilter : String = "recommended"
+        private var currentFilter : String = "default"
         fun newInstance(
             delegate: FilterDelegate,
             currentFilter : String
@@ -58,13 +58,22 @@ class FilterBottomSheetFragment : BaseBottomSheet<ServicesViewModel>() {
     }
 
     private fun initUi(){
-        if (currentFilter == "recommended"){
-            binding.rdoRecommended.isChecked = true
-        }else{
-            binding.rdoNearby.isChecked = true
+        when (currentFilter) {
+            "default" -> {
+                binding.rdoDefault.isChecked = true
+            }
+            "recommended" -> {
+                binding.rdoRecommended.isChecked = true
+            }
+            else -> {
+                binding.rdoNearby.isChecked = true
+            }
         }
         binding.rgFilter.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
+                R.id.rdo_default -> {
+                    currentFilter = "default"
+                }
                 R.id.rdo_recommended -> {
                     currentFilter = "recommended"
                 }

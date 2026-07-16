@@ -8,6 +8,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemOrderHistoriesBinding
 import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -17,6 +18,7 @@ import com.squareup.picasso.Picasso
 @SuppressLint("SetTextI18n")
 class OrderHistoryViewHolder(
     var binding: ItemOrderHistoriesBinding,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (MyOrderHistoryResponse.Data.Data, str: String, pos: Int) -> Unit
 ) : NewBaseViewHolder<MyOrderHistoryResponse.Data.Data>(binding.root) {
 
@@ -61,7 +63,7 @@ class OrderHistoryViewHolder(
             binding.llOrderBg.setBackgroundResource(R.drawable.bg_orderid_pink)
             binding.imvOrderTypeIcon.setImageResource(R.drawable.ic_food_id_24dp)
             Picasso.get()
-                .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+                .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
                 .placeholder(R.drawable.restaurant_default_img)
                 .error(R.drawable.restaurant_default_img)
                 .into(binding.imvRestaurant)
@@ -314,7 +316,7 @@ class OrderHistoryViewHolder(
                         binding.root.context.getString(R.string.str_track)
                     binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
                     binding.tvOrderStatusMsg.text = data.order_status
-                    binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+                    binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_processing_20dp)
                     binding.tvOrderStatusMsg.setTextColor(
                         ContextCompat.getColor(
                             binding.root.context,
@@ -452,142 +454,5 @@ class OrderHistoryViewHolder(
                 callback.invoke(data, actions, position)
             }
         }
-
-        /* 1 -> {
-             binding.imvRiderAccept.gone()
-             binding.imvRestaurant.show()
-             Picasso.get()
-                 .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant?.image))
-                 .placeholder(R.drawable.restaurant_default_img)
-                 .error(R.drawable.restaurant_default_img)
-                 .into(binding.imvRestaurant)
-             binding.tvOrderActionsStatus.text =
-                 ContextCompat.getString(binding.root.context, R.string.str_cancel)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_gray)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         2 -> {
-             //
-             binding.imvRiderAccept.gone()
-             binding.imvRestaurant.show()
-             Picasso.get()
-                 .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant?.image))
-                 .placeholder(R.drawable.restaurant_default_img)
-                 .error(R.drawable.restaurant_default_img)
-                 .into(binding.imvRestaurant)
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         3 -> {
-             binding.imvRiderAccept.gone()
-             binding.imvRestaurant.show()
-             Picasso.get()
-                 .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant?.image))
-                 .placeholder(R.drawable.restaurant_default_img)
-                 .error(R.drawable.restaurant_default_img)
-                 .into(binding.imvRestaurant)
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         4 -> {
-             binding.imvRiderAccept.gone()
-             binding.imvRestaurant.show()
-             Picasso.get()
-                 .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant?.image))
-                 .placeholder(R.drawable.restaurant_default_img)
-                 .error(R.drawable.restaurant_default_img)
-                 .into(binding.imvRestaurant)
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         5 -> {
-             binding.imvRiderAccept.gone()
-             binding.imvRestaurant.show()
-             Picasso.get()
-                 .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant?.image))
-                 .placeholder(R.drawable.restaurant_default_img)
-                 .error(R.drawable.restaurant_default_img)
-                 .into(binding.imvRestaurant)
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         6 -> {
-             binding.imvRiderAccept.show()
-             binding.imvRestaurant.gone()
-             binding.tvOrderActionsStatus.show()
-             binding.llOrderBg.setBackgroundResource(R.drawable.bg_orderid_yellow)
-             binding.imvOrderTypeIcon.setImageResource(R.drawable.ic_order_status_box)
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-
-             if (data.rider == null) {
-
-             } else {
-
-             }
-         }
-         7 -> {
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         8,9 -> {
-             binding.tvOrderActionsStatus.show()
-             binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-             binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-             binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-         }
-         10 -> {
-             *//*rider arrive to rest*//*
-                binding.tvOrderActionsStatus.show()
-                binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_gray)
-                binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-            }
-            11,12,13,14,15,16,17 -> {
-                binding.tvOrderActionsStatus.show()
-                binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-                binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_track)
-                binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-            }
-            18 -> {
-                binding.tvOrderActionsStatus.gone()
-                binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_status_error_20dp)
-            }
-            19 -> {
-                binding.tvOrderActionsStatus.gone()
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-                binding.tvOrderStatusMsg.setTextColor(Color.parseColor("#FF00B11E"))
-                binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-            }
-
-            else -> {
-                binding.tvOrderActionsStatus.show()
-                binding.tvOrderActionsStatus.text = ContextCompat.getString(binding.root.context, R.string.str_track)
-                binding.tvOrderActionsStatus.setBackgroundResource(R.drawable.negative_corner_review)
-                binding.tvOrderStatusMsg.text = data.order_status.toDefaultStatusName()
-                //binding.llReview.gone()
-            }*/
-
-
-        /*binding.root.setOnClickListener {
-            callback.invoke(data, "root", position)
-        }
-
-        binding.lbtnReview.setOnClickListener {
-            callback.invoke(data,"view_rating",position)
-        }*/
-
-
     }
 }

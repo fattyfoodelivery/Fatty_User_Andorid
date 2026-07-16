@@ -9,6 +9,7 @@ import coil.load
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemAddFoodBinding
 import com.orikino.fatty.domain.model.SearchFoodsVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -17,7 +18,11 @@ import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.orikino.fatty.viewholder.BaseViewHolder
 
-class FoodAdapter(private val context: Context,val callback : (SearchFoodsVO,String,Int) -> Unit) : BaseAdapter<FoodAdapter.FoodViewHolder,SearchFoodsVO>(context) {
+class FoodAdapter(
+    private val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
+    val callback : (SearchFoodsVO,String,Int) -> Unit
+    ) : BaseAdapter<FoodAdapter.FoodViewHolder,SearchFoodsVO>(context) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -48,7 +53,7 @@ class FoodAdapter(private val context: Context,val callback : (SearchFoodsVO,Str
                 binding.tvFoodStatus.gone()
                 binding.tvFoodStatus.text = context.resources.getString(R.string.restaurant_unavailable)
             }
-            binding.imvFood.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image))
+            binding.imvFood.load(imageUrlProvider.get(("/food/").plus(data.food_image)))
             binding.imvAddFood.setOnClickListener {
                 callback.invoke(data,"add_food",position)
             }
@@ -60,6 +65,4 @@ class FoodAdapter(private val context: Context,val callback : (SearchFoodsVO,Str
 
         }
     }
-
-
 }

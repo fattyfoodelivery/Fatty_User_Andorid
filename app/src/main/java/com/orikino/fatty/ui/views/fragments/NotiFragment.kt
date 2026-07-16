@@ -25,6 +25,7 @@ import com.orikino.fatty.ui.views.activities.parcel.ParcelDetailActivity
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.delegate.ItemIdDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -35,6 +36,7 @@ import com.orikino.fatty.utils.helper.showDatePickerDialog
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.ParseException
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -42,6 +44,8 @@ class NotiFragment : Fragment(), ItemIdDelegate {
 
     private var notiBinding : FragmentNotiBinding? = null
     private var notiAdapter: NotiAdapter? = null
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var systemNotiAdapter : SysNotiAdapter? = null
 
     private val viewModel : NotiViewModel by viewModels()
@@ -385,7 +389,7 @@ class NotiFragment : Fragment(), ItemIdDelegate {
         )
         notiBinding?.rvSystem?.setHasFixedSize(true)
         notiBinding?.rvSystem?.isNestedScrollingEnabled = true
-        systemNotiAdapter = SysNotiAdapter(requireContext()) {data,str,pos ->
+        systemNotiAdapter = SysNotiAdapter(requireContext(), imageUrlProvider) {data,str,pos ->
             when(str) {
                 "view_read" -> {
                     PreferenceUtils.readUserVO().customer_id?.let {

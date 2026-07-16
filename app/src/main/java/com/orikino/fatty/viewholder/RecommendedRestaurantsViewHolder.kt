@@ -4,6 +4,7 @@ import android.view.View
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemRecommendedRestaurantsBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -12,6 +13,7 @@ import java.util.Locale
 
 class RecommendedRestaurantsViewHolder(
     var binding : ItemRecommendedRestaurantsBinding,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (RecommendRestaurantVO,String,Int) -> Unit
 ) : BaseViewHolder<RecommendRestaurantVO>(binding.root)  {
 
@@ -36,7 +38,7 @@ class RecommendedRestaurantsViewHolder(
 
         binding.tvRestaurantName.text = data.toDefaultRestaurantName()
         Picasso.get()
-            .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+            .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
             .error(R.drawable.restaurant_default_img)
             .placeholder(R.drawable.restaurant_default_img)
             .into(binding.imvRestaurantPicture)

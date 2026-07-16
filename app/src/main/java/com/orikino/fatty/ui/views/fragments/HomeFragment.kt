@@ -57,6 +57,7 @@ import com.orikino.fatty.utils.AccountRestrictedDialog
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -74,6 +75,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.Locale
+import javax.inject.Inject
 import kotlin.collections.map
 
 @AndroidEntryPoint
@@ -82,7 +84,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
 
     private var binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var topCategoryAdapter: TopCategoryAdapter? = null
     private var recommendedRestaurantAdapter: RecommendedRestaurantAdapter? = null
     private var nearByIdRestAdapter: NearByIdRestAdapter? = null
@@ -667,7 +670,12 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
     }
 
     private fun setUpServicesLayout(items: List<ServiceItem>) {
-
+        if (items.isEmpty()){
+            binding?.serviceLayout?.gone()
+            return
+        }else{
+            binding?.serviceLayout?.show()
+        }
         val screenWidth = resources.displayMetrics.widthPixels
         val horizontalPaddingPx = dpToPx(H_SCROLL_PADDING_DP)
         val itemMarginPx = dpToPx(ITEM_MARGIN_END_DP)
@@ -691,7 +699,9 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
 
             2 -> {
                 val itemWidth = ((availableWidth * 0.5f) - itemMarginPx).toInt()
-
+                binding?.cvFirstService?.show()
+                binding?.cvSecondService?.show()
+                binding?.cvMoreService?.gone()
                 showAndResize(binding!!.cvFirstService, itemWidth)
                 showAndResize(binding!!.cvSecondService, itemWidth)
 
@@ -702,8 +712,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
                     .load(
-                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
-                            .plus(items[0].image)
+                        imageUrlProvider.get(("/store-service/service_type/")
+                            .plus(items[0].image))
                     )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
@@ -712,8 +722,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 binding?.tvSecondServiceDesc?.text = items[1].sub_title
                 Picasso.get()
                     .load(
-                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
-                            .plus(items[1].image)
+                        imageUrlProvider.get(("/store-service/service_type/")
+                            .plus(items[1].image))
                     )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
@@ -722,7 +732,9 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
 
             1 -> {
                 showAndResize(binding!!.cvFirstService, availableWidth)
-
+                binding?.cvFirstService?.show()
+                binding?.cvSecondService?.gone()
+                binding?.cvMoreService?.gone()
                 // Remove end margin to avoid tiny scroll
                 removeEndMargin(binding!!.cvFirstService)
 
@@ -730,8 +742,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
                     .load(
-                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
-                            .plus(items[0].image)
+                        imageUrlProvider.get(("/store-service/service_type/")
+                            .plus(items[0].image))
                     )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
@@ -742,7 +754,9 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
 
             else -> {
                 val itemWidth = ((availableWidth * 0.48f) - itemMarginPx).toInt()
-
+                binding?.cvFirstService?.show()
+                binding?.cvSecondService?.show()
+                binding?.cvMoreService?.show()
                 showAndResize(binding!!.cvFirstService, itemWidth)
                 showAndResize(binding!!.cvSecondService, itemWidth)
                 showAndResize(binding!!.cvMoreService, itemWidth)
@@ -756,8 +770,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 binding?.tvFirstServiceDesc?.text = items[0].sub_title
                 Picasso.get()
                     .load(
-                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
-                            .plus(items[0].image)
+                        imageUrlProvider.get(("/store-service/service_type/")
+                            .plus(items[0].image))
                     )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
@@ -766,8 +780,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
                 binding?.tvSecondServiceDesc?.text = items[1].sub_title
                 Picasso.get()
                     .load(
-                        PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/")
-                            .plus(items[1].image)
+                        imageUrlProvider.get(("/store-service/service_type/")
+                            .plus(items[1].image))
                     )
                     .error(R.drawable.ic_service_loading)
                     .placeholder(R.drawable.ic_service_loading)
@@ -777,7 +791,7 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
             }
         }
         binding?.cvFirstService?.setOnClickListener {
-            if (items[0].name == "ပါဆယ်" || items[0].name == "Parcel" || items[0].name == "跑腿") {
+            if (items[0].alias?.equals("parcel", true) == true) {
                 PreferenceUtils.isBackground = false
                 if (PreferenceUtils.readUserVO().customer_id == 0) {
                     ConfirmDialog.Builder(
@@ -1251,7 +1265,7 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
         binding?.rvRecommendRestaurant?.setHasFixedSize(true)
         binding?.rvRecommendRestaurant?.isNestedScrollingEnabled = true
         recommendedRestaurantAdapter =
-            RecommendedRestaurantAdapter(requireContext()) { data, str, pos ->
+            RecommendedRestaurantAdapter(requireContext(), imageUrlProvider) { data, str, pos ->
                 when (str) {
                     "root_content" -> {
                         PreferenceUtils.needToShow = false
@@ -1286,7 +1300,8 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
         binding?.rvNearRestaurant?.isNestedScrollingEnabled =
             true // Still good to keep for some behaviors
         nearByIdRestAdapter = NearByIdRestAdapter(
-            requireContext()
+            requireContext(),
+            imageUrlProvider,
             // Removed mutableListOf() argument
         ) { data, str, pos ->
             when (str) {
@@ -1583,7 +1598,7 @@ class HomeFragment : Fragment(), CallBackMapLatLngListener {
         )
         binding?.rvFoodCategory?.setHasFixedSize(true)
         binding?.rvFoodCategory?.isNestedScrollingEnabled = true
-        topCategoryAdapter = TopCategoryAdapter(mutableListOf(), onClickItem = {
+        topCategoryAdapter = TopCategoryAdapter(mutableListOf(),imageUrlProvider, onClickItem = {
             if (it.restaurant_category_id == 0) {
                 PreferenceUtils.isBackground = false
                 context?.startActivity(TopRelatedCategoryActivity.getIntent("Top-Rated", 0))

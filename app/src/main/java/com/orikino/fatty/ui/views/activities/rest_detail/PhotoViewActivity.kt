@@ -10,12 +10,18 @@ import coil.load
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.FragmentPhotoViewBinding
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PhotoViewActivity : AppCompatActivity() {
     private lateinit var binding : FragmentPhotoViewBinding
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     companion object Companion {
         var image : String = ""
         var mTitle : String = ""
@@ -46,7 +52,7 @@ class PhotoViewActivity : AppCompatActivity() {
 
         image.let { url ->
             if (url.isNotEmpty()) {
-                binding.ivPhoto.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(url)) {
+                binding.ivPhoto.load(imageUrlProvider.get(("/food/").plus(url))) {
                     error(R.drawable.food_default_icon)
                     placeholder(R.drawable.food_default_icon)
                 }

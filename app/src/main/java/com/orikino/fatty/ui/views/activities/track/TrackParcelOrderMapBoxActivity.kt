@@ -27,6 +27,7 @@ import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.chat.ChattingActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -36,6 +37,7 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -44,7 +46,8 @@ class TrackParcelOrderMapBoxActivity : AppCompatActivity()/* , OnMapReadyCallbac
     private lateinit var binding : ActivityTrackParcelOrderMapBoxBinding
 
     lateinit var track_parcel_order_bottom_sheet : TrackParcelOrderBottomsheetBinding
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     companion object {
         const val ORDER_ID = "order_id"
         const val IS_UPDATE_RIDER = "is-update-rider"
@@ -257,7 +260,7 @@ class TrackParcelOrderMapBoxActivity : AppCompatActivity()/* , OnMapReadyCallbac
             track_parcel_order_bottom_sheet.tvExtraCoverPrice.text =
                 "${data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator()} ${if (data.currency_id == 1) "MMK" else "¥"}"
             track_parcel_order_bottom_sheet.imvExtraCover.load(
-                PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_extra_cover/").plus(data.parcel_extra?.parcel_extra_cover_image)){
+                imageUrlProvider.get(("/parcel/parcel_extra_cover/").plus(data.parcel_extra?.parcel_extra_cover_image))){
                 error(R.drawable.ic_parcel_document_39dp)
                 placeholder(R.drawable.ic_parcel_document_39dp)
             }
@@ -286,7 +289,7 @@ class TrackParcelOrderMapBoxActivity : AppCompatActivity()/* , OnMapReadyCallbac
             viewModel.fetchRiderLocation(riderId)
             callToRider(data.rider?.rider_user_phone ?: "")
             track_parcel_order_bottom_sheet.rider.show()
-            track_parcel_order_bottom_sheet.imvRiderPhoto.load(PreferenceUtils.IMAGE_URL.plus("/rider/").plus(data.rider?.rider_image)) {
+            track_parcel_order_bottom_sheet.imvRiderPhoto.load(imageUrlProvider.get(("/rider/").plus(data.rider?.rider_image))) {
                 error(R.drawable.fatty_rounded)
                 placeholder(R.drawable.fatty_rounded)
             }

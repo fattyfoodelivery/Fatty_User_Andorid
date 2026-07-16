@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.net.http.SslError
@@ -20,6 +21,8 @@ import android.os.Message
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.ConsoleMessage
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
@@ -45,6 +48,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ActivityServiceShopWebviewBinding
@@ -143,7 +149,7 @@ class ServiceShopWebView : AppCompatActivity() {
         binding = ActivityServiceShopWebviewBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-        binding.root.fixCutoutOfEdgeToEdge(binding.root)
+        fixCutoutOfEdgeToEdge()
 
         storeId = intent.getIntExtra(STORE_ID, 0)
         storeName = intent.getStringExtra(STORE_NAME) ?: ""
@@ -175,6 +181,32 @@ class ServiceShopWebView : AppCompatActivity() {
             }
         }
         listenToViewModel()
+    }
+
+    fun fixCutoutOfEdgeToEdge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+
+            val systemInsets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+            )
+
+            val imeInsets = windowInsets.getInsets(
+                WindowInsetsCompat.Type.ime()
+            )
+
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                leftMargin = systemInsets.left
+                rightMargin = systemInsets.right
+                bottomMargin = maxOf(
+                    systemInsets.bottom,
+                    imeInsets.bottom
+                )
+            }
+
+            binding.root.setPadding(0, systemInsets.top, 0, 0)
+
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     private fun exitConfirmDialog() {
@@ -423,6 +455,12 @@ class ServiceShopWebView : AppCompatActivity() {
                         return true
                     }
 
+                    if (url.startsWith("tel:")){
+                        val intent = Intent(Intent.ACTION_DIAL, url.toUri())
+                        startActivity(intent)
+                        return true
+                    }
+
                     if (url.contains("refer?method=pwaapp")){
                         val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                         startActivity(intent)
@@ -474,11 +512,49 @@ class ServiceShopWebView : AppCompatActivity() {
                         }
                     }
 
-                    if (url.contains("accounts.google.com") ||
-                        url.contains("oauth.google.com") ||
-                        url.contains("facebook.com/login") ||
-                        url.contains("twitter.com/oauth") ||
-                        url.contains("maps.app.goo.gl")
+                    if (url.contains("facebook") ||
+                        url.contains("messenger") ||
+                        url.contains("instagram") ||
+                        url.contains("tiktok") ||
+                        url.contains("threads") ||
+                        url.contains("snapchat") ||
+                        url.contains("pinterest") ||
+                        url.contains("reddit") ||
+                        url.contains("discord") ||
+                        url.contains("weibo") ||
+                        url.contains("line.me") ||
+                        url.contains("line://oaMessage")||
+                        url.contains("telegram") ||
+                        url.contains("viber") ||
+                        url.contains("whatsapp") ||
+                        url.contains("signal") ||
+                        url.contains("wechat") ||
+                        url.contains("youtube") ||
+                        url.contains("linkedin") ||
+                        url.contains("shopee") ||
+                        url.contains("lazada") ||
+                        url.contains("amazon") ||
+                        url.contains("alibaba") ||
+                        url.contains("linkedin") ||
+                        url.contains("spotify") ||
+                        url.contains("soundcloud") ||
+                        url.contains("music.apple") ||
+                        url.contains("alibaba") ||
+                        url.contains("google.com/maps") ||
+                        url.contains("maps.app.goo.gl") ||
+                        url.contains("maps.google.com") ||
+                        url.contains("maps.apple.com") ||
+                        url.contains("https://x.com/") ||
+                        url.contains("twitter.com") ||
+                        url.contains("gmail") ||
+                        url.contains("mail.google") ||
+                        url.contains("mail.yahoo") ||
+                        url.contains("yahoo.com") ||
+                        url.contains("outlook") ||
+                        url.contains("icloud.com") ||
+                        url.contains("mail.qq") ||
+                        url.contains("qq.com") ||
+                        url.contains("t.me/")
                     ) {
                         try {
                             val intent = Intent(Intent.ACTION_VIEW, url.toUri())

@@ -175,7 +175,12 @@
 
                     <include layout="@layout/top_relate_shimmer_view" />
                 </com.facebook.shimmer.ShimmerFrameLayout>
-
+                <RelativeLayout
+                    android:id="@+id/layoutCountDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+                </RelativeLayout>
                 <HorizontalScrollView
                     android:id="@+id/service_layout"
                     android:layout_width="match_parent"
@@ -198,6 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             app:cardBackgroundColor="@color/surfacePrimary03"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
@@ -276,6 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             app:cardBackgroundColor="@color/surfacePrimary03"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
@@ -353,6 +360,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             app:cardBackgroundColor="@color/surfacePrimary03"
                             app:cardCornerRadius="16dp"
                             app:cardElevation="0dp"
@@ -449,9 +457,9 @@
                                         android:layout_width="24dp"
                                         android:layout_height="24dp"
                                         android:src="@drawable/ic_arrow_forword"
-                                        android:tint="@color/fattyPrimary"
                                         app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent" />
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:tint="@color/fattyPrimary" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </com.google.android.material.card.MaterialCardView>

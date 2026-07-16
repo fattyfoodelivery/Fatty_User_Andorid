@@ -1,6 +1,7 @@
 package com.orikino.fatty.ui.views.activities.order
 
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,7 @@ import com.orikino.fatty.domain.viewstates.OrderDetailWithRatingViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -35,12 +37,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class OrderDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrderDetailBinding
     private lateinit var orderInfoAdapter: OrderInfoAdapter
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private val viewModel: TrackOrderViewModel by viewModels()
     var orderID: String? = ""
     var fromHistory: Boolean = false
@@ -103,6 +110,7 @@ class OrderDetailActivity : AppCompatActivity() {
             state.data.data?.let { bindSendToReceiver(it) }
             state.data.data?.let { bindBillsInfo(it) }
             state.data.data?.let { bindOrderDetailInfo(it) }
+            state.data.data?.let { bindRiderInfo(it) }
 
         }
     }
@@ -131,6 +139,27 @@ class OrderDetailActivity : AppCompatActivity() {
         data.order_status?.let { localizeOrderStatus(it) }
     }
 
+    private fun bindRiderInfo(data: ActiveOrderVO) {
+        val rider = data.rider
+        if (rider != null) {
+            binding.cvRiderInfo.show()
+            binding.tvRiderName.text = rider.rider_user_name
+            Picasso.get()
+                .load(imageUrlProvider.get("/rider/".plus(rider.rider_image)))
+                .placeholder(R.drawable.fatty)
+                .error(R.drawable.fatty)
+                .into(binding.ivRiderAvatar)
+            binding.imvRiderCall.setOnClickListener {
+                val intent = android.content.Intent(android.content.Intent.ACTION_DIAL).apply {
+                    this.data = "tel:${rider.rider_user_phone}".toUri()
+                }
+                startActivity(intent)
+            }
+        } else {
+            binding.cvRiderInfo.gone()
+        }
+    }
+
 
     private fun dateFormat(createAt : String) : String {
         val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
@@ -143,7 +172,7 @@ class OrderDetailActivity : AppCompatActivity() {
     private fun bindRestaurantInfo(data: RecommendRestaurantVO) {
         binding.apply {
             Picasso.get()
-                .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+                .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
                 .placeholder(R.drawable.restaurant_default_img)
                 .error(R.drawable.restaurant_default_img)
                 .into(binding.imvRestaurant)
@@ -247,11 +276,11 @@ class OrderDetailActivity : AppCompatActivity() {
             4 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }
-            5 -> {
-                binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
-//                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
-                binding.tvOrderStatusMsg.text = orderStatus.order_status_name
-            }
+                5 -> {
+                    binding.ivOrderStatusIcon.setImageResource(R.drawable.ic_order_success_20dp)
+    //                binding.tvOrderStatusMsg.setTextColor(ContextCompat.getColor(this,R.color.success200))
+                    binding.tvOrderStatusMsg.text = orderStatus.order_status_name
+                }
             6 -> {
                 binding.tvOrderStatusMsg.text = orderStatus.order_status_name
             }

@@ -20,6 +20,12 @@ data class ServiceItem(
     @SerializedName("name")
     var name : String = "",
 
+    @SerializedName("alias")
+    var alias : String? = null,
+
+    @SerializedName("description")
+    var description : String = "",
+
     @SerializedName("sub_title")
     var sub_title : String = "",
 

@@ -12,9 +12,10 @@ import com.orikino.fatty.databinding.ItemSystemNotificationBinding
 import com.orikino.fatty.domain.responses.SystemNotificationVO
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 
-class SysNotiAdapter(context: Context,var callback: (SystemNotificationVO, String, Int) -> Unit )
+class SysNotiAdapter(context: Context, val imageUrlProvider: ImageUrlProvider,var callback: (SystemNotificationVO, String, Int) -> Unit )
     : BaseListAdapter<SystemNotificationVO, NewBaseViewHolder<SystemNotificationVO> >(context, object : DiffUtil.ItemCallback<SystemNotificationVO>(){
     override fun areItemsTheSame(
         oldItem: SystemNotificationVO,
@@ -35,16 +36,16 @@ class SysNotiAdapter(context: Context,var callback: (SystemNotificationVO, Strin
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewBaseViewHolder<SystemNotificationVO> {
 
         val binding = ItemSystemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SystemNotiViewHolder(binding)
+        return SystemNotiViewHolder(binding, imageUrlProvider)
     }
-    inner class SystemNotiViewHolder(val binding : ItemSystemNotificationBinding)
+    inner class SystemNotiViewHolder(val binding : ItemSystemNotificationBinding, imageUrlProvider: ImageUrlProvider)
         : NewBaseViewHolder<SystemNotificationVO>(binding.root) {
         override fun setData(mData: SystemNotificationVO, currentPage: Int) {
 
             binding.tvSystemBody.text = mData.title
             binding.tvDate.text = mData.time
             if (mData.image.isNotEmpty()){
-                binding.ivNotification.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(mData.image)) {
+                binding.ivNotification.load(imageUrlProvider.get(("/food/").plus(mData.image))) {
                     error(R.drawable.fatty_tran_logo)
                 }            }
             if (mData.read) {

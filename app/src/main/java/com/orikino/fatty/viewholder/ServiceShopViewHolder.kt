@@ -6,6 +6,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemServiceShopBinding
 import com.orikino.fatty.domain.responses.ShopData
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -17,6 +18,7 @@ import java.util.Locale
 
 class ServiceShopViewHolder(
     val binding: ItemServiceShopBinding,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (ShopData, String, String) -> Unit
 ) : NewBaseViewHolder<ShopData>(binding.root) {
     override fun setData(
@@ -24,7 +26,7 @@ class ServiceShopViewHolder(
         currentPage: Int
     ) {
         Picasso.get()
-            .load(PreferenceUtils.IMAGE_URL.plus("/store-service/store/").plus(mData.image))
+            .load(imageUrlProvider.get(("/store-service/store/").plus(mData.image)))
             .error(R.drawable.ic_shop_loading)
             .placeholder(R.drawable.ic_shop_loading)
             .into(binding.ivShop)
@@ -33,11 +35,11 @@ class ServiceShopViewHolder(
         val status = getStoreOpenStatus(binding.root.context, mData.open_time, mData.close_time)
         binding.tvShopStatus.text = status
         if (status == binding.root.context.getString(R.string.txt_closed_now)){
-            binding.layoutShopRoot.alpha = 0.5f
+            binding.ivShop.alpha = 0.5f
             binding.ivShopClose.show()
             binding.tvCloseNow.show()
         }else{
-            binding.layoutShopRoot.alpha = 1f
+            binding.ivShop.alpha = 1f
             binding.ivShopClose.gone()
             binding.tvCloseNow.gone()
         }

@@ -19,6 +19,7 @@ import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.delegate.ItemIdDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -27,13 +28,15 @@ import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
 
     private lateinit var foodCategoryBinding: ActivityFoodCategoryBinding
     private lateinit var topFoodCategoryAdapter: TopFoodCategoryAdapter
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private val viewModel: CategoryViewModel by viewModels()
 
 
@@ -143,7 +146,7 @@ class FoodCategoryActivity : AppCompatActivity() , ItemIdDelegate {
         )
         foodCategoryBinding.rvFoodCategory.setHasFixedSize(true)
         foodCategoryBinding.rvFoodCategory.isNestedScrollingEnabled = true
-        topFoodCategoryAdapter = TopFoodCategoryAdapter(FattyApp.getInstance()){
+        topFoodCategoryAdapter = TopFoodCategoryAdapter(FattyApp.getInstance(), imageUrlProvider = imageUrlProvider ){
             //it.category_assign_id
             //startActivity(TopRelatedCategoryActivity.getIntent(it.toDefaultCategoryName().toString()))
             /*startActivity<TopRelatedCategoryActivity>(

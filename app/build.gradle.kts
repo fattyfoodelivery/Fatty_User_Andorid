@@ -16,8 +16,8 @@ android {
         applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 36
-        versionCode = 31
-        versionName = "3.0.0"
+        versionCode = 34
+        versionName = "4.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,18 +26,18 @@ android {
         multiDexEnabled = true
         resourceConfigurations.addAll(listOf("my", "en","zh"))
     }
-
     flavorDimensions += "environment"
-
     productFlavors {
         create("playstore") {
             dimension = "environment"
             applicationId = "com.joy.food.delivery"
             resValue("string", "app_name", "Fatty Playstore")
+            buildConfigField ("String", "DEFAULT_IMAGE_BASE_URL","\"https://bucket.fattyfooddeli.com/testing\"")
         }
         create("apkpure") {
             dimension = "environment"
             resValue("string", "app_name", "Fatty Food")
+            buildConfigField ("String", "DEFAULT_IMAGE_BASE_URL","\"https://bucket.fattyfooddeli.com/testing\"")
         }
     }
 

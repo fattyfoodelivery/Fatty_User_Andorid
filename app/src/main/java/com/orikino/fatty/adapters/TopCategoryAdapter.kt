@@ -1,6 +1,7 @@
 package com.orikino.fatty.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +11,11 @@ import com.orikino.fatty.databinding.ItemTopFoodCategoryBinding
 import com.orikino.fatty.databinding.ItemViewMoreCategoryBinding
 import com.orikino.fatty.domain.model.*
 import com.orikino.fatty.ui.views.activities.category.FoodCategoryActivity
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultCategoryName
 
-class TopCategoryAdapter(var dataList : MutableList<CategoryVO>, var onClickMore : () -> Unit, var onClickItem : (CategoryVO) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TopCategoryAdapter(var dataList : MutableList<CategoryVO>, val imageUrlProvider: ImageUrlProvider, var onClickMore : () -> Unit, var onClickItem : (CategoryVO) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var mCtx : Context? = null
     val VIEW_TYPE_ONE = 1
@@ -68,8 +70,10 @@ class TopCategoryAdapter(var dataList : MutableList<CategoryVO>, var onClickMore
         fun bindView(item : CategoryVO) {
             binding.tvFoodName.text = item.toDefaultCategoryName()
 
+            Log.d("IMAGE", imageUrlProvider.get("/category/"+item.restaurant_category_image))
+
             binding.foodImage.load(
-                PreferenceUtils.IMAGE_URL+"/category/"+item.restaurant_category_image
+                imageUrlProvider.get("/category/"+item.restaurant_category_image)
             ) {
                 error(R.drawable.food_default_icon)
                 placeholder(R.drawable.food_default_icon)

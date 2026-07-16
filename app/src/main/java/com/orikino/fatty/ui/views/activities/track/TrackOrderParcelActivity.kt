@@ -21,6 +21,7 @@ import com.orikino.fatty.service.FattyPushyService
 import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.delivery_rating.DeliveryRatingActivity
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -33,12 +34,16 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TrackOrderParcelActivity : AppCompatActivity() {
 
 
     private lateinit var _binding : ActivityTrackOrderParcelBinding
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     private val viewModel : TrackOrderViewModel by viewModels()
 
@@ -380,7 +385,7 @@ class TrackOrderParcelActivity : AppCompatActivity() {
 
     private fun setUpBindRiderInfo(data: ActiveOrderVO) {
         _binding.tvRiderName.text = data.rider?.rider_user_name
-        _binding.imvRider.load(PreferenceUtils.IMAGE_URL.plus("/rider/").plus(data.rider?.rider_image)) {
+        _binding.imvRider.load(imageUrlProvider.get(("/rider/").plus(data.rider?.rider_image))) {
             error(R.drawable.fatty_rounded)
             placeholder(R.drawable.fatty_rounded)
         }

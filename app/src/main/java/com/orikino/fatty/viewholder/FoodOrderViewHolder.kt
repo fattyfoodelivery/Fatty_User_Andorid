@@ -8,6 +8,7 @@ import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemFoodOrderCheckoutBinding
 import com.orikino.fatty.domain.model.CreateFoodVO
 import com.orikino.fatty.ui.views.customview.CustomSubItemView
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -16,6 +17,7 @@ import com.orikino.fatty.utils.helper.toThousandSeparator
 
 class FoodOrderViewHolder(
     var _bind : ItemFoodOrderCheckoutBinding,
+    private val imageUrlProvider: ImageUrlProvider,
     var callback: (CreateFoodVO,str : String,pos : Int) -> Unit,
 ) : BaseViewHolder<CreateFoodVO>(_bind.root)  {
 
@@ -29,7 +31,7 @@ class FoodOrderViewHolder(
         } else {
             _bind.tvAddMore.gone()
         }
-        _bind.imvFoodItem.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image)) {
+        _bind.imvFoodItem.load(imageUrlProvider.get(("/food/").plus(data.food_image))) {
             error(R.drawable.ic_error_food)
             placeholder(R.drawable.ic_error_food)
         }

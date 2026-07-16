@@ -8,10 +8,11 @@ import com.orikino.fatty.databinding.ItemOrderHistoriesBinding
 import com.orikino.fatty.domain.responses.MyOrderHistoryResponse
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.viewholder.BaseViewHolder
 import com.orikino.fatty.viewholder.OrderHistoryViewHolder
 
-class OrderHistoryAdapter(context: Context, var callback : (MyOrderHistoryResponse.Data.Data, str : String, pos : Int) -> Unit) : BaseListAdapter< MyOrderHistoryResponse.Data.Data, NewBaseViewHolder<MyOrderHistoryResponse.Data.Data>>(context, object : DiffUtil.ItemCallback<MyOrderHistoryResponse.Data.Data>() {
+class OrderHistoryAdapter(context: Context, val imageUrlProvider: ImageUrlProvider, var callback : (MyOrderHistoryResponse.Data.Data, str : String, pos : Int) -> Unit) : BaseListAdapter< MyOrderHistoryResponse.Data.Data, NewBaseViewHolder<MyOrderHistoryResponse.Data.Data>>(context, object : DiffUtil.ItemCallback<MyOrderHistoryResponse.Data.Data>() {
     override fun areItemsTheSame(
         oldItem: MyOrderHistoryResponse.Data.Data,
         newItem: MyOrderHistoryResponse.Data.Data
@@ -33,6 +34,6 @@ class OrderHistoryAdapter(context: Context, var callback : (MyOrderHistoryRespon
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewBaseViewHolder<MyOrderHistoryResponse.Data.Data> {
 
         binding = ItemOrderHistoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return OrderHistoryViewHolder(binding,callback)
+        return OrderHistoryViewHolder(binding,imageUrlProvider,callback)
     }
 }

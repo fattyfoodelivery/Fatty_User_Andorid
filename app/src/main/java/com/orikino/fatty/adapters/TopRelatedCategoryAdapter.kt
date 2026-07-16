@@ -12,6 +12,7 @@ import com.orikino.fatty.databinding.ViewItemRestaurantsBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso
 
 class TopRelatedCategoryAdapter(
     private var context: Context,
+    private val imageUrlProvider: ImageUrlProvider,
     val callback: (RecommendRestaurantVO, String, Int) -> Unit
 ) : BaseListAdapter<RecommendRestaurantVO, NewBaseViewHolder<RecommendRestaurantVO> >(
     context, object : androidx.recyclerview.widget.DiffUtil.ItemCallback<RecommendRestaurantVO>() {
@@ -53,7 +55,7 @@ class TopRelatedCategoryAdapter(
             LOADING_VIEW -> LoadingViewHolder(
                 LayoutLoadingViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> TopRelatedViewHolder(
-                ViewItemRestaurantsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ViewItemRestaurantsBinding.inflate(LayoutInflater.from(parent.context), parent, false), imageUrlProvider
             )
         }
     }
@@ -75,6 +77,7 @@ class TopRelatedCategoryAdapter(
 
     inner class TopRelatedViewHolder(
         private val binding: ViewItemRestaurantsBinding,
+        private val imageUrlProvider: ImageUrlProvider,
     ) : NewBaseViewHolder<RecommendRestaurantVO>(
         binding.root
     ) {
@@ -93,7 +96,7 @@ class TopRelatedCategoryAdapter(
             binding.tvDurationDistance.text = "${data.distance_time}mins ・ ${data.distance}km"
 
             Picasso.get()
-                .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+                .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
                 .error(R.drawable.restaurant_default_img)
                 .placeholder(R.drawable.restaurant_default_img)
                 .into(binding.imvRestaurant)

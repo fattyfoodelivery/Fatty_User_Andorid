@@ -10,6 +10,7 @@ import com.orikino.fatty.databinding.ItemAddFoodBinding
 import com.orikino.fatty.domain.model.FoodVO
 import com.orikino.fatty.domain.model.MenuVO
 import com.orikino.fatty.utils.ClickGuard
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.toDefaultFoodName
 import com.orikino.fatty.utils.helper.toDefaultMenuName
@@ -17,6 +18,7 @@ import com.orikino.fatty.viewholder.BaseViewHolder
 
 class RestaurantDetailActiveFoodAdapter(
     val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     val callback: (FoodVO, String, Int) -> Unit
 ) : BaseAdapter<RestaurantDetailActiveFoodAdapter.RestaurantDetailActiveFoodViewHolder, FoodVO>(context) {
     private var menu : MenuVO? = null
@@ -52,7 +54,7 @@ class RestaurantDetailActiveFoodAdapter(
                 binding.tvPrice.text = data.food_price?.plus(" Yuan")
             }*/
             binding.tvFoodCategory.text = menu.toDefaultMenuName()
-            binding.imvFood.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(data.food_image)) {
+            binding.imvFood.load(imageUrlProvider.get(("/food/").plus(data.food_image))) {
                 error(R.drawable.ic_error_food)
                 placeholder(R.drawable.ic_error_food)
             }

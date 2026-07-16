@@ -6,6 +6,7 @@ import com.orikino.fatty.databinding.ViewItemRestaurantsBinding
 import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.model.WishListVO
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -13,19 +14,34 @@ import com.orikino.fatty.utils.helper.toDefaultRestaurantAddress
 import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.squareup.picasso.Picasso
+import java.util.Locale
 
 class WishViewHolder(
     val binding: ViewItemRestaurantsBinding,
+    val imageUrlProvider: ImageUrlProvider,
     val callback: (RecommendRestaurantVO, String, Int) -> Unit
 ) : NewBaseViewHolder<WishListVO>(binding.root) {
     override fun setData(mData: WishListVO, currentPage: Int) {
+
         mData.restaurant?.let { data ->
-            binding.tvDurationDistance.text = "${data.distance_time}mins ・ ${data.distance}km"
+            val timeInMinutes = data.distance_time
+            val distanceText = String.format(Locale.US, "%.2fkm", data.distance)
+            if (timeInMinutes >= 60) {
+                val hours = timeInMinutes / 60
+                val remainingMinutes = timeInMinutes % 60
+                if (remainingMinutes == 0) {
+                    binding.tvDurationDistance.text = "${hours}hr ・ ${distanceText}"
+                } else {
+                    binding.tvDurationDistance.text = "${hours}hr ${remainingMinutes}mins ・ ${distanceText}"
+                }
+            } else {
+                binding.tvDurationDistance.text = "${timeInMinutes}mins ・ ${distanceText}"
+            }
             binding.tvRestaurantName.text = data.toDefaultRestaurantName()
             binding.tvRestaurantCategoryName.text = data.toDefaultRestaurantCategoryName()
             binding.tvAddress.text = data.toDefaultRestaurantAddress()
             Picasso.get()
-                .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+                .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
                 .error(R.drawable.restaurant_default_img)
                 .placeholder(R.drawable.restaurant_default_img)
                 .into(binding.imvRestaurant)

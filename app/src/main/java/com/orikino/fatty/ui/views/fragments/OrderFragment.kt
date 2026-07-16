@@ -31,6 +31,7 @@ import com.orikino.fatty.ui.views.activities.parcel.ParcelDetailActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.ui.views.activities.track.TrackOrderParcelActivity
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -40,6 +41,7 @@ import com.orikino.fatty.utils.helper.showDatePickerDialog
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.viewpod.EmptyViewPodDelegate
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OrderFragment : Fragment() , EmptyViewPodDelegate{
@@ -47,7 +49,8 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
 
     private var orderBinding : FragmentOrderBinding? = null
     private var dialogBinding : ItemShowRatingViewDialogBinding? = null
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var orderHistoryAdapter : OrderHistoryAdapter? = null
 
     private val viewModel : OrderViewModel by viewModels()
@@ -339,7 +342,7 @@ class OrderFragment : Fragment() , EmptyViewPodDelegate{
         )
         orderBinding?.rvOrder?.setHasFixedSize(true)
         orderBinding?.rvOrder?.isNestedScrollingEnabled = true
-        orderHistoryAdapter = OrderHistoryAdapter(FattyApp.getInstance()) { data ,str , pos ->
+        orderHistoryAdapter = OrderHistoryAdapter(FattyApp.getInstance(), imageUrlProvider = imageUrlProvider ) { data ,str , pos ->
             when(str) {
                 "cancel" -> itemActionCancelClick(data)
                 "track" -> itemActionTrackClick(data)

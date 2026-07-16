@@ -53,6 +53,7 @@ import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -69,6 +70,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
@@ -89,25 +91,26 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private var addressId = 0
     private var address = ""
     private var addressType = ""
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var abnormalFee : Double = 0.0
 
     private var isRemove = false
 
     // Dev
-     private var signKey = "Fattyfood123456"
+     //private var signKey = "Fattyfood123456"
     // Pro
-    //private var signKey = "85bb9b77fa45f1d85cc3e70ee0e3e97c"
+    private var signKey = "85bb9b77fa45f1d85cc3e70ee0e3e97c"
 
     // Dev
-     private var merchantCode = "200199"
+     //private var merchantCode = "200199"
     // Production
-    //private var merchantCode = "200135"
+    private var merchantCode = "200135"
 
     // Dev
-     private var appId = "kpa5230efdfc0b4fc7a69b5ed348b597"
+     //private var appId = "kpa5230efdfc0b4fc7a69b5ed348b597"
     // Pro
-    //private var appId = "kpbdd5ce1083eb4eb0b1d3b1effb0137"
+    private var appId = "kpbdd5ce1083eb4eb0b1d3b1effb0137"
     private var nonceStr = ""
     private var signType = "SHA256"
     private var orderInfo = ""
@@ -315,7 +318,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private fun bindRestInfo() {
         binding.tvRestName.text = PreferenceUtils.readRestaurant()?.toDefaultRestaurantName()
         Picasso.get()
-            .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(PreferenceUtils.readRestaurant()?.restaurant_image))
+            .load(imageUrlProvider.get(("/restaurant/").plus(PreferenceUtils.readRestaurant()?.restaurant_image)))
             .placeholder(R.drawable.restaurant_default_img)
             .error(R.drawable.restaurant_default_img)
             .into(binding.ivRestaurant)
@@ -1165,7 +1168,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
         )
         binding.rvFoodItem.setHasFixedSize(true)
         binding.rvFoodItem.isNestedScrollingEnabled = true
-        foodOrderAdapter = FoodOrderAdapter(FattyApp.getInstance()) { data,str,pos ->
+        foodOrderAdapter = FoodOrderAdapter(FattyApp.getInstance(), imageUrlProvider) { data,str,pos ->
             when(str) {
                 "add_more" -> {
                     PreferenceUtils.needToShow = false

@@ -3,10 +3,12 @@ package com.orikino.fatty.ui.views.fragments
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -43,6 +45,7 @@ import com.orikino.fatty.ui.views.activities.account_setting.privacy.PrivacyActi
 import com.orikino.fatty.ui.views.activities.account_setting.term_condition.TermAndConditionActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.CustomToast
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
@@ -50,6 +53,7 @@ import com.orikino.fatty.utils.helper.show
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -57,7 +61,8 @@ class AccountFragment : Fragment() {
 
 
     private var accountBinding : FragmentAccountBinding? = null
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private val viewModel : AboutViewModel by viewModels()
 
     private var isUpdate = false
@@ -147,8 +152,19 @@ class AccountFragment : Fragment() {
         subscribeUI()
         setUpEditProfile()
         navigateToPages()
-
-
+        //get version number
+        try {
+            val pInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requireContext().packageManager.getPackageInfo(requireContext().packageName , PackageManager.PackageInfoFlags.of(0L))
+            } else {
+                @Suppress("DEPRECATION") requireContext().packageManager.getPackageInfo(requireContext().packageName , 0)
+            }
+            val version = pInfo.versionName
+            //binding.tvVersion.text = "Version $version"
+            accountBinding?.tvVersion?.text = getString(R.string.version, version)
+        } catch (e : PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
     override fun onResume() {
@@ -178,8 +194,8 @@ class AccountFragment : Fragment() {
             accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
             accountBinding?.tvUserName?.text = PreferenceUtils.readUserVO().customer_name
             accountBinding?.tvUserPhone?.text = PreferenceUtils.readUserVO().customer_phone
-            Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
-            accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
+            Log.d("CUSTOMER_IMAGE",imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image)))
+            accountBinding?.imvProfile?.load(imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image))) {
                 error(R.drawable.ic_profile_placeholder)
                 placeholder(R.drawable.ic_profile_placeholder)
             }
@@ -195,8 +211,8 @@ class AccountFragment : Fragment() {
             accountBinding?.ivCurrency?.text = PreferenceUtils.readCurrCurrency()?.currency_symbol
             accountBinding?.tvUserName?.text = PreferenceUtils.readUserVO().customer_name
             accountBinding?.tvUserPhone?.text =PreferenceUtils.readUserVO().customer_phone
-            Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
-            accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)) {
+            Log.d("CUSTOMER_IMAGE",imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image)))
+            accountBinding?.imvProfile?.load(imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image))) {
                 error(R.drawable.ic_profile_placeholder)
                 placeholder(R.drawable.ic_profile_placeholder)
             }
@@ -245,8 +261,8 @@ class AccountFragment : Fragment() {
     }
 
     private fun updateUserPhoto() {
-        Log.d("CUSTOMER_IMAGE",PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image))
-        accountBinding?.imvProfile?.load(PreferenceUtils.IMAGE_URL.plus("/customer/").plus(PreferenceUtils.readUserVO().image)){
+        Log.d("CUSTOMER_IMAGE",imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image)))
+        accountBinding?.imvProfile?.load(imageUrlProvider.get(("/customer/").plus(PreferenceUtils.readUserVO().image))){
             error(R.drawable.ic_profile_placeholder)
             placeholder(R.drawable.ic_profile_placeholder)
         }

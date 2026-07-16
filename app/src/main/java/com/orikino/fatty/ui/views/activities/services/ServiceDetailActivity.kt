@@ -45,6 +45,7 @@ import com.orikino.fatty.ui.views.fragments.HomeFragment
 import com.orikino.fatty.utils.AccountRestrictedDialog
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -59,12 +60,15 @@ import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
 class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener, SmartScrollListener.OnSmartScrollListener {
     private lateinit var binding : ActivityServiceDetailBinding
     private val viewModel : ServicesViewModel by viewModels()
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var verticalOffsets: Int = 0
     private var searchQuery : String? = null
 
@@ -77,7 +81,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
 
     private var currentSelectedCategory : Int? = null
 
-    private var currentFilter : String = "recommended"
+    private var currentFilter : String = "default"
 
     companion object{
         const val SERVICE_ID = "SERVICE_ID"
@@ -123,7 +127,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
         binding.tvToolbarTitleRestName.text = serviceName
         binding.tvRestaurantDesc.text = serviceDesc
         Picasso.get()
-            .load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_type/").plus(serviceCover))
+            .load(imageUrlProvider.get(("/store-service/service_type/").plus(serviceCover)))
             .error(R.drawable.ic_service_cover)
             .placeholder(R.drawable.ic_service_cover)
             .into(binding.imvRestaurant)
@@ -142,7 +146,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
     }
 
     private fun setUpRecyclerView(){
-        shopAdapter = ServiceShopsAdapter(this, { data, type, closeStatus ->
+        shopAdapter = ServiceShopsAdapter(this,imageUrlProvider, { data, type, closeStatus ->
             when(type){
                 "cv_shop" -> {
                     if (PreferenceUtils.readUserVO().customer_id == 0) {
@@ -289,7 +293,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
         if (currentList.isNotEmpty() && currentList[currentList.size-1].isLoadingView){
             currentList.removeAt(currentList.size-1)
         }
-        currentList.addAll(state.data.data!!)
+        state.data.data?.let { currentList.addAll(it) }
         shopAdapter?.submitList(state.data.data)
         if (state.data.data.isNullOrEmpty()){
             if (searchQuery.isNullOrEmpty()){
@@ -408,7 +412,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
             val bottomSheet = FilterBottomSheetFragment.newInstance(object : FilterDelegate{
                 override fun onClickFilterApply(type: String) {
                     currentFilter = type
-                    if (currentFilter == "nearby"){
+                    if (currentFilter == "nearby" || currentFilter == "recommended"){
                         binding.filterDot.show()
                     }else{
                         binding.filterDot.gone()
@@ -447,7 +451,7 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
             }
         }
 
-        if (currentFilter == "nearby"){
+        if (currentFilter == "nearby" || currentFilter == "recommended"){
             binding.filterDot.show()
         }else{
             binding.filterDot.gone()
@@ -472,8 +476,8 @@ class ServiceDetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedL
             val tabBinding = CustomTabItemBinding.inflate(layoutInflater)
             tabBinding.tabIcon.setImageResource(R.drawable.ic_tab_sample)
             tabBinding.tabText.text = tab.name
-            Log.d("APP_TAG", PreferenceUtils.IMAGE_URL.plus("/store-service/service_category/").plus(tab.image))
-            tabBinding.tabIcon.load(PreferenceUtils.IMAGE_URL.plus("/store-service/service_category/").plus(tab.image)) {
+            Log.d("APP_TAG", imageUrlProvider.get(("/store-service/service_category/").plus(tab.image)))
+            tabBinding.tabIcon.load(imageUrlProvider.get(("/store-service/service_category/").plus(tab.image))) {
                 placeholder(R.drawable.ic_category_loading)
                 error(R.drawable.ic_category_loading)
             }

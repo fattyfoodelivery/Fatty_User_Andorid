@@ -78,9 +78,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlin.text.isNotEmpty
 import androidx.core.graphics.toColorInt
 import com.orikino.fatty.ui.views.activities.base.MainActivity
+import com.orikino.fatty.ui.views.dialog.SearchFilterDialogFragment
 import com.orikino.fatty.ui.views.fragments.HomeFragment
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
+import javax.inject.Inject
 import kotlin.collections.map
 import kotlin.collections.toList
 
@@ -88,21 +91,23 @@ import kotlin.collections.toList
 class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private lateinit var searchBinding: ActivitySearchBinding
-    lateinit var sheetBehavior: BottomSheetBehavior<*>
     private val viewModel: SearchViewModel by viewModels()
     lateinit var restaurantAdapter: RestaurantAdapter
     private lateinit var mEmptyViewPod: EmptyViewPod
     private var restaurantInfO = FoodMenuByRestaurantVO()
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     lateinit var foodAdapter: FoodAdapter
     var keywords: MutableList<String> = mutableListOf()
     var vType : Int = 0
     var foodSize : Int = 0
     var restSize : Int = 0
+    var topMargin : Int = 0
     private var searchQuery : String = ""
-    private var lunchCategory : MutableList<SearchFilterSubCategoryVO>? = null
-    private var dissertCategory : MutableList<SearchFilterSubCategoryVO>? = null
-    private var drinkCategory : MutableList<SearchFilterSubCategoryVO>? = null
     private var isResume = false
+
+    val dialog = SearchFilterDialogFragment()
 
     companion object {
 
@@ -121,7 +126,9 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         searchBinding = ActivitySearchBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(searchBinding.root)
-        searchBinding.root.fixCutoutOfEdgeToEdge(searchBinding.root)
+        searchBinding.root.fixCutoutOfEdgeToEdge(searchBinding.root){
+            topMargin = it
+        }
 
         setUpSearchEdt()
         setUpRestaurantList()
@@ -145,7 +152,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
     override fun onResume() {
         super.onResume()
         checkGPS()
-
+        viewModel.fetchCategoryFilterSearch()
         if (viewModel.subList.isNotEmpty()) {
             val result = Gson().toJson(viewModel.subList)
             PreferenceUtils.readUserVO().customer_id?.let {
@@ -291,15 +298,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         }*/
 
         viewModel.categoryLiveDataList.observe(this, Observer {
-            searchBinding.filterView.tvLucnch.text = it[0].main_category
-            searchBinding.filterView.tvDessert.text = it[1].main_category
-            searchBinding.filterView.tvDrink.text = it[2].main_category
-            lunchCategory = it[0].sub_category
-            dissertCategory = it[1].sub_category
-            drinkCategory = it[2].sub_category
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
-            bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
+            dialog.setData(it, viewModel.subList, topMargin)
         })
 
 
@@ -315,16 +314,16 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private fun renderOnLoadFilter() {
         LoadingProgressDialog.showLoadingProgress(this)
-        searchBinding.filterView.swipeRefresh.isRefreshing = true
+       // searchBinding.filterView.swipeRefresh.isRefreshing = true
     }
 
     private fun renderOnFailFilter(state: FilterViewState.OnFailFilter) {
         LoadingProgressDialog.hideLoadingProgress()
-        searchBinding.filterView.swipeRefresh.isRefreshing = true
+        //searchBinding.filterView.swipeRefresh.isRefreshing = true
     }
     private fun renderOnSuccessFilter(state: FilterViewState.OnSuccessFilter){
         LoadingProgressDialog.hideLoadingProgress()
-        searchBinding.filterView.swipeRefresh.isRefreshing = false
+        //searchBinding.filterView.swipeRefresh.isRefreshing = false
         if (state.data.success) {
             restSize = state.data.data.size
             setUpFilterRestaurants(state.data.data)
@@ -429,62 +428,58 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private fun filter() {
         searchBinding.ivFilter.setOnClickListener {
-            searchBinding.filterView.swipeRefresh.isRefreshing = false
-            searchBinding.filterView.tvTitleLb.text = resources.getString(R.string.filter)
-            searchBinding.edtSearch.clearFocus()
-            viewModel.fetchCategoryFilterSearch()
-            searchBinding.filterView.root.show()
-            sheetBehavior = BottomSheetBehavior.from(searchBinding.filterView.bottomSheetFilter)
-            sheetBehavior.isDraggable = false
-            if (sheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                searchBinding.filterView.root.gone()
-                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-            searchBinding.filterView.btnClose.setOnClickListener {
-                searchBinding.filterView.root.gone()
-                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                if (viewModel.subList.isEmpty()){
-                    cleanSearch()
-                    viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
-                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
-                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
-                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
-                }
-            }
-            searchBinding.filterView.btnApply.setOnClickListener {
-                showConfirmDialog()
-            }
-            searchBinding.filterView.btnCancel.setOnClickListener {
-                viewModel.subList.clear()
-                cleanSearch()
-                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
-                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
-                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
-                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
-            }
-            searchBinding.filterView.swipeRefresh.setOnRefreshListener {
-                searchBinding.filterView.swipeRefresh.isRefreshing = true
-                filterApply()
 
-            }
-        }
-    }
-
-    private fun showConfirmDialog() {
-        val title = getString(R.string.txt_apply_filters)
-        val desc =
-            getString(R.string.txt_if_you_exit_without_applying_the_filter_you_selected_won_t_work)
-        val btn = getString(R.string.apply_filter)
-
-        ConfirmDialog.Builder(this@SearchActivity,title,desc,btn,
-            callback = {
+            dialog.onApplyClick = { subList ->
+                viewModel.subList = subList
                 viewModel.isFilter = true
                 filterApply()
             }
-        ).show(supportFragmentManager, SearchActivity::class.java.simpleName)
+
+            dialog.onCancelClick = {
+
+                viewModel.subList.clear()
+                cleanSearch()
+                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+            }
+            dialog.show(supportFragmentManager, "FilterDialog")
+//            searchBinding.filterView.tvTitleLb.text = resources.getString(R.string.filter)
+//            searchBinding.edtSearch.clearFocus()
+//
+//            searchBinding.filterView.root.show()
+//            sheetBehavior = BottomSheetBehavior.from(searchBinding.filterView.bottomSheetFilter)
+//            sheetBehavior.isDraggable = false
+//            if (sheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+//                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            } else {
+//                searchBinding.filterView.root.gone()
+//                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//            }
+//            searchBinding.filterView.btnClose.setOnClickListener {
+//                searchBinding.filterView.root.gone()
+//                sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//                if (viewModel.subList.isEmpty()){
+//                    cleanSearch()
+//                    viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+//                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
+//                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
+//                    bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
+//                }
+//            }
+//            searchBinding.filterView.btnApply.setOnClickListener {
+//                showConfirmDialog()
+//            }
+//            searchBinding.filterView.btnCancel.setOnClickListener {
+//                viewModel.subList.clear()
+//                cleanSearch()
+//                viewModel.filterRestaurantListLiveData.postValue(mutableListOf())
+//                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupLunch,lunchCategory!!)
+//                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDessert,dissertCategory!!)
+//                bindFilterChip(chipGroup =  searchBinding.filterView.chipGroupDrink,drinkCategory!!)
+//            }
+        }
     }
+
+
 
     private fun filterApply() {
         clearSelectedChips()
@@ -508,10 +503,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
                 }
             }
         }
-
-        sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        searchBinding.filterView.root.gone()
-
     }
 
     private fun AppCompatEditText.textInputAsFlow() = callbackFlow {
@@ -519,66 +510,6 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
             this.trySend(textInput).isSuccess
         }
         awaitClose { this@textInputAsFlow.removeTextChangedListener(watcher) }
-    }
-
-
-    private fun bindFilterChip(chipGroup: ChipGroup, filterList: MutableList<SearchFilterSubCategoryVO>) {
-
-        chipGroup.removeAllViews()
-
-        val states = arrayOf(
-            intArrayOf(-android.R.attr.state_checked),
-            intArrayOf(android.R.attr.state_checked)
-        )
-        val colors = intArrayOf(
-            ContextCompat.getColor(this, R.color.surfaceUnread),
-            ContextCompat.getColor(this, R.color.fattyPrimary)
-        )
-
-        val colorsStateList = ColorStateList(states, colors)
-        if (viewModel.subList.isEmpty()){
-            searchBinding.filterView.btnApply.isEnabled = false
-            searchBinding.filterView.btnApply.alpha = 0.5f
-        }
-        for (sub in filterList.indices) {
-            val chips = chipGroup.context.createChip(filterList[sub].category_name)
-            if (viewModel.subList.contains(FilterDishVO(filterList[sub].restaurant_category_id))){
-                chips.isChecked = true
-                chips.setTextColor(ColorStateList.valueOf("#E1E1E1".toColorInt()))
-                chips.chipBackgroundColor = colorsStateList
-                chips.chipStrokeWidth = 1f
-                chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
-            }
-            chips.setOnCheckedChangeListener { compoundButton, b ->
-                if (b) {
-                    chips.setTextColor(ColorStateList.valueOf("#E1E1E1".toColorInt()))
-                    chips.chipBackgroundColor = colorsStateList
-                    chips.chipStrokeWidth = 1f
-                    chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
-                    viewModel.subList.add(FilterDishVO(filterList[sub].restaurant_category_id))
-                    searchBinding.filterView.btnApply.isEnabled = true
-                    searchBinding.filterView.btnApply.alpha = 1f
-                } else {
-                    chips.setTextColor(ColorStateList.valueOf("#2E2E2E".toColorInt()))
-                    chips.chipStrokeWidth = 1f
-                    chips.chipStrokeColor = ColorStateList.valueOf("#E1E1E1".toColorInt())
-                    chips.chipBackgroundColor = colorsStateList
-                    viewModel.subList.remove(FilterDishVO(filterList[sub].restaurant_category_id))
-                    if (viewModel.subList.isEmpty()){
-                        searchBinding.filterView.btnApply.isEnabled = false
-                        searchBinding.filterView.btnApply.alpha = 0.5f
-                    }
-                }
-                if (viewModel.subList.isNotEmpty()){
-                    searchBinding.filterView.tvTitleLb.text =
-                        "${resources.getString(R.string.filter)} (${viewModel.subList.size})"
-                }else{
-                    searchBinding.filterView.tvTitleLb.text = resources.getString(R.string.filter)
-                }
-
-            }
-            chipGroup.addView(chips)
-        }
     }
 
     private fun showEmptyView(msg : String) {
@@ -656,7 +587,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
 
     private fun renderOnSuccessFilterRestaurant(state : SearchViewState.OnSuccessFilterRestaurant) {
         LoadingProgressDialog.hideLoadingProgress()
-        searchBinding.filterView.swipeRefresh.isRefreshing = false
+        //searchBinding.filterView.swipeRefresh.isRefreshing = false
         if (state.data.success) {
 
             searchBinding.llRecentView.gone()
@@ -735,7 +666,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         )
         searchBinding.rvRestaurant.setHasFixedSize(true)
         searchBinding.rvRestaurant.isNestedScrollingEnabled = true
-        restaurantAdapter = RestaurantAdapter(FattyApp.getInstance()) { data,str,pos ->
+        restaurantAdapter = RestaurantAdapter(FattyApp.getInstance(),imageUrlProvider) { data,str,pos ->
 
             when(str) {
                 "fav" -> {
@@ -786,7 +717,7 @@ class SearchActivity : AppCompatActivity(), AddOnDelegate {
         )
         searchBinding.rvFood.setHasFixedSize(true)
         searchBinding.rvFood.isNestedScrollingEnabled = true
-        foodAdapter = FoodAdapter(this) { data,str,pos ->
+        foodAdapter = FoodAdapter(this, imageUrlProvider) { data,str,pos ->
             when(str){
                 "root" -> {
                     val intent = Intent(this,RestaurantDetailViewActivity::class.java)

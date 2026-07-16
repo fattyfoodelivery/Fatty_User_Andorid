@@ -31,6 +31,7 @@ import com.orikino.fatty.ui.views.activities.base.MainActivity
 import com.orikino.fatty.ui.views.activities.chat.ChattingActivity
 import com.orikino.fatty.ui.views.activities.splash.SplashActivity
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -41,6 +42,7 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -49,6 +51,9 @@ class TrackOrderMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ {
 
     private lateinit var binding : ActivityTrackOrderMapBoxBinding
     lateinit var tBind: TrackOrderBottomsheetBinding
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     companion object {
         const val ORDER_ID = "order_id"
@@ -261,7 +266,7 @@ class TrackOrderMapBoxActivity : AppCompatActivity()/*, OnMapReadyCallback*/ {
             tBind.rider.show()
             callToRider(data.rider?.rider_user_phone ?: "")
 
-            tBind.imvRiderPhoto.load(PreferenceUtils.IMAGE_URL.plus("/rider/").plus(data.rider?.rider_image)) {
+            tBind.imvRiderPhoto.load(imageUrlProvider.get(("/rider/").plus(data.rider?.rider_image))) {
                 error(R.drawable.fatty_rounded)
                 placeholder(R.drawable.fatty_rounded)
             }

@@ -16,17 +16,20 @@ import com.orikino.fatty.domain.viewstates.AboutViewState
 import com.orikino.fatty.ui.views.activities.account_setting.play_guide.PlayGuideActivity
 import com.orikino.fatty.utils.delegate.ItemStringDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AppGuideActivity : AppCompatActivity() , ItemStringDelegate {
 
     private lateinit var appGuideBinding: ActivityAppGuideBinding
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private lateinit var playerGuideAdapter: PlayerGuideAdapter
 
     private val viewModel : AboutViewModel by viewModels()
@@ -89,7 +92,7 @@ class AppGuideActivity : AppCompatActivity() , ItemStringDelegate {
         )
         appGuideBinding.rvPlayList.setHasFixedSize(true)
         appGuideBinding.rvPlayList.isNestedScrollingEnabled = true
-        playerGuideAdapter = PlayerGuideAdapter(FattyApp.getInstance(), this)
+        playerGuideAdapter = PlayerGuideAdapter(FattyApp.getInstance(), imageUrlProvider,this)
         //playerGuideAdapter.setNewData(tutorial)
         appGuideBinding.rvPlayList.adapter = playerGuideAdapter
     }

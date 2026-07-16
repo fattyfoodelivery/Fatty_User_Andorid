@@ -11,12 +11,14 @@ import com.orikino.fatty.domain.model.RecommendRestaurantVO
 import com.orikino.fatty.domain.responses.ShopData
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.helper.ViewType
 import com.orikino.fatty.viewholder.AdsShopViewHolder
 import com.orikino.fatty.viewholder.ServiceShopViewHolder
 
 class ServiceShopsAdapter(
     val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (ShopData, String, String) -> Unit
 ) : BaseListAdapter<ShopData, NewBaseViewHolder<ShopData>>(
     context,
@@ -42,6 +44,7 @@ class ServiceShopsAdapter(
                         parent,
                         false
                     ),
+                    imageUrlProvider,
                     callback
                 )
             }

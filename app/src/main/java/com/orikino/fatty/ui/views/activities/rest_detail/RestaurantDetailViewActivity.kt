@@ -47,6 +47,7 @@ import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -61,6 +62,7 @@ import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -70,6 +72,8 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
     private lateinit var binding: ActivityRestaurantDetailViewBinding
 
     private val viewModel: RestaurantDetailViewModel by viewModels()
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var foodMenuAdapter: RestaurantDetailFoodMenuAdapter? = null
 
 
@@ -237,7 +241,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 binding.tvRestaurantAddress.text = it.restaurant_address
                 binding.tvDurationDistance.text = "${it.distance_time.toHourMinuteString()}・${it.distance} km"
                 binding.imvRestaurant.load(
-                    PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(it.restaurant_image)
+                    imageUrlProvider.get(("/restaurant/").plus(it.restaurant_image))
                 )
                 restaurantInfO = FoodMenuByRestaurantVO(
                     restaurant_id = it.restaurant_id,
@@ -528,7 +532,7 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
         )
         binding.rvFoodMenu.setHasFixedSize(true)
         binding.rvFoodMenu.isNestedScrollingEnabled = true
-        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this) { data, str, pos ->
+        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this, imageUrlProvider) { data, str, pos ->
             if (str == "image"){
                 data.food_image?.let { imageUrl ->
                     if (imageUrl.isNotEmpty()) {

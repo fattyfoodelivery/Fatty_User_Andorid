@@ -20,6 +20,7 @@ import com.orikino.fatty.ui.views.activities.rest_detail.RestaurantDetailViewAct
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.WarningDialog
@@ -27,12 +28,15 @@ import com.orikino.fatty.utils.helper.fixCutoutOfEdgeToEdge
 import com.orikino.fatty.utils.helper.show
 import com.orikino.fatty.utils.helper.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class WishListActivity : AppCompatActivity()  {
 
     lateinit var binding : ActivityWishListBinding
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     private lateinit var wishListAdapter: WishListAdapter
 
@@ -188,7 +192,7 @@ class WishListActivity : AppCompatActivity()  {
             )
         )
         binding.rvWishList.isNestedScrollingEnabled = true
-        wishListAdapter = WishListAdapter(this@WishListActivity) { data,str,pos ->
+        wishListAdapter = WishListAdapter(this@WishListActivity, imageUrlProvider) { data,str,pos ->
             when(str) {
                 "root" -> {
                     PreferenceUtils.needToShow = false

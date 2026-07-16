@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.orikino.fatty.databinding.ItemRestaurantViewBinding
 import com.orikino.fatty.domain.model.SearchFoodsVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.load
 
 class RestFoodAdapter(
     val context: Context,
     private val food: MutableList<SearchFoodsVO>,
+    private val imageUrlProvider: ImageUrlProvider,
     private val callBack: () -> Unit
 ) : RecyclerView.Adapter<RestFoodAdapter.RestFoodViewHolder>() {
 
@@ -44,7 +46,7 @@ class RestFoodAdapter(
     ) {
         fun bindFood(food: SearchFoodsVO) {
             binding.tvRestaurantName.text = food.food_name_en
-            binding.imvRestaurant.load(PreferenceUtils.IMAGE_URL.plus("/food/").plus(food.food_image))
+            binding.imvRestaurant.load(imageUrlProvider.get(("/food/").plus(food.food_image)))
             callBack.invoke()
         }
     }

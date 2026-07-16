@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.orikino.fatty.databinding.ItemRvFoodMenuBinding
 import com.orikino.fatty.domain.model.FoodVO
 import com.orikino.fatty.domain.model.MenuVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.helper.toDefaultMenuName
 import com.orikino.fatty.viewholder.BaseViewHolder
 
 class RestaurantDetailFoodMenuAdapter(
     val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     val callback : (FoodVO,String,Int) -> Unit
 ) : BaseAdapter<RestaurantDetailFoodMenuAdapter.RestaurantDetailFoodMenuViewHolder,MenuVO>(context) {
 
@@ -24,7 +26,7 @@ class RestaurantDetailFoodMenuAdapter(
 
         override fun setData(data: MenuVO, position: Int) {
             binding.tvActiveMenu.text = data.toDefaultMenuName()
-            val restaurantDetailActiveFoodAdapter = RestaurantDetailActiveFoodAdapter(binding.root.context) { data,str,pos ->
+            val restaurantDetailActiveFoodAdapter = RestaurantDetailActiveFoodAdapter(binding.root.context, imageUrlProvider) { data,str,pos ->
                 callback.invoke(data,str,position)
             }
             restaurantDetailActiveFoodAdapter.setMenuName(menu = data)

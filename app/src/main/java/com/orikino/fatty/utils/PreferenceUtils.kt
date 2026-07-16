@@ -11,9 +11,9 @@ object PreferenceUtils {
     const val DEVELOPMENT_URL = "http://188.166.226.161/"
     //const val DEVELOPMENT_URL = "http://165.22.98.246/"
 
+//https://fatty-spaces.sgp1.digitaloceanspaces.com/testing
 
-
-    const val IMAGE_URL = "https://fatty-spaces.sgp1.cdn.digitaloceanspaces.com/testing"
+//    const val IMAGE_URL = "https://bucket.fattyfooddeli.com/testing"
 
     const val TERM_CONDITION = "fatty/main/admin/term&condition"
 
@@ -52,6 +52,8 @@ object PreferenceUtils {
 
     private const val TO_EDIT_ADDRESS = "to_edit_address"
 
+    private const val DEFAULT_IMAGE_URL = "default_image_url"
+
 
     var needToShow = true
     var isHome = MutableLiveData(false)
@@ -75,6 +77,13 @@ object PreferenceUtils {
 
 
     var FROM_HOME = 1
+
+    fun writeDefaultImageUrl(value: String) {
+        Paper.book().write(DEFAULT_IMAGE_URL, value)
+    }
+
+    fun readDefaultImageUrl(): String = Paper.book().read(DEFAULT_IMAGE_URL) ?: "https://bucket.fattyfooddeli.com/testing"
+
 
     fun writeToEditAddress(value : CustomerAddressVO){
         Paper.book().write(TO_EDIT_ADDRESS,value)

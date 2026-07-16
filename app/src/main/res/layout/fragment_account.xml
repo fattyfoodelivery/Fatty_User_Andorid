@@ -652,9 +652,10 @@
                 android:background="@color/natural_200"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Version 2.1.0"
+                android:text="Version 4.0.0"
                 android:textAllCaps="false"
                 android:fontFamily="@font/fatty_regular"
                 android:textSize="14sp"

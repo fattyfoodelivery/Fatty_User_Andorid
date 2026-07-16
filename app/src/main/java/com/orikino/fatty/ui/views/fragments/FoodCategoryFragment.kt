@@ -13,6 +13,8 @@ import com.orikino.fatty.databinding.FragmentFoodCategoryBinding
 import com.orikino.fatty.domain.model.MenuVO
 import com.orikino.fatty.utils.delegate.ItemIdDelegate
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
+import javax.inject.Inject
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,6 +23,9 @@ class FoodCategoryFragment : Fragment() , ItemIdDelegate {
 
     private var param1: String? = null
     private var param2: String? = null
+
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     private var _binding : FragmentFoodCategoryBinding? = null
 
@@ -112,7 +117,7 @@ class FoodCategoryFragment : Fragment() , ItemIdDelegate {
         )
         _binding?.rvFoodMenu?.setHasFixedSize(true)
         _binding?.rvFoodMenu?.isNestedScrollingEnabled = true
-        nearbyRestaurantAdapter = NearByRestaurantAdapter(FattyApp.getInstance()){ data,str,pos ->
+        nearbyRestaurantAdapter = NearByRestaurantAdapter(FattyApp.getInstance(), imageUrlProvider = imageUrlProvider){ data,str,pos ->
 
         }
         //nearbyRestaurantAdapter?.setNewData(dummyList)

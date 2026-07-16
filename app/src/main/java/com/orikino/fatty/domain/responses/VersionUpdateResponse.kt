@@ -19,6 +19,8 @@ data class VersionCodeData(
     @SerializedName("is_force_update")
     var is_force_update : Boolean = false,
     @SerializedName("link")
-    var link : String = ""
+    var link : String = "",
+    @SerializedName("base_file_url")
+    var base_file_url : String = ""
 )
 

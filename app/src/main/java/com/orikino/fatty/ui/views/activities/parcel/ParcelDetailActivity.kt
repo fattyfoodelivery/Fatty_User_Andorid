@@ -2,6 +2,7 @@ package com.orikino.fatty.ui.views.activities.parcel
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.orikino.fatty.domain.viewstates.TrackParcelViewState
 import com.orikino.fatty.ui.views.activities.auth.login.LoginActivity
 import com.orikino.fatty.ui.views.activities.rest_detail.PhotoViewActivity
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -31,12 +33,15 @@ import com.orikino.fatty.utils.helper.toHourMinuteString
 import com.orikino.fatty.utils.helper.toThousandSeparator
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import androidx.core.net.toUri
 
 @AndroidEntryPoint
 class ParcelDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityParcelDetailBinding
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
 
     private var order_id : String? = ""
 
@@ -142,15 +147,15 @@ class ParcelDetailActivity : AppCompatActivity() {
         //Ye Yint Note : refractor this, this is only for temporary purpose
         if (data.parcel_images.isNotEmpty()){
             try {
-                Log.d("Image",PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
+                Log.d("Image",imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image)))
                 binding.iv1.show()
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image))
+                    .load(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image)))
                     .error(R.drawable.img_parcel_placeholder)
                     .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv1)
                 binding.iv1.setOnClickListener {
-                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image), getString(R.string.txt_image_detail))
+                    val photoViewActivity = PhotoViewActivity.newInstance(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[0].parcel_image)), getString(R.string.txt_image_detail))
                     startActivity(photoViewActivity)
                 }
             }catch (e : IndexOutOfBoundsException){
@@ -159,12 +164,12 @@ class ParcelDetailActivity : AppCompatActivity() {
             try {
                 binding.iv2.show()
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image))
+                    .load(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image)))
                     .error(R.drawable.img_parcel_placeholder)
                     .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv2)
                 binding.iv2.setOnClickListener {
-                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image),getString(R.string.txt_image_detail))
+                    val photoViewActivity = PhotoViewActivity.newInstance(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[1].parcel_image)),getString(R.string.txt_image_detail))
                     startActivity(photoViewActivity)
                 }
             }catch (e : IndexOutOfBoundsException){
@@ -173,12 +178,12 @@ class ParcelDetailActivity : AppCompatActivity() {
             try {
                 binding.iv3.show()
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image))
+                    .load(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image)))
                     .error(R.drawable.img_parcel_placeholder)
                     .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv3)
                 binding.iv3.setOnClickListener {
-                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image),getString(R.string.txt_image_detail))
+                    val photoViewActivity = PhotoViewActivity.newInstance(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[2].parcel_image)),getString(R.string.txt_image_detail))
                     startActivity(photoViewActivity)
                 }
             }catch (e : IndexOutOfBoundsException){
@@ -187,12 +192,12 @@ class ParcelDetailActivity : AppCompatActivity() {
             try {
                 binding.iv4.show()
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image))
+                    .load(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image)))
                     .error(R.drawable.img_parcel_placeholder)
                     .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv4)
                 binding.iv4.setOnClickListener {
-                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image),getString(R.string.txt_image_detail))
+                    val photoViewActivity = PhotoViewActivity.newInstance(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[3].parcel_image)),getString(R.string.txt_image_detail))
                     startActivity(photoViewActivity)
                 }
             }catch (e : IndexOutOfBoundsException){
@@ -201,12 +206,12 @@ class ParcelDetailActivity : AppCompatActivity() {
             try {
                 binding.iv5.show()
                 Picasso.get()
-                    .load(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image))
+                    .load(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image)))
                     .error(R.drawable.img_parcel_placeholder)
                     .placeholder(R.drawable.img_parcel_placeholder)
                     .into(binding.iv5)
                 binding.iv5.setOnClickListener {
-                    val photoViewActivity = PhotoViewActivity.newInstance(PreferenceUtils.IMAGE_URL.plus("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image),getString(R.string.txt_image_detail))
+                    val photoViewActivity = PhotoViewActivity.newInstance(imageUrlProvider.get(("/parcel/parcel_image/").plus(data.parcel_images[4].parcel_image)),getString(R.string.txt_image_detail))
                     startActivity(photoViewActivity)
                 }
             }catch (e : IndexOutOfBoundsException){
@@ -219,7 +224,6 @@ class ParcelDetailActivity : AppCompatActivity() {
             tv_extra_cover_cost.text = "${data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator()} ${if(data.currency_id == 1) "MMK" else "¥"  }"
             tv_extra_cover_price.text = "${data.parcel_extra?.parcel_extra_cover_price?.toThousandSeparator()} ${if(data.currency_id == 1) "MMK" else "¥"  }"
             //imv_extra_cover.loadSlide(if (BuildConfig.DEBUG) "${Preference.DEVELOPMENT_URL}uploads/parcel/parcel_extra_cover/${data.parcel_extra?.parcel_extra_cover_image}" else "${Preference.PRODUCTION_URL}uploads/parcel/parcel_extra_cover/${data.parcel_extra?.parcel_extra_cover_image}")
-            imv_extra_cover.loadSlide(Preference.IMAGE_URL.plus("/parcel/parcel_extra_cover/").plus(data.parcel_extra?.parcel_extra_cover_image))
         } else {
             tv_extra_cover.visibility = View.GONE
             tv_extra_cover_price.visibility = View.GONE
@@ -270,9 +274,7 @@ class ParcelDetailActivity : AppCompatActivity() {
             binding.tvPaymentName.text = data.payment_method?.payment_method_name
         }
 
-        if (data.rider != null) {
-
-        }
+        bindRiderInfo(data)
 
         if (data.rider_review != null) {
             binding.rlNoRating.gone()
@@ -305,6 +307,27 @@ class ParcelDetailActivity : AppCompatActivity() {
                 }
             }
         }*/
+    }
+
+    private fun bindRiderInfo(data: ActiveOrderVO) {
+        val rider = data.rider
+        if (rider != null) {
+            binding.cvRiderInfo.show()
+            binding.tvRiderName.text = rider.rider_user_name
+            Picasso.get()
+                .load(imageUrlProvider.get("/rider/".plus(rider.rider_image)))
+                .placeholder(R.drawable.fatty)
+                .error(R.drawable.fatty)
+                .into(binding.ivRiderAvatar)
+            binding.imvRiderCall.setOnClickListener {
+                val intent = android.content.Intent(android.content.Intent.ACTION_DIAL).apply {
+                    this.data = "tel:${rider.rider_user_phone}".toUri()
+                }
+                startActivity(intent)
+            }
+        } else {
+            binding.cvRiderInfo.gone()
+        }
     }
 
     fun convertPhoneNumber(input: String) {

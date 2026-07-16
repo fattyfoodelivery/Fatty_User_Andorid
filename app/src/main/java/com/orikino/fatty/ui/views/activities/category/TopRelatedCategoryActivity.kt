@@ -30,6 +30,7 @@ import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.Constants
 import com.orikino.fatty.utils.CustomToast
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LoadingProgressDialog
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
@@ -43,6 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSmartScrollListener {
@@ -51,6 +53,8 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
 
     private val viewModel : HomeViewModel by viewModels()
 
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var topRelatedCategoryAdapter : TopRelatedCategoryAdapter? = null
     private var recommendedRestaurantAdapter: NearByIdRestAdapter? = null
     private var titleName : String = ""
@@ -470,7 +474,7 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
         _binding.rvRelatedCategory.setHasFixedSize(true)
         _binding.rvRelatedCategory.isNestedScrollingEnabled = true
         if (cat_id == null || cat_id == 0){
-            topRelatedCategoryAdapter = TopRelatedCategoryAdapter(FattyApp.getInstance()) { data, str, pos ->
+            topRelatedCategoryAdapter = TopRelatedCategoryAdapter(FattyApp.getInstance(), imageUrlProvider) { data, str, pos ->
                 when(str) {
                     "root" -> {
                         PreferenceUtils.needToShow = false
@@ -512,7 +516,8 @@ class TopRelatedCategoryActivity : AppCompatActivity(), SmartScrollListener.OnSm
             )
         }else{
             recommendedRestaurantAdapter = NearByIdRestAdapter(
-                this
+                this,
+                imageUrlProvider
                 // Removed mutableListOf() argument
             ) { data, str, pos ->
                 when(str) {

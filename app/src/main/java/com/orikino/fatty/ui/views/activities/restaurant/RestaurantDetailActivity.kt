@@ -40,6 +40,7 @@ import com.orikino.fatty.ui.views.dialog.AddOnBottomSheetFragment
 import com.orikino.fatty.utils.ConfirmDialog
 import com.orikino.fatty.utils.EqualSpacingItemDecoration
 import com.orikino.fatty.utils.GpsTracker
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.LocaleHelper
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.SuccessDialog
@@ -49,6 +50,7 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import com.orikino.fatty.utils.helper.toDefaultMenuName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -56,7 +58,8 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
     AddOnDelegate {
 
     private lateinit var _binding: ActivityRestaurantDetailBinding
-
+    @Inject
+    lateinit var imageUrlProvider: ImageUrlProvider
     private var foodMenuAdapter: RestaurantDetailFoodMenuAdapter? = null
 
     private var restaurant_id: Int = 0
@@ -581,7 +584,7 @@ class RestaurantDetailActivity : AppCompatActivity(), OnTapItemIdAndString, AppB
         )
         _binding.rvFoodMenu.setHasFixedSize(true)
         _binding.rvFoodMenu.isNestedScrollingEnabled = true
-        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this) {_,_,_->
+        foodMenuAdapter = RestaurantDetailFoodMenuAdapter(this, imageUrlProvider) {_,_,_->
             //addFoodToCart(it)
         }
 

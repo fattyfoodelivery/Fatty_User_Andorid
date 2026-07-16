@@ -5,7 +5,7 @@
     android:layout_weight="1"
     app:cardBackgroundColor="@color/surfacePrimary03"
     app:cardCornerRadius="16dp"
-    android:layout_marginTop="@dimen/margin_large"
+    android:layout_marginTop="@dimen/margin_2xSmall"
     app:cardElevation="0dp"
     app:layout_constraintEnd_toStartOf="@+id/cv_second_service"
     app:layout_constraintStart_toStartOf="parent"

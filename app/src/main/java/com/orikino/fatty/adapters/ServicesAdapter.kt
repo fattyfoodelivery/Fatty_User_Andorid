@@ -7,10 +7,12 @@ import com.orikino.fatty.databinding.ItemServicesBinding
 import com.orikino.fatty.domain.responses.ServiceItem
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.viewholder.ServicesViewHolder
 
 class ServicesAdapter(
     val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (ServiceItem) -> Unit
 ) : BaseListAdapter<ServiceItem, NewBaseViewHolder<ServiceItem>> (
     context,
@@ -34,6 +36,7 @@ class ServicesAdapter(
                 parent,
                 false
             ),
+            imageUrlProvider,
             callback
         )
     }

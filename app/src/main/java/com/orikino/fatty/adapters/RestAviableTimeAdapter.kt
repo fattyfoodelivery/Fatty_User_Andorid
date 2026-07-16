@@ -30,8 +30,8 @@ class RestAviableTimeAdapterder(
         override fun setData(data: AvailableTimeVO, position: Int) {
             println("availabletime $data")
             binding.tvDay.text = data.day
-            binding.tvTimeOpenClose.text =  ContextCompat.getString(context,R.string.opening_time).plus(" : ").plus(getStoreOpenStatus(binding.root.context,data.opening_time ?: ""))
-                .plus("  -  ").plus(ContextCompat.getString(context,R.string.closing_time).plus(" : ").plus(getStoreOpenStatus(binding.root.context,data.closing_time ?: "")))
+            binding.tvTimeOpenClose.text =  getStoreOpenStatus(binding.root.context,data.opening_time ?: "")
+                .plus("  -  ").plus(getStoreOpenStatus(binding.root.context,data.closing_time ?: ""))
         }
 
         override fun onClick(v: View?) = Unit

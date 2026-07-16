@@ -356,6 +356,7 @@
     <string name="txt_enter_other_phone_number">输入其他电话号码</string>
     <string name="txt_other_phone_number">其他电话号码</string>
     <string name="txt_notes">备注</string>
+    <string name="txt_rider">骑手</string>
     <string name="txt_enter_phone_number">输入电话号码</string>
     <string name="txt_edit_profile">编辑资料</string>
     <string name="txt_username">姓名</string>
@@ -404,4 +405,5 @@
     <string name="txt_open_24_hours">24 小时营业</string>
     <string name="txt_no_shop_available">暂无可用店铺。</string>
     <string name="txt_webview_cancel">取消</string>
+    <string name="version">Version %s</string>
 </resources>

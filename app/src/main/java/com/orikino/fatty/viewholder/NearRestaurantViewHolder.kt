@@ -5,6 +5,7 @@ import android.view.View
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ItemNearbyRestaurantsBinding
 import com.orikino.fatty.domain.model.NearByRestaurantVO
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.PreferenceUtils
 import com.orikino.fatty.utils.helper.gone
 import com.orikino.fatty.utils.helper.show
@@ -12,7 +13,7 @@ import com.orikino.fatty.utils.helper.toDefaultRestaurantCategoryName
 import com.orikino.fatty.utils.helper.toDefaultRestaurantName
 import com.squareup.picasso.Picasso
 
-class NearRestaurantViewHolder(var binding : ItemNearbyRestaurantsBinding, var callback : (NearByRestaurantVO,String,Int) -> Unit) : BaseViewHolder<NearByRestaurantVO>(binding.root)  {
+class NearRestaurantViewHolder(var binding : ItemNearbyRestaurantsBinding, val imageUrlProvider: ImageUrlProvider, var callback : (NearByRestaurantVO,String,Int) -> Unit) : BaseViewHolder<NearByRestaurantVO>(binding.root)  {
 
     @SuppressLint("SetTextI18n")
     override fun setData(data: NearByRestaurantVO, position: Int) {
@@ -26,7 +27,7 @@ class NearRestaurantViewHolder(var binding : ItemNearbyRestaurantsBinding, var c
         }
         binding.tvDurationDistance.text = "${data.distance_time}mins ・ ${data.distance}km"
         Picasso.get()
-            .load(PreferenceUtils.IMAGE_URL.plus("/restaurant/").plus(data.restaurant_image))
+            .load(imageUrlProvider.get(("/restaurant/").plus(data.restaurant_image)))
             .error(R.drawable.restaurant_default_img)
             .placeholder(R.drawable.restaurant_default_img)
             .into(binding.imvRestaurant)

@@ -9,12 +9,14 @@ import com.orikino.fatty.databinding.ItemNearbyRestaurantsBinding
 import com.orikino.fatty.domain.model.NearByRestaurantVO
 import com.orikino.fatty.ui.views.base.BaseListAdapter
 import com.orikino.fatty.ui.views.base.NewBaseViewHolder
+import com.orikino.fatty.utils.ImageUrlProvider
 import com.orikino.fatty.utils.helper.ViewType
 import com.orikino.fatty.viewholder.AdsRestaurantViewHolder
 import com.orikino.fatty.viewholder.NearByIdRestViewHolder
 
 class NearByIdRestAdapter(
     val context: Context,
+    val imageUrlProvider: ImageUrlProvider,
     var callback: (NearByRestaurantVO, String, Int) -> Unit
 ) : BaseListAdapter<NearByRestaurantVO, NewBaseViewHolder<NearByRestaurantVO>>(context, object : DiffUtil.ItemCallback<NearByRestaurantVO>() {
     override fun areItemsTheSame(oldItem: NearByRestaurantVO, newItem: NearByRestaurantVO): Boolean {
@@ -36,6 +38,7 @@ class NearByIdRestAdapter(
                         parent,
                         false
                     ),
+                    imageUrlProvider,
                     callback
                 )
             }
