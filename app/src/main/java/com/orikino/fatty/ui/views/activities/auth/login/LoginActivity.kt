@@ -1,6 +1,5 @@
 package com.orikino.fatty.ui.views.activities.auth.login
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -463,13 +462,12 @@ class LoginActivity : AppCompatActivity(), CustomSpinner.OnSpinnerEventsListener
 
 
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onPopupWindowOpened(spinner: Spinner?) {
-        loginBinding.spinnerLang.background = resources.getDrawable(R.drawable.bg_lang_spinner_down)
+        loginBinding.spinnerLang.background = ContextCompat.getDrawable(this, R.drawable.bg_lang_spinner_down)
     }
 
     override fun onPopupWindowClosed(spinner: Spinner?) {
-        loginBinding.spinnerLang.background = resources.getDrawable(R.drawable.bg_lang_spinner_up)
+        loginBinding.spinnerLang.background = ContextCompat.getDrawable(this, R.drawable.bg_lang_spinner_up)
     }
 
     override fun attachBaseContext(newBase: Context?) {

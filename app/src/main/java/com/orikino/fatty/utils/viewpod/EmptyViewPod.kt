@@ -24,7 +24,7 @@ class EmptyViewPod @JvmOverloads constructor(
         mDelegate = delegate
     }
 
-    fun setEmptyData(message : String,des : String,resource : Drawable) {
+    fun setEmptyData(message : String,des : String,resource : Drawable?) {
         emptyViewBinding?.emptyMessage?.text = message
         emptyViewBinding?.emptyMessageDes?.text = des
         emptyViewBinding?.emptyImage?.setImageDrawable(resource)

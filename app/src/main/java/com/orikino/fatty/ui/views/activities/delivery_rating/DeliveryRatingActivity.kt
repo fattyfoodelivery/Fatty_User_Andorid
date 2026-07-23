@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
 import com.orikino.fatty.databinding.ActivityDeliveryRatingBinding
 import com.orikino.fatty.domain.model.RatingType
@@ -172,7 +173,7 @@ class DeliveryRatingActivity : AppCompatActivity() {
                 val key: MutableList<String> = ArrayList()
                 val value: MutableList<String> = ArrayList()
                 if (ratingType == "rider") {
-                    binding.txtOne.background = resources.getDrawable(R.drawable.bg_circle_rating_enable)
+                    binding.txtOne.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_enable)
                     binding.txtOne.setTextColor(resources.getColor(R.color.fatty))
                     for (i in rider!!.bad) {
                         key.add(i.id.toString())
@@ -180,7 +181,7 @@ class DeliveryRatingActivity : AppCompatActivity() {
                     }
                 } else {
                     binding.txtTwo.setTextColor(resources.getColor(R.color.fatty))
-                    binding.txtTwo.background = resources.getDrawable(R.drawable.bg_circle_rating_enable)
+                    binding.txtTwo.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_enable)
                     for (i in restaurant!!.bad) {
                         key.add(i.id.toString())
                         value.add(i.option)
@@ -193,14 +194,14 @@ class DeliveryRatingActivity : AppCompatActivity() {
                 val value: MutableList<String> = ArrayList()
                 if (ratingType == "rider") {
                     binding.txtOne.setTextColor(resources.getColor(R.color.fatty))
-                    binding.txtOne.background = resources.getDrawable(R.drawable.bg_circle_rating_enable)
+                    binding.txtOne.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_enable)
                     for (i in rider!!.good) {
                         key.add(i.id.toString())
                         value.add(i.option)
                     }
                 } else {
                     binding.txtTwo.setTextColor(resources.getColor(R.color.fatty))
-                    binding.txtTwo.background = resources.getDrawable(R.drawable.bg_circle_rating_enable)
+                    binding.txtTwo.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_enable)
                     for (i in restaurant!!.good) {
                         key.add(i.id.toString())
                         value.add(i.option)
@@ -267,8 +268,8 @@ class DeliveryRatingActivity : AppCompatActivity() {
         binding.txtTwo.text = "2"
         binding.txtOne.setTextColor(R.color.black)
         binding.txtTwo.setTextColor(R.color.black)
-        binding.txtOne.background = resources.getDrawable(R.drawable.bg_circle_rating_disable)
-        binding.txtTwo.background = resources.getDrawable(R.drawable.bg_circle_rating_disable)
+        binding.txtOne.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_disable)
+        binding.txtTwo.background = ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_disable)
     }
 
     private fun stopService() {
@@ -407,7 +408,7 @@ class DeliveryRatingActivity : AppCompatActivity() {
         } else {
             if (ratingType == "rider") {
                 binding.txtTwo.background =
-                    resources.getDrawable(R.drawable.bg_circle_rating_enable)
+                    ContextCompat.getDrawable(this, R.drawable.bg_circle_rating_enable)
                 binding.txtTwo.setTextColor(resources.getColor(R.color.fatty))
                 ratingType = "restaurant"
                 checkedValue.clear()

@@ -1312,7 +1312,7 @@ class CheckOutActivity : AppCompatActivity(), EmptyViewPodDelegate {
     private fun setupEmptyView() {
         binding.emptyViewPod.root.setEmptyData(
             message = resources.getString(R.string.please_add_items_to_your_cart),"",
-            resources.getDrawable(R.drawable.no_wifi_or_connection)
+            ContextCompat.getDrawable(this@CheckOutActivity, R.drawable.no_wifi_or_connection)
         )
 
         binding.emptyViewPod.root.setDelegate(this)

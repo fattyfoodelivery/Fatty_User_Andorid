@@ -30,7 +30,7 @@ android {
     productFlavors {
         create("playstore") {
             dimension = "environment"
-            applicationId = "com.joy.food.delivery"
+            applicationId = "com.joygroup.fooddelivery"
             resValue("string", "app_name", "Fatty Playstore")
             buildConfigField ("String", "DEFAULT_IMAGE_BASE_URL","\"https://bucket.fattyfooddeli.com/testing\"")
         }

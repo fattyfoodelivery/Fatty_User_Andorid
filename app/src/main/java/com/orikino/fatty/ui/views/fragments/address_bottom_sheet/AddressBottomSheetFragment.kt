@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -89,13 +90,13 @@ class AddressBottomSheetFragment(val onConfirmAddress: (LatLng) -> Unit = {}) : 
 
     private fun confirmBtnEnable() {
         binding?.btnConfirmAddress?.isEnabled = true
-        binding?.btnConfirmAddress?.backgroundTintList = context?.resources?.getColorStateList(R.color.fattyPrimary)
+        binding?.btnConfirmAddress?.backgroundTintList = context?.let { ContextCompat.getColorStateList(it, R.color.fattyPrimary) }
     }
 
     private fun confirmBtnDisable() {
         binding?.btnConfirmAddress?.isEnabled = false
         binding?.btnConfirmAddress?.setTextColor(resources.getColor(R.color.white))
-        binding?.btnConfirmAddress?.backgroundTintList = context?.resources?.getColorStateList(R.color.gray_black)
+        binding?.btnConfirmAddress?.backgroundTintList = context?.let { ContextCompat.getColorStateList(it, R.color.gray_black) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

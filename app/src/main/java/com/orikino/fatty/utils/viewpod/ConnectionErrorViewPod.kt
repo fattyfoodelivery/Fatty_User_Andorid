@@ -23,7 +23,7 @@ class ConnectionErrorViewPod @JvmOverloads constructor(
         mDelegate = delegate
     }
 
-    fun setEmptyData(title:String,message : String,resource : Drawable) {
+    fun setEmptyData(title:String,message : String,resource : Drawable?) {
         binding?.apply {
             tvErrorTitle.text = title
             tvErrorMessage.text = message

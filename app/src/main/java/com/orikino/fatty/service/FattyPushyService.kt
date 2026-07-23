@@ -13,6 +13,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.orikino.fatty.R
@@ -304,13 +305,15 @@ class FattyPushyService : Service() {
 
         val notification = builder.build()
 
-        // Start the foreground service with the notification. This also displays the notification.
-        startForeground(NOTIFICATION_ID, notification)
-
-        // The following line was causing the duplicate and has been removed:
-        // notificationManager.notify(1001, builder.build());
-        // And also this one which used the deprecated builder.notification and a different ID:
-        // startForeground(1, builder.notification)
+        // Post as a regular notification. This service does not perform any real
+        // phone-call handling or media playback, so it must not run as a
+        // foreground service with those types (Android 14+ foreground service
+        // type policy). A plain notification achieves the same visible result.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            androidx.core.content.ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notification)
+        }
 
 //        if (ratingFinishedChecking ) {
 //            orderTypeIntent?.flags =  Intent.FLAG_ACTIVITY_NEW_TASK
@@ -354,5 +357,11 @@ class FattyPushyService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    override fun onDestroy() {}
+    override fun onDestroy() {
+        // Screens call stopService() on this service to dismiss the order
+        // notification. Since we no longer rely on startForeground() (which
+        // auto-clears its notification on stop), cancel it explicitly here
+        // to preserve that same behavior.
+        NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID)
+    }
 }

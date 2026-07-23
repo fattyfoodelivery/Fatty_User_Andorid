@@ -3,7 +3,6 @@ package com.orikino.fatty.service
 import android.content.Intent
 import android.content.Context
 import android.content.BroadcastReceiver
-import android.os.Build
 import android.util.Log
 import com.orikino.fatty.utils.PreferenceUtils
 
@@ -41,10 +40,11 @@ class PushReceiver : BroadcastReceiver() {
         Log.d("OrderId #### receiver ", intent?.getIntExtra("order_id", 0).toString())
         Log.d("OrderStatusId #### receiver ", intent?.getIntExtra("order_status_id", 0).toString())
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context?.applicationContext?.startForegroundService(intent1)
-        } else {
-            context?.startService(intent1)
-        }
+        // FattyPushyService no longer runs as a foreground service (it only
+        // posts a regular notification), so start it as a plain background
+        // service. Broadcast receivers are granted a temporary background-
+        // execution allowance while onReceive() is running, which covers
+        // this startService() call on all supported API levels.
+        context?.applicationContext?.startService(intent1)
     }
 }

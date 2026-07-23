@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import com.orikino.fatty.R
 import com.orikino.fatty.app.FattyApp
 import com.orikino.fatty.databinding.ActivityAccountDeleteBinding
@@ -106,7 +107,7 @@ class AccountDeleteActivity : AppCompatActivity() , ConnectionErrorViewPodDelega
         mConnectionViewPod?.setEmptyData(
             title = resources.getString(R.string.no_internet),
             message = resources.getString(R.string.please_check_internet_and_try_againg),
-            resources.getDrawable(R.drawable.no_wifi_or_connection)
+            ContextCompat.getDrawable(this, R.drawable.no_wifi_or_connection)
         )
         mConnectionViewPod?.setDelegate(this)
     }

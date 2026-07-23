@@ -9,7 +9,7 @@
         android:id="@+id/rl_map_frame"
         android:layout_width="match_parent"
         android:layout_height="300dp">
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map_view"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
