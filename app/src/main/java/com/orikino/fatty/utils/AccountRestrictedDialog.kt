@@ -11,16 +11,23 @@ import androidx.fragment.app.DialogFragment
 import com.orikino.fatty.databinding.LayoutAccountRestrictedDialogBinding
 
 
-class AccountRestrictedDialog private constructor(ctx: Context,private val callback: () -> Unit = {}) : DialogFragment() {
+class AccountRestrictedDialog() : DialogFragment() {
 
+    private var callback: () -> Unit = {}
 
     lateinit var binding : LayoutAccountRestrictedDialogBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) dismissAllowingStateLoss()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (savedInstanceState != null) return null
         binding = LayoutAccountRestrictedDialogBinding.inflate(inflater, container, false)
         dialog?.let { dialog ->
             dialog.window?.let {
@@ -47,6 +54,8 @@ class AccountRestrictedDialog private constructor(ctx: Context,private val callb
     }
 
     companion object {
-        fun Builder(ctx: Context, callback: () -> Unit) = AccountRestrictedDialog(ctx,callback)
+        fun Builder(ctx: Context, callback: () -> Unit) = AccountRestrictedDialog().apply {
+            this.callback = callback
+        }
     }
 }

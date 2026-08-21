@@ -17,7 +17,6 @@ import coil.load
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.AppBarLayout
-import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.orikino.fatty.R
 import com.orikino.fatty.adapters.RestAviableTimeAdapterder
@@ -89,10 +88,7 @@ class RestaurantMoreInfoActivity : AppCompatActivity(), AppBarLayout.OnOffsetCha
 
         restaurant_id = intent.getIntExtra(RESTAURANT_ID,0)
         restaurantGson = intent.getStringExtra(RESTAURANT).toString()
-        restaurant = Gson().fromJson(
-            restaurantGson,
-            object : TypeToken<FoodMenuByRestaurantVO>() {}.type
-        )
+        restaurant = Gson().fromJson(restaurantGson, FoodMenuByRestaurantVO::class.java)
 
         _binding.appBarLayout.addOnOffsetChangedListener(this)
         setUpMap()

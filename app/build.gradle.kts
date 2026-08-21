@@ -1,3 +1,10 @@
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) load(file.inputStream())
+}
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -12,12 +19,21 @@ android {
     namespace = "com.orikino.fatty"
     compileSdk = 36
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(localProperties["RELEASE_STORE_FILE"] as String)
+            storePassword = localProperties["RELEASE_STORE_PASSWORD"] as String
+            keyAlias = localProperties["RELEASE_KEY_ALIAS"] as String
+            keyPassword = localProperties["RELEASE_KEY_PASSWORD"] as String
+        }
+    }
+
     defaultConfig {
         applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 36
-        versionCode = 34
-        versionName = "4.0.2"
+        versionCode = 37
+        versionName = "4.1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -31,7 +47,7 @@ android {
         create("playstore") {
             dimension = "environment"
             applicationId = "com.joygroup.fooddelivery"
-            resValue("string", "app_name", "Fatty Playstore")
+            resValue("string", "app_name", "Fatty Food")
             buildConfigField ("String", "DEFAULT_IMAGE_BASE_URL","\"https://bucket.fattyfooddeli.com/testing\"")
         }
         create("apkpure") {
@@ -43,16 +59,23 @@ android {
 
     buildTypes {
         debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
             isDebuggable = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
             multiDexEnabled = true
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

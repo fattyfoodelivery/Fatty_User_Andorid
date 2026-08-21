@@ -105,6 +105,8 @@
                         android:background="@drawable/bg_noodle_roundded_primary"
                         android:fontFamily="@font/fatty_regular"
                         android:text="Noodle"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:textColor="@color/fattyWhite"

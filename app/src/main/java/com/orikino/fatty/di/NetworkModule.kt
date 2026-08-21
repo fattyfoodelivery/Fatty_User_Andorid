@@ -27,8 +27,10 @@ abstract class NetworkModule {
         @Singleton
         fun provideMvvmClientRetrofit(@Named("ClientOkhttp") client: OkHttpClient): Retrofit {
             return createRetrofitClient(
-               "https://boadmin.foodelivery.click/"
-                //"https://boadmin.fattyfooddeli.com/"
+                //dev
+               //"https://boadmin.foodelivery.click/"
+                //pro
+                "https://boadmin.fattyfooddeli.com/"
                 //"https://dev.fattyfooddeli.com/"
                /* if (BuildConfig.DEBUG)
                     "http://139.59.227.117:8080"   // Testing

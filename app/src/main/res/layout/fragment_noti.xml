@@ -54,7 +54,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="@color/white"
                     android:fontFamily="@font/fatty_medium"
-                    android:textSize="18sp"/>
+                    android:textSize="14sp"/>
             </RelativeLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>

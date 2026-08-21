@@ -293,7 +293,6 @@ class RestaurantDetailViewActivity : AppCompatActivity(), AppBarLayout.OnOffsetC
                 if (viewModel.isAnimate) startCartAnimation()
                 PreferenceUtils.readFoodOrderList()?.let { it1 -> bindCartData(it1) }
             } else {
-                // TODO
                 binding.flPlayNow.gone()
                 //ll_view_cart.visibility = View.GONE
                 //lottie.visibility = View.GONE

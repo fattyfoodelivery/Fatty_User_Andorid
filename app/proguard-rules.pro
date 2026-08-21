@@ -5,17 +5,92 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Preserve line numbers for crash stack traces
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# ─── Keep data classes (model & responses) ────────────────────────────────────
+# These are serialized/deserialized by Gson/Moshi and must not be renamed.
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-keep class com.orikino.fatty.domain.model.** { *; }
+-keep class com.orikino.fatty.domain.responses.** { *; }
+
+# Keep field names intact for JSON serialization (Gson/Moshi)
+-keepclassmembers class com.orikino.fatty.domain.model.** {
+    <fields>;
+    <init>(...);
+}
+-keepclassmembers class com.orikino.fatty.domain.responses.** {
+    <fields>;
+    <init>(...);
+}
+
+# ─── Retrofit & OkHttp ────────────────────────────────────────────────────────
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+# ─── Gson ─────────────────────────────────────────────────────────────────────
+-keepattributes *Annotation*
+-keep class com.google.gson.** { *; }
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+
+# ─── Moshi ────────────────────────────────────────────────────────────────────
+-keep class com.squareup.moshi.** { *; }
+-keep @com.squareup.moshi.JsonQualifier interface *
+
+# ─── Kotlin serialization ─────────────────────────────────────────────────────
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt
+-keep class kotlinx.serialization.** { *; }
+
+# ─── Hilt / Dagger ────────────────────────────────────────────────────────────
+-keep class dagger.hilt.** { *; }
+-keep class javax.inject.** { *; }
+-keep @dagger.hilt.android.lifecycle.HiltViewModel class * extends androidx.lifecycle.ViewModel
+
+# ─── Kotlin Parcelize ─────────────────────────────────────────────────────────
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+# ─── Firebase ─────────────────────────────────────────────────────────────────
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# ─── Pushy ────────────────────────────────────────────────────────────────────
+-keep class me.pushy.** { *; }
+-dontwarn me.pushy.**
+
+# ─── PaperDB ──────────────────────────────────────────────────────────────────
+-keep class io.paperdb.** { *; }
+
+# ─── KBZ SDK (local AAR) ──────────────────────────────────────────────────────
+-keep class com.kbzbank.** { *; }
+-dontwarn com.kbzbank.**
+
+# ─── Coil / Glide / Picasso ───────────────────────────────────────────────────
+-dontwarn com.bumptech.glide.**
+-dontwarn com.squareup.picasso.**
+
+# ─── Arrow-kt ─────────────────────────────────────────────────────────────────
+-keep class arrow.** { *; }
+-dontwarn arrow.**
+
+# ─── Fragments ────────────────────────────────────────────────────────────────
+# Fragment.instantiate() uses Class.forName() + getConstructor() to restore
+# fragments after process death. Keep all Fragment subclasses and their
+# public no-arg constructors, or the app will crash with NoSuchMethodException.
+-keep public class * extends androidx.fragment.app.Fragment {
+    public <init>();
+}
+-keep public class * extends androidx.fragment.app.DialogFragment {
+    public <init>();
+}
+-keep public class * extends com.google.android.material.bottomsheet.BottomSheetDialogFragment {
+    public <init>();
+}

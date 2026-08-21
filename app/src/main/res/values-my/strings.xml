@@ -381,7 +381,7 @@
     <string name="txt_delete_address">လိပ်စာဖျက်မည်လား?</string>
     <string name="txt_are_you_sure_to_delete_this_address">လိပ်စာကို ဖျက်လိုသည်မှာ သေချာပါလား?</string>
     <string name="txt_are_you_sure_to_set_up_default_address">မူရင်းလိပ်စာကို သတ်မှတ်ရန် သေချာပါသလား?</string>
-    <string name="txt_reset">ပြန်သတ်မှတ်ရန်</string>
+    <string name="txt_reset">ပြန်ထားရန်</string>
     <string name="txt_preperation_time_min">အစားအသောက်ပြင်ဆင်ချိန် : %s mins</string>
     <string name="txt_default">မူရင်း</string>
     <string name="txt_edit_note">အချက်အလက်ပြင်ဆင်ရန်</string>

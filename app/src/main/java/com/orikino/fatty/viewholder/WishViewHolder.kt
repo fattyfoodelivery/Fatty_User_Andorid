@@ -50,7 +50,11 @@ class WishViewHolder(
                 binding.tvUnavailable.show()
                 binding.tvUnavailable.text = binding.root.context.resources.getString(R.string.out_of_service)
             } else {
-                if (data.restaurant_emergency_status == 1) binding.tvUnavailable.show()
+                if (data.restaurant_emergency_status == 1) {
+                    binding.tvUnavailable.show()
+                } else {
+                    binding.tvUnavailable.gone()
+                }
             }
 
             binding.root.setOnClickListener {

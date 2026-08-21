@@ -11,23 +11,29 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.orikino.fatty.databinding.LayoutConfirmCancelDialogBinding
 
-class ConfirmDialog private constructor(
-    ctx: Context,
-    private val title: String = "",
-    private val message: String = "",
-    private val btn: String = "",
-    private val callback: () -> Unit = {},
-    private val dismissCallback: () -> Unit? = {}
-) : DialogFragment() {
+class ConfirmDialog() : DialogFragment() {
+
+    private var title: String = ""
+    private var message: String = ""
+    private var btn: String = ""
+    private var callback: () -> Unit = {}
+    private var dismissCallback: () -> Unit? = {}
 
     private lateinit var dialogBind: LayoutConfirmCancelDialogBinding
     private var isHideCancelBtn = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Callbacks can't survive process death; dismiss to avoid empty dialog
+        if (savedInstanceState != null) dismissAllowingStateLoss()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (savedInstanceState != null) return null
 
         dialogBind = LayoutConfirmCancelDialogBinding.inflate(inflater, container, false)
 
@@ -98,6 +104,12 @@ class ConfirmDialog private constructor(
             btn: String,
             callback: () -> Unit,
             dismissCallback: () -> Unit? = {}
-        ) = ConfirmDialog(ctx, title, message, btn, callback, dismissCallback)
+        ) = ConfirmDialog().apply {
+            this.title = title
+            this.message = message
+            this.btn = btn
+            this.callback = callback
+            this.dismissCallback = dismissCallback
+        }
     }
 }
