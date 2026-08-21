@@ -49,11 +49,6 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        /*MapboxMap.getInstance(
-            requireContext(),
-            "pk.eyJ1IjoiZmF0dHlmb29kIiwiYSI6ImNsc3ZwcjRiajFuNXQya3FrZnRlanM5dDEifQ.Z2qH4uwufB38l75-YaMCng"
-        )*/
         binding = FragmentAddressBottomSheetMapboxBinding.inflate(inflater,container,false)
         locations.latitude = -98.0
         locations.longitude = 39.5
