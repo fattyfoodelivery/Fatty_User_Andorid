@@ -23,8 +23,10 @@ import com.orikino.fatty.utils.helper.showSnackBar
 import java.util.Locale
 
 
-class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = {}) : BottomSheetDialogFragment()
+class AddressBottomSheetMapboxFragment() : BottomSheetDialogFragment()
     /*OnMapReadyCallback*/ {
+
+    var onConfirmAddress: (LatLng) -> Unit = {}
 
 
     var location: Location = Location("")
@@ -43,6 +45,7 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) dismissAllowingStateLoss()
     }
 
     override fun onCreateView(
@@ -262,9 +265,7 @@ class AddressBottomSheetMapboxFragment(val onConfirmAddress: (LatLng) -> Unit = 
     companion object {
         @JvmStatic
         fun newInstance(onConfirmAddress: (LatLng) -> Unit = {}) =
-            AddressBottomSheetMapboxFragment(onConfirmAddress)
-
-
+            AddressBottomSheetMapboxFragment().apply { this.onConfirmAddress = onConfirmAddress }
     }
 
     /*override fun onMapReady(mapboxMap: MapboxMap) {
