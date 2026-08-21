@@ -53,7 +53,7 @@ class AddressBottomSheetMapboxFragment() : BottomSheetDialogFragment()
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddressBottomSheetMapboxBinding.inflate(inflater,container,false)
-        locations.latitude = -98.0
+        locations.latitude = -90.0
         locations.longitude = 39.5
         setUpMap()
 //        mapView = MapView(requireContext())
