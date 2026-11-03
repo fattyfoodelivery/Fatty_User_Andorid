@@ -32,8 +32,8 @@ android {
         applicationId = "com.orikino.fatty"
         minSdk = 24
         targetSdk = 36
-        versionCode = 37
-        versionName = "4.1.1"
+        versionCode = 38
+        versionName = "4.1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
